@@ -130,7 +130,7 @@
           let proficiency = skill.proficiency ?? ' '
           skillRow.innerHTML = `<code>[${proficiency}]</code> ${skill.skill} (${skill.attribute})`;
           let modifier = abilities[skill.attribute] + (proficiencies[skill.proficiency] ?? 0)
-          skillRow.nextElementSibling.innerHTML = `<a href="dice://roll/d20+${modifier}">+${modifier}</a>`;
+          skillRow.nextElementSibling.innerHTML = `<a href="dice://roll/d20+${modifier}" style="display:block;">+${modifier}</a>`;
         }
       });
     }
