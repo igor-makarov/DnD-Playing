@@ -13,78 +13,79 @@
     <th>Modifier</th>
   </tr>
   <tr>
-    <td data-skill="Acrobatics" data-attribute="Dex"></td>
+    <td data-skill="Acrobatics"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Animal Handling" data-attribute="Wis"></td>
+    <td data-skill="Animal Handling"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Arcana" data-attribute="Int"></td>
+    <td data-skill="Arcana"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Athletics" data-attribute="Str"></td>
+    <td data-skill="Athletics"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Deception" data-attribute="Cha"></td>
+    <td data-skill="Deception"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="History" data-attribute="Int"></td>
+    <td data-skill="History"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Insight" data-attribute="Wis"></td>
+    <td data-skill="Insight"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Intimidation" data-attribute="Cha"></td>
+    <td data-skill="Intimidation"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Investigation" data-attribute="Int"></td>
+    <td data-skill="Investigation"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Medicine" data-attribute="Wis"></td>
+    <td data-skill="Medicine"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Nature" data-attribute="Int"></td>
+    <td data-skill="Nature"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Perception" data-attribute="Wis"></td>
+    <td data-skill="Perception"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Performance" data-attribute="Cha"></td>
+    <td data-skill="Performance"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Persuasion" data-attribute="Cha"></td>
+    <td data-skill="Persuasion"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Religion" data-attribute="Int"></td>
+    <td data-skill="Religion"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Sleight of Hand" data-attribute="Dex"></td>
+    <td data-skill="Sleight of Hand"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Stealth" data-attribute="Dex"></td>
+    <td data-skill="Stealth"></td>
     <td></td>
   </tr>
   <tr>
-    <td data-skill="Survival" data-attribute="Wis"></td>
+    <td data-skill="Survival"></td>
     <td></td>
   </tr>
-  
+</table>
+
   <script>
     // Array of skills and their corresponding attributes
     const skills = [
@@ -124,7 +125,7 @@
     // Function to calculate and set modifiers
     function calculateModifiers() {
       skills.forEach(skill => {
-        const skillRow = document.querySelector(`[data-skill="${skill.skill}"][data-attribute="${skill.attribute}"]`);
+        const skillRow = document.querySelector(`[data-skill="${skill.skill}"]`);
         if (skillRow) {
           let proficiency = skill.proficiency ?? ' '
           skillRow.textContent = `[${proficiency}] ${skill.skill} (${skill.attribute})`;
