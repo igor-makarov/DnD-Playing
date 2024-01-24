@@ -113,7 +113,7 @@
       skills.forEach(skill => {
         const skillRow = document.querySelector(`[data-skill="${skill.skill}"][data-attribute="${skill.attribute}"]`);
         if (skillRow) {
-          skillRow.textContent = "${skill.skill} (skill.attribute)";
+          skillRow.textContent = "${skill.skill} (${skill.attribute})";
           // Simple modifier calculation: Add your logic here if needed
           const modifier = 0; // Replace with your actual calculation logic
           skillRow.nextElementSibling.textContent = modifier;
