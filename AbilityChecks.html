@@ -108,14 +108,27 @@
       { skill: 'Survival', attribute: 'Wis' },
     ];
 
+    let abilities = {
+      'Str': 0,
+      'Dex': 1,
+      'Con': 2,
+      'Int': 2,
+      'Wis': 3,
+      'Cha': 1
+    }
+
+    let prof = 3
+
+    let proficiencies = { 'P': prof, 'E': 2*prof } 
+
     // Function to calculate and set modifiers
     function calculateModifiers() {
       skills.forEach(skill => {
         const skillRow = document.querySelector(`[data-skill="${skill.skill}"][data-attribute="${skill.attribute}"]`);
         if (skillRow) {
-          skillRow.textContent = `${skill.skill} (${skill.attribute})`;
-          // Simple modifier calculation: Add your logic here if needed
-          const modifier = 0; // Replace with your actual calculation logic
+          let proficiency = skill.proficiency ?? ' '
+          skillRow.textContent = `[${proficiency}] ${skill.skill} (${skill.attribute})`;
+          let modifier = abilities[skill.attribute] + (proficiencies[skill.proficiency] ?? 0)
           skillRow.nextElementSibling.textContent = modifier;
         }
       });
