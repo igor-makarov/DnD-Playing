@@ -128,7 +128,7 @@
         const skillRow = document.querySelector(`[data-skill="${skill.skill}"]`);
         if (skillRow) {
           let proficiency = skill.proficiency ?? ' '
-          skillRow.textContent = `[${proficiency}] ${skill.skill} (${skill.attribute})`;
+          skillRow.textContent = `<pre>[${proficiency}]</pre> ${skill.skill} (${skill.attribute})`;
           let modifier = abilities[skill.attribute] + (proficiencies[skill.proficiency] ?? 0)
           skillRow.nextElementSibling.textContent = modifier;
         }
