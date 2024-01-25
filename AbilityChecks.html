@@ -57,8 +57,7 @@
 </head>
 
 <body>
-  <script src="https://unpkg.com/petite-vue" defer init></script>
-  <script defer init>
+  <script>
     let abilities = {
       'Str': 0,
       'Dex': 1,
@@ -128,12 +127,6 @@
         proficiencyMultiplier: proficiencyMultiplier
       }
     }
-
-    PetiteVue.createApp({
-      skills: skills,
-      SkillRow,
-      SkillsTable
-    }).mount()
   </script>
 
   <template id="skill-row">
@@ -178,6 +171,14 @@
       </table>
     </div>
   </div>
+  <script src="https://unpkg.com/petite-vue"></script>
+  <script>
+    PetiteVue.createApp({
+      skills: skills,
+      SkillRow,
+      SkillsTable
+    }).mount()
+  </script>
 </body>
 
 </html>
