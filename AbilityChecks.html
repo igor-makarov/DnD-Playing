@@ -1,143 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skills Table</title>
-</head>
-<body>
-<script>
-  // Array of skills and their corresponding attributes
-  const skills = [
-    { skill: 'Acrobatics', attribute: 'Dex' },
-    { skill: 'Animal Handling', attribute: 'Wis' },
-    { skill: 'Arcana', attribute: 'Int', proficiency: 'P' },
-    { skill: 'Athletics', attribute: 'Str' },
-    { skill: 'Deception', attribute: 'Cha' },
-    { skill: 'History', attribute: 'Int', proficiency: 'P' },
-    { skill: 'Insight', attribute: 'Wis' },
-    { skill: 'Intimidation', attribute: 'Cha' },
-    { skill: 'Investigation', attribute: 'Int', proficiency: 'P' },
-    { skill: 'Medicine', attribute: 'Wis' },
-    { skill: 'Nature', attribute: 'Int', proficiency: 'P' },
-    { skill: 'Perception', attribute: 'Wis' },
-    { skill: 'Performance', attribute: 'Cha' },
-    { skill: 'Persuasion', attribute: 'Cha' },
-    { skill: 'Religion', attribute: 'Int' },
-    { skill: 'Sleight of Hand', attribute: 'Dex' },
-    { skill: 'Stealth', attribute: 'Dex' },
-    { skill: 'Survival', attribute: 'Wis' },
-  ];
-
-  function abilityBonus(ability) {
-    let abilities = {
-      'Str': 0,
-      'Dex': 1,
-      'Con': 2,
-      'Int': 2,
-      'Wis': 3,
-      'Cha': 1
+  <style>
+    * {
+      box-sizing: border-box;
     }
-    return abilities[ability]
-  }
 
-  function proficiencyBonus(proficiency) {
-    let prof = 3
-    let proficiencies = { 'P': 1, 'E': 2 } 
-    return (proficiencies[proficiency] ?? 0) * prof
-  }
+    .row {
+      margin-left: -5px;
+      margin-right: -5px;
+    }
 
-  // Function to calculate and set modifiers
-  function calculateModifiers() {
-    skills.forEach(skill => {
-      let skillRow = document.querySelector(`[data-skill="${skill.skill}"]`)
+    .column {
+      float: left;
+      width: 33%;
+      padding: 5px;
+    }
+
+    /* Clearfix (clear floats) */
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+      border: 1px solid #ddd;
+    }
+
+    th,
+    td {
+      text-align: left;
+    }
+    td.checkCell {
+      width: 20%;
+    }
+  </style>
+</head>
+
+<body>
+  <script>
+    // Array of skills and their corresponding attributes
+    const skills = [
+      { skill: 'Acrobatics', modifier: 'Dex' },
+      { skill: 'Animal Handling', modifier: 'Wis' },
+      { skill: 'Arcana', modifier: 'Int', proficiency: 'P' },
+      { skill: 'Athletics', modifier: 'Str' },
+      { skill: 'Deception', modifier: 'Cha' },
+      { skill: 'History', modifier: 'Int', proficiency: 'P' },
+      { skill: 'Insight', modifier: 'Wis' },
+      { skill: 'Intimidation', modifier: 'Cha' },
+      { skill: 'Investigation', modifier: 'Int', proficiency: 'P' },
+      { skill: 'Medicine', modifier: 'Wis' },
+      { skill: 'Nature', modifier: 'Int', proficiency: 'P' },
+      { skill: 'Perception', modifier: 'Wis' },
+      { skill: 'Performance', modifier: 'Cha' },
+      { skill: 'Persuasion', modifier: 'Cha' },
+      { skill: 'Religion', modifier: 'Int' },
+      { skill: 'Sleight of Hand', modifier: 'Dex' },
+      { skill: 'Stealth', modifier: 'Dex' },
+      { skill: 'Survival', modifier: 'Wis', proficiency: 'P' },
+    ];
+
+    function abilityBonus(ability) {
+      let abilities = {
+        'Str': 0,
+        'Dex': 1,
+        'Con': 2,
+        'Int': 2,
+        'Wis': 3,
+        'Cha': 1
+      }
+      return abilities[ability]
+    }
+
+    function proficiencyBonus(proficiency, multiplier) {
+      multiplier ||= 1
+      let prof = 3
+      let proficiencies = { 'P': 1, 'E': 2 }
+      return (proficiencies[proficiency] ?? 0) * prof * multiplier
+    }
+
+    function rollD20Url(modifier) {
+      return `dice://roll/d20+${modifier}`
+    }
+
+    function rollD20Hrefs(modifier) {
+      return `<a href="${rollD20Url(modifier)}">+${modifier}</a> <a href="${rollD20Url(modifier)}(ADV)">ADV</a> <a href="${rollD20Url(modifier)}(DIS)">DIS</a>`
+    }
+
+    function createSkillRow(skill, proficiencyMultiplier) {
+      let skillRow = document.createElement('tr')
+      let skillCell = document.createElement('td')
+      skillRow.appendChild(skillCell)
       let proficiency = skill.proficiency ?? ' '
-      skillRow.innerHTML = `<code>[${proficiency}]</code> ${skill.skill} (${skill.attribute})`
-      let modifier = abilityBonus(skill.attribute) + proficiencyBonus(skill.proficiency)
-      skillRow.nextElementSibling.innerHTML = `<a href="dice://roll/d20+${modifier}" style="display:block;">+${modifier}</a>`
-    })
-  }
+      skillCell.innerHTML = `<code>[${proficiency}]</code> ${skill.skill} (${skill.modifier})`
+      let modifier = abilityBonus(skill.modifier) + proficiencyBonus(skill.proficiency, proficiencyMultiplier)
+      let checkCell = document.createElement('td')
+      skillRow.appendChild(checkCell)
+      checkCell.className = 'checkCell'
+      checkCell.innerHTML = rollD20Hrefs(modifier)
+      return skillRow
+    }
 
-  // Call the function to initially set modifiers
-  calculateModifiers();
-</script>
-<table border="0" id="skillsTable">
-  <tr>
-    <th>Skill</th>
-    <th>Modifier</th>
-  </tr>
-  <tr>
-    <td data-skill="Acrobatics"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Animal Handling"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Arcana"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Athletics"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Deception"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="History"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Insight"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Intimidation"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Investigation"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Medicine"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Nature"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Perception"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Performance"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Persuasion"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Religion"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Sleight of Hand"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Stealth"></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td data-skill="Survival"></td>
-    <td></td>
-  </tr>
-</table>
+    function calculateModifiers(table, filter, proficiencyMultiplier) {
+      filter ||= skill => true
+      for (skill of skills) {
+        if (!filter(skill)) { continue }
+        let skillRow = createSkillRow(skill, proficiencyMultiplier)
+        table.appendChild(skillRow)
+      }
+    }
+  </script>
+  <div class="row">
+    <div class="column">
+      <table id="skillsTable">
+        <tr>
+          <th>Skill</th>
+          <th>Modifier</th>
+        </tr>
+      </table>
+    </div>
+    <div class="column">
+      <table id="intTable">
+        <tr>
+          <th colspan="2" style="text-align: center;">Int checks</th>
+        </tr>
+        <tr>
+          <th>Skill</th>
+          <th>Modifier</th>
+        </tr>
+      </table>
+      <table id="wisTable">
+        <tr>
+          <th colspan="2" style="text-align: center;">Wis checks</th>
+        </tr>
+        <tr>
+          <th>Skill</th>
+          <th>Modifier</th>
+        </tr>
+      </table>
+    </div>
+    <div class="column">
+      <table id="favoredTerrainTable">
+        <tr>
+          <th colspan="2" style="text-align: center;">Favored Terrain checks</th>
+        </tr>
+        <tr>
+          <th>Skill</th>
+          <th>Modifier</th>
+        </tr>
+      </table>
+      <table id="stonecunningTable">
+        <tr>
+          <th colspan="2" style="text-align: center;">Stonecunning checks</th>
+        </tr>
+        <tr>
+          <th>Skill</th>
+          <th>Modifier</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <script>
+    calculateModifiers(document.querySelector('[id=skillsTable]'))
+    calculateModifiers(document.querySelector('[id=intTable]'), s => s.modifier == 'Int')
+    calculateModifiers(document.querySelector('[id=wisTable]'), s => s.modifier == 'Wis')
+    calculateModifiers(document.querySelector('[id=favoredTerrainTable]'), 
+                       s => (s.modifier == 'Int' || s.modifier == 'Wis') && s.proficiency, 
+                       2)
+    calculateModifiers(document.querySelector('[id=stonecunningTable]'), s => s.skill == 'History', 2)
+  </script>
+
 </body>
+
 </html>
