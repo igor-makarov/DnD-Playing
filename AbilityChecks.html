@@ -50,19 +50,17 @@
   // Function to calculate and set modifiers
   function calculateModifiers() {
     skills.forEach(skill => {
-      const skillRow = document.querySelector(`[data-skill="${skill.skill}"]`);
-      if (skillRow) {
-        let proficiency = skill.proficiency ?? ' '
-        skillRow.innerHTML = `<code>[${proficiency}]</code> ${skill.skill} (${skill.attribute})`;
-        let modifier = abilityBonus(skill.attribute) + proficiencyBonus(skill.proficiency)
-          skillRow.nextElementSibling.innerHTML = `<a href="dice://roll/d20+${modifier}" style="display:block;">+${modifier}</a>`;
-        }
-      });
-    }
+      let skillRow = document.querySelector(`[data-skill="${skill.skill}"]`)
+      let proficiency = skill.proficiency ?? ' '
+      skillRow.innerHTML = `<code>[${proficiency}]</code> ${skill.skill} (${skill.attribute})`
+      let modifier = abilityBonus(skill.attribute) + proficiencyBonus(skill.proficiency)
+      skillRow.nextElementSibling.innerHTML = `<a href="dice://roll/d20+${modifier}" style="display:block;">+${modifier}</a>`
+    })
+  }
 
-    // Call the function to initially set modifiers
-    calculateModifiers();
-  </script>
+  // Call the function to initially set modifiers
+  calculateModifiers();
+</script>
 <table border="1" id="skillsTable">
   <tr>
     <th>Skill</th>
