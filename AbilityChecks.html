@@ -57,6 +57,7 @@
 </head>
 
 <body>
+  <script src="https://unpkg.com/petite-vue"></script>
   <script type="module">
     let abilities = {
       'Str': 0,
@@ -100,8 +101,6 @@
       return { proficiency: proficient ? symbol : ' ', bonus: (proficient ? 1 : 0) * proficiencyBonus * multiplier }
     }
 
-    import { createApp } from 'https://unpkg.com/petite-vue?module'
-
     function SkillRow(props) {
       let skill = props.skill
       let proficiencyMultiplier = props.proficiencyMultiplier
@@ -130,7 +129,7 @@
       }
     }
 
-    createApp({
+    PetiteVue.createApp({
       skills: skills,
       SkillRow,
       SkillsTable
