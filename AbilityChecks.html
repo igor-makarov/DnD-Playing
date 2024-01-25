@@ -6,7 +6,58 @@
   <title>Skills Table</title>
 </head>
 <body>
+<script>
+  // Array of skills and their corresponding attributes
+  const skills = [
+    { skill: 'Acrobatics', attribute: 'Dex' },
+    { skill: 'Animal Handling', attribute: 'Wis' },
+    { skill: 'Arcana', attribute: 'Int', proficiency: 'P' },
+    { skill: 'Athletics', attribute: 'Str' },
+    { skill: 'Deception', attribute: 'Cha' },
+    { skill: 'History', attribute: 'Int', proficiency: 'P' },
+    { skill: 'Insight', attribute: 'Wis', proficiency: 'P' },
+    { skill: 'Intimidation', attribute: 'Cha' },
+    { skill: 'Investigation', attribute: 'Int', proficiency: 'P' },
+    { skill: 'Medicine', attribute: 'Wis' },
+    { skill: 'Nature', attribute: 'Int', proficiency: 'P' },
+    { skill: 'Perception', attribute: 'Wis' },
+    { skill: 'Performance', attribute: 'Cha' },
+    { skill: 'Persuasion', attribute: 'Cha' },
+    { skill: 'Religion', attribute: 'Int' },
+    { skill: 'Sleight of Hand', attribute: 'Dex' },
+    { skill: 'Stealth', attribute: 'Dex' },
+    { skill: 'Survival', attribute: 'Wis' },
+  ];
 
+  let abilities = {
+    'Str': 0,
+    'Dex': 1,
+    'Con': 2,
+    'Int': 2,
+    'Wis': 3,
+    'Cha': 1
+  }
+
+  let prof = 3
+
+  let proficiencies = { 'P': prof, 'E': 2*prof } 
+
+  // Function to calculate and set modifiers
+  function calculateModifiers() {
+    skills.forEach(skill => {
+      const skillRow = document.querySelector(`[data-skill="${skill.skill}"]`);
+      if (skillRow) {
+        let proficiency = skill.proficiency ?? ' '
+        skillRow.innerHTML = `<code>[${proficiency}]</code> ${skill.skill} (${skill.attribute})`;
+        let modifier = abilities[skill.attribute] + (proficiencies[skill.proficiency] ?? 0)
+          skillRow.nextElementSibling.innerHTML = `<a href="dice://roll/d20+${modifier}" style="display:block;">+${modifier}</a>`;
+        }
+      });
+    }
+
+    // Call the function to initially set modifiers
+    calculateModifiers();
+  </script>
 <table border="1" id="skillsTable">
   <tr>
     <th>Skill</th>
@@ -85,60 +136,5 @@
     <td></td>
   </tr>
 </table>
-
-  <script>
-    // Array of skills and their corresponding attributes
-    const skills = [
-      { skill: 'Acrobatics', attribute: 'Dex' },
-      { skill: 'Animal Handling', attribute: 'Wis' },
-      { skill: 'Arcana', attribute: 'Int', proficiency: 'P' },
-      { skill: 'Athletics', attribute: 'Str' },
-      { skill: 'Deception', attribute: 'Cha' },
-      { skill: 'History', attribute: 'Int', proficiency: 'P' },
-      { skill: 'Insight', attribute: 'Wis', proficiency: 'P' },
-      { skill: 'Intimidation', attribute: 'Cha' },
-      { skill: 'Investigation', attribute: 'Int', proficiency: 'P' },
-      { skill: 'Medicine', attribute: 'Wis' },
-      { skill: 'Nature', attribute: 'Int', proficiency: 'P' },
-      { skill: 'Perception', attribute: 'Wis' },
-      { skill: 'Performance', attribute: 'Cha' },
-      { skill: 'Persuasion', attribute: 'Cha' },
-      { skill: 'Religion', attribute: 'Int' },
-      { skill: 'Sleight of Hand', attribute: 'Dex' },
-      { skill: 'Stealth', attribute: 'Dex' },
-      { skill: 'Survival', attribute: 'Wis' },
-    ];
-
-    let abilities = {
-      'Str': 0,
-      'Dex': 1,
-      'Con': 2,
-      'Int': 2,
-      'Wis': 3,
-      'Cha': 1
-    }
-
-    let prof = 3
-
-    let proficiencies = { 'P': prof, 'E': 2*prof } 
-
-    // Function to calculate and set modifiers
-    function calculateModifiers() {
-      skills.forEach(skill => {
-        const skillRow = document.querySelector(`[data-skill="${skill.skill}"]`);
-        if (skillRow) {
-          let proficiency = skill.proficiency ?? ' '
-          skillRow.innerHTML = `<code>[${proficiency}]</code> ${skill.skill} (${skill.attribute})`;
-          let modifier = abilities[skill.attribute] + (proficiencies[skill.proficiency] ?? 0)
-          skillRow.nextElementSibling.innerHTML = `<a href="dice://roll/d20+${modifier}" style="display:block;">+${modifier}</a>`;
-        }
-      });
-    }
-
-    // Call the function to initially set modifiers
-    calculateModifiers();
-  </script>
-</table>
-
 </body>
 </html>
