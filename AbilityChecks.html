@@ -48,44 +48,46 @@
 <body>
   <script>
     // Array of skills and their corresponding attributes
-    const skills = [
+    let skills = [
       { skill: 'Acrobatics', modifier: 'Dex' },
       { skill: 'Animal Handling', modifier: 'Wis' },
-      { skill: 'Arcana', modifier: 'Int', proficiency: 'P' },
+      { skill: 'Arcana', modifier: 'Int', proficient: true },
       { skill: 'Athletics', modifier: 'Str' },
       { skill: 'Deception', modifier: 'Cha' },
-      { skill: 'History', modifier: 'Int', proficiency: 'P' },
+      { skill: 'History', modifier: 'Int', proficient: true },
       { skill: 'Insight', modifier: 'Wis' },
       { skill: 'Intimidation', modifier: 'Cha' },
-      { skill: 'Investigation', modifier: 'Int', proficiency: 'P' },
+      { skill: 'Investigation', modifier: 'Int', proficient: true },
       { skill: 'Medicine', modifier: 'Wis' },
-      { skill: 'Nature', modifier: 'Int', proficiency: 'P' },
+      { skill: 'Nature', modifier: 'Int', proficient: true },
       { skill: 'Perception', modifier: 'Wis' },
       { skill: 'Performance', modifier: 'Cha' },
       { skill: 'Persuasion', modifier: 'Cha' },
       { skill: 'Religion', modifier: 'Int' },
       { skill: 'Sleight of Hand', modifier: 'Dex' },
       { skill: 'Stealth', modifier: 'Dex' },
-      { skill: 'Survival', modifier: 'Wis', proficiency: 'P' },
-    ];
+      { skill: 'Survival', modifier: 'Wis', proficient: true },
+    ]
+
+    let abilities = {
+      'Str': 0,
+      'Dex': 1,
+      'Con': 2,
+      'Int': 2,
+      'Wis': 3,
+      'Cha': 1
+    }
+
+    let proficiencyBonus = 3
 
     function abilityBonus(ability) {
-      let abilities = {
-        'Str': 0,
-        'Dex': 1,
-        'Con': 2,
-        'Int': 2,
-        'Wis': 3,
-        'Cha': 1
-      }
       return abilities[ability]
     }
 
-    function proficiencyBonus(proficiency, multiplier) {
+    function createProficiency(proficient, multiplier) {
       multiplier ||= 1
-      let prof = 3
-      let proficiencies = { 'P': 1, 'E': 2 }
-      return (proficiencies[proficiency] ?? 0) * prof * multiplier
+      let symbol = multiplier > 1 ? 'E' : 'P'
+      return { proficiency: proficient ? symbol : ' ', bonus: (proficient ? 1 : 0) * proficiencyBonus * multiplier }
     }
 
     function rollD20Url(modifier) {
@@ -100,9 +102,9 @@
       let skillRow = document.createElement('tr')
       let skillCell = document.createElement('td')
       skillRow.appendChild(skillCell)
-      let proficiency = skill.proficiency ?? ' '
-      skillCell.innerHTML = `<code>[${proficiency}]</code> ${skill.skill} (${skill.modifier})`
-      let modifier = abilityBonus(skill.modifier) + proficiencyBonus(skill.proficiency, proficiencyMultiplier)
+      let proficiency = createProficiency(skill.proficient, proficiencyMultiplier)
+      skillCell.innerHTML = `<code>[${proficiency.proficiency}]</code> ${skill.skill} (${skill.modifier})`
+      let modifier = abilityBonus(skill.modifier) + proficiency.bonus
       let checkCell = document.createElement('td')
       skillRow.appendChild(checkCell)
       checkCell.className = 'checkCell'
@@ -158,6 +160,15 @@
           <th>Modifier</th>
         </tr>
       </table>
+      <table id="favoredEnemyTable">
+        <tr>
+          <th colspan="2" style="text-align: center;">Favored Enemy checks<br>orc, goblin</th>
+        </tr>
+        <tr>
+          <th>Skill</th>
+          <th>Modifier <br>use ADV!</th>
+        </tr>
+      </table>
       <table id="stonecunningTable">
         <tr>
           <th colspan="2" style="text-align: center;">Stonecunning checks</th>
@@ -174,8 +185,10 @@
     calculateModifiers(document.querySelector('[id=intTable]'), s => s.modifier == 'Int')
     calculateModifiers(document.querySelector('[id=wisTable]'), s => s.modifier == 'Wis')
     calculateModifiers(document.querySelector('[id=favoredTerrainTable]'), 
-                       s => (s.modifier == 'Int' || s.modifier == 'Wis') && s.proficiency, 
+                       s => (s.modifier == 'Int' || s.modifier == 'Wis') && s.proficient, 
                        2)
+    calculateModifiers(document.querySelector('[id=favoredEnemyTable]'), 
+                       s => s.modifier == 'Int' || s.skill == 'Survival')
     calculateModifiers(document.querySelector('[id=stonecunningTable]'), s => s.skill == 'History', 2)
   </script>
 
