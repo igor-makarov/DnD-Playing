@@ -49,11 +49,15 @@
     td.checkCell {
       width: 25%;
     }
+
+    tr:nth-child(odd) {
+      background-color: #eee;
+    }
   </style>
 </head>
 
 <body>
-  <script>
+  <script type="module">
     let abilities = {
       'Str': 0,
       'Dex': 1,
@@ -96,111 +100,85 @@
       return { proficiency: proficient ? symbol : ' ', bonus: (proficient ? 1 : 0) * proficiencyBonus * multiplier }
     }
 
-    function rollD20Url(modifier) {
-      return `dice://roll/d20+${modifier}`
-    }
+    import { createApp } from 'https://unpkg.com/petite-vue?module'
 
-    function rollD20Hrefs(modifier) {
-      return `<a href="${rollD20Url(modifier)}">+${modifier}</a> <a href="${rollD20Url(modifier)}(ADV)">ADV</a> <a href="${rollD20Url(modifier)}(DIS)">DIS</a>`
-    }
-
-    function createSkillRow(skill, proficiencyMultiplier) {
-      let skillRow = document.createElement('tr')
-      let skillCell = document.createElement('td')
-      skillRow.appendChild(skillCell)
+    function SkillRow(props) {
+      let skill = props.skill
+      let proficiencyMultiplier = props.proficiencyMultiplier
       let proficiency = createProficiency(skill.proficient, proficiencyMultiplier)
-      skillCell.innerHTML = `<code>[${proficiency.proficiency}]</code> ${skill.skill} (${skill.modifier})`
-      let modifier = abilityBonus(skill.modifier) + proficiency.bonus
-      let checkCell = document.createElement('td')
-      skillRow.appendChild(checkCell)
-      checkCell.className = 'checkCell'
-      checkCell.innerHTML = rollD20Hrefs(modifier)
-      return skillRow
-    }
+      let bonus = abilityBonus(skill.modifier) + proficiency.bonus
 
-    function calculateModifiers(table, filter, proficiencyMultiplier) {
-      filter ||= skill => true
-      for (skill of skills) {
-        if (!filter(skill)) { continue }
-        let skillRow = createSkillRow(skill, proficiencyMultiplier)
-        table.appendChild(skillRow)
+      return {
+        $template: '#skill-row',
+        skill: skill,
+        proficiency: proficiency,
+        bonus: bonus
       }
     }
+
+    function SkillsTable(props) {
+      let title = props.title
+      let skills = props.skills
+      let filter = props.filter ?? (s => true)
+      let proficiencyMultiplier = props.proficiencyMultiplier
+
+      return {
+        $template: '#skills-table',
+        title: props.title,
+        skills: skills.filter(filter),
+        proficiencyMultiplier: proficiencyMultiplier
+      }
+    }
+
+    createApp({
+      skills: skills,
+      SkillRow,
+      SkillsTable
+    }).mount()
   </script>
+
+  <template id="skill-row">
+    <td><code>[{{proficiency.proficiency}}]</code> {{skill.skill}} ({{skill.modifier}})</td>
+    <td class="checkCell">
+      <a :href="`dice://roll/d20+${bonus}`">+{{bonus}}</a>
+      <a :href="`dice://roll/d20+${bonus}(ADV)`">ADV</a>
+      <a :href="`dice://roll/d20+${bonus}(DIS)`">DIS</a>
+    </td>
+  </template>
+
+  <template id="skills-table">
+    <tr>
+      <th colspan="2" style="text-align: center;" v-html="title"></th>
+    </tr>
+    <tr>
+      <th>Skill</th>
+      <th>Modifier</th>
+    </tr>
+    <template v-for="skill in skills">
+      <tr v-scope="SkillRow({ skill: skill, proficiencyMultiplier: proficiencyMultiplier })"></tr>
+    </template>
+  </template>
+
   <div class="row">
     <div class="column">
-      <table id="skillsTable">
-        <tr>
-          <th colspan="2" style="text-align: center;">Skills</th>
-        </tr>
-        <tr>
-          <th>Skill</th>
-          <th>Modifier</th>
-        </tr>
-      </table>
+      <table v-scope="SkillsTable({ title: 'Skills', skills: skills })"></table>
     </div>
     <div class="column">
-      <table id="intTable">
-        <tr>
-          <th colspan="2" style="text-align: center;">Int checks</th>
-        </tr>
-        <tr>
-          <th>Skill</th>
-          <th>Modifier</th>
-        </tr>
-      </table>
-      <table id="wisTable">
-        <tr>
-          <th colspan="2" style="text-align: center;">Wis checks</th>
-        </tr>
-        <tr>
-          <th>Skill</th>
-          <th>Modifier</th>
-        </tr>
-      </table>
+      <table v-scope="SkillsTable({ title: 'Int skills', skills: skills, filter: s => s.modifier == 'Int' })"></table>
+      <table v-scope="SkillsTable({ title: 'Wis skills', skills: skills, filter: s => s.modifier == 'Wis' })"></table>
     </div>
     <div class="column">
-      <table id="favoredTerrainTable">
-        <tr>
-          <th colspan="2" style="text-align: center;">Favored Terrain</th>
-        </tr>
-        <tr>
-          <th>Skill</th>
-          <th>Modifier</th>
-        </tr>
+      <table
+        v-scope="SkillsTable({ title: 'Favored Terrain', skills: skills, filter: s => (s.modifier == 'Int' || s.modifier == 'Wis') && s.proficient, proficiencyMultiplier: 2 })">
       </table>
-      <table id="favoredEnemyTable">
-        <tr>
-          <th colspan="2" style="text-align: center;">Favored Enemy<br>(orc, goblin)</th>
-        </tr>
-        <tr>
-          <th>Skill</th>
-          <th>Modifier <br>use ADV!</th>
-        </tr>
+      <table
+        v-scope="SkillsTable({ title: 'Favored Enemy<br>(orc, goblin)<br>use ADV!', skills: skills, filter: s => s.modifier == 'Int' || s.skill == 'Survival' })">
       </table>
-      <table id="stonecunningTable">
-        <tr>
-          <th colspan="2" style="text-align: center;">Stonecunning</th>
-        </tr>
-        <tr>
-          <th>Skill</th>
-          <th>Modifier</th>
-        </tr>
+      <table
+        v-scope="SkillsTable({ title: 'Stonecunning', skills: skills, filter: s => s.skill == 'History', proficiencyMultiplier: 2 })">
       </table>
     </div>
   </div>
-  <script>
-    calculateModifiers(document.querySelector('[id=skillsTable]'))
-    calculateModifiers(document.querySelector('[id=intTable]'), s => s.modifier == 'Int')
-    calculateModifiers(document.querySelector('[id=wisTable]'), s => s.modifier == 'Wis')
-    calculateModifiers(document.querySelector('[id=favoredTerrainTable]'),
-      s => (s.modifier == 'Int' || s.modifier == 'Wis') && s.proficient,
-      2)
-    calculateModifiers(document.querySelector('[id=favoredEnemyTable]'),
-      s => s.modifier == 'Int' || s.skill == 'Survival')
-    calculateModifiers(document.querySelector('[id=stonecunningTable]'), s => s.skill == 'History', 2)
-  </script>
-
 </body>
 
 </html>
