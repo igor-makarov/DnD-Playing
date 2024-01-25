@@ -29,18 +29,23 @@
     { skill: 'Survival', attribute: 'Wis' },
   ];
 
-  let abilities = {
-    'Str': 0,
-    'Dex': 1,
-    'Con': 2,
-    'Int': 2,
-    'Wis': 3,
-    'Cha': 1
+  function abilityBonus(ability) {
+    let abilities = {
+      'Str': 0,
+      'Dex': 1,
+      'Con': 2,
+      'Int': 2,
+      'Wis': 3,
+      'Cha': 1
+    }
+    return abilities[ability]
   }
 
-  let prof = 3
-
-  let proficiencies = { 'P': prof, 'E': 2*prof } 
+  function proficiencyBonus(proficiency) {
+    let prof = 3
+    let proficiencies = { 'P': 1, 'E': 2 } 
+    return (proficiencies[proficiency] ?? 0) * prof
+  }
 
   // Function to calculate and set modifiers
   function calculateModifiers() {
@@ -49,7 +54,7 @@
       if (skillRow) {
         let proficiency = skill.proficiency ?? ' '
         skillRow.innerHTML = `<code>[${proficiency}]</code> ${skill.skill} (${skill.attribute})`;
-        let modifier = abilities[skill.attribute] + (proficiencies[skill.proficiency] ?? 0)
+        let modifier = abilityBonus(skill.attribute) + proficiencyBonus(skill.proficiency)
           skillRow.nextElementSibling.innerHTML = `<a href="dice://roll/d20+${modifier}" style="display:block;">+${modifier}</a>`;
         }
       });
