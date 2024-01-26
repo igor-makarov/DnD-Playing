@@ -6,6 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skills Table</title>
   <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    span.mono {
+      font-family: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro","Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -183,7 +191,7 @@
   </template>
 
   <template id="skill-row">
-    <td><code>[{{proficiency.proficiency}}]</code> {{skill.skill}} ({{skill.modifier}})</td>
+    <td><span class="mono">[{{proficiency.proficiency}}]</span> {{skill.skill}} ({{skill.modifier}})</td>
     <td class="checkCell" v-scope="CheckCell({ bonus: bonus, advantage: advantage })"></td>
   </template>
 
@@ -201,7 +209,7 @@
   </template>
 
   <template id="save-row">
-    <td><code>[{{proficiency.proficiency}}]</code> {{save.save}}</td>
+    <td><span class="mono">[{{proficiency.proficiency}}]</span> {{save.save}}</td>
     <td class="checkCell" v-scope="CheckCell({ bonus: bonus, advantage: advantage })"></td>
   </template>
 
