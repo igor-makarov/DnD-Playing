@@ -17,7 +17,7 @@
 
     .column {
       float: left;
-      width: 33%;
+      width: 25%;
       padding: 5px;
     }
 
@@ -47,7 +47,7 @@
     }
 
     td.checkCell {
-      width: 25%;
+      width: 33%;
     }
 
     tr:nth-child(odd) {
@@ -90,6 +90,16 @@
       { skill: 'Survival', modifier: 'Wis', proficient: true },
     ]
 
+    let saves = [
+      { save: 'Str', proficient: true },
+      { save: 'Dex', proficient: true },
+      { save: 'Con' },
+      { save: 'Int' },
+      { save: 'Wis' },
+      { save: 'Cha' }
+    ] 
+
+
     function abilityBonus(ability) {
       return abilities[ability]
     }
@@ -127,6 +137,34 @@
         proficiencyMultiplier: proficiencyMultiplier
       }
     }
+
+    function SaveRow(props) {
+      let save = props.save
+      let proficiencyMultiplier = props.proficiencyMultiplier
+      let proficiency = createProficiency(save.proficient, proficiencyMultiplier)
+      let bonus = abilityBonus(save.save) + proficiency.bonus
+
+      return {
+        $template: '#save-row',
+        save: save,
+        proficiency: proficiency,
+        bonus: bonus
+      }
+    }
+
+    function SavesTable(props) {
+      let title = props.title
+      let saves = props.saves
+      let filter = props.filter ?? (s => true)
+      let proficiencyMultiplier = props.proficiencyMultiplier
+
+      return {
+        $template: '#saves-table',
+        title: props.title,
+        saves: saves.filter(filter),
+        proficiencyMultiplier: proficiencyMultiplier
+      }
+    }
   </script>
 
   <template id="skill-row">
@@ -151,6 +189,28 @@
     </template>
   </template>
 
+  <template id="save-row">
+    <td><code>[{{proficiency.proficiency}}]</code> {{save.save}}</td>
+    <td class="checkCell">
+      <a :href="`dice://roll/d20+${bonus}`">+{{bonus}}</a>
+      <a :href="`dice://roll/d20+${bonus}(ADV)`">ADV</a>
+      <a :href="`dice://roll/d20+${bonus}(DIS)`">DIS</a>
+    </td>
+  </template>
+
+  <template id="saves-table">
+    <tr>
+      <th colspan="2" style="text-align: center;" v-html="title"></th>
+    </tr>
+    <tr>
+      <th>Save</th>
+      <th>Modifier</th>
+    </tr>
+    <template v-for="save in saves">
+      <tr v-scope="SaveRow({ save: save, proficiencyMultiplier: proficiencyMultiplier })"></tr>
+    </template>
+  </template>
+
   <div class="row">
     <div class="column">
       <table v-scope="SkillsTable({ title: 'Skills', skills: skills })"></table>
@@ -169,6 +229,10 @@
       <table
         v-scope="SkillsTable({ title: 'Stonecunning', skills: skills, filter: s => s.skill == 'History', proficiencyMultiplier: 2 })">
       </table>
+    </div>
+    <div class="column">
+      <table v-scope="SavesTable({ title: 'Saves', saves: saves })"></table>
+      <table v-scope="SavesTable({ title: 'Dwarven Resilience<br>ADV against poison<br>also half damage', saves: saves, filter: s => s.save == 'Con' })"></table>
     </div>
   </div>
   <script src="https://unpkg.com/petite-vue"></script>
