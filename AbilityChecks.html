@@ -97,7 +97,7 @@
       { save: 'Int' },
       { save: 'Wis' },
       { save: 'Cha' }
-    ] 
+    ]
 
 
     function abilityBonus(ability) {
@@ -108,6 +108,13 @@
       multiplier ||= 1
       let symbol = multiplier > 1 ? 'E' : 'P'
       return { proficiency: proficient ? symbol : ' ', bonus: (proficient ? 1 : 0) * proficiencyBonus * multiplier }
+    }
+
+    function CheckCell(props) {
+      return {
+        $template: '#check-cell',
+        bonus: props.bonus
+      }
     }
 
     function SkillRow(props) {
@@ -167,13 +174,15 @@
     }
   </script>
 
+  <template id="check-cell">
+    <a :href="`dice://roll/d20+${bonus}`">+{{bonus}}</a>
+    <a :href="`dice://roll/d20+${bonus}(ADV)`">ADV</a>
+    <a :href="`dice://roll/d20+${bonus}(DIS)`">DIS</a>
+  </template>
+
   <template id="skill-row">
     <td><code>[{{proficiency.proficiency}}]</code> {{skill.skill}} ({{skill.modifier}})</td>
-    <td class="checkCell">
-      <a :href="`dice://roll/d20+${bonus}`">+{{bonus}}</a>
-      <a :href="`dice://roll/d20+${bonus}(ADV)`">ADV</a>
-      <a :href="`dice://roll/d20+${bonus}(DIS)`">DIS</a>
-    </td>
+    <td class="checkCell" v-scope="CheckCell({ bonus: bonus })"></td>
   </template>
 
   <template id="skills-table">
@@ -191,11 +200,7 @@
 
   <template id="save-row">
     <td><code>[{{proficiency.proficiency}}]</code> {{save.save}}</td>
-    <td class="checkCell">
-      <a :href="`dice://roll/d20+${bonus}`">+{{bonus}}</a>
-      <a :href="`dice://roll/d20+${bonus}(ADV)`">ADV</a>
-      <a :href="`dice://roll/d20+${bonus}(DIS)`">DIS</a>
-    </td>
+    <td class="checkCell" v-scope="CheckCell({ bonus: bonus })"></td>
   </template>
 
   <template id="saves-table">
@@ -232,15 +237,17 @@
     </div>
     <div class="column">
       <table v-scope="SavesTable({ title: 'Saves', saves: saves })"></table>
-      <table v-scope="SavesTable({ title: 'Dwarven Resilience<br>ADV against poison<br>also half damage', saves: saves, filter: s => s.save == 'Con' })"></table>
+      <table
+        v-scope="SavesTable({ title: 'Dwarven Resilience<br>ADV against poison<br>also half damage', saves: saves, filter: s => s.save == 'Con' })">
+      </table>
     </div>
   </div>
   <script src="https://unpkg.com/petite-vue"></script>
   <script>
     PetiteVue.createApp({
       skills: skills,
-      SkillRow,
-      SkillsTable
+      SkillsTable,
+      SavesTable
     }).mount()
   </script>
 </body>
