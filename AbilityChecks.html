@@ -113,7 +113,8 @@
     function CheckCell(props) {
       return {
         $template: '#check-cell',
-        bonus: props.bonus
+        bonus: props.bonus,
+        advantage: props.advantage
       }
     }
 
@@ -127,21 +128,21 @@
         $template: '#skill-row',
         skill: skill,
         proficiency: proficiency,
-        bonus: bonus
+        bonus: bonus,
+        advantage: props.advantage
       }
     }
 
     function SkillsTable(props) {
-      let title = props.title
       let skills = props.skills
       let filter = props.filter ?? (s => true)
-      let proficiencyMultiplier = props.proficiencyMultiplier
 
       return {
         $template: '#skills-table',
         title: props.title,
         skills: skills.filter(filter),
-        proficiencyMultiplier: proficiencyMultiplier
+        proficiencyMultiplier: props.proficiencyMultiplier,
+        advantage: props.advantage
       }
     }
 
@@ -155,34 +156,35 @@
         $template: '#save-row',
         save: save,
         proficiency: proficiency,
-        bonus: bonus
+        bonus: bonus,
+        advantage: props.advantage
       }
     }
 
     function SavesTable(props) {
-      let title = props.title
       let saves = props.saves
       let filter = props.filter ?? (s => true)
-      let proficiencyMultiplier = props.proficiencyMultiplier
 
       return {
         $template: '#saves-table',
         title: props.title,
         saves: saves.filter(filter),
-        proficiencyMultiplier: proficiencyMultiplier
+        proficiencyMultiplier: props.proficiencyMultiplier,
+        advantage: props.advantage
       }
     }
   </script>
 
   <template id="check-cell">
     <a :href="`dice://roll/d20+${bonus}`">+{{bonus}}</a>
-    <a :href="`dice://roll/d20+${bonus}(ADV)`">ADV</a>
+    <a v-if="advantage" :href="`dice://roll/d20+${bonus}(ADV)`"><strong>ADV</strong></a>
+    <a v-else :href="`dice://roll/d20+${bonus}(ADV)`">ADV</a>
     <a :href="`dice://roll/d20+${bonus}(DIS)`">DIS</a>
   </template>
 
   <template id="skill-row">
     <td><code>[{{proficiency.proficiency}}]</code> {{skill.skill}} ({{skill.modifier}})</td>
-    <td class="checkCell" v-scope="CheckCell({ bonus: bonus })"></td>
+    <td class="checkCell" v-scope="CheckCell({ bonus: bonus, advantage: advantage })"></td>
   </template>
 
   <template id="skills-table">
@@ -194,13 +196,13 @@
       <th>Modifier</th>
     </tr>
     <template v-for="skill in skills">
-      <tr v-scope="SkillRow({ skill: skill, proficiencyMultiplier: proficiencyMultiplier })"></tr>
+      <tr v-scope="SkillRow({ skill: skill, proficiencyMultiplier: proficiencyMultiplier, advantage: advantage })"></tr>
     </template>
   </template>
 
   <template id="save-row">
     <td><code>[{{proficiency.proficiency}}]</code> {{save.save}}</td>
-    <td class="checkCell" v-scope="CheckCell({ bonus: bonus })"></td>
+    <td class="checkCell" v-scope="CheckCell({ bonus: bonus, advantage: advantage })"></td>
   </template>
 
   <template id="saves-table">
@@ -212,7 +214,7 @@
       <th>Modifier</th>
     </tr>
     <template v-for="save in saves">
-      <tr v-scope="SaveRow({ save: save, proficiencyMultiplier: proficiencyMultiplier })"></tr>
+      <tr v-scope="SaveRow({ save: save, proficiencyMultiplier: proficiencyMultiplier, advantage: advantage })"></tr>
     </template>
   </template>
 
@@ -226,10 +228,10 @@
     </div>
     <div class="column">
       <table
-        v-scope="SkillsTable({ title: 'Favored Terrain', skills: skills, filter: s => (s.modifier == 'Int' || s.modifier == 'Wis') && s.proficient, proficiencyMultiplier: 2 })">
+        v-scope="SkillsTable({ title: 'Favored Terrain<br>expertise on Forest', skills: skills, filter: s => (s.modifier == 'Int' || s.modifier == 'Wis') && s.proficient, proficiencyMultiplier: 2 })">
       </table>
       <table
-        v-scope="SkillsTable({ title: 'Favored Enemy<br>(orc, goblin)<br>use ADV!', skills: skills, filter: s => s.modifier == 'Int' || s.skill == 'Survival' })">
+        v-scope="SkillsTable({ title: 'Favored Enemy<br>ADV on orc, goblin', skills: skills, filter: s => s.modifier == 'Int' || s.skill == 'Survival', advantage: true })">
       </table>
       <table
         v-scope="SkillsTable({ title: 'Stonecunning', skills: skills, filter: s => s.skill == 'History', proficiencyMultiplier: 2 })">
@@ -238,7 +240,7 @@
     <div class="column">
       <table v-scope="SavesTable({ title: 'Saves', saves: saves })"></table>
       <table
-        v-scope="SavesTable({ title: 'Dwarven Resilience<br>ADV against poison<br>also half damage', saves: saves, filter: s => s.save == 'Con' })">
+        v-scope="SavesTable({ title: 'Dwarven Resilience<br>ADV against poison<br>also half damage', saves: saves, filter: s => s.save == 'Con', advantage: true })">
       </table>
     </div>
   </div>
