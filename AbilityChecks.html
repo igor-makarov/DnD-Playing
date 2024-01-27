@@ -72,6 +72,7 @@
   </style>
 </head>
 <base target="_blank">
+
 <body>
   <script>
     let abilities = {
@@ -266,7 +267,9 @@
 
   <div class="row">
     <div class="column">
-      <table v-scope="SkillsTable({ title: 'Skills<br><a href=&quot;https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230&quot;>character sheet</a>', skills: skills })"></table>
+      <table
+        v-scope="SkillsTable({ title: 'Skills<br><a href=&quot;https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230&quot;>character sheet</a>', skills: skills })">
+      </table>
     </div>
     <div class="column">
       <table v-scope="SkillsTable({ title: 'Int skills', skills: skills, filter: s => s.modifier == 'Int' })"></table>
