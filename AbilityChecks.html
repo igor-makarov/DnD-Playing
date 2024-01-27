@@ -67,7 +67,7 @@
     }
   </style>
 </head>
-
+<base target="_blank">
 <body>
   <script>
     let abilities = {
@@ -216,12 +216,11 @@
 
   <template id="check-cell">
     <span class="mono">
-      <a :href="`${diceUrlFunction(bonus)}`" target="_blank">+{{bonus}}</a>
-      <a v-if="advantage"
-        :href="`${diceUrlFunction(bonus, { advantage: true })}`" target="_blank"><strong>ADV</strong></a>
-      <a v-else
-        :href="`${diceUrlFunction(bonus, { advantage: true })}`" target="_blank">ADV</a>
-      <a :href="`${diceUrlFunction(bonus, { disadvantage: true })}`" target="_blank">DIS</a>
+      <a :href="`${diceUrlFunction(bonus)}`">+{{bonus}}</a>
+      <a v-if="advantage" :href="`${diceUrlFunction(bonus, { advantage: true })}`"
+        target="_blank"><strong>ADV</strong></a>
+      <a v-else :href="`${diceUrlFunction(bonus, { advantage: true })}`">ADV</a>
+      <a :href="`${diceUrlFunction(bonus, { disadvantage: true })}`">DIS</a>
     </span>
   </template>
 
