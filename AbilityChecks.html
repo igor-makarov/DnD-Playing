@@ -275,8 +275,7 @@
       <table style="border-spacing: 10px; border: 0px; border-collapse: separate;"
         v-scope="{abilities: abilities, names: Object.keys(abilities)}">
         <tr>
-          <th style="padding-top: 10px; padding-bottom: 10px;" v-for="ability in names" class="modifier"
-            style="width: 16.6%;">
+          <th style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;" v-for="ability in names" class="modifier">
             {{ ability }}<br>
             <span style="display: inline-block; text-indent: -0.8ch;">+{{ abilities[ability] }}</span>
           </th>
