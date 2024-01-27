@@ -187,11 +187,22 @@
     }
   </script>
 
+  <script src="https://cdn.jsdelivr.net/gh/ismailhabib/custom-protocol-detection/protocolcheck.js"></script>
+  <script>
+    function goto(url, fallback) {
+      window.protocolCheck(url, () => { window.location.href = fallback }, () => { }, 5000)
+    }
+  </script>
+
   <template id="check-cell">
-    <a :href="`dice://roll/d20+${bonus}`">+{{bonus}}</a>
-    <a v-if="advantage" :href="`dice://roll/d20+${bonus}(ADV)`"><strong>ADV</strong></a>
-    <a v-else :href="`dice://roll/d20+${bonus}(ADV)`">ADV</a>
-    <a :href="`dice://roll/d20+${bonus}(DIS)`">DIS</a>
+    <span class="mono">
+      <a :href="`javascript:goto('dice://roll/d20+${bonus}','https://dice.run/#/d/d20+${bonus}');`">+{{bonus}}</a>
+      <a v-if="advantage"
+        :href="`javascript:goto('dice://roll/d20+${bonus}(ADV)','https://dice.run/#/d/2d20max+${bonus}');`"><strong>ADV</strong></a>
+      <a v-else
+        :href="`javascript:goto('dice://roll/d20+${bonus}(ADV)','https://dice.run/#/d/2d20max+${bonus}');`">ADV</a>
+      <a :href="`javascript:goto('dice://roll/d20+${bonus}(DIS)','https://dice.run/#/d/2d20min+${bonus}');`">DIS</a>
+    </span>
   </template>
 
   <template id="skill-row">
@@ -256,6 +267,7 @@
       </table>
     </div>
   </div>
+  <iframe src="" name="rollerFrame"></iframe>
   <script src="https://unpkg.com/petite-vue"></script>
   <script>
     PetiteVue.createApp({
