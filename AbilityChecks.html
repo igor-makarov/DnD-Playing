@@ -112,7 +112,7 @@
     ]
 
     let rollOptions = {
-      app: function (bonus, {advantage, disadvantage} = {}) {
+      app: function (bonus, { advantage, disadvantage } = {}) {
         let suffix = ''
         if (advantage) {
           suffix = '(ADV)'
@@ -121,7 +121,7 @@
         }
         return `dice://roll/d20+${bonus}${suffix}`
       },
-      site: function (bonus, {advantage, disadvantage} = {}) {
+      site: function (bonus, { advantage, disadvantage } = {}) {
         let bonusSuffix = bonus != 0 ? `+${bonus}` : ''
         let roll = undefined
         if (advantage) {
@@ -135,7 +135,7 @@
       }
     }
     let diceApp = decodeURI(window.location.hash?.substring(1) ?? '')
-    if (diceApp == '') { diceApp = 'app'}
+    if (diceApp == '') { diceApp = 'app' }
     let diceUrlFunction = rollOptions[diceApp]
 
     function abilityBonus(ability) {
