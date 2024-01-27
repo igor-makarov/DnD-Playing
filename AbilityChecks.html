@@ -69,6 +69,10 @@
     tr:nth-child(odd) {
       background-color: #eee;
     }
+
+    th:nth-child(odd) {
+      background-color: #fff;
+    }
   </style>
 </head>
 <base target="_blank">
@@ -264,6 +268,16 @@
       <tr v-scope="SaveRow({ save: save, proficiencyMultiplier: proficiencyMultiplier, advantage: advantage })"></tr>
     </template>
   </template>
+
+  <div class="row">
+    <div style="padding: 5px;">
+      <table  v-scope="{abilities: abilities, names: Object.keys(abilities)}">
+        <tr>
+          <th v-for="ability in names" style="text-align: center;">{{ ability }}<br>+{{ abilities[ability] }}</th>
+        </tr>
+      </table>
+    </div>
+  </div>
 
   <div class="row">
     <div class="column">
