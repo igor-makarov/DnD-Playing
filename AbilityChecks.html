@@ -111,6 +111,32 @@
       { save: 'Cha' }
     ]
 
+    let rollOptions = {
+      app: function (bonus, {advantage, disadvantage} = {}) {
+        let suffix = ''
+        if (advantage) {
+          suffix = '(ADV)'
+        } else if (disadvantage) {
+          suffix = '(DIS)'
+        }
+        return `dice://roll/d20+${bonus}${suffix}`
+      },
+      site: function (bonus, {advantage, disadvantage} = {}) {
+        let bonusSuffix = bonus != 0 ? `+${bonus}` : ''
+        let roll = undefined
+        if (advantage) {
+          roll = '2d20max'
+        } else if (disadvantage) {
+          roll = '2d20min'
+        } else {
+          roll = 'd20'
+        }
+        return `https://dice.run/#/d/${roll}${bonusSuffix}`
+      }
+    }
+    let diceApp = decodeURI(window.location.hash?.substring(1) ?? '')
+    if (diceApp == '') { diceApp = 'app'}
+    let diceUrlFunction = rollOptions[diceApp]
 
     function abilityBonus(ability) {
       return abilities[ability]
@@ -126,7 +152,8 @@
       return {
         $template: '#check-cell',
         bonus: props.bonus,
-        advantage: props.advantage
+        advantage: props.advantage,
+        diceUrlFunction: diceUrlFunction
       }
     }
 
@@ -187,21 +214,14 @@
     }
   </script>
 
-  <script src="https://cdn.jsdelivr.net/gh/ismailhabib/custom-protocol-detection/protocolcheck.js"></script>
-  <script>
-    function goto(url, fallback) {
-      window.protocolCheck(url, () => { window.location.href = fallback }, () => { }, 5000)
-    }
-  </script>
-
   <template id="check-cell">
     <span class="mono">
-      <a :href="`javascript:goto('dice://roll/d20+${bonus}','https://dice.run/#/d/d20+${bonus}');`">+{{bonus}}</a>
+      <a :href="`${diceUrlFunction(bonus)}`" target="_blank">+{{bonus}}</a>
       <a v-if="advantage"
-        :href="`javascript:goto('dice://roll/d20+${bonus}(ADV)','https://dice.run/#/d/2d20max+${bonus}');`"><strong>ADV</strong></a>
+        :href="`${diceUrlFunction(bonus, { advantage: true })}`" target="_blank"><strong>ADV</strong></a>
       <a v-else
-        :href="`javascript:goto('dice://roll/d20+${bonus}(ADV)','https://dice.run/#/d/2d20max+${bonus}');`">ADV</a>
-      <a :href="`javascript:goto('dice://roll/d20+${bonus}(DIS)','https://dice.run/#/d/2d20min+${bonus}');`">DIS</a>
+        :href="`${diceUrlFunction(bonus, { advantage: true })}`" target="_blank">ADV</a>
+      <a :href="`${diceUrlFunction(bonus, { disadvantage: true })}`" target="_blank">DIS</a>
     </span>
   </template>
 
