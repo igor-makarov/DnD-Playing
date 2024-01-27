@@ -80,13 +80,13 @@
 
 <body>
   <script>
-    let abilities = {
-      'Str': 0,
-      'Dex': 1,
-      'Con': 2,
-      'Int': 2,
-      'Wis': 3,
-      'Cha': 1
+    let abilityScores = {
+      'Str': 11,
+      'Dex': 13,
+      'Con': 13 + 2 /* Dwarf bonus */,
+      'Int': 15,
+      'Wis': 16 + 1 /* Hill Dwarf bonus */,
+      'Cha': 12
     }
 
     let proficiencyBonus = 3
@@ -148,8 +148,8 @@
     if (diceApp == '') { diceApp = 'app' }
     let diceUrlFunction = rollOptions[diceApp]
 
-    function abilityBonus(ability) {
-      return abilities[ability]
+    function abilityModifier(ability) {
+      return Math.floor((abilityScores[ability] - 10) / 2)
     }
 
     function createProficiency(proficient, multiplier) {
@@ -171,7 +171,7 @@
       let skill = props.skill
       let proficiencyMultiplier = props.proficiencyMultiplier
       let proficiency = createProficiency(skill.proficient, proficiencyMultiplier)
-      let bonus = abilityBonus(skill.modifier) + proficiency.bonus
+      let bonus = abilityModifier(skill.modifier) + proficiency.bonus
 
       return {
         $template: '#skill-row',
@@ -199,7 +199,7 @@
       let save = props.save
       let proficiencyMultiplier = props.proficiencyMultiplier
       let proficiency = createProficiency(save.proficient, proficiencyMultiplier)
-      let bonus = abilityBonus(save.save) + proficiency.bonus
+      let bonus = abilityModifier(save.save) + proficiency.bonus
 
       return {
         $template: '#save-row',
@@ -273,11 +273,18 @@
   <div class="row">
     <div>
       <table style="border-spacing: 10px; border: 0px; border-collapse: separate;"
-        v-scope="{abilities: abilities, names: Object.keys(abilities)}">
+        v-scope="{ names: Object.keys(abilityScores), abilityScores: abilityScores }">
         <tr>
           <th style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;" v-for="ability in names" class="modifier">
-            {{ ability }}<br>
-            <span style="display: inline-block; text-indent: -0.8ch;">+{{ abilities[ability] }}</span>
+            <span class="mono">{{ ability }}</span><br>
+            <span class="mono">{{ abilityScores[ability] }}</span><br>
+            <span class="mono">+{{ abilityModifier(ability) }}&nbsp;</span>
+          </th>
+        </tr>
+        <tr>
+          <th colspan="6" v-scope="proficiencyBonus" class="modifier">
+            <span class="mono">Proficiency Bonus</span><br>
+            <span class="mono">+{{ proficiencyBonus }}&nbsp;</span>
           </th>
         </tr>
       </table>
