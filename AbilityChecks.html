@@ -62,6 +62,11 @@
       text-align: left;
     }
 
+    th.modifier,
+    td.modifier {
+      text-align: center;
+    }
+
     td.checkCell {
       width: 33%;
     }
@@ -235,7 +240,7 @@
 
   <template id="skill-row">
     <td><span class="mono">[{{proficiency.proficiency}}]</span> {{skill.skill}} ({{skill.modifier}})</td>
-    <td class="checkCell" v-scope="CheckCell({ bonus: bonus, advantage: advantage })"></td>
+    <td class="checkCell" class="modifier" v-scope="CheckCell({ bonus: bonus, advantage: advantage })"></td>
   </template>
 
   <template id="skills-table">
@@ -244,7 +249,7 @@
     </tr>
     <tr>
       <th>Skill</th>
-      <th>Modifier</th>
+      <th class="modifier">Modifier</th>
     </tr>
     <template v-for="skill in skills">
       <tr v-scope="SkillRow({ skill: skill, proficiencyMultiplier: proficiencyMultiplier, advantage: advantage })"></tr>
@@ -253,7 +258,7 @@
 
   <template id="save-row">
     <td><span class="mono">[{{proficiency.proficiency}}]</span> {{save.save}}</td>
-    <td class="checkCell" v-scope="CheckCell({ bonus: bonus, advantage: advantage })"></td>
+    <td class="checkCell" class="modifier" v-scope="CheckCell({ bonus: bonus, advantage: advantage })"></td>
   </template>
 
   <template id="saves-table">
@@ -262,7 +267,7 @@
     </tr>
     <tr>
       <th>Save</th>
-      <th>Modifier</th>
+      <th class="modifier">Modifier</th>
     </tr>
     <template v-for="save in saves">
       <tr v-scope="SaveRow({ save: save, proficiencyMultiplier: proficiencyMultiplier, advantage: advantage })"></tr>
@@ -271,9 +276,9 @@
 
   <div class="row">
     <div style="padding: 5px;">
-      <table  v-scope="{abilities: abilities, names: Object.keys(abilities)}">
+      <table v-scope="{abilities: abilities, names: Object.keys(abilities)}">
         <tr>
-          <th v-for="ability in names" style="text-align: center;">{{ ability }}<br>+{{ abilities[ability] }}</th>
+          <th v-for="ability in names" class="modifier">{{ ability }}<br>+{{ abilities[ability] }}</th>
         </tr>
       </table>
     </div>
