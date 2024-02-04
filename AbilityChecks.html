@@ -278,7 +278,7 @@
           <th style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;" v-for="ability in names" class="modifier">
             <span class="mono">{{ ability }}</span><br>
             <span class="mono">{{ abilityScores[ability] }}</span><br>
-            <span class="mono">+{{ abilityModifier(ability) }}&nbsp;</span>
+            <span class="checkCell" v-scope="CheckCell({ bonus: abilityModifier(ability) })"></span>
           </th>
         </tr>
         <tr>
