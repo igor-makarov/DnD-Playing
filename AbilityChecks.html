@@ -311,6 +311,9 @@
       <table
         v-scope="SkillsTable({ title: '<a href=&quot;http://dnd5e.wikidot.com/lineage:dwarf#:~:text=Stonecunning&quot;>Stonecunning</a><br>expertise on stonework', skills: skills, filter: s => s.skill == 'History', proficiencyMultiplier: 2 })">
       </table>
+      <table
+        v-scope="SkillsTable({ title: '<a href=&quot;https://www.dndbeyond.com/spells/hunters-mark&quot;>Hunter&amp;apos;s Mark</a><br>ADV on marked creature', skills: skills, filter: s => s.skill == 'Perception' || s.skill == 'Survival', advantage: true })">
+      </table>
     </div>
     <div class="column">
       <table v-scope="SavesTable({ title: 'Saves', saves: saves })"></table>
