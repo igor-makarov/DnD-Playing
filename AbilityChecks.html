@@ -82,14 +82,14 @@
   <script>
     let abilityScores = {
       'Str': 11,
-      'Dex': 13,
-      'Con': 13 + 2 /* Dwarf bonus */,
+      'Dex': 13 + 1 /* ASI Cleric 4 */,
+      'Con': 13 + 2 + 1 /* Dwarf bonus + ASI Cleric 4 */,
       'Int': 15,
       'Wis': 16 + 1 /* Hill Dwarf bonus */,
       'Cha': 12
     }
 
-    let proficiencyBonus = 3
+    let proficiencyBonus = 4
 
     let skills = [
       { skill: 'Acrobatics', modifier: 'Dex' },
