@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills Table</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<base target="_blank">
+
+<body>
+  <script>
+    let abilityScores = {
+      'Str': 15 + 1 + 2 + 2 /* ASI 4/8/12 */,
+      'Dex': 13 + 1 /* ASI 4 */,
+      'Con': 14 + 2 + 2 /* Warforged + Belt of Dwarvenkind */,
+      'Int': 9,
+      'Wis': 10,
+      'Cha': 15 + 1 /* Warforged */
+    }
+
+    let proficiencyBonus = 4
+
+    let skills = [
+      { skill: 'Acrobatics', modifier: 'Dex' },
+      { skill: 'Animal Handling', modifier: 'Wis' },
+      { skill: 'Arcana', modifier: 'Int', proficient: true }, // Background
+      { skill: 'Athletics', modifier: 'Str', proficient: true }, // Warforged
+      { skill: 'Deception', modifier: 'Cha' },
+      { skill: 'History', modifier: 'Int' },
+      { skill: 'Insight', modifier: 'Wis' },
+      { skill: 'Intimidation', modifier: 'Cha', proficient: true }, // Paladin
+      { skill: 'Investigation', modifier: 'Int' },
+      { skill: 'Medicine', modifier: 'Wis' },
+      { skill: 'Nature', modifier: 'Int' },
+      { skill: 'Perception', modifier: 'Wis' },
+      { skill: 'Performance', modifier: 'Cha' },
+      { skill: 'Persuasion', modifier: 'Cha', proficient: true }, // Paladin
+      { skill: 'Religion', modifier: 'Int', proficient: true }, // Background
+      { skill: 'Sleight of Hand', modifier: 'Dex' },
+      { skill: 'Stealth', modifier: 'Dex' },
+      { skill: 'Survival', modifier: 'Wis' },
+    ]
+
+    let saves = [
+      { save: 'Str' },
+      { save: 'Dex' },
+      { save: 'Con' },
+      { save: 'Int' },
+      { save: 'Wis', proficient: true }, // Paladin
+      { save: 'Cha', proficient: true }  // Paladin
+    ]
+
+    let rollOptions = {
+      app: function (bonus, { advantage, disadvantage } = {}) {
+        let suffix = ''
+        if (advantage) {
+          suffix = '(ADV)'
+        } else if (disadvantage) {
+          suffix = '(DIS)'
+        }
+        return `dice://roll/d20+${bonus}${suffix}`
+      },
+      site: function (bonus, { advantage, disadvantage } = {}) {
+        let bonusSuffix = bonus != 0 ? `+${bonus}` : ''
+        let roll = undefined
+        if (advantage) {
+          roll = '2d20max'
+        } else if (disadvantage) {
+          roll = '2d20min'
+        } else {
+          roll = 'd20'
+        }
+        return `https://dice.run/#/d/${roll}${bonusSuffix}`
+      }
+    }
+    let diceApp = decodeURI(window.location.hash?.substring(1) ?? '')
+    if (diceApp == '') { diceApp = 'app' }
+    let diceUrlFunction = rollOptions[diceApp]
+
+    function abilityModifier(ability) {
+      return Math.floor((abilityScores[ability] - 10) / 2)
+    }
+
+    function createProficiency(proficient, multiplier) {
+      multiplier ||= 1
+      let symbol = multiplier > 1 ? 'E' : 'P'
+      return { proficiency: proficient ? symbol : ' ', bonus: (proficient ? 1 : 0) * proficiencyBonus * multiplier }
+    }
+
+    function CheckCell(props) {
+      return {
+        $template: '#check-cell',
+        bonus: props.bonus,
+        advantage: props.advantage,
+        diceUrlFunction: diceUrlFunction
+      }
+    }
+
+    function SkillRow(props) {
+      let skill = props.skill
+      let proficiencyMultiplier = props.proficiencyMultiplier
+      let proficiency = createProficiency(skill.proficient, proficiencyMultiplier)
+      let bonus = abilityModifier(skill.modifier) + proficiency.bonus
+
+      return {
+        $template: '#skill-row',
+        skill: skill,
+        proficiency: proficiency,
+        bonus: bonus,
+        advantage: props.advantage
+      }
+    }
+
+    function SkillsTable(props) {
+      let skills = props.skills
+      let filter = props.filter ?? (s => true)
+
+      return {
+        $template: '#skills-table',
+        title: props.title,
+        skills: skills.filter(filter),
+        proficiencyMultiplier: props.proficiencyMultiplier,
+        advantage: props.advantage
+      }
+    }
+
+    function SaveRow(props) {
+      let save = props.save
+      let proficiencyMultiplier = props.proficiencyMultiplier
+      let proficiency = createProficiency(save.proficient, proficiencyMultiplier)
+      let bonus = abilityModifier(save.save) + proficiency.bonus + abilityModifier('Cha')
+
+      return {
+        $template: '#save-row',
+        save: save,
+        proficiency: proficiency,
+        bonus: bonus,
+        advantage: props.advantage
+      }
+    }
+
+    function SavesTable(props) {
+      let saves = props.saves
+      let filter = props.filter ?? (s => true)
+
+      return {
+        $template: '#saves-table',
+        title: props.title,
+        saves: saves.filter(filter),
+        proficiencyMultiplier: props.proficiencyMultiplier,
+        advantage: props.advantage
+      }
+    }
+  </script>
+
+  <template id="check-cell">
+    <span class="mono">
+      <a :href="`${diceUrlFunction(bonus)}`">{{bonus >= 0 ? '+' : ''}}{{bonus}}</a>
+      <a v-if="advantage" :href="`${diceUrlFunction(bonus, { advantage: true })}`"
+        target="_blank"><strong>ADV</strong></a>
+      <a v-else :href="`${diceUrlFunction(bonus, { advantage: true })}`">ADV</a>
+      <a :href="`${diceUrlFunction(bonus, { disadvantage: true })}`">DIS</a>
+    </span>
+  </template>
+
+  <template id="skill-row">
+    <td><span class="mono">[{{proficiency.proficiency}}]</span> {{skill.skill}} ({{skill.modifier}})</td>
+    <td class="checkCell" class="modifier" v-scope="CheckCell({ bonus: bonus, advantage: advantage })"></td>
+  </template>
+
+  <template id="skills-table">
+    <tr>
+      <th colspan="2" style="text-align: center;" v-html="title"></th>
+    </tr>
+    <tr>
+      <th>Skill</th>
+      <th class="modifier">Modifier</th>
+    </tr>
+    <template v-for="skill in skills">
+      <tr v-scope="SkillRow({ skill: skill, proficiencyMultiplier: proficiencyMultiplier, advantage: advantage })"></tr>
+    </template>
+  </template>
+
+  <template id="save-row">
+    <td><span class="mono">[{{proficiency.proficiency}}]</span> {{save.save}}</td>
+    <td class="checkCell" class="modifier" v-scope="CheckCell({ bonus: bonus, advantage: advantage })"></td>
+  </template>
+
+  <template id="saves-table">
+    <tr>
+      <th colspan="2" style="text-align: center;" v-html="title"></th>
+    </tr>
+    <tr>
+      <th>Save</th>
+      <th class="modifier">Modifier</th>
+    </tr>
+    <template v-for="save in saves">
+      <tr v-scope="SaveRow({ save: save, proficiencyMultiplier: proficiencyMultiplier, advantage: advantage })"></tr>
+    </template>
+  </template>
+
+  <div class="row">
+    <div>
+      <table style="border-spacing: 10px; border: 0px; border-collapse: separate;"
+        v-scope="{ names: Object.keys(abilityScores), abilityScores: abilityScores }">
+        <tr>
+          <th style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;" v-for="ability in names" class="modifier">
+            <span class="mono">{{ ability }}</span><br>
+            <span class="mono">{{ abilityScores[ability] }}</span><br>
+            <span class="checkCell" v-scope="CheckCell({ bonus: abilityModifier(ability) })"></span>
+          </th>
+        </tr>
+        <tr>
+          <th colspan="6" v-scope="proficiencyBonus" class="modifier">
+            <span class="mono">Proficiency Bonus</span><br>
+            <span class="mono">+{{ proficiencyBonus }}&nbsp;</span>
+          </th>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="column">
+      <table
+        v-scope="SkillsTable({ title: 'Skills<br><a href=&quot;https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230&quot;>character sheet</a>', skills: skills })">
+      </table>
+    </div>
+    <div class="column">
+      <table v-scope="SkillsTable({ title: 'Proficient skills', skills: skills, filter: s => s.proficient })"></table>
+      <table v-scope="SkillsTable({ title: 'Cha skills', skills: skills, filter: s => s.modifier == 'Cha' })"></table>
+    </div>
+    <div class="column">
+    <!--   <table
+        v-scope="SkillsTable({ title: '<a href=&quot;http://dnd5e.wikidot.com/ranger#:~:text=at%2014th%20level.-,Natural%20Explorer,-Also%20at%201st&quot;>Favored Terrain</a><br>expertise on Forest', skills: skills, filter: s => (s.modifier == 'Int' || s.modifier == 'Wis') && s.proficient, proficiencyMultiplier: 2 })">
+      </table>
+      <table
+        v-scope="SkillsTable({ title: '<a href=&quot;http://dnd5e.wikidot.com/ranger#:~:text=of%2020%20arrows-,Favored%20Enemy,-Beginning%20at%201st&quot;>Favored Enemy</a><br>ADV on orc, goblin', skills: skills, filter: s => s.modifier == 'Int' || s.skill == 'Survival', advantage: true })">
+      </table>
+      <table
+        v-scope="SkillsTable({ title: '<a href=&quot;http://dnd5e.wikidot.com/lineage:dwarf#:~:text=Stonecunning&quot;>Stonecunning</a><br>expertise on stonework', skills: skills, filter: s => s.skill == 'History', proficiencyMultiplier: 2 })">
+      </table>
+      <table
+        v-scope="SkillsTable({ title: '<a href=&quot;https://www.dndbeyond.com/spells/hunters-mark&quot;>Hunter&amp;apos;s Mark</a><br>ADV on marked creature', skills: skills, filter: s => s.skill == 'Perception' || s.skill == 'Survival', advantage: true })">
+      </table> -->
+    </div>
+    <div class="column">
+      <table v-scope="SavesTable({ title: 'Saves (with added Cha)', saves: saves })"></table>
+      <table
+        v-scope="SavesTable({ title: '<a href=&quot;https://2014.5e.tools/races.html#warforged_erlw&quot;>Constructed Resilience</a><br>ADV against poison<br>also half damage', saves: saves, filter: s => s.save == 'Con', advantage: true })">
+      </table>
+    </div>
+  </div>
+  <script src="https://unpkg.com/petite-vue"></script>
+  <script>
+    PetiteVue.createApp({
+      skills: skills,
+      SkillsTable,
+      SavesTable
+    }).mount()
+  </script>
+</body>
+
+</html>
