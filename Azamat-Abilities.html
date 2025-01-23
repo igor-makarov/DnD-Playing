@@ -20,6 +20,7 @@
       'Cha': 15 + 1 /* Warforged */
     }
 
+    let paladinLevel = 12
     let proficiencyBonus = 4
 
     let skills = [
@@ -233,18 +234,53 @@
       <table v-scope="SkillsTable({ title: 'Cha skills', skills: skills, filter: s => s.modifier == 'Cha' })"></table>
     </div>
     <div class="column">
-    <!--   <table
-        v-scope="SkillsTable({ title: '<a href=&quot;http://dnd5e.wikidot.com/ranger#:~:text=at%2014th%20level.-,Natural%20Explorer,-Also%20at%201st&quot;>Favored Terrain</a><br>expertise on Forest', skills: skills, filter: s => (s.modifier == 'Int' || s.modifier == 'Wis') && s.proficient, proficiencyMultiplier: 2 })">
-      </table>
-      <table
-        v-scope="SkillsTable({ title: '<a href=&quot;http://dnd5e.wikidot.com/ranger#:~:text=of%2020%20arrows-,Favored%20Enemy,-Beginning%20at%201st&quot;>Favored Enemy</a><br>ADV on orc, goblin', skills: skills, filter: s => s.modifier == 'Int' || s.skill == 'Survival', advantage: true })">
-      </table>
-      <table
-        v-scope="SkillsTable({ title: '<a href=&quot;http://dnd5e.wikidot.com/lineage:dwarf#:~:text=Stonecunning&quot;>Stonecunning</a><br>expertise on stonework', skills: skills, filter: s => s.skill == 'History', proficiencyMultiplier: 2 })">
-      </table>
-      <table
-        v-scope="SkillsTable({ title: '<a href=&quot;https://www.dndbeyond.com/spells/hunters-mark&quot;>Hunter&amp;apos;s Mark</a><br>ADV on marked creature', skills: skills, filter: s => s.skill == 'Perception' || s.skill == 'Survival', advantage: true })">
-      </table> -->
+    <table v-scope="{ paladinLevel: paladinLevel, names: Object.keys(abilityScores), abilityScores: abilityScores }">
+      <tr>
+        <th colspan="2" style="text-align: center;">Features</th>
+      </tr>
+      <tr>
+        <th>Feature</th>
+        <th class="modifier">Effect</th>
+      </tr>
+      <tr>
+        <td>Lay on Hands</td>
+        <td class="modifier">
+          <span class="mono">{{ 5 * paladinLevel }}</span>/long rest
+        </td>
+      </tr>
+      <tr>
+        <td>Channel Divinity</td>
+        <td class="modifier">
+          <span class="mono">2</span>/short/long rest
+        </td>
+      </tr>
+      <tr>
+        <td>HDP (CD)</td>
+        <td class="modifier">
+          Max slot level: <span class="mono">{{ Math.ceil(0.5 * proficiencyBonus) }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Watcher's Will (CD)</td>
+        <td class="modifier">
+          <span class="mono">{{ abilityModifier('Cha') }}</span> + self
+        </td>
+      </tr>
+      <tr>
+        <td>Aura of Protection (10ft)</td>
+        <td class="modifier">
+          <span class="mono">+{{ abilityModifier('Cha') }}&nbsp;</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Aura of the Sentinel (10ft)</td>
+        <td class="modifier">Advantage: Initiative</td>
+      </tr>
+      <tr>
+        <td>Aura of Courage (10ft)</td>
+        <td class="modifier">Immunity: frightened</td>
+      </tr>
+    </table>
     </div>
     <div class="column">
       <table v-scope="SavesTable({ title: 'Saves (with added Cha)', saves: saves })"></table>
