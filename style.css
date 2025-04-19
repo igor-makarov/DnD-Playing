@@ -61,6 +61,7 @@ body {
 
   td.checkCell {
     width: 33%;
+    text-align: end;
   }
 
   tr:nth-child(odd) {
