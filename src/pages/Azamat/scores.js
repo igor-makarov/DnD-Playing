@@ -1,4 +1,4 @@
-import { CharacterScores } from "../js/CharacterScores";
+import { CharacterScores } from "../../js/CharacterScores";
 
 export const scores = new CharacterScores({
   abilityScores: {
