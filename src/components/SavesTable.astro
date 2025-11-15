@@ -1,0 +1,35 @@
+---
+import SaveRow from './SaveRow.astro';
+
+const { 
+  title, 
+  saves, 
+  advantage, 
+  abilityModifier, 
+  createProficiency, 
+  proficiencyMultiplier 
+} = Astro.props;
+
+const chaBonus = abilityModifier('Cha');
+---
+<table>
+  <tr>
+    <th colspan="2" style="text-align: center;" set:html={title}></th>
+  </tr>
+  <tr>
+    <th>Save</th>
+    <th class="modifier">Modifier</th>
+  </tr>
+  {saves.map(save => {
+    const proficiency = createProficiency(save.proficient, proficiencyMultiplier);
+    const bonus = abilityModifier(save.save) + proficiency.bonus + chaBonus;
+    return (
+      <SaveRow
+        save={save}
+        proficiency={proficiency}
+        bonus={bonus}
+        advantage={advantage}
+      />
+    )
+  })}
+</table>

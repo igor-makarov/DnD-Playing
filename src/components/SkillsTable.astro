@@ -1,0 +1,33 @@
+---
+import SkillRow from './SkillRow.astro';
+
+const { 
+  title, 
+  skills, 
+  advantage, 
+  abilityModifier, 
+  createProficiency, 
+  proficiencyMultiplier 
+} = Astro.props;
+---
+<table>
+  <tr>
+    <th colspan="2" style="text-align: center;" set:html={title}></th>
+  </tr>
+  <tr>
+    <th>Skill</th>
+    <th class="modifier">Modifier</th>
+  </tr>
+  {skills.map(skill => {
+    const proficiency = createProficiency(skill.proficient, proficiencyMultiplier);
+    const bonus = abilityModifier(skill.modifier) + proficiency.bonus;
+    return (
+      <SkillRow
+        skill={skill}
+        proficiency={proficiency}
+        bonus={bonus}
+        advantage={advantage}
+      />
+    )
+  })}
+</table>

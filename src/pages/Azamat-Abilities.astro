@@ -1,0 +1,189 @@
+---
+import { abilityScores, paladinLevel, proficiencyBonus, skills, saves } from './Azamat-Scores.js';
+import CheckCell from '../components/CheckCell.astro';
+import SkillsTable from '../components/SkillsTable.astro';
+import SavesTable from '../components/SavesTable.astro';
+
+function abilityModifier(ability) {
+  return Math.floor((abilityScores[ability] - 10) / 2);
+}
+
+function createProficiency(proficient, multiplier) {
+  multiplier ||= 1;
+  const symbol = multiplier > 1 ? 'E' : 'P';
+  return { symbol: proficient ? symbol : ' ', bonus: (proficient ? 1 : 0) * proficiencyBonus * multiplier };
+}
+---
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills Table</title>
+  <link rel="stylesheet" href="/styles/style.css">
+  <base target="_blank">
+</head>
+<body>
+
+  <div class="row">
+    <div>
+      <table style="border-spacing: 10px; border: 0px; border-collapse: separate;">
+        <tr>
+          {Object.keys(abilityScores).map(ability => (
+            <th style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;" class="modifier">
+              <span class="mono">{ability}</span><br/>
+              <span class="mono">{abilityScores[ability]}</span><br/>
+              <span class="checkCell">
+                <CheckCell bonus={abilityModifier(ability)} />
+              </span>
+            </th>
+          ))}
+        </tr>
+        <tr>
+          <th colspan="6" class="modifier">
+            <span class="mono">Proficiency Bonus</span><br/>
+            <span class="mono">+{proficiencyBonus}&nbsp;</span>
+          </th>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="column">
+      <SkillsTable 
+        title={'Skills<br><a href="https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230">character sheet</a>'}
+        skills={skills}
+        abilityModifier={abilityModifier}
+        createProficiency={createProficiency}
+      />
+    </div>
+    <div class="column">
+      <SkillsTable 
+        title="Proficient skills" 
+        skills={skills.filter(s => s.proficient)}
+        abilityModifier={abilityModifier}
+        createProficiency={createProficiency}
+      />
+      <SkillsTable 
+        title="Cha skills" 
+        skills={skills.filter(s => s.modifier == 'Cha')}
+        abilityModifier={abilityModifier}
+        createProficiency={createProficiency}
+      />
+    </div>
+    <div class="column">
+      <table>
+        <tr>
+          <th colspan="2" style="text-align: center;">Features</th>
+        </tr>
+        <tr>
+          <th>Feature</th>
+          <th class="modifier">Effect</th>
+        </tr>
+        <tr>
+          <td>Lay on Hands</td>
+          <td class="modifier">
+            <span class="mono">{5 * paladinLevel}</span>/long rest
+          </td>
+        </tr>
+        <tr>
+          <td>Channel Divinity</td>
+          <td class="modifier">
+            <span class="mono">2</span>/short/long rest
+          </td>
+        </tr>
+        <tr>
+          <td>HDP (CD)</td>
+          <td class="modifier">
+            Max slot level: <span class="mono">{Math.ceil(0.5 * proficiencyBonus)}</span>
+          </td>
+        </tr>
+        <tr>
+          <td>Watcher's Will (CD)</td>
+          <td class="modifier">
+            <span class="mono">{abilityModifier('Cha')}</span> + self
+          </td>
+        </tr>
+        <tr>
+          <td>Aura of Protection (10ft)</td>
+          <td class="modifier">
+            <span class="mono">+{abilityModifier('Cha')}&nbsp;</span>
+          </td>
+        </tr>
+        <tr>
+          <td>Aura of the Sentinel (10ft)</td>
+          <td class="modifier">Advantage: Initiative</td>
+        </tr>
+        <tr>
+          <td>Aura of Courage (10ft)</td>
+          <td class="modifier">Immunity: frightened</td>
+        </tr>
+      </table>
+    </div>
+    <div class="column">
+      <SavesTable 
+        title="Saves (with added Cha)" 
+        saves={saves}
+        abilityModifier={abilityModifier}
+        createProficiency={createProficiency}
+      />
+      <SavesTable 
+        title={'<a href="https://2014.5e.tools/races.html#warforged_erlw">Constructed Resilience</a><br>ADV against poison<br>also half damage'}
+        saves={saves.filter(s => s.save == 'Con')} 
+        advantage={true}
+        abilityModifier={abilityModifier}
+        createProficiency={createProficiency}
+      />
+    </div>
+  </div>
+
+  <script is:inline>
+    const rollOptions = {
+      app: function (bonus, { advantage, disadvantage } = {}) {
+        let suffix = ''
+        if (advantage) {
+          suffix = '(ADV)'
+        } else if (disadvantage) {
+          suffix = '(DIS)'
+        }
+        return `dice://roll/d20+${bonus}${suffix}`
+      },
+      site: function (bonus, { advantage, disadvantage } = {}) {
+        let bonusSuffix = bonus != 0 ? `+${bonus}` : ''
+        let roll = undefined
+        if (advantage) {
+          roll = '2d20max'
+        } else if (disadvantage) {
+          roll = '2d20min'
+        } else {
+          roll = 'd20'
+        }
+        return `https://dice.run/#/d/${roll}${bonusSuffix}`
+      }
+    }
+    let diceApp = decodeURI(window.location.hash?.substring(1) ?? '')
+    if (diceApp == '') { diceApp = 'app' }
+    let diceUrlFunction = rollOptions[diceApp]
+
+    document.querySelectorAll('.check-cell').forEach(cell => {
+      const bonus = parseInt(cell.dataset.bonus, 10);
+      const advantage = cell.dataset.advantage === 'true';
+      
+      const bonusLink = cell.querySelector('.regular-link');
+      const advLink = cell.querySelector('.advantage-link');
+      const disLink = cell.querySelector('.disadvantage-link');
+
+      if (bonusLink) {
+        bonusLink.href = diceUrlFunction(bonus);
+      }
+      if (advLink) {
+        advLink.href = diceUrlFunction(bonus, { advantage: true });
+      }
+      if (disLink) {
+        disLink.href = diceUrlFunction(bonus, { disadvantage: true });
+      }
+    });
+  </script>
+</body>
+</html>

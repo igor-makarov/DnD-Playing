@@ -1,0 +1,10 @@
+---
+import CheckCell from './CheckCell.astro';
+const { skill, proficiency, bonus, advantage } = Astro.props;
+---
+<tr>
+  <td><span class="mono">[{proficiency.symbol}]</span> {skill.skill} ({skill.modifier})</td>
+  <td class="checkCell modifier">
+    <CheckCell bonus={bonus} advantage={advantage} />
+  </td>
+</tr>
