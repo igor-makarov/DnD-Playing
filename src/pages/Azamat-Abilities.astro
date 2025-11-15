@@ -137,53 +137,5 @@ function createProficiency(proficient: boolean, multiplier: number) {
       />
     </div>
   </div>
-
-  <script is:inline>
-    const rollOptions = {
-      app: function (bonus, { advantage, disadvantage } = {}) {
-        let suffix = ''
-        if (advantage) {
-          suffix = '(ADV)'
-        } else if (disadvantage) {
-          suffix = '(DIS)'
-        }
-        return `dice://roll/d20+${bonus}${suffix}`
-      },
-      site: function (bonus, { advantage, disadvantage } = {}) {
-        let bonusSuffix = bonus != 0 ? `+${bonus}` : ''
-        let roll = undefined
-        if (advantage) {
-          roll = '2d20max'
-        } else if (disadvantage) {
-          roll = '2d20min'
-        } else {
-          roll = 'd20'
-        }
-        return `https://dice.run/#/d/${roll}${bonusSuffix}`
-      }
-    }
-    let diceApp = decodeURI(window.location.hash?.substring(1) ?? '')
-    if (diceApp == '') { diceApp = 'app' }
-    let diceUrlFunction = rollOptions[diceApp]
-
-    document.querySelectorAll('.check-cell').forEach(cell => {
-      const bonus = parseInt(cell.dataset.bonus, 10);
-      const advantage = cell.dataset.advantage === 'true';
-      
-      const bonusLink = cell.querySelector('.regular-link');
-      const advLink = cell.querySelector('.advantage-link');
-      const disLink = cell.querySelector('.disadvantage-link');
-
-      if (bonusLink) {
-        bonusLink.href = diceUrlFunction(bonus);
-      }
-      if (advLink) {
-        advLink.href = diceUrlFunction(bonus, { advantage: true });
-      }
-      if (disLink) {
-        disLink.href = diceUrlFunction(bonus, { disadvantage: true });
-      }
-    });
-  </script>
 </body>
 </html>
