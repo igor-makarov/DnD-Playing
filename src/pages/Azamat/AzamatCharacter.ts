@@ -1,6 +1,7 @@
 import { Character } from "../../js/Character";
 
 class AzamatCharacter extends Character {
+  weapons: { weapon: string; damage: string; }[];
   constructor() {
     super({
       abilityScores: {
