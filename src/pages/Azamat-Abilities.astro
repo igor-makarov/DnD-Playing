@@ -9,7 +9,7 @@ function abilityModifier(ability) {
   return Math.floor((abilityScores[ability] - 10) / 2);
 }
 
-function createProficiency(proficient, multiplier) {
+function createProficiency(proficient: boolean, multiplier: number) {
   multiplier ||= 1;
   const symbol = multiplier > 1 ? 'E' : 'P';
   return { symbol: proficient ? symbol : ' ', bonus: (proficient ? 1 : 0) * proficiencyBonus * multiplier };
