@@ -5,8 +5,7 @@ const {
   title, 
   skills, 
   advantage, 
-  abilityModifier, 
-  createProficiency, 
+  scores,
   proficiencyMultiplier 
 } = Astro.props;
 ---
@@ -19,8 +18,8 @@ const {
     <th class="modifier">Modifier</th>
   </tr>
   {skills.map(skill => {
-    const proficiency = createProficiency(skill.proficient, proficiencyMultiplier);
-    const bonus = abilityModifier(skill.modifier) + proficiency.bonus;
+    const proficiency = scores.createProficiency(skill.proficient, proficiencyMultiplier);
+    const bonus = scores.abilityModifier(skill.modifier) + proficiency.bonus;
     return (
       <SkillRow
         skill={skill}

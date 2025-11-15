@@ -1,19 +1,9 @@
 ---
-import { abilityScores, paladinLevel, proficiencyBonus, skills, saves } from './Azamat-Scores.js';
+import { scores } from './Azamat-Scores.js';
 import CheckCell from '../components/CheckCell.astro';
 import SkillsTable from '../components/SkillsTable.astro';
 import SavesTable from '../components/SavesTable.astro';
 import '../../public/styles/style.css';
-
-function abilityModifier(ability) {
-  return Math.floor((abilityScores[ability] - 10) / 2);
-}
-
-function createProficiency(proficient: boolean, multiplier: number) {
-  multiplier ||= 1;
-  const symbol = multiplier > 1 ? 'E' : 'P';
-  return { symbol: proficient ? symbol : ' ', bonus: (proficient ? 1 : 0) * proficiencyBonus * multiplier };
-}
 ---
 
 <html lang="en">
@@ -29,12 +19,12 @@ function createProficiency(proficient: boolean, multiplier: number) {
     <div>
       <table style="border-spacing: 10px; border: 0px; border-collapse: separate;">
         <tr>
-          {Object.keys(abilityScores).map(ability => (
+          {Object.keys(scores.abilityScores).map(ability => (
             <th style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;" class="modifier">
               <span class="mono">{ability}</span><br/>
-              <span class="mono">{abilityScores[ability]}</span><br/>
+              <span class="mono">{scores.abilityScores[ability]}</span><br/>
               <span class="checkCell">
-                <CheckCell bonus={abilityModifier(ability)} />
+                <CheckCell bonus={scores.abilityModifier(ability)} />
               </span>
             </th>
           ))}
@@ -42,7 +32,7 @@ function createProficiency(proficient: boolean, multiplier: number) {
         <tr>
           <th colspan="6" class="modifier">
             <span class="mono">Proficiency Bonus</span><br/>
-            <span class="mono">+{proficiencyBonus}&nbsp;</span>
+            <span class="mono">+{scores.proficiencyBonus}&nbsp;</span>
           </th>
         </tr>
       </table>
@@ -53,23 +43,20 @@ function createProficiency(proficient: boolean, multiplier: number) {
     <div class="column">
       <SkillsTable 
         title={'Skills<br><a href="https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230">character sheet</a>'}
-        skills={skills}
-        abilityModifier={abilityModifier}
-        createProficiency={createProficiency}
+        skills={scores.skills}
+        scores={scores}
       />
     </div>
     <div class="column">
       <SkillsTable 
         title="Proficient skills" 
-        skills={skills.filter(s => s.proficient)}
-        abilityModifier={abilityModifier}
-        createProficiency={createProficiency}
+        skills={scores.skills.filter(s => s.proficient)}
+        scores={scores}
       />
       <SkillsTable 
         title="Cha skills" 
-        skills={skills.filter(s => s.modifier == 'Cha')}
-        abilityModifier={abilityModifier}
-        createProficiency={createProficiency}
+        skills={scores.skills.filter(s => s.modifier == 'Cha')}
+        scores={scores}
       />
     </div>
     <div class="column">
@@ -84,7 +71,7 @@ function createProficiency(proficient: boolean, multiplier: number) {
         <tr>
           <td>Lay on Hands</td>
           <td class="modifier">
-            <span class="mono">{5 * paladinLevel}</span>/long rest
+            <span class="mono">{5 * scores.paladinLevel}</span>/long rest
           </td>
         </tr>
         <tr>
@@ -96,19 +83,19 @@ function createProficiency(proficient: boolean, multiplier: number) {
         <tr>
           <td>HDP (CD)</td>
           <td class="modifier">
-            Max slot level: <span class="mono">{Math.ceil(0.5 * proficiencyBonus)}</span>
+            Max slot level: <span class="mono">{Math.ceil(0.5 * scores.proficiencyBonus)}</span>
           </td>
         </tr>
         <tr>
           <td>Watcher's Will (CD)</td>
           <td class="modifier">
-            <span class="mono">{abilityModifier('Cha')}</span> + self
+            <span class="mono">{scores.abilityModifier('Cha')}</span> + self
           </td>
         </tr>
         <tr>
           <td>Aura of Protection (10ft)</td>
           <td class="modifier">
-            <span class="mono">+{abilityModifier('Cha')}&nbsp;</span>
+            <span class="mono">+{scores.abilityModifier('Cha')}&nbsp;</span>
           </td>
         </tr>
         <tr>
@@ -124,16 +111,14 @@ function createProficiency(proficient: boolean, multiplier: number) {
     <div class="column">
       <SavesTable 
         title="Saves (with added Cha)" 
-        saves={saves}
-        abilityModifier={abilityModifier}
-        createProficiency={createProficiency}
+        saves={scores.saves}
+        scores={scores}
       />
       <SavesTable 
         title={'<a href="https://2014.5e.tools/races.html#warforged_erlw">Constructed Resilience</a><br>ADV against poison<br>also half damage'}
-        saves={saves.filter(s => s.save == 'Con')} 
+        saves={scores.saves.filter(s => s.save == 'Con')} 
         advantage={true}
-        abilityModifier={abilityModifier}
-        createProficiency={createProficiency}
+        scores={scores}
       />
     </div>
   </div>

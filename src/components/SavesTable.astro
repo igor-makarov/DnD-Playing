@@ -5,12 +5,11 @@ const {
   title, 
   saves, 
   advantage, 
-  abilityModifier, 
-  createProficiency, 
+  scores,
   proficiencyMultiplier 
 } = Astro.props;
 
-const chaBonus = abilityModifier('Cha');
+const chaBonus = scores.abilityModifier('Cha');
 ---
 <table>
   <tr>
@@ -21,8 +20,8 @@ const chaBonus = abilityModifier('Cha');
     <th class="modifier">Modifier</th>
   </tr>
   {saves.map(save => {
-    const proficiency = createProficiency(save.proficient, proficiencyMultiplier);
-    const bonus = abilityModifier(save.save) + proficiency.bonus + chaBonus;
+    const proficiency = scores.createProficiency(save.proficient, proficiencyMultiplier);
+    const bonus = scores.abilityModifier(save.save) + proficiency.bonus + chaBonus;
     return (
       <SaveRow
         save={save}
