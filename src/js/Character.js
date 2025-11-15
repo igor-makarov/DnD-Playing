@@ -1,4 +1,4 @@
-export class CharacterScores {
+export class Character {
   constructor({ abilityScores, characterLevel, proficiencyBonus, skills, saves }) {
     this.abilityScores = abilityScores;
     this.characterLevel = characterLevel;

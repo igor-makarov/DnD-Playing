@@ -1,5 +1,5 @@
 ---
-import { scores } from './scores.js';
+import { character } from './AzamatCharacter.js';
 import CheckCell from '../../components/CheckCell.astro';
 import SkillsTable from '../../components/SkillsTable.astro';
 import SavesTable from '../../components/SavesTable.astro';
@@ -19,12 +19,12 @@ import '../../../public/styles/style.css';
     <div>
       <table style="border-spacing: 10px; border: 0px; border-collapse: separate;">
         <tr>
-          {Object.keys(scores.abilityScores).map(ability => (
+          {Object.keys(character.abilityScores).map(ability => (
             <th style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;" class="modifier">
               <span class="mono">{ability}</span><br/>
-              <span class="mono">{scores.abilityScores[ability]}</span><br/>
+              <span class="mono">{character.abilityScores[ability]}</span><br/>
               <span class="checkCell">
-                <CheckCell bonus={scores.abilityModifier(ability)} />
+                <CheckCell bonus={character.abilityModifier(ability)} />
               </span>
             </th>
           ))}
@@ -32,7 +32,7 @@ import '../../../public/styles/style.css';
         <tr>
           <th colspan="6" class="modifier">
             <span class="mono">Proficiency Bonus</span><br/>
-            <span class="mono">+{scores.proficiencyBonus}&nbsp;</span>
+            <span class="mono">+{character.proficiencyBonus}&nbsp;</span>
           </th>
         </tr>
       </table>
@@ -43,20 +43,20 @@ import '../../../public/styles/style.css';
     <div class="column">
       <SkillsTable 
         title={'Skills<br><a href="https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230">character sheet</a>'}
-        skills={scores.skills}
-        scores={scores}
+        skills={character.skills}
+        scores={character}
       />
     </div>
     <div class="column">
       <SkillsTable 
         title="Proficient skills" 
-        skills={scores.skills.filter(s => s.proficient)}
-        scores={scores}
+        skills={character.skills.filter(s => s.proficient)}
+        scores={character}
       />
       <SkillsTable 
         title="Cha skills" 
-        skills={scores.skills.filter(s => s.modifier == 'Cha')}
-        scores={scores}
+        skills={character.skills.filter(s => s.modifier == 'Cha')}
+        scores={character}
       />
     </div>
     <div class="column">
@@ -71,7 +71,7 @@ import '../../../public/styles/style.css';
         <tr>
           <td>Lay on Hands</td>
           <td class="modifier">
-            <span class="mono">{5 * scores.characterLevel}</span>/long rest
+            <span class="mono">{5 * character.characterLevel}</span>/long rest
           </td>
         </tr>
         <tr>
@@ -83,19 +83,19 @@ import '../../../public/styles/style.css';
         <tr>
           <td>HDP (CD)</td>
           <td class="modifier">
-            Max slot level: <span class="mono">{Math.ceil(0.5 * scores.proficiencyBonus)}</span>
+            Max slot level: <span class="mono">{Math.ceil(0.5 * character.proficiencyBonus)}</span>
           </td>
         </tr>
         <tr>
           <td>Watcher's Will (CD)</td>
           <td class="modifier">
-            <span class="mono">{scores.abilityModifier('Cha')}</span> + self
+            <span class="mono">{character.abilityModifier('Cha')}</span> + self
           </td>
         </tr>
         <tr>
           <td>Aura of Protection (10ft)</td>
           <td class="modifier">
-            <span class="mono">+{scores.abilityModifier('Cha')}&nbsp;</span>
+            <span class="mono">+{character.abilityModifier('Cha')}&nbsp;</span>
           </td>
         </tr>
         <tr>
@@ -111,15 +111,15 @@ import '../../../public/styles/style.css';
     <div class="column">
       <SavesTable 
         title="Saves (with added Cha)" 
-        saves={scores.saves}
-        scores={scores}
-        extraBonus={scores.abilityModifier('Cha')}
+        saves={character.saves}
+        scores={character}
+        extraBonus={character.abilityModifier('Cha')}
       />
       <SavesTable 
         title={'<a href="https://2014.5e.tools/races.html#warforged_erlw">Constructed Resilience</a><br>ADV against poison<br>also half damage'}
-        saves={scores.saves.filter(s => s.save == 'Con')} 
+        saves={character.saves.filter(s => s.save == 'Con')} 
         advantage={true}
-        scores={scores}
+        scores={character}
       />
     </div>
   </div>
