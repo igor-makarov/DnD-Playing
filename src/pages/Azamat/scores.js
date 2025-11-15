@@ -9,7 +9,7 @@ export const scores = new CharacterScores({
     'Wis': 10,
     'Cha': 15 + 1, /* Warforged */
   },
-  paladinLevel: 13,
+  characterLevel: 14,
   proficiencyBonus: 5,
   skills: [
     { skill: 'Acrobatics', modifier: 'Dex' },

@@ -1,7 +1,7 @@
 export class CharacterScores {
-  constructor({ abilityScores, paladinLevel, proficiencyBonus, skills, saves }) {
+  constructor({ abilityScores, characterLevel, proficiencyBonus, skills, saves }) {
     this.abilityScores = abilityScores;
-    this.paladinLevel = paladinLevel;
+    this.characterLevel = characterLevel;
     this.proficiencyBonus = proficiencyBonus;
     this.skills = skills;
     this.saves = saves;
