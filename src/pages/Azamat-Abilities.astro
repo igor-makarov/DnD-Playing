@@ -3,6 +3,7 @@ import { abilityScores, paladinLevel, proficiencyBonus, skills, saves } from './
 import CheckCell from '../components/CheckCell.astro';
 import SkillsTable from '../components/SkillsTable.astro';
 import SavesTable from '../components/SavesTable.astro';
+import '../../public/styles/style.css';
 
 function abilityModifier(ability) {
   return Math.floor((abilityScores[ability] - 10) / 2);
@@ -20,7 +21,6 @@ function createProficiency(proficient, multiplier) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skills Table</title>
-  <link rel="stylesheet" href="/styles/style.css">
   <base target="_blank">
 </head>
 <body>
