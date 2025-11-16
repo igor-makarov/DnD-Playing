@@ -31,7 +31,7 @@ import "../../public/styles/style.css";
                     <br />
                   </>
                   <span class="checkCell">
-                    <CheckCell client:only="react" bonus={character.abilityModifier(ability)} />
+                    <CheckCell client:only="react" bonus={character.getAbilityModifier(ability)} />
                   </span>
                 </th>
               ))
@@ -45,7 +45,7 @@ import "../../public/styles/style.css";
             <th colspan="3" class="modifier">
               <span class="mono">Initiative</span><br />
               <span class="checkCell">
-                <CheckCell client:only="react" bonus={character.abilityModifier("Dex")} advantage={true} />
+                <CheckCell client:only="react" bonus={character.getAbilityModifier("Dex")} advantage={true} />
               </span>
             </th>
           </tr>
@@ -95,13 +95,13 @@ import "../../public/styles/style.css";
           <tr>
             <td>Watcher's Will (CD)</td>
             <td class="modifier">
-              <span class="mono">{character.abilityModifier("Cha")}</span> + self
+              <span class="mono">{character.getAbilityModifier("Cha")}</span> + self
             </td>
           </tr>
           <tr>
             <td>Aura of Protection (10ft)</td>
             <td class="modifier">
-              <span class="mono">+{character.abilityModifier("Cha")}&nbsp;</span>
+              <span class="mono">+{character.getAbilityModifier("Cha")}&nbsp;</span>
             </td>
           </tr>
           <tr>

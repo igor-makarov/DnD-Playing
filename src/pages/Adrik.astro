@@ -31,7 +31,7 @@ import { DiceString } from "../js/DiceString";
                     <br />
                   </>
                   <span class="checkCell">
-                    <CheckCell client:only="react" bonus={character.abilityModifier(ability)} />
+                    <CheckCell client:only="react" bonus={character.getAbilityModifier(ability)} />
                   </span>
                 </th>
               ))
@@ -45,7 +45,7 @@ import { DiceString } from "../js/DiceString";
             <th colspan="3" class="modifier">
               <span class="mono">Initiative</span><br />
               <span class="checkCell">
-                <CheckCell client:only="react" bonus={character.abilityModifier("Dex")} />
+                <CheckCell client:only="react" bonus={character.getAbilityModifier("Dex")} />
               </span>
             </th>
           </tr>
@@ -71,7 +71,7 @@ import { DiceString } from "../js/DiceString";
             .getSkills()
             .filter((s) => (s.ability == "Int" || s.ability == "Wis") && s.proficiency.bonus > 0)
             .map((skill) => {
-              const modifier = character.abilityModifier(skill.ability);
+              const modifier = character.getAbilityModifier(skill.ability);
               const proficiency = character.createProficiency(true, 2);
               return {
                 ...skill,
@@ -93,7 +93,7 @@ import { DiceString } from "../js/DiceString";
             .getSkills()
             .filter((s) => s.skill == "History")
             .map((skill) => {
-              const modifier = character.abilityModifier(skill.ability);
+              const modifier = character.getAbilityModifier(skill.ability);
               const proficiency = character.createProficiency(true, 2);
               return {
                 ...skill,

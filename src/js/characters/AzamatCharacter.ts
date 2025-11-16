@@ -70,7 +70,7 @@ class AzamatCharacter extends Character {
   // Override to add Charisma modifier (Aura of Protection)
   getSavingThrows(): SavingThrow[] {
     const baseSaves = super.getSavingThrows();
-    const charismaMod = this.abilityModifier("Cha");
+    const charismaMod = this.getAbilityModifier("Cha");
 
     return baseSaves.map(({ ability, proficiency, dice }) => ({
       ability,

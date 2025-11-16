@@ -76,14 +76,14 @@ export class Character {
     return Object.keys(this.abilityScores) as Ability[];
   }
 
-  abilityModifier(ability: Ability): number {
+  getAbilityModifier(ability: Ability): number {
     return Math.floor((this.abilityScores[ability] - 10) / 2);
   }
 
   getSkills(): Skill[] {
     return this.skills.map((skillProf) => {
       const proficiency = this.createProficiency(skillProf.proficient ?? false);
-      const modifier = this.abilityModifier(skillProf.ability);
+      const modifier = this.getAbilityModifier(skillProf.ability);
       return {
         skill: skillProf.skill,
         ability: skillProf.ability,
@@ -96,7 +96,7 @@ export class Character {
   getSavingThrows(): SavingThrow[] {
     return this.getAbilities().map((ability) => {
       const save = this.saves.find((s) => s.save === ability);
-      const modifier = this.abilityModifier(ability);
+      const modifier = this.getAbilityModifier(ability);
       const proficiency = this.createProficiency(save?.proficient ?? false);
       return {
         ability,
