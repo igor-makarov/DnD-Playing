@@ -1,7 +1,6 @@
 import { Character } from "../../js/Character";
 
 class AzamatCharacter extends Character {
-  weapons: { weapon: string; damage: string; }[];
   constructor() {
     super({
       abilityScores: {
@@ -42,16 +41,16 @@ class AzamatCharacter extends Character {
         { save: 'Wis', proficient: true }, // Paladin
         { save: 'Cha', proficient: true }, // Paladin
       ],
+      weapons: [
+        { weapon: 'Warhammer +1 (2h)', damage: 'd10', bonus: 1 },
+        { weapon: 'Unarmed', damage: '' },
+        { weapon: 'Warhammer +1 (1h)', damage: 'd8', bonus: 1 },
+        { weapon: 'Laser Axe', damage: 'd10+d6' },
+        { weapon: 'Javelin', damage: 'd6' },
+        { weapon: 'Club', damage: 'd4' },
+        { weapon: 'Warhammer', damage: 'd8' },
+      ],
     });
-    this.weapons = [
-      { weapon: 'Warhammer +1 (2h)', damage: 'd10' },
-      { weapon: 'Unarmed', damage: '' },
-      { weapon: 'Warhammer +1 (1h)', damage: 'd8' },
-      { weapon: 'Laser Axe', damage: 'd10+d6' },
-      { weapon: 'Javelin', damage: 'd6' },
-      { weapon: 'Club', damage: 'd4' },
-      { weapon: 'Warhammer', damage: 'd8' },
-    ];
   }
 }
 
