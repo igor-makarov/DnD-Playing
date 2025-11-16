@@ -2,7 +2,7 @@ import React, { useState, useMemo, useSyncExternalStore } from "react";
 import CheckCell from "./CheckCell";
 import { getRollUrl } from "../js/rollOptions";
 import { DiceString } from "../js/DiceString";
-import { LevelledDamageAddonRow } from "./LevelledDamageAddonRow";
+import LevelledDamageAddonRow from "./LevelledDamageAddonRow";
 import type { DamageData, DamageAddonData, DamageOptionsData, WeaponAttackData } from "./WeaponAttackData";
 
 // This function subscribes to the hashchange event
@@ -24,7 +24,7 @@ interface WeaponAttackProps {
   damageAddons: DamageAddonData[];
 }
 
-export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageAddons }) => {
+const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageAddons }) => {
   const [selectedWeaponName, setSelectedWeaponName] = useState<string>("");
   const [selectedLevels, setSelectedLevels] = useState<Map<string, number>>(new Map());
 
@@ -158,3 +158,5 @@ export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damag
     </table>
   );
 };
+
+export default WeaponAttack;

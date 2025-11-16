@@ -7,7 +7,7 @@ interface LevelledDamageAddonRowProps {
   onLevelChange: (level: number) => void;
 }
 
-export const LevelledDamageAddonRow: React.FC<LevelledDamageAddonRowProps> = ({ addon, selectedLevel, onLevelChange }) => {
+const LevelledDamageAddonRow: React.FC<LevelledDamageAddonRowProps> = ({ addon, selectedLevel, onLevelChange }) => {
   const getAddonDamage = (): DamageData | null => {
     if (selectedLevel === -1) {
       return null; // Off state
@@ -39,3 +39,5 @@ export const LevelledDamageAddonRow: React.FC<LevelledDamageAddonRowProps> = ({ 
     </tr>
   );
 };
+
+export default LevelledDamageAddonRow;
