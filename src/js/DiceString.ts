@@ -1,0 +1,229 @@
+/**
+ * Represents a single dice term (e.g., "2d6" means 2 dice with 6 sides)
+ */
+interface DiceTerm {
+  count: number;
+  sides: number;
+}
+
+/**
+ * D&D Dice String parser and manipulator
+ * Supports parsing, normalizing, and applying critical hit rules to dice expressions
+ *
+ * Examples:
+ * - "2d6+5" => 2 six-sided dice plus 5
+ * - "d20+3" => 1 twenty-sided die plus 3
+ * - "2d6+1d4-2" => 2d6, 1d4, minus 2
+ */
+export class DiceString {
+  private dice: DiceTerm[];
+  private modifier: number;
+
+  private constructor(dice: DiceTerm[], modifier: number) {
+    this.dice = dice;
+    this.modifier = modifier;
+  }
+
+  /**
+   * Initialize a DiceString from separate dice and modifier values
+   *
+   * @param dice The dice portion as a string (e.g., "2d6+1d4" or "d20"), can be empty
+   * @param modifier The numeric modifier to add
+   * @returns A new DiceString instance
+   * @throws Error if the dice string is invalid
+   *
+   * @example
+   * DiceString.init("2d6", 5) // "2d6+5"
+   * DiceString.init("d20", -2) // "d20-2"
+   * DiceString.init("2d6+1d4", 3) // "2d6+1d4+3"
+   * DiceString.init("", 5) // "5"
+   */
+  static init(dice: string, modifier: number): DiceString {
+    // Handle empty dice string - just return modifier
+    if (!dice || dice.trim() === '') {
+      return new DiceString([], modifier);
+    }
+    // Parse the dice portion (without modifier)
+    const diceOnly = DiceString.parse(dice);
+    // Return a new instance with the combined dice and specified modifier
+    return new DiceString(diceOnly.dice, diceOnly.modifier + modifier);
+  }
+
+  /**
+   * Parse a dice string expression into a DiceString object
+   *
+   * Supported formats:
+   * - "2d6" - multiple dice
+   * - "d20" - single die (treated as 1d20)
+   * - "2d6+5" - dice with positive modifier
+   * - "2d6-3" - dice with negative modifier
+   * - "2d6+1d4+5" - multiple dice types with modifier
+   *
+   * @param input The dice string to parse
+   * @returns A new DiceString instance
+   * @throws Error if the input is invalid
+   */
+  static parse(input: string): DiceString {
+    if (!input || typeof input !== 'string') {
+      throw new Error('Invalid input: must be a non-empty string');
+    }
+
+    const dice: DiceTerm[] = [];
+    let modifier = 0;
+
+    // Remove all whitespace
+    const normalized = input.replace(/\s+/g, '');
+
+    // Split by + and -, keeping the operators
+    const terms: string[] = [];
+    const operators: string[] = [];
+    let currentTerm = '';
+
+    for (let i = 0; i < normalized.length; i++) {
+      const char = normalized[i];
+      if (char === '+' || char === '-') {
+        if (currentTerm) {
+          terms.push(currentTerm);
+          operators.push(char);
+          currentTerm = '';
+        } else if (char === '-' && i === 0) {
+          // Handle leading negative sign
+          currentTerm = '-';
+        }
+      } else {
+        currentTerm += char;
+      }
+    }
+    if (currentTerm) {
+      terms.push(currentTerm);
+    }
+
+    // Process each term
+    for (let i = 0; i < terms.length; i++) {
+      const term = terms[i];
+      const sign = i === 0 && !term.startsWith('-') ? 1 : (operators[i - 1] === '-' ? -1 : 1);
+
+      // Check if it's a dice term (contains 'd' or 'D')
+      const diceMatch = term.match(/^(-?)(\d*)d(\d+)$/i);
+
+      if (diceMatch) {
+        const termSign = diceMatch[1] === '-' ? -1 : 1;
+        const count = diceMatch[2] ? parseInt(diceMatch[2], 10) : 1;
+        const sides = parseInt(diceMatch[3], 10);
+
+        if (sides <= 0) {
+          throw new Error(`Invalid dice: d${sides} (sides must be positive)`);
+        }
+
+        dice.push({ count: count * sign * termSign, sides });
+      } else {
+        // It's a modifier
+        const value = parseInt(term, 10);
+        if (isNaN(value)) {
+          throw new Error(`Invalid term: "${term}"`);
+        }
+        modifier += value * sign;
+      }
+    }
+
+    return new DiceString(dice, modifier);
+  }
+
+  /**
+   * Normalize the dice string by combining dice with the same number of sides
+   *
+   * Example: "d6+2d6+d4" => "3d6+d4"
+   *
+   * @returns A new normalized DiceString
+   */
+  normalize(): DiceString {
+    const diceMap = new Map<number, number>();
+
+    // Sum up dice counts by sides
+    for (const die of this.dice) {
+      const current = diceMap.get(die.sides) || 0;
+      diceMap.set(die.sides, current + die.count);
+    }
+
+    // Convert back to array, filtering out zero counts
+    const normalizedDice: DiceTerm[] = [];
+    for (const [sides, count] of diceMap.entries()) {
+      if (count !== 0) {
+        normalizedDice.push({ count, sides });
+      }
+    }
+
+    // Sort by sides for consistent output
+    normalizedDice.sort((a, b) => b.sides - a.sides);
+
+    return new DiceString(normalizedDice, this.modifier);
+  }
+
+  /**
+   * Apply critical hit rules: double all dice, but not modifiers
+   *
+   * Example: "2d6+1d4+5" => "4d6+2d4+5"
+   *
+   * @returns A new DiceString with doubled dice
+   */
+  crit(): DiceString {
+    const critDice = this.dice.map(die => ({
+      count: die.count * 2,
+      sides: die.sides
+    }));
+
+    return new DiceString(critDice, this.modifier);
+  }
+
+  /**
+   * Convert the DiceString back to standard notation
+   *
+   * Examples:
+   * - "2d6+5"
+   * - "d20-2"
+   * - "3d6+1d4"
+   *
+   * @returns The dice string in standard notation
+   */
+  toString(): string {
+    const parts: string[] = [];
+
+    // Add dice terms
+    for (const die of this.dice) {
+      const count = Math.abs(die.count);
+      const countStr = count === 1 ? '' : count.toString();
+      const diceStr = `${countStr}d${die.sides}`;
+
+      if (parts.length === 0) {
+        // First term
+        if (die.count < 0) {
+          parts.push(`-${diceStr}`);
+        } else {
+          parts.push(diceStr);
+        }
+      } else {
+        // Subsequent terms
+        if (die.count < 0) {
+          parts.push(`-${diceStr}`);
+        } else {
+          parts.push(`+${diceStr}`);
+        }
+      }
+    }
+
+    // Add modifier
+    if (this.modifier !== 0) {
+      if (parts.length === 0) {
+        parts.push(this.modifier.toString());
+      } else {
+        if (this.modifier > 0) {
+          parts.push(`+${this.modifier}`);
+        } else {
+          parts.push(`${this.modifier}`);
+        }
+      }
+    }
+
+    return parts.length > 0 ? parts.join('') : '0';
+  }
+}

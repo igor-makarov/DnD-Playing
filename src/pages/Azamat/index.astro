@@ -3,7 +3,7 @@ import { character } from "./AzamatCharacter";
 import CheckCell from "../../components/CheckCell.tsx";
 import SkillsTable from "../../components/SkillsTable.astro";
 import SavesTable from "../../components/SavesTable.astro";
-import WeaponAttack from "../../components/WeaponAttack.tsx";
+import WeaponAttackTable from "../../components/WeaponAttackTable.astro";
 import "../../../public/styles/style.css";
 ---
 
@@ -74,10 +74,7 @@ import "../../../public/styles/style.css";
           skills={character.skills.filter((s) => s.modifier == "Cha")}
           scores={character}
         />
-        <WeaponAttack
-          client:only="react"
-          weaponAttacks={character.createWeaponAttacks()}
-        />
+        <WeaponAttackTable character={character} />
       </div>
       <div class="column">
         <table>

@@ -16,13 +16,6 @@ export type Weapon = {
   bonus: number;
 }
 
-export type WeaponAttack = {
-  weapon: string;
-  attackModifier: number;
-  damageRoll: string;
-  critRoll: string;
-}
-
 export type AttackAddon = {
   addon: string;
   damage: string;
@@ -55,14 +48,5 @@ export class Character {
     multiplier ||= 1;
     const symbol = multiplier > 1 ? 'E' : 'P';
     return { symbol: proficient ? symbol : ' ', bonus: (proficient ? 1 : 0) * this.proficiencyBonus * multiplier };
-  }
-
-  createWeaponAttacks(): WeaponAttack[] {
-    return this.weapons.map(w => ({
-      weapon: w.weapon,
-      attackModifier: this.abilityModifier('Str') + this.proficiencyBonus + (w.bonus ?? 0),
-      damageRoll: `${w.damage ?? ''}+${this.abilityModifier('Str') + (w.bonus ?? 0)}`,
-      critRoll: `${w.damage ? w.damage + '+' + w.damage : ''}+${this.abilityModifier('Str') + (w.bonus ?? 0)}`,
-    }))
   }
 }

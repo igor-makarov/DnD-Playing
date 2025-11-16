@@ -1,6 +1,7 @@
 
 import React, { useSyncExternalStore } from 'react';
 import { getRollUrl } from '../js/rollOptions';
+import { DiceString } from '../js/DiceString';
 
 // This function subscribes to the hashchange event
 function subscribe(callback: () => void) {
@@ -27,17 +28,17 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
   const diceAppKey = hash?.substring(1) || 'app';
 
   const bonusSign = bonus >= 0 ? '+' : '';
-  const diceExpression = `d20${bonusSign}${bonus}`;
+  const diceString = DiceString.init('d20', bonus).toString();
 
   return (
     <span className="mono check-cell" data-bonus={bonus} data-advantage={advantage}>
-      <a className="regular-link" href={getRollUrl(diceExpression, diceAppKey)}>{bonusSign}{bonus}</a>
+      <a className="regular-link" href={getRollUrl(diceString, diceAppKey)}>{bonusSign}{bonus}</a>
       &nbsp;
-      <a className="advantage-link" href={getRollUrl(diceExpression, diceAppKey, { advantage: true })}>
+      <a className="advantage-link" href={getRollUrl(diceString, diceAppKey, { advantage: true })}>
         {advantage ? <strong>ADV</strong> : 'ADV'}
       </a>
       &nbsp;
-      <a className="disadvantage-link" href={getRollUrl(diceExpression, diceAppKey, { disadvantage: true })}>DIS</a>
+      <a className="disadvantage-link" href={getRollUrl(diceString, diceAppKey, { disadvantage: true })}>DIS</a>
     </span>
   );
 };

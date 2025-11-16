@@ -1,13 +1,19 @@
 import React, { useState, useMemo } from 'react';
 import CheckCell from './CheckCell';
-import { Character, type WeaponAttack } from '../js/Character';
 import { getRollUrl } from '../js/rollOptions';
 
-interface WeaponAttackProps {
-  weaponAttacks: WeaponAttack[];
+export type WeaponAttackData = {
+  weapon: string;
+  attackModifier: number;
+  damageRoll: string;
+  critRoll: string;
 }
 
-const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks }) => {
+interface WeaponAttackProps {
+  weaponAttacks: WeaponAttackData[];
+}
+
+export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks }) => {
   // const weap
   const [selectedWeaponName, setSelectedWeaponName] = useState<string>('');
 
@@ -80,5 +86,3 @@ const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks }) => {
     </table>
   );
 };
-
-export default WeaponAttack;
