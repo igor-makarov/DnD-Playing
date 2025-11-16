@@ -1,128 +1,150 @@
 ---
-import { character } from './AzamatCharacter';
-import CheckCell from '../../components/CheckCell.tsx';
-import SkillsTable from '../../components/SkillsTable.astro';
-import SavesTable from '../../components/SavesTable.astro';
-import WeaponAttack from '../../components/WeaponAttack.astro';
-import '../../../public/styles/style.css';
+import { character } from "./AzamatCharacter";
+import CheckCell from "../../components/CheckCell.tsx";
+import SkillsTable from "../../components/SkillsTable.astro";
+import SavesTable from "../../components/SavesTable.astro";
+import WeaponAttack from "../../components/WeaponAttack.tsx";
+import "../../../public/styles/style.css";
 ---
 
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Skills Table</title>
-  <base target="_blank">
-</head>
-<body>
-
-  <div class="row">
-    <div>
-      <table style="border-spacing: 10px; border: 0px; border-collapse: separate;">
-        <tr>
-          {Object.keys(character.abilityScores).map(ability => (
-            <th style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;" class="modifier">
-              <span class="mono">{ability}</span><br/>
-              <span class="mono">{character.abilityScores[ability]}</span><br/>
-              <span class="checkCell">
-                <CheckCell client:only="react" bonus={character.abilityModifier(ability)} />
-              </span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skills Table</title>
+    <base target="_blank" />
+  </head>
+  <body>
+    <div class="row">
+      <div>
+        <table
+          style="border-spacing: 10px; border: 0px; border-collapse: separate;"
+        >
+          <tr>
+            {
+              Object.keys(character.abilityScores).map((ability) => (
+                <th
+                  style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;"
+                  class="modifier"
+                >
+                  <>
+                    <span class="mono">{ability}</span>
+                    <br />
+                  </>
+                  <>
+                    <span class="mono">{character.abilityScores[ability]}</span>
+                    <br />
+                  </>
+                  <span class="checkCell">
+                    <CheckCell
+                      client:only="react"
+                      bonus={character.abilityModifier(ability)}
+                    />
+                  </span>
+                </th>
+              ))
+            }
+          </tr>
+          <tr>
+            <th colspan="6" class="modifier">
+              <span class="mono">Proficiency Bonus</span><br />
+              <span class="mono">+{character.proficiencyBonus}&nbsp;</span>
             </th>
-          ))}
-        </tr>
-        <tr>
-          <th colspan="6" class="modifier">
-            <span class="mono">Proficiency Bonus</span><br/>
-            <span class="mono">+{character.proficiencyBonus}&nbsp;</span>
-          </th>
-        </tr>
-      </table>
+          </tr>
+        </table>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="column">
-      <SkillsTable 
-        title={'Skills<br><a href="https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230">character sheet</a>'}
-        skills={character.skills}
-        scores={character}
-      />
+    <div class="row">
+      <div class="column">
+        <SkillsTable
+          title={'Skills<br><a href="https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230">character sheet</a>'}
+          skills={character.skills}
+          scores={character}
+        />
+      </div>
+      <div class="column">
+        <SkillsTable
+          title="Proficient skills"
+          skills={character.skills.filter((s) => s.proficient)}
+          scores={character}
+        />
+        <SkillsTable
+          title="Cha skills"
+          skills={character.skills.filter((s) => s.modifier == "Cha")}
+          scores={character}
+        />
+        <WeaponAttack
+          client:only="react"
+          weaponAttacks={character.createWeaponAttacks()}
+        />
+      </div>
+      <div class="column">
+        <table>
+          <tr>
+            <th colspan="2" style="text-align: center;">Features</th>
+          </tr>
+          <tr>
+            <th>Feature</th>
+            <th class="modifier">Effect</th>
+          </tr>
+          <tr>
+            <td>Lay on Hands</td>
+            <td class="modifier">
+              <span class="mono">{5 * character.characterLevel}</span>/long rest
+            </td>
+          </tr>
+          <tr>
+            <td>Channel Divinity</td>
+            <td class="modifier">
+              <span class="mono">2</span>/short/long rest
+            </td>
+          </tr>
+          <tr>
+            <td>HDP (CD)</td>
+            <td class="modifier">
+              Max slot level: <span class="mono"
+                >{Math.ceil(0.5 * character.proficiencyBonus)}</span
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Watcher's Will (CD)</td>
+            <td class="modifier">
+              <span class="mono">{character.abilityModifier("Cha")}</span> + self
+            </td>
+          </tr>
+          <tr>
+            <td>Aura of Protection (10ft)</td>
+            <td class="modifier">
+              <span class="mono">+{character.abilityModifier("Cha")}&nbsp;</span
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Aura of the Sentinel (10ft)</td>
+            <td class="modifier">Advantage: Initiative</td>
+          </tr>
+          <tr>
+            <td>Aura of Courage (10ft)</td>
+            <td class="modifier">Immunity: frightened</td>
+          </tr>
+        </table>
+      </div>
+      <div class="column">
+        <SavesTable
+          title="Saves (with added Cha)"
+          saves={character.saves}
+          scores={character}
+          extraBonus={character.abilityModifier("Cha")}
+        />
+        <SavesTable
+          title={'<a href="https://2014.5e.tools/races.html#warforged_erlw">Constructed Resilience</a><br>ADV against poison<br>also half damage'}
+          saves={character.saves.filter((s) => s.save == "Con")}
+          advantage={true}
+          scores={character}
+        />
+      </div>
     </div>
-    <div class="column">
-      <SkillsTable 
-        title="Proficient skills" 
-        skills={character.skills.filter(s => s.proficient)}
-        scores={character}
-      />
-      <SkillsTable 
-        title="Cha skills" 
-        skills={character.skills.filter(s => s.modifier == 'Cha')}
-        scores={character}
-      />
-    </div>
-    <div class="column">
-      <table>
-        <tr>
-          <th colspan="2" style="text-align: center;">Features</th>
-        </tr>
-        <tr>
-          <th>Feature</th>
-          <th class="modifier">Effect</th>
-        </tr>
-        <tr>
-          <td>Lay on Hands</td>
-          <td class="modifier">
-            <span class="mono">{5 * character.characterLevel}</span>/long rest
-          </td>
-        </tr>
-        <tr>
-          <td>Channel Divinity</td>
-          <td class="modifier">
-            <span class="mono">2</span>/short/long rest
-          </td>
-        </tr>
-        <tr>
-          <td>HDP (CD)</td>
-          <td class="modifier">
-            Max slot level: <span class="mono">{Math.ceil(0.5 * character.proficiencyBonus)}</span>
-          </td>
-        </tr>
-        <tr>
-          <td>Watcher's Will (CD)</td>
-          <td class="modifier">
-            <span class="mono">{character.abilityModifier('Cha')}</span> + self
-          </td>
-        </tr>
-        <tr>
-          <td>Aura of Protection (10ft)</td>
-          <td class="modifier">
-            <span class="mono">+{character.abilityModifier('Cha')}&nbsp;</span>
-          </td>
-        </tr>
-        <tr>
-          <td>Aura of the Sentinel (10ft)</td>
-          <td class="modifier">Advantage: Initiative</td>
-        </tr>
-        <tr>
-          <td>Aura of Courage (10ft)</td>
-          <td class="modifier">Immunity: frightened</td>
-        </tr>
-      </table>
-    </div>
-    <div class="column">
-      <SavesTable 
-        title="Saves (with added Cha)" 
-        saves={character.saves}
-        scores={character}
-        extraBonus={character.abilityModifier('Cha')}
-      />
-      <SavesTable 
-        title={'<a href="https://2014.5e.tools/races.html#warforged_erlw">Constructed Resilience</a><br>ADV against poison<br>also half damage'}
-        saves={character.saves.filter(s => s.save == 'Con')} 
-        advantage={true}
-        scores={character}
-      />
-    </div>
-  </div>
-</body>
+  </body>
 </html>

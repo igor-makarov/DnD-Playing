@@ -43,7 +43,7 @@ class AzamatCharacter extends Character {
       ],
       weapons: [
         { weapon: 'Warhammer +1 (2h)', damage: 'd10', bonus: 1 },
-        { weapon: 'Unarmed', damage: '' },
+        { weapon: 'Unarmed' },
         { weapon: 'Warhammer +1 (1h)', damage: 'd8', bonus: 1 },
         { weapon: 'Laser Axe', damage: 'd10+d6' },
         { weapon: 'Javelin', damage: 'd6' },
