@@ -61,6 +61,20 @@ export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damag
   const hash = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const diceAppKey = hash?.substring(1) || "app";
 
+  // Compute total damage (weapon + addons)
+  const totalDamage = useMemo(() => {
+    if (!selectedWeapon) {
+      return null;
+    }
+    const damageRolls = [selectedWeapon.damage.damageRoll, ...damageAddons.map((a) => a.damage.damageRoll)];
+    const critRolls = [selectedWeapon.damage.critRoll, ...damageAddons.map((a) => a.damage.critRoll)];
+
+    return {
+      damageRoll: DiceString.sum(damageRolls).toString(),
+      critRoll: DiceString.sum(critRolls).toString(),
+    };
+  }, [selectedWeapon, damageAddons]);
+
   return (
     <table>
       <tr>
@@ -101,25 +115,13 @@ export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damag
       <tr>
         <td>Damage</td>
         <td className="checkCell modifier">
-          {selectedWeapon && (
+          {totalDamage && (
             <span className="mono">
-              <a
-                className="regular-link"
-                href={getRollUrl(
-                  DiceString.sum([selectedWeapon.damage.damageRoll, ...damageAddons.map((a) => a.damage.damageRoll)]).toString(),
-                  diceAppKey,
-                )}
-              >
-                {DiceString.sum([selectedWeapon.damage.damageRoll, ...damageAddons.map((a) => a.damage.damageRoll)]).toString()}
+              <a className="regular-link" href={getRollUrl(totalDamage.damageRoll, diceAppKey)}>
+                {totalDamage.damageRoll}
               </a>
               &nbsp;
-              <a
-                className="regular-link"
-                href={getRollUrl(
-                  DiceString.sum([selectedWeapon.damage.critRoll, ...damageAddons.map((a) => a.damage.critRoll)]).toString(),
-                  diceAppKey,
-                )}
-              >
+              <a className="regular-link" href={getRollUrl(totalDamage.critRoll, diceAppKey)}>
                 CRIT
               </a>
             </span>
