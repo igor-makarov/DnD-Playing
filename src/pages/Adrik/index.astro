@@ -1,9 +1,10 @@
 ---
-import { character } from "./AdrikCharacter.js";
+import { character } from "../../js/AdrikCharacter.js";
 import CheckCell from "../../components/CheckCell.tsx";
 import SkillsTable from "../../components/SkillsTable.astro";
 import SavesTable from "../../components/SavesTable.astro";
 import "../../../public/styles/style.css";
+import type { Ability } from "../../js/Character";
 ---
 
 <html lang="en">
@@ -30,7 +31,7 @@ import "../../../public/styles/style.css";
                     <br />
                   </>
                   <span class="checkCell">
-                    <CheckCell client:only="react" bonus={character.abilityModifier(ability)} />
+                    <CheckCell client:only="react" bonus={character.abilityModifier(ability as Ability)} />
                   </span>
                 </th>
               ))

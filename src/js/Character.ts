@@ -47,11 +47,11 @@ export class Character {
     this.attackAddons = attackAddons;
   }
 
-  abilityModifier(ability) {
+  abilityModifier(ability: Ability) {
     return Math.floor((this.abilityScores[ability] - 10) / 2);
   }
 
-  createProficiency(proficient, multiplier) {
+  createProficiency(proficient: boolean, multiplier: number | undefined) {
     multiplier ||= 1;
     const symbol = multiplier > 1 ? "E" : "P";
     return { symbol: proficient ? symbol : " ", bonus: (proficient ? 1 : 0) * this.proficiencyBonus * multiplier };

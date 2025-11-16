@@ -1,10 +1,11 @@
 ---
-import { character } from "./AzamatCharacter";
+import { character } from "../../js/AzamatCharacter";
 import CheckCell from "../../components/CheckCell.tsx";
 import SkillsTable from "../../components/SkillsTable.astro";
 import SavesTable from "../../components/SavesTable.astro";
 import WeaponAttackTable from "../../components/WeaponAttackTable.astro";
 import "../../../public/styles/style.css";
+import type { Ability } from "../../js/Character";
 ---
 
 <html lang="en">
@@ -31,7 +32,7 @@ import "../../../public/styles/style.css";
                     <br />
                   </>
                   <span class="checkCell">
-                    <CheckCell client:only="react" bonus={character.abilityModifier(ability)} />
+                    <CheckCell client:only="react" bonus={character.abilityModifier(ability as Ability)} />
                   </span>
                 </th>
               ))

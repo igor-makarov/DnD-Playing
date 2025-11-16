@@ -1,4 +1,4 @@
-import { Character } from "../../js/Character.js";
+import { Character } from "./Character.js";
 
 class AdrikCharacter extends Character {
   constructor() {
