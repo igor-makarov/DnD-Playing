@@ -27,7 +27,7 @@ interface WeaponAttackProps {
 }
 
 const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageAddons }) => {
-  const [selectedWeaponName, setSelectedWeaponName] = useState<string>("");
+  const [selectedWeaponName, setSelectedWeaponName] = useState<string>(() => weaponAttacks[0]?.weapon || "");
   const [selectedLevels, setSelectedLevels] = useState<Map<string, number>>(new Map());
   const [enabledOptionals, setEnabledOptionals] = useState<Map<string, boolean>>(new Map());
 

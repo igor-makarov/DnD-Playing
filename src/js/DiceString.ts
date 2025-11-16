@@ -234,6 +234,28 @@ export class DiceString {
   }
 
   /**
+   * Calculate the average value of the dice expression
+   * Average of a die is (sides + 1) / 2
+   *
+   * @returns The average value of rolling this dice string
+   * @example
+   * DiceString.parse("2d6+5").average() // 12 (2 * 3.5 + 5)
+   * DiceString.parse("d20").average() // 10.5
+   * DiceString.parse("d8+3").average() // 7.5
+   */
+  average(): number {
+    let total = this.modifier;
+
+    for (const die of this.dice) {
+      // Average of a single die is (sides + 1) / 2
+      const dieAverage = (die.sides + 1) / 2;
+      total += die.count * dieAverage;
+    }
+
+    return total;
+  }
+
+  /**
    * Convert the DiceString back to standard notation
    *
    * Examples:
