@@ -161,7 +161,6 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
                     modifier === RollModifier.CRITICAL ? getRollUrl(totalDamage.critRoll, diceAppKey) : getRollUrl(totalDamage.damageRoll, diceAppKey)
                   }
                   title="Hold C: critical"
-                  style={{ textDecoration: "none" }}
                 >
                   [{modifier === RollModifier.CRITICAL ? totalDamage.critRoll : totalDamage.damageRoll}]
                 </a>

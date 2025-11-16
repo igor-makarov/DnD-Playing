@@ -13,6 +13,7 @@ a.dice-roll,
 a.dice-roll:visited {
   background-color: #f1a20f;
   color: white;
+  text-decoration: none;
 }
 
 th a:not(.dice-roll) {
@@ -95,4 +96,35 @@ td.checkCell {
 
 tr:nth-child(odd) {
   background-color: #eee;
+}
+
+.abilities-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  padding: 0 5px;
+}
+
+@media screen and (max-width: 600px) {
+  .abilities-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.ability-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 8px;
+  background-color: #eee;
+}
+
+.ability-name {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.ability-score {
+  margin-bottom: 4px;
 }

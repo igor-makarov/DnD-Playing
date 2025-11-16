@@ -50,7 +50,6 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
           className="dice-roll"
           href={currentUrl}
           title="Hold A: advantage | Hold D: disadvantage | Hold S: regular"
-          style={{ textDecoration: "none" }}
         >
           [{currentRollCaption}
           {bonusSign}
