@@ -57,46 +57,46 @@ import "../../public/styles/style.css";
         <SkillsTable
           title={'Skills<br><a href="https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230">character sheet</a>'}
           skills={character.skills}
-          scores={character}
+          character={character}
         />
       </div>
       <div class="column">
-        <SkillsTable title="Int skills" skills={character.skills.filter((s) => s.modifier == "Int")} scores={character} />
-        <SkillsTable title="Wis skills" skills={character.skills.filter((s) => s.modifier == "Wis")} scores={character} />
+        <SkillsTable title="Int skills" skills={character.skills.filter((s) => s.modifier == "Int")} character={character} />
+        <SkillsTable title="Wis skills" skills={character.skills.filter((s) => s.modifier == "Wis")} character={character} />
       </div>
       <div class="column">
         <SkillsTable
           title={'<a href="http://dnd5e.wikidot.com/ranger#:~:text=at%2014th%20level.-,Natural%20Explorer,-Also%20at%201st">Favored Terrain</a><br>expertise on Forest'}
           skills={character.skills.filter((s) => (s.modifier == "Int" || s.modifier == "Wis") && s.proficient)}
           proficiencyMultiplier={2}
-          scores={character}
+          character={character}
         />
         <SkillsTable
           title={'<a href="http://dnd5e.wikidot.com/ranger#:~:text=of%2020%20arrows-,Favored%20Enemy,-Beginning%20at%201st">Favored Enemy</a><br>ADV on orc, goblin'}
           skills={character.skills.filter((s) => s.modifier == "Int" || s.skill == "Survival")}
           advantage={true}
-          scores={character}
+          character={character}
         />
         <SkillsTable
           title={'<a href="http://dnd5e.wikidot.com/lineage:dwarf#:~:text=Stonecunning">Stonecunning</a><br>expertise on stonework'}
           skills={character.skills.filter((s) => s.skill == "History")}
           proficiencyMultiplier={2}
-          scores={character}
+          character={character}
         />
         <SkillsTable
           title={'<a href="https://www.dndbeyond.com/spells/hunters-mark">Hunter&apos;s Mark</a><br>ADV on marked creature'}
           skills={character.skills.filter((s) => s.skill == "Perception" || s.skill == "Survival")}
           advantage={true}
-          scores={character}
+          character={character}
         />
       </div>
       <div class="column">
-        <SavesTable title="Saves" saves={character.saves} scores={character} />
+        <SavesTable title="Saves" saves={character.saves} character={character} />
         <SavesTable
           title={'<a href="http://dnd5e.wikidot.com/lineage:dwarf#:~:text=Dwarven%20Resilience">Dwarven Resilience</a><br>ADV against poison<br>also half damage'}
           saves={character.saves.filter((s) => s.save == "Con")}
           advantage={true}
-          scores={character}
+          character={character}
         />
       </div>
     </div>

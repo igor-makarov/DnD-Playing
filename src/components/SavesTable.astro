@@ -2,7 +2,7 @@
 import type { SavingThrow } from "../js/Character";
 import SaveRow from "./SaveRow.astro";
 
-const { title, saves, advantage, scores, proficiencyMultiplier, extraBonus = 0 } = Astro.props;
+const { title, saves, advantage, character, proficiencyMultiplier, extraBonus = 0 } = Astro.props;
 ---
 
 <table>
@@ -15,8 +15,8 @@ const { title, saves, advantage, scores, proficiencyMultiplier, extraBonus = 0 }
   </tr>
   {
     saves.map((save: SavingThrow) => {
-      const proficiency = scores.createProficiency(save.proficient, proficiencyMultiplier);
-      const bonus = scores.abilityModifier(save.save) + proficiency.bonus + extraBonus;
+      const proficiency = character.createProficiency(save.proficient, proficiencyMultiplier);
+      const bonus = character.abilityModifier(save.save) + proficiency.bonus + extraBonus;
       return <SaveRow save={save} proficiency={proficiency} bonus={bonus} advantage={advantage} />;
     })
   }
