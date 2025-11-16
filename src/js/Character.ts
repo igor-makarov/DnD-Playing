@@ -12,6 +12,7 @@ export type SavingThrow = {
 
 export type Weapon = {
   weapon: string;
+  ability: Ability;
   damage: string;
   bonus: number;
 };
