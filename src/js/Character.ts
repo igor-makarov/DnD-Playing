@@ -17,9 +17,11 @@ export type Weapon = {
   bonus: number;
 };
 
+type DamageWithLevels = [level: number, damage: string][];
+
 export type AttackAddon = {
   addon: string;
-  damage: string;
+  damage: string | DamageWithLevels;
 };
 
 export class Character {

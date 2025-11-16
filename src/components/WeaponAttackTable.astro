@@ -19,15 +19,30 @@ const weaponAttacks: WeaponAttackData[] = character.weapons.map((w) => {
 });
 
 const damageAddons: DamageAddonData[] = character.attackAddons.map((addon) => {
-  const addonBaseDamage = DiceString.parse(addon.damage);
-
-  return {
-    addon: addon.addon,
-    damage: {
-      damageRoll: addonBaseDamage.normalize().toString(),
-      critRoll: addonBaseDamage.crit().normalize().toString(),
-    },
-  };
+  if (typeof addon.damage === "string") {
+    const addonBaseDamage = DiceString.parse(addon.damage);
+    return {
+      addon: addon.addon,
+      damage: {
+        damageRoll: addonBaseDamage.normalize().toString(),
+        critRoll: addonBaseDamage.crit().normalize().toString(),
+      },
+    };
+  } else {
+    // DamageWithLevels - convert all levels to damage options
+    const options = addon.damage.map(([level, damageString]) => {
+      const damageObj = DiceString.parse(damageString);
+      return {
+        level,
+        damageRoll: damageObj.normalize().toString(),
+        critRoll: damageObj.crit().normalize().toString(),
+      };
+    });
+    return {
+      addon: addon.addon,
+      damage: { options },
+    };
+  }
 });
 ---
 

@@ -22,9 +22,19 @@ export type DamageData = {
   critRoll: string;
 };
 
+export type DamageOptionData = {
+  level: number;
+  damageRoll: string;
+  critRoll: string;
+};
+
+export type DamageOptionsData = {
+  options: DamageOptionData[];
+};
+
 export type DamageAddonData = {
   addon: string;
-  damage: DamageData;
+  damage: DamageData | DamageOptionsData;
 };
 
 export type WeaponAttackData = {
@@ -39,8 +49,8 @@ interface WeaponAttackProps {
 }
 
 export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageAddons }) => {
-  // const weap
   const [selectedWeaponName, setSelectedWeaponName] = useState<string>("");
+  const [selectedLevels, setSelectedLevels] = useState<Map<string, number>>(new Map());
 
   const selectedWeapon = useMemo(() => {
     if (!selectedWeaponName) {
@@ -61,19 +71,44 @@ export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damag
   const hash = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const diceAppKey = hash?.substring(1) || "app";
 
+  // Helper to get damage for an addon based on selected level
+  const getAddonDamage = (addon: DamageAddonData): DamageData | null => {
+    if ("options" in addon.damage) {
+      const selectedLevel = selectedLevels.get(addon.addon) ?? -1; // Default to -1 (off)
+      if (selectedLevel === -1) {
+        return null; // Off state
+      }
+      const option = addon.damage.options.find((opt) => opt.level === selectedLevel);
+      if (option) {
+        return { damageRoll: option.damageRoll, critRoll: option.critRoll };
+      }
+      return null;
+    } else {
+      return addon.damage;
+    }
+  };
+
   // Compute total damage (weapon + addons)
   const totalDamage = useMemo(() => {
     if (!selectedWeapon) {
       return null;
     }
-    const damageRolls = [selectedWeapon.damage.damageRoll, ...damageAddons.map((a) => a.damage.damageRoll)];
-    const critRolls = [selectedWeapon.damage.critRoll, ...damageAddons.map((a) => a.damage.critRoll)];
+    const damageRolls = [selectedWeapon.damage.damageRoll];
+    const critRolls = [selectedWeapon.damage.critRoll];
+
+    for (const addon of damageAddons) {
+      const addonDamage = getAddonDamage(addon);
+      if (addonDamage) {
+        damageRolls.push(addonDamage.damageRoll);
+        critRolls.push(addonDamage.critRoll);
+      }
+    }
 
     return {
       damageRoll: DiceString.sum(...damageRolls).toString(),
       critRoll: DiceString.sum(...critRolls).toString(),
     };
-  }, [selectedWeapon, damageAddons]);
+  }, [selectedWeapon, damageAddons, selectedLevels]);
 
   return (
     <table>
@@ -104,14 +139,37 @@ export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damag
         <td>Weapon Damage</td>
         <td className="checkCell modifier">{selectedWeapon && <span className="mono">{selectedWeapon.damage.damageRoll}</span>}</td>
       </tr>
-      {damageAddons.map((addon) => (
-        <tr key={addon.addon}>
-          <td>{addon.addon}</td>
-          <td className="checkCell modifier">
-            <span className="mono">{addon.damage.damageRoll}</span>
-          </td>
-        </tr>
-      ))}
+      {damageAddons.map((addon) => {
+        const addonDamage = getAddonDamage(addon);
+        return (
+          <tr key={addon.addon}>
+            <td>
+              {addon.addon}
+              {"options" in addon.damage && (
+                <>
+                  &nbsp;
+                  <select
+                    value={selectedLevels.get(addon.addon) ?? -1}
+                    onChange={(e) => {
+                      const newMap = new Map(selectedLevels);
+                      newMap.set(addon.addon, parseInt(e.target.value));
+                      setSelectedLevels(newMap);
+                    }}
+                  >
+                    <option value={-1}>-</option>
+                    {addon.damage.options.map((opt) => (
+                      <option key={opt.level} value={opt.level}>
+                        Level {opt.level}
+                      </option>
+                    ))}
+                  </select>
+                </>
+              )}
+            </td>
+            <td className="checkCell modifier">{addonDamage && <span className="mono">{addonDamage.damageRoll}</span>}</td>
+          </tr>
+        );
+      })}
       <tr>
         <td>Total Damage</td>
         <td className="checkCell modifier">

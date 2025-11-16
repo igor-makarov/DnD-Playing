@@ -50,7 +50,19 @@ class AzamatCharacter extends Character {
         { weapon: "Club", ability: "Str", damage: "d4" },
         { weapon: "Warhammer", ability: "Str", damage: "d8" },
       ],
-      attackAddons: [{ addon: "Radiant Strike", damage: "d8" }],
+      attackAddons: [
+        { addon: "Radiant Strike", damage: "d8" },
+        {
+          addon: "Divine Smite",
+          damage: [
+            [1, "2d8"],
+            [2, "3d8"],
+            [3, "4d8"],
+            [4, "5d8"],
+            [5, "6d8"],
+          ],
+        },
+      ],
     });
   }
 }
