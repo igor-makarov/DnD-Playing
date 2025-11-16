@@ -53,8 +53,8 @@ export class Character {
     return this.weapons.map(w => ({
       weapon: w.weapon,
       attackModifier: this.abilityModifier('Str') + this.proficiencyBonus + (w.bonus ?? 0),
-      damageRoll: (w.damage ?? '') + (this.abilityModifier('Str') + (w.bonus ?? 0)),
-      critRoll: (w.damage ?? '') + (w.damage ?? '') + (this.abilityModifier('Str') + (w.bonus ?? 0))
+      damageRoll: `${w.damage ?? ''}+${this.abilityModifier('Str') + (w.bonus ?? 0)}`,
+      critRoll: `${w.damage ? w.damage + '+' + w.damage : ''}+${this.abilityModifier('Str') + (w.bonus ?? 0)}`,
     }))
   }
 }
