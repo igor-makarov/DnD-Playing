@@ -70,8 +70,8 @@ export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damag
     const critRolls = [selectedWeapon.damage.critRoll, ...damageAddons.map((a) => a.damage.critRoll)];
 
     return {
-      damageRoll: DiceString.sum(damageRolls).toString(),
-      critRoll: DiceString.sum(critRolls).toString(),
+      damageRoll: DiceString.sum(...damageRolls).toString(),
+      critRoll: DiceString.sum(...critRolls).toString(),
     };
   }, [selectedWeapon, damageAddons]);
 

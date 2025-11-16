@@ -6,8 +6,8 @@ import { DiceString } from "../js/DiceString";
 const { character } = Astro.props as { character: Character };
 
 const weaponAttacks: WeaponAttackData[] = character.weapons.map((w) => {
-  const baseDamage = DiceString.parse(w.damage ?? "0");
-  const damageWithStrength = DiceString.init(w.damage ?? "0", character.abilityModifier("Str"));
+  const baseDamage = DiceString.parse(w.damage);
+  const damageWithStrength = DiceString.sum(baseDamage, character.abilityModifier("Str"));
 
   return {
     weapon: w.weapon,
@@ -20,7 +20,7 @@ const weaponAttacks: WeaponAttackData[] = character.weapons.map((w) => {
 });
 
 const damageAddons: DamageAddonData[] = character.attackAddons.map((addon) => {
-  const addonBaseDamage = DiceString.parse(addon.damage ?? "");
+  const addonBaseDamage = DiceString.parse(addon.damage);
 
   return {
     addon: addon.addon,

@@ -57,10 +57,10 @@ export class DiceString {
    * @throws Error if any input is invalid
    *
    * @example
-   * DiceString.sum(["2d6+3", "1d6", "2d6"]) // "5d6+3"
-   * DiceString.sum(["d20+5", "2"]) // "d20+7"
+   * DiceString.sum("2d6+3", "1d6", "2d6") // "5d6+3"
+   * DiceString.sum("d20+5", 2) // "d20+7"
    */
-  static sum(diceStrings: string[]): DiceString {
+  static sum(...diceStrings: (string | DiceString | number)[]): DiceString {
     if (!diceStrings || diceStrings.length === 0) {
       return new DiceString([], 0);
     }
@@ -90,14 +90,27 @@ export class DiceString {
    * - "2d6+5" - dice with positive modifier
    * - "2d6-3" - dice with negative modifier
    * - "2d6+1d4+5" - multiple dice types with modifier
+   * - DiceString instance - returns as-is
+   * - number - treated as a modifier
    *
-   * @param input The dice string to parse
+   * @param input The dice string to parse (string, DiceString, or number)
    * @returns A new DiceString instance
    * @throws Error if the input is invalid
    */
-  static parse(input: string): DiceString {
+  static parse(input: string | DiceString | number): DiceString {
+    // If already a DiceString, return as-is
+    if (input instanceof DiceString) {
+      return input;
+    }
+
+    // If a number, treat as a modifier
+    if (typeof input === "number") {
+      return new DiceString([], input);
+    }
+
+    // Must be a string at this point
     if (!input || typeof input !== "string") {
-      throw new Error("Invalid input: must be a non-empty string");
+      throw new Error("Invalid input: must be a non-empty string, DiceString, or number");
     }
 
     const dice: DiceTerm[] = [];
