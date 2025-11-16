@@ -1,22 +1,27 @@
+import { DiceString } from './DiceString';
+
 export const rollOptions: Record<string, (diceExpression: string, options?: { advantage?: boolean; disadvantage?: boolean }) => string> = {
   app: function (diceExpression, { advantage, disadvantage } = {}) {
-    let suffix = ''
+    let suffix: string;
     if (advantage) {
       suffix = '(ADV)'
     } else if (disadvantage) {
       suffix = '(DIS)'
+    } else {
+      suffix = ''
     }
     return `dice://roll/${diceExpression}${suffix}`
   },
   site: function (diceExpression, { advantage, disadvantage } = {}) {
+    let finalExpression: string;
     if (advantage) {
-      // For advantage with dice, we'd need special handling
-      // For now, just append the dice expression
-      return `https://dice.run/#/d/${diceExpression}(ADV)`
+      finalExpression = DiceString.parse(diceExpression).toMaxString();
     } else if (disadvantage) {
-      return `https://dice.run/#/d/${diceExpression}(DIS)`
+      finalExpression = DiceString.parse(diceExpression).toMinString();
+    } else {
+      finalExpression = diceExpression;
     }
-    return `https://dice.run/#/d/${diceExpression}`
+    return `https://dice.run/#/d/${finalExpression}`;
   }
 };
 

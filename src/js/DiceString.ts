@@ -186,13 +186,60 @@ export class DiceString {
    * @returns The dice string in standard notation
    */
   toString(): string {
+    return this.toStringInternal();
+  }
+
+  /**
+   * Convert to string with disadvantage notation (roll twice, take minimum)
+   * Only applies to d20 rolls
+   *
+   * Examples:
+   * - "d20+6" => "2d20min+6"
+   * - "d20-2" => "2d20min-2"
+   * - "2d6+5" => "2d6+5" (unchanged, not a d20)
+   *
+   * @returns The dice string with disadvantage notation
+   */
+  toMinString(): string {
+    return this.toStringInternal('min');
+  }
+
+  /**
+   * Convert to string with advantage notation (roll twice, take maximum)
+   * Only applies to d20 rolls
+   *
+   * Examples:
+   * - "d20+6" => "2d20max+6"
+   * - "d20-2" => "2d20max-2"
+   * - "2d6+5" => "2d6+5" (unchanged, not a d20)
+   *
+   * @returns The dice string with advantage notation
+   */
+  toMaxString(): string {
+    return this.toStringInternal('max');
+  }
+
+  /**
+   * Internal method to convert dice to string with optional min/max modifier
+   */
+  private toStringInternal(minMax?: 'min' | 'max'): string {
     const parts: string[] = [];
 
     // Add dice terms
     for (const die of this.dice) {
       const count = Math.abs(die.count);
       const countStr = count === 1 ? '' : count.toString();
-      const diceStr = `${countStr}d${die.sides}`;
+
+      // Apply min/max only to d20 rolls
+      let diceStr: string;
+      if (minMax && die.sides === 20) {
+        // Double the count and add min/max suffix
+        const advCount = count * 2;
+        const advCountStr = advCount === 1 ? '' : advCount.toString();
+        diceStr = `${advCountStr}d${die.sides}${minMax}`;
+      } else {
+        diceStr = `${countStr}d${die.sides}`;
+      }
 
       if (parts.length === 0) {
         // First term
