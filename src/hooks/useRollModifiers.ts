@@ -6,6 +6,7 @@ export enum RollModifier {
   ADVANTAGE = "ADVANTAGE",
   DISADVANTAGE = "DISADVANTAGE",
   REGULAR = "REGULAR",
+  CRITICAL = "CRITICAL",
 }
 
 // Global state
@@ -51,6 +52,8 @@ function initializeEventListeners() {
       newState = RollModifier.ADVANTAGE;
     } else if (key === "d") {
       newState = RollModifier.DISADVANTAGE;
+    } else if (key === "c") {
+      newState = RollModifier.CRITICAL;
     }
 
     if (newState !== null && modifierState !== newState) {
@@ -64,7 +67,8 @@ function initializeEventListeners() {
     const shouldReset =
       (key === "a" && modifierState === RollModifier.ADVANTAGE) ||
       (key === "d" && modifierState === RollModifier.DISADVANTAGE) ||
-      (key === "s" && modifierState === RollModifier.REGULAR);
+      (key === "s" && modifierState === RollModifier.REGULAR) ||
+      (key === "c" && modifierState === RollModifier.CRITICAL);
 
     if (shouldReset) {
       modifierState = RollModifier.NONE;

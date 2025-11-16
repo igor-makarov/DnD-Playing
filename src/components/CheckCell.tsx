@@ -3,7 +3,6 @@ import { getRollUrl } from "../js/rollOptions";
 import { DiceString } from "../js/DiceString";
 import { useRollModifiers, RollModifier } from "../hooks/useRollModifiers";
 import { useHash } from "../hooks/useHash";
-import { useIsMobile } from "../hooks/useIsMobile";
 
 interface CheckCellProps {
   bonus: number;
@@ -12,7 +11,6 @@ interface CheckCellProps {
 
 const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
   const hash = useHash();
-  const isMobile = useIsMobile();
   const { modifier } = useRollModifiers();
 
   const diceAppKey = hash?.substring(1) || "app";
@@ -41,59 +39,60 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
     return advantage ? getRollUrl(diceString, diceAppKey, { advantage: true }) : getRollUrl(diceString, diceAppKey);
   };
 
-  // Desktop view: single clickable element
-  if (!isMobile) {
-    const currentRollCaption = getCurrentRollCaption();
-    const currentUrl = getCurrentUrl();
+  const currentRollCaption = getCurrentRollCaption();
+  const currentUrl = getCurrentUrl();
 
-    return (
-      <span className="mono check-cell" data-bonus={bonus} data-advantage={advantage} style={{ position: "relative", display: "inline-block" }}>
-        <a className="dice-roll" href={currentUrl} title="Hold A: advantage | Hold D: disadvantage | Hold S: regular" style={{ textDecoration: "none" }}>
+  return (
+    <span className="mono check-cell" data-bonus={bonus} data-advantage={advantage}>
+      {/* Desktop view: single clickable element */}
+      <span className="check-cell-desktop">
+        <a
+          className="dice-roll"
+          href={currentUrl}
+          title="Hold A: advantage | Hold D: disadvantage | Hold S: regular"
+          style={{ textDecoration: "none" }}
+        >
           [{currentRollCaption}
           {bonusSign}
           {bonus}]
         </a>
       </span>
-    );
-  }
 
-  // Mobile view: multiple links (existing UI)
-  if (advantage) {
-    return (
-      <span className="mono check-cell" data-bonus={bonus} data-advantage={advantage}>
-        <a className="dice-roll" href={getRollUrl(diceString, diceAppKey, { advantage: true })}>
-          ADV
-        </a>
-        <a className="dice-roll" href={getRollUrl(diceString, diceAppKey)}>
-          {bonusSign}
-          {bonus}
-        </a>
-        &nbsp;
-        <a className="dice-roll" href={getRollUrl(diceString, diceAppKey)}>
-          REG
-        </a>
-        &nbsp;
-        <a className="dice-roll" href={getRollUrl(diceString, diceAppKey, { disadvantage: true })}>
-          DIS
-        </a>
-      </span>
-    );
-  }
-
-  return (
-    <span className="mono check-cell" data-bonus={bonus} data-advantage={advantage}>
-      <a className="dice-roll" href={getRollUrl(diceString, diceAppKey)}>
-        {bonusSign}
-        {bonus}
-      </a>
-      &nbsp;
-      <a className="dice-roll" href={getRollUrl(diceString, diceAppKey, { advantage: true })}>
-        ADV
-      </a>
-      &nbsp;
-      <a className="dice-roll" href={getRollUrl(diceString, diceAppKey, { disadvantage: true })}>
-        DIS
-      </a>
+      {/* Mobile view: multiple links */}
+      {advantage ? (
+        <span className="check-cell-mobile">
+          <a className="dice-roll" href={getRollUrl(diceString, diceAppKey, { advantage: true })}>
+            ADV
+          </a>
+          <a className="dice-roll" href={getRollUrl(diceString, diceAppKey)}>
+            {bonusSign}
+            {bonus}
+          </a>
+          &nbsp;
+          <a className="dice-roll" href={getRollUrl(diceString, diceAppKey)}>
+            REG
+          </a>
+          &nbsp;
+          <a className="dice-roll" href={getRollUrl(diceString, diceAppKey, { disadvantage: true })}>
+            DIS
+          </a>
+        </span>
+      ) : (
+        <span className="check-cell-mobile">
+          <a className="dice-roll" href={getRollUrl(diceString, diceAppKey)}>
+            {bonusSign}
+            {bonus}
+          </a>
+          &nbsp;
+          <a className="dice-roll" href={getRollUrl(diceString, diceAppKey, { advantage: true })}>
+            ADV
+          </a>
+          &nbsp;
+          <a className="dice-roll" href={getRollUrl(diceString, diceAppKey, { disadvantage: true })}>
+            DIS
+          </a>
+        </span>
+      )}
     </span>
   );
 };

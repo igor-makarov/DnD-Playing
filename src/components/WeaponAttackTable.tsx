@@ -7,6 +7,7 @@ import LevelledDamageAddonRow from "./LevelledDamageAddonRow";
 import OptionalDamageAddonRow from "./OptionalDamageAddonRow";
 import type { DamageData, DamageAddonData, DamageOptionsData, OptionalDamageData, WeaponAttackData } from "./WeaponAttackData";
 import { useHash } from "../hooks/useHash";
+import { useRollModifiers, RollModifier } from "../hooks/useRollModifiers";
 
 interface WeaponAttackProps {
   weaponAttacks: WeaponAttackData[];
@@ -36,6 +37,9 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
   // Subscribe to hash changes for dice app key
   const hash = useHash();
   const diceAppKey = hash?.substring(1) || "app";
+
+  // Subscribe to roll modifiers
+  const { modifier } = useRollModifiers();
 
   // Helper to get damage for an addon based on selected level or enabled state
   const getAddonDamage = (addon: DamageAddonData): DamageData | null => {
@@ -149,13 +153,30 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
         <td className="checkCell modifier">
           {totalDamage && (
             <span className="mono">
-              <a className="dice-roll" href={getRollUrl(totalDamage.damageRoll, diceAppKey)}>
-                {totalDamage.damageRoll}
-              </a>
-              &nbsp;
-              <a className="dice-roll" href={getRollUrl(totalDamage.critRoll, diceAppKey)}>
-                CRIT
-              </a>
+              {/* Desktop view: single clickable element */}
+              <span className="check-cell-desktop">
+                <a
+                  className="dice-roll"
+                  href={
+                    modifier === RollModifier.CRITICAL ? getRollUrl(totalDamage.critRoll, diceAppKey) : getRollUrl(totalDamage.damageRoll, diceAppKey)
+                  }
+                  title="Hold C: critical"
+                  style={{ textDecoration: "none" }}
+                >
+                  [{modifier === RollModifier.CRITICAL ? totalDamage.critRoll : totalDamage.damageRoll}]
+                </a>
+              </span>
+
+              {/* Mobile view: multiple links */}
+              <span className="check-cell-mobile">
+                <a className="dice-roll" href={getRollUrl(totalDamage.damageRoll, diceAppKey)}>
+                  {totalDamage.damageRoll}
+                </a>
+                &nbsp;
+                <a className="dice-roll" href={getRollUrl(totalDamage.critRoll, diceAppKey)}>
+                  CRIT
+                </a>
+              </span>
             </span>
           )}
         </td>

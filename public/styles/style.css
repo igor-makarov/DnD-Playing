@@ -19,6 +19,26 @@ th a:not(.dice-roll) {
   color: inherit !important;
 }
 
+/* Show desktop view by default, hide mobile view */
+.check-cell-desktop {
+  display: inline-block;
+}
+
+.check-cell-mobile {
+  display: none;
+}
+
+/* On mobile screens, show mobile view, hide desktop view */
+@media screen and (max-width: 600px) {
+  .check-cell-desktop {
+    display: none;
+  }
+
+  .check-cell-mobile {
+    display: inline;
+  }
+}
+
 a:visited {
   color: LinkText;
 }
