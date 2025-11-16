@@ -29,6 +29,28 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
   const bonusSign = bonus >= 0 ? "+" : "";
   const diceString = DiceString.init("d20", bonus).toString();
 
+  if (advantage) {
+    return (
+      <span className="mono check-cell" data-bonus={bonus} data-advantage={advantage}>
+        <a className="advantage-link" href={getRollUrl(diceString, diceAppKey, { advantage: true })}>
+          ADV
+        </a>
+        <a className="regular-link" href={getRollUrl(diceString, diceAppKey)}>
+          {bonusSign}
+          {bonus}
+        </a>
+        &nbsp;
+        <a className="regular-link" href={getRollUrl(diceString, diceAppKey)}>
+          REG
+        </a>
+        &nbsp;
+        <a className="disadvantage-link" href={getRollUrl(diceString, diceAppKey, { disadvantage: true })}>
+          DIS
+        </a>
+      </span>
+    );
+  }
+
   return (
     <span className="mono check-cell" data-bonus={bonus} data-advantage={advantage}>
       <a className="regular-link" href={getRollUrl(diceString, diceAppKey)}>
@@ -37,7 +59,7 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
       </a>
       &nbsp;
       <a className="advantage-link" href={getRollUrl(diceString, diceAppKey, { advantage: true })}>
-        {advantage ? <strong>ADV</strong> : "ADV"}
+        ADV
       </a>
       &nbsp;
       <a className="disadvantage-link" href={getRollUrl(diceString, diceAppKey, { disadvantage: true })}>

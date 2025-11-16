@@ -38,9 +38,15 @@ import "../../public/styles/style.css";
             }
           </tr>
           <tr>
-            <th colspan="6" class="modifier">
+            <th colspan="3" class="modifier">
               <span class="mono">Proficiency Bonus</span><br />
               <span class="mono">+{character.proficiencyBonus}&nbsp;</span>
+            </th>
+            <th colspan="3" class="modifier">
+              <span class="mono">Initiative</span><br />
+              <span class="checkCell">
+                <CheckCell client:only="react" bonus={character.abilityModifier("Dex")} advantage={true} />
+              </span>
             </th>
           </tr>
         </table>
