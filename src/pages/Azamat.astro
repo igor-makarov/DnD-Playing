@@ -61,8 +61,8 @@ import "../../public/styles/style.css";
         />
       </div>
       <div class="column">
-        <SkillsTable title="Proficient skills" skills={character.skills.filter((s) => s.proficient)} character={character} />
-        <SkillsTable title="Cha skills" skills={character.skills.filter((s) => s.modifier == "Cha")} character={character} />
+        <SkillsTable title="Proficient skills" skills={character.getSkills().filter((s) => s.proficiency.bonus > 0)} character={character} />
+        <SkillsTable title="Cha skills" skills={character.getSkills().filter((s) => s.ability == "Cha")} character={character} />
         <WeaponAttackTable character={character} />
       </div>
       <div class="column">

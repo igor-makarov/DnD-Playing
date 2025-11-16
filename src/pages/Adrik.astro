@@ -4,6 +4,7 @@ import CheckCell from "../components/CheckCell.tsx";
 import SkillsTable from "../components/SkillsTable.astro";
 import SavesTable from "../components/SavesTable.astro";
 import "../../public/styles/style.css";
+import { DiceString } from "../js/DiceString";
 ---
 
 <html lang="en">
@@ -60,31 +61,51 @@ import "../../public/styles/style.css";
         />
       </div>
       <div class="column">
-        <SkillsTable title="Int skills" skills={character.skills.filter((s) => s.modifier == "Int")} character={character} />
-        <SkillsTable title="Wis skills" skills={character.skills.filter((s) => s.modifier == "Wis")} character={character} />
+        <SkillsTable title="Int skills" skills={character.getSkills().filter((s) => s.ability == "Int")} character={character} />
+        <SkillsTable title="Wis skills" skills={character.getSkills().filter((s) => s.ability == "Wis")} character={character} />
       </div>
       <div class="column">
         <SkillsTable
           title={'<a href="http://dnd5e.wikidot.com/ranger#:~:text=at%2014th%20level.-,Natural%20Explorer,-Also%20at%201st">Favored Terrain</a><br>expertise on Forest'}
-          skills={character.skills.filter((s) => (s.modifier == "Int" || s.modifier == "Wis") && s.proficient)}
-          proficiencyMultiplier={2}
+          skills={character
+            .getSkills()
+            .filter((s) => (s.ability == "Int" || s.ability == "Wis") && s.proficiency.bonus > 0)
+            .map((skill) => {
+              const modifier = character.abilityModifier(skill.ability);
+              const proficiency = character.createProficiency(true, 2);
+              return {
+                ...skill,
+                proficiency,
+                dice: DiceString.init("d20", modifier + proficiency.bonus),
+              };
+            })}
           character={character}
         />
         <SkillsTable
           title={'<a href="http://dnd5e.wikidot.com/ranger#:~:text=of%2020%20arrows-,Favored%20Enemy,-Beginning%20at%201st">Favored Enemy</a><br>ADV on orc, goblin'}
-          skills={character.skills.filter((s) => s.modifier == "Int" || s.skill == "Survival")}
+          skills={character.getSkills().filter((s) => s.ability == "Int" || s.skill == "Survival")}
           advantage={true}
           character={character}
         />
         <SkillsTable
           title={'<a href="http://dnd5e.wikidot.com/lineage:dwarf#:~:text=Stonecunning">Stonecunning</a><br>expertise on stonework'}
-          skills={character.skills.filter((s) => s.skill == "History")}
-          proficiencyMultiplier={2}
+          skills={character
+            .getSkills()
+            .filter((s) => s.skill == "History")
+            .map((skill) => {
+              const modifier = character.abilityModifier(skill.ability);
+              const proficiency = character.createProficiency(true, 2);
+              return {
+                ...skill,
+                proficiency,
+                dice: DiceString.init("d20", modifier + proficiency.bonus),
+              };
+            })}
           character={character}
         />
         <SkillsTable
           title={'<a href="https://www.dndbeyond.com/spells/hunters-mark">Hunter&apos;s Mark</a><br>ADV on marked creature'}
-          skills={character.skills.filter((s) => s.skill == "Perception" || s.skill == "Survival")}
+          skills={character.getSkills().filter((s) => s.skill == "Perception" || s.skill == "Survival")}
           advantage={true}
           character={character}
         />

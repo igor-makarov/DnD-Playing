@@ -1,10 +1,10 @@
 ---
 import CheckCell from "./CheckCell.tsx";
-const { skill, proficiency, bonus, advantage } = Astro.props;
+const { skill, ability, proficiency, bonus, advantage } = Astro.props;
 ---
 
 <tr>
-  <td><span class="mono">[{proficiency.symbol}]</span> {skill.skill} ({skill.modifier})</td>
+  <td><span class="mono">[{proficiency.symbol}]</span> {skill} ({ability})</td>
   <td class="checkCell modifier">
     <CheckCell client:only="react" bonus={bonus} advantage={advantage} />
   </td>
