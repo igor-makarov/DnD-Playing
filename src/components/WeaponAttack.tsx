@@ -1,6 +1,21 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useSyncExternalStore } from "react";
 import CheckCell from "./CheckCell";
 import { getRollUrl } from "../js/rollOptions";
+import { DiceString } from "../js/DiceString";
+
+// This function subscribes to the hashchange event
+function subscribe(callback: () => void) {
+  window.addEventListener("hashchange", callback);
+  return () => window.removeEventListener("hashchange", callback);
+}
+
+// This function gets the current value of the hash
+function getSnapshot() {
+  return window.location.hash;
+}
+
+// Since this is a client-only component, the server snapshot can be a dummy value.
+const getServerSnapshot = () => "";
 
 export type DamageData = {
   damageRoll: string;
@@ -43,16 +58,8 @@ export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damag
   };
 
   // Subscribe to hash changes for dice app key
-  const [diceAppKey, setDiceAppKey] = React.useState("app");
-
-  React.useEffect(() => {
-    const updateDiceAppKey = () => {
-      setDiceAppKey(window.location.hash?.substring(1) || "app");
-    };
-    updateDiceAppKey();
-    window.addEventListener("hashchange", updateDiceAppKey);
-    return () => window.removeEventListener("hashchange", updateDiceAppKey);
-  }, []);
+  const hash = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const diceAppKey = hash?.substring(1) || "app";
 
   return (
     <table>
@@ -96,11 +103,23 @@ export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damag
         <td className="checkCell modifier">
           {selectedWeapon && (
             <span className="mono">
-              <a className="regular-link" href={getRollUrl(selectedWeapon.damage.damageRoll, diceAppKey)}>
-                {selectedWeapon.damage.damageRoll}
+              <a
+                className="regular-link"
+                href={getRollUrl(
+                  DiceString.sum([selectedWeapon.damage.damageRoll, ...damageAddons.map((a) => a.damage.damageRoll)]).toString(),
+                  diceAppKey,
+                )}
+              >
+                {DiceString.sum([selectedWeapon.damage.damageRoll, ...damageAddons.map((a) => a.damage.damageRoll)]).toString()}
               </a>
               &nbsp;
-              <a className="regular-link" href={getRollUrl(selectedWeapon.damage.critRoll, diceAppKey)}>
+              <a
+                className="regular-link"
+                href={getRollUrl(
+                  DiceString.sum([selectedWeapon.damage.critRoll, ...damageAddons.map((a) => a.damage.critRoll)]).toString(),
+                  diceAppKey,
+                )}
+              >
                 CRIT
               </a>
             </span>

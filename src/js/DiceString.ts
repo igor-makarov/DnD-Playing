@@ -50,6 +50,38 @@ export class DiceString {
   }
 
   /**
+   * Sum multiple dice strings and normalize the result
+   *
+   * @param diceStrings Array of dice string expressions to sum
+   * @returns A normalized DiceString combining all inputs
+   * @throws Error if any input is invalid
+   *
+   * @example
+   * DiceString.sum(["2d6+3", "1d6", "2d6"]) // "5d6+3"
+   * DiceString.sum(["d20+5", "2"]) // "d20+7"
+   */
+  static sum(diceStrings: string[]): DiceString {
+    if (!diceStrings || diceStrings.length === 0) {
+      return new DiceString([], 0);
+    }
+
+    // Parse all dice strings
+    const parsed = diceStrings.map((str) => DiceString.parse(str));
+
+    // Combine all dice and modifiers
+    const allDice: DiceTerm[] = [];
+    let totalModifier = 0;
+
+    for (const ds of parsed) {
+      allDice.push(...ds.dice);
+      totalModifier += ds.modifier;
+    }
+
+    // Create and normalize the result
+    return new DiceString(allDice, totalModifier).normalize();
+  }
+
+  /**
    * Parse a dice string expression into a DiceString object
    *
    * Supported formats:
