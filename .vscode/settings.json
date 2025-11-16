@@ -21,5 +21,7 @@
   },
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "astro.typescript.enabled": true,
+  "astro.typescript.allowArbitraryAttributes": false
 }
