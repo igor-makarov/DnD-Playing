@@ -2,6 +2,8 @@ import React, { useState, useMemo, useSyncExternalStore } from "react";
 import CheckCell from "./CheckCell";
 import { getRollUrl } from "../js/rollOptions";
 import { DiceString } from "../js/DiceString";
+import { LevelledDamageAddonRow } from "./LevelledDamageAddonRow";
+import type { DamageData, DamageAddonData, DamageOptionsData, WeaponAttackData } from "./WeaponAttackData";
 
 // This function subscribes to the hashchange event
 function subscribe(callback: () => void) {
@@ -16,32 +18,6 @@ function getSnapshot() {
 
 // Since this is a client-only component, the server snapshot can be a dummy value.
 const getServerSnapshot = () => "";
-
-export type DamageData = {
-  damageRoll: string;
-  critRoll: string;
-};
-
-export type DamageOptionData = {
-  level: number;
-  damageRoll: string;
-  critRoll: string;
-};
-
-export type DamageOptionsData = {
-  options: DamageOptionData[];
-};
-
-export type DamageAddonData = {
-  addon: string;
-  damage: DamageData | DamageOptionsData;
-};
-
-export type WeaponAttackData = {
-  weapon: string;
-  attackModifier: number;
-  damage: DamageData;
-};
 
 interface WeaponAttackProps {
   weaponAttacks: WeaponAttackData[];
@@ -140,32 +116,25 @@ export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damag
         <td className="checkCell modifier">{selectedWeapon && <span className="mono">{selectedWeapon.damage.damageRoll}</span>}</td>
       </tr>
       {damageAddons.map((addon) => {
+        if ("options" in addon.damage) {
+          return (
+            <LevelledDamageAddonRow
+              key={addon.addon}
+              addon={addon as DamageAddonData & { damage: DamageOptionsData }}
+              selectedLevel={selectedLevels.get(addon.addon) ?? -1}
+              onLevelChange={(level) => {
+                const newMap = new Map(selectedLevels);
+                newMap.set(addon.addon, level);
+                setSelectedLevels(newMap);
+              }}
+            />
+          );
+        }
+
         const addonDamage = getAddonDamage(addon);
         return (
           <tr key={addon.addon}>
-            <td>
-              {addon.addon}
-              {"options" in addon.damage && (
-                <>
-                  &nbsp;
-                  <select
-                    value={selectedLevels.get(addon.addon) ?? -1}
-                    onChange={(e) => {
-                      const newMap = new Map(selectedLevels);
-                      newMap.set(addon.addon, parseInt(e.target.value));
-                      setSelectedLevels(newMap);
-                    }}
-                  >
-                    <option value={-1}>-</option>
-                    {addon.damage.options.map((opt) => (
-                      <option key={opt.level} value={opt.level}>
-                        Level {opt.level}
-                      </option>
-                    ))}
-                  </select>
-                </>
-              )}
-            </td>
+            <td>{addon.addon}</td>
             <td className="checkCell modifier">{addonDamage && <span className="mono">{addonDamage.damageRoll}</span>}</td>
           </tr>
         );
