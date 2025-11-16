@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from "react";
 
 // Global state
-let modifierState = { advantage: false, disadvantage: false };
+let modifierState = { advantage: false, disadvantage: false, regular: false };
 const listeners = new Set<() => void>();
 
 // Subscribe function for useSyncExternalStore
@@ -23,7 +23,7 @@ function getSnapshot() {
 
 // Server snapshot (for SSR)
 function getServerSnapshot() {
-  return { advantage: false, disadvantage: false };
+  return { advantage: false, disadvantage: false, regular: false };
 }
 
 // Initialize event listeners once
@@ -47,6 +47,12 @@ function initializeEventListeners() {
         changed = true;
       }
     }
+    if (e.key === "s" || e.key === "S") {
+      if (!modifierState.regular) {
+        modifierState = { ...modifierState, regular: true };
+        changed = true;
+      }
+    }
     if (changed) notifyListeners();
   };
 
@@ -64,13 +70,19 @@ function initializeEventListeners() {
         changed = true;
       }
     }
+    if (e.key === "s" || e.key === "S") {
+      if (modifierState.regular) {
+        modifierState = { ...modifierState, regular: false };
+        changed = true;
+      }
+    }
     if (changed) notifyListeners();
   };
 
   const handleFocus = () => {
     // Reset modifier state when page regains focus
-    if (modifierState.advantage || modifierState.disadvantage) {
-      modifierState = { advantage: false, disadvantage: false };
+    if (modifierState.advantage || modifierState.disadvantage || modifierState.regular) {
+      modifierState = { advantage: false, disadvantage: false, regular: false };
       notifyListeners();
     }
   };
@@ -85,7 +97,7 @@ export function useRollModifiers() {
   const modifiers = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const resetModifiers = () => {
-    modifierState = { advantage: false, disadvantage: false };
+    modifierState = { advantage: false, disadvantage: false, regular: false };
     notifyListeners();
   };
 

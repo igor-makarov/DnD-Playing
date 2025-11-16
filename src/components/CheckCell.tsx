@@ -20,14 +20,18 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
   const bonusSign = bonus >= 0 ? "+" : "";
   const diceString = DiceString.init("d20", bonus).toString();
 
-  // Determine the current roll type based on A/D keys
+  // Determine the current roll type based on A/D/S keys
   const getCurrentRollType = () => {
+    if (modifierKeys.regular) return "REG";
     if (modifierKeys.disadvantage) return "DIS";
     if (modifierKeys.advantage) return "ADV";
     return advantage ? "ADV" : "REG";
   };
 
   const getCurrentUrl = () => {
+    if (modifierKeys.regular) {
+      return getRollUrl(diceString, diceAppKey);
+    }
     if (modifierKeys.disadvantage) {
       return getRollUrl(diceString, diceAppKey, { disadvantage: true });
     }
@@ -45,7 +49,7 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
     return (
       <span className="mono check-cell" data-bonus={bonus} data-advantage={advantage} style={{ position: "relative", display: "inline-block" }}>
         [
-        <a href={currentUrl} title="Hold A: advantage | Hold D: disadvantage">
+        <a href={currentUrl} title="Hold A: advantage | Hold D: disadvantage | Hold S: regular">
           {rollType !== "REG" && `${rollType}`}
           {bonusSign}
           {bonus}
