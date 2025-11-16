@@ -1,20 +1,9 @@
-import React, { useSyncExternalStore } from "react";
+import React from "react";
 import { getRollUrl } from "../js/rollOptions";
 import { DiceString } from "../js/DiceString";
-
-// This function subscribes to the hashchange event
-function subscribe(callback: () => void) {
-  window.addEventListener("hashchange", callback);
-  return () => window.removeEventListener("hashchange", callback);
-}
-
-// This function gets the current value of the hash
-function getSnapshot() {
-  return window.location.hash;
-}
-
-// Since this is a client-only component, the server snapshot can be a dummy value.
-const getServerSnapshot = () => "";
+import { useRollModifiers } from "../hooks/useRollModifiers";
+import { useHash } from "../hooks/useHash";
+import { useIsMobile } from "../hooks/useIsMobile";
 
 interface CheckCellProps {
   bonus: number;
@@ -22,13 +11,51 @@ interface CheckCellProps {
 }
 
 const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
-  const hash = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const hash = useHash();
+  const isMobile = useIsMobile();
+  const { modifiers: modifierKeys } = useRollModifiers();
 
   const diceAppKey = hash?.substring(1) || "app";
 
   const bonusSign = bonus >= 0 ? "+" : "";
   const diceString = DiceString.init("d20", bonus).toString();
 
+  // Determine the current roll type based on A/D keys
+  const getCurrentRollType = () => {
+    if (modifierKeys.disadvantage) return "DIS";
+    if (modifierKeys.advantage) return "ADV";
+    return advantage ? "ADV" : "REG";
+  };
+
+  const getCurrentUrl = () => {
+    if (modifierKeys.disadvantage) {
+      return getRollUrl(diceString, diceAppKey, { disadvantage: true });
+    }
+    if (modifierKeys.advantage) {
+      return getRollUrl(diceString, diceAppKey, { advantage: true });
+    }
+    return advantage ? getRollUrl(diceString, diceAppKey, { advantage: true }) : getRollUrl(diceString, diceAppKey);
+  };
+
+  // Desktop view: single clickable element
+  if (!isMobile) {
+    const rollType = getCurrentRollType();
+    const currentUrl = getCurrentUrl();
+
+    return (
+      <span className="mono check-cell" data-bonus={bonus} data-advantage={advantage} style={{ position: "relative", display: "inline-block" }}>
+        [
+        <a href={currentUrl} title="Hold A: advantage | Hold D: disadvantage">
+          {rollType !== "REG" && `${rollType}`}
+          {bonusSign}
+          {bonus}
+        </a>
+        ]
+      </span>
+    );
+  }
+
+  // Mobile view: multiple links (existing UI)
   if (advantage) {
     return (
       <span className="mono check-cell" data-bonus={bonus} data-advantage={advantage}>

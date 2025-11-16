@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useSyncExternalStore } from "react";
+import React, { useState, useMemo } from "react";
 import CheckCell from "./CheckCell";
 import { getRollUrl } from "../js/rollOptions";
 import { DiceString } from "../js/DiceString";
@@ -6,20 +6,7 @@ import AlwaysOnDamageAddonRow from "./AlwaysOnDamageAddonRow";
 import LevelledDamageAddonRow from "./LevelledDamageAddonRow";
 import OptionalDamageAddonRow from "./OptionalDamageAddonRow";
 import type { DamageData, DamageAddonData, DamageOptionsData, OptionalDamageData, WeaponAttackData } from "./WeaponAttackData";
-
-// This function subscribes to the hashchange event
-function subscribe(callback: () => void) {
-  window.addEventListener("hashchange", callback);
-  return () => window.removeEventListener("hashchange", callback);
-}
-
-// This function gets the current value of the hash
-function getSnapshot() {
-  return window.location.hash;
-}
-
-// Since this is a client-only component, the server snapshot can be a dummy value.
-const getServerSnapshot = () => "";
+import { useHash } from "../hooks/useHash";
 
 interface WeaponAttackProps {
   weaponAttacks: WeaponAttackData[];
@@ -47,7 +34,7 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
   };
 
   // Subscribe to hash changes for dice app key
-  const hash = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const hash = useHash();
   const diceAppKey = hash?.substring(1) || "app";
 
   // Helper to get damage for an addon based on selected level or enabled state
