@@ -149,11 +149,11 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
         <td className="checkCell modifier">
           {totalDamage && (
             <span className="mono">
-              <a className="regular-link" href={getRollUrl(totalDamage.damageRoll, diceAppKey)}>
+              <a className="dice-roll" href={getRollUrl(totalDamage.damageRoll, diceAppKey)}>
                 {totalDamage.damageRoll}
               </a>
               &nbsp;
-              <a className="regular-link" href={getRollUrl(totalDamage.critRoll, diceAppKey)}>
+              <a className="dice-roll" href={getRollUrl(totalDamage.critRoll, diceAppKey)}>
                 CRIT
               </a>
             </span>

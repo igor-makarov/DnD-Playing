@@ -9,12 +9,18 @@ span.mono {
     "Droid Sans Mono", "Courier New", monospace;
 }
 
-a:visited {
-  color: LinkText;
+a.dice-roll,
+a.dice-roll:visited {
+  background-color: #f1a20f;
+  color: white;
 }
 
-th a {
+th a:not(.dice-roll) {
   color: inherit !important;
+}
+
+a:visited {
+  color: LinkText;
 }
 
 * {
