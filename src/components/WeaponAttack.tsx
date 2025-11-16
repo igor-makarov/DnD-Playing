@@ -16,14 +16,14 @@ export type WeaponAttackData = {
   weapon: string;
   attackModifier: number;
   damage: DamageData;
-  damageAddons: DamageAddonData[];
 };
 
 interface WeaponAttackProps {
   weaponAttacks: WeaponAttackData[];
+  damageAddons: DamageAddonData[];
 }
 
-export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks }) => {
+export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageAddons }) => {
   // const weap
   const [selectedWeaponName, setSelectedWeaponName] = useState<string>("");
 
@@ -83,7 +83,7 @@ export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks }) => 
         <td>Weapon Damage</td>
         <td className="checkCell modifier">{selectedWeapon && <span className="mono">{selectedWeapon.damage.damageRoll}</span>}</td>
       </tr>
-      {selectedWeapon?.damageAddons.map((addon) => (
+      {damageAddons.map((addon) => (
         <tr key={addon.addon}>
           <td>{addon.addon}</td>
           <td className="checkCell modifier">

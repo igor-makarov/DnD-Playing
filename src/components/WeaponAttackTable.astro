@@ -9,18 +9,6 @@ const weaponAttacks: WeaponAttackData[] = character.weapons.map((w) => {
   const damageModifier = character.abilityModifier("Str") + (w.bonus ?? 0);
   const baseDamage = DiceString.init(w.damage ?? "", damageModifier);
 
-  const damageAddons: DamageAddonData[] = character.attackAddons.map((addon) => {
-    const addonBaseDamage = DiceString.parse(addon.damage ?? "");
-
-    return {
-      addon: addon.addon,
-      damage: {
-        damageRoll: addonBaseDamage.normalize().toString(),
-        critRoll: addonBaseDamage.crit().normalize().toString(),
-      },
-    };
-  });
-
   return {
     weapon: w.weapon,
     attackModifier: character.abilityModifier("Str") + character.proficiencyBonus + (w.bonus ?? 0),
@@ -28,9 +16,20 @@ const weaponAttacks: WeaponAttackData[] = character.weapons.map((w) => {
       damageRoll: baseDamage.normalize().toString(),
       critRoll: baseDamage.crit().normalize().toString(),
     },
-    damageAddons,
+  };
+});
+
+const damageAddons: DamageAddonData[] = character.attackAddons.map((addon) => {
+  const addonBaseDamage = DiceString.parse(addon.damage ?? "");
+
+  return {
+    addon: addon.addon,
+    damage: {
+      damageRoll: addonBaseDamage.normalize().toString(),
+      critRoll: addonBaseDamage.crit().normalize().toString(),
+    },
   };
 });
 ---
 
-<WeaponAttack client:only="react" weaponAttacks={weaponAttacks} />
+<WeaponAttack client:only="react" weaponAttacks={weaponAttacks} damageAddons={damageAddons} />
