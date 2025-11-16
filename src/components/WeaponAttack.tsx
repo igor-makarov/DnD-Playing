@@ -97,7 +97,7 @@ export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damag
         </td>
       </tr>
       <tr>
-        <td>Attack</td>
+        <td>Attack Modifier</td>
         <td className="checkCell modifier">{attackModifier !== null && <CheckCell bonus={attackModifier} />}</td>
       </tr>
       <tr>
@@ -113,7 +113,7 @@ export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damag
         </tr>
       ))}
       <tr>
-        <td>Damage</td>
+        <td>Total Damage</td>
         <td className="checkCell modifier">
           {totalDamage && (
             <span className="mono">
