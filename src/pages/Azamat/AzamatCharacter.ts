@@ -42,10 +42,10 @@ class AzamatCharacter extends Character {
         { save: "Cha", proficient: true }, // Paladin
       ],
       weapons: [
-        { weapon: "Warhammer +1 (2h)", damage: "d10+1" },
+        { weapon: "Warhammer +1 (2h)", damage: "d10", bonus: 1 },
         { weapon: "Unarmed", damage: "0" },
         { weapon: "Laser Axe", damage: "d10+d6" },
-        { weapon: "Warhammer +1 (1h)", damage: "d8+1" },
+        { weapon: "Warhammer +1 (1h)", damage: "d8", bonus: 1 },
         { weapon: "Javelin", damage: "d6" },
         { weapon: "Club", damage: "d4" },
         { weapon: "Warhammer", damage: "d8" },
