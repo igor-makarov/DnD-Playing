@@ -50,6 +50,9 @@ class AzamatCharacter extends Character {
         { weapon: 'Club', damage: 'd4' },
         { weapon: 'Warhammer', damage: 'd8' },
       ],
+      attackAddons: [
+        { addon: 'Radiant Strike', damage: 'd8' },
+      ],
     });
   }
 }

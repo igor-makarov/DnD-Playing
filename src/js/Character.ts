@@ -23,6 +23,12 @@ export type WeaponAttack = {
   critRoll: string;
 }
 
+export type AttackAddon = {
+  addon: string;
+  damage: string;
+  bonus: number;
+}
+
 export class Character {
   abilityScores: [Ability: number];
   characterLevel: number;
@@ -30,13 +36,15 @@ export class Character {
   skills: Skill[];
   saves: SavingThrow[];
   weapons: Weapon[];
-  constructor({ abilityScores, characterLevel, proficiencyBonus, skills, saves, weapons = [] }) {
+  attackAddons: AttackAddon[];
+  constructor({ abilityScores, characterLevel, proficiencyBonus, skills, saves, weapons = [], attackAddons = [] }) {
     this.abilityScores = abilityScores;
     this.characterLevel = characterLevel;
     this.proficiencyBonus = proficiencyBonus;
     this.skills = skills;
     this.saves = saves;
     this.weapons = weapons;
+    this.attackAddons = attackAddons;
   }
 
   abilityModifier(ability) {
