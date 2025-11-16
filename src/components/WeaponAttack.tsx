@@ -2,6 +2,7 @@ import React, { useState, useMemo, useSyncExternalStore } from "react";
 import CheckCell from "./CheckCell";
 import { getRollUrl } from "../js/rollOptions";
 import { DiceString } from "../js/DiceString";
+import AlwaysOnDamageAddonRow from "./AlwaysOnDamageAddonRow";
 import LevelledDamageAddonRow from "./LevelledDamageAddonRow";
 import type { DamageData, DamageAddonData, DamageOptionsData, WeaponAttackData } from "./WeaponAttackData";
 
@@ -131,13 +132,7 @@ const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageAddons
           );
         }
 
-        const addonDamage = getAddonDamage(addon);
-        return (
-          <tr key={addon.addon}>
-            <td>{addon.addon}</td>
-            <td className="checkCell modifier">{addonDamage && <span className="mono">{addonDamage.damageRoll}</span>}</td>
-          </tr>
-        );
+        return <AlwaysOnDamageAddonRow key={addon.addon} addon={addon as DamageAddonData & { damage: DamageData }} />;
       })}
       <tr>
         <td>Total Damage</td>
