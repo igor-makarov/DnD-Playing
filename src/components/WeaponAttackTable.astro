@@ -6,15 +6,15 @@ import { DiceString } from "../js/DiceString";
 const { character } = Astro.props as { character: Character };
 
 const weaponAttacks: WeaponAttackData[] = character.weapons.map((w) => {
-  const damageModifier = character.abilityModifier("Str") + (w.bonus ?? 0);
-  const baseDamage = DiceString.init(w.damage ?? "", damageModifier);
+  const baseDamage = DiceString.parse(w.damage ?? "0");
+  const damageWithStrength = DiceString.init(w.damage ?? "0", character.abilityModifier("Str"));
 
   return {
     weapon: w.weapon,
-    attackModifier: character.abilityModifier("Str") + character.proficiencyBonus + (w.bonus ?? 0),
+    attackModifier: character.abilityModifier("Str") + character.proficiencyBonus + baseDamage.getModifier(),
     damage: {
-      damageRoll: baseDamage.normalize().toString(),
-      critRoll: baseDamage.crit().normalize().toString(),
+      damageRoll: damageWithStrength.normalize().toString(),
+      critRoll: damageWithStrength.crit().normalize().toString(),
     },
   };
 });

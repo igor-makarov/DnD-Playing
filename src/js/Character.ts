@@ -13,13 +13,11 @@ export type SavingThrow = {
 export type Weapon = {
   weapon: string;
   damage: string;
-  bonus: number;
 };
 
 export type AttackAddon = {
   addon: string;
   damage: string;
-  bonus: number;
 };
 
 export class Character {
