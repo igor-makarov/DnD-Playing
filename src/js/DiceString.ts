@@ -40,7 +40,7 @@ export class DiceString {
    */
   static init(dice: string, modifier: number): DiceString {
     // Handle empty dice string - just return modifier
-    if (!dice || dice.trim() === '') {
+    if (!dice || dice.trim() === "") {
       return new DiceString([], modifier);
     }
     // Parse the dice portion (without modifier)
@@ -64,31 +64,31 @@ export class DiceString {
    * @throws Error if the input is invalid
    */
   static parse(input: string): DiceString {
-    if (!input || typeof input !== 'string') {
-      throw new Error('Invalid input: must be a non-empty string');
+    if (!input || typeof input !== "string") {
+      throw new Error("Invalid input: must be a non-empty string");
     }
 
     const dice: DiceTerm[] = [];
     let modifier = 0;
 
     // Remove all whitespace
-    const normalized = input.replace(/\s+/g, '');
+    const normalized = input.replace(/\s+/g, "");
 
     // Split by + and -, keeping the operators
     const terms: string[] = [];
     const operators: string[] = [];
-    let currentTerm = '';
+    let currentTerm = "";
 
     for (let i = 0; i < normalized.length; i++) {
       const char = normalized[i];
-      if (char === '+' || char === '-') {
+      if (char === "+" || char === "-") {
         if (currentTerm) {
           terms.push(currentTerm);
           operators.push(char);
-          currentTerm = '';
-        } else if (char === '-' && i === 0) {
+          currentTerm = "";
+        } else if (char === "-" && i === 0) {
           // Handle leading negative sign
-          currentTerm = '-';
+          currentTerm = "-";
         }
       } else {
         currentTerm += char;
@@ -101,13 +101,13 @@ export class DiceString {
     // Process each term
     for (let i = 0; i < terms.length; i++) {
       const term = terms[i];
-      const sign = i === 0 && !term.startsWith('-') ? 1 : (operators[i - 1] === '-' ? -1 : 1);
+      const sign = i === 0 && !term.startsWith("-") ? 1 : operators[i - 1] === "-" ? -1 : 1;
 
       // Check if it's a dice term (contains 'd' or 'D')
       const diceMatch = term.match(/^(-?)(\d*)d(\d+)$/i);
 
       if (diceMatch) {
-        const termSign = diceMatch[1] === '-' ? -1 : 1;
+        const termSign = diceMatch[1] === "-" ? -1 : 1;
         const count = diceMatch[2] ? parseInt(diceMatch[2], 10) : 1;
         const sides = parseInt(diceMatch[3], 10);
 
@@ -167,9 +167,9 @@ export class DiceString {
    * @returns A new DiceString with doubled dice
    */
   crit(): DiceString {
-    const critDice = this.dice.map(die => ({
+    const critDice = this.dice.map((die) => ({
       count: die.count * 2,
-      sides: die.sides
+      sides: die.sides,
     }));
 
     return new DiceString(critDice, this.modifier);
@@ -201,7 +201,7 @@ export class DiceString {
    * @returns The dice string with disadvantage notation
    */
   toMinString(): string {
-    return this.toStringInternal('min');
+    return this.toStringInternal("min");
   }
 
   /**
@@ -216,26 +216,26 @@ export class DiceString {
    * @returns The dice string with advantage notation
    */
   toMaxString(): string {
-    return this.toStringInternal('max');
+    return this.toStringInternal("max");
   }
 
   /**
    * Internal method to convert dice to string with optional min/max modifier
    */
-  private toStringInternal(minMax?: 'min' | 'max'): string {
+  private toStringInternal(minMax?: "min" | "max"): string {
     const parts: string[] = [];
 
     // Add dice terms
     for (const die of this.dice) {
       const count = Math.abs(die.count);
-      const countStr = count === 1 ? '' : count.toString();
+      const countStr = count === 1 ? "" : count.toString();
 
       // Apply min/max only to d20 rolls
       let diceStr: string;
       if (minMax && die.sides === 20) {
         // Double the count and add min/max suffix
         const advCount = count * 2;
-        const advCountStr = advCount === 1 ? '' : advCount.toString();
+        const advCountStr = advCount === 1 ? "" : advCount.toString();
         diceStr = `${advCountStr}d${die.sides}${minMax}`;
       } else {
         diceStr = `${countStr}d${die.sides}`;
@@ -271,6 +271,6 @@ export class DiceString {
       }
     }
 
-    return parts.length > 0 ? parts.join('') : '0';
+    return parts.length > 0 ? parts.join("") : "0";
   }
 }

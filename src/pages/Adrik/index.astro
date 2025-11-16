@@ -1,103 +1,98 @@
 ---
-import { character } from './AdrikCharacter.js';
-import CheckCell from '../../components/CheckCell.tsx';
-import SkillsTable from '../../components/SkillsTable.astro';
-import SavesTable from '../../components/SavesTable.astro';
-import '../../../public/styles/style.css';
+import { character } from "./AdrikCharacter.js";
+import CheckCell from "../../components/CheckCell.tsx";
+import SkillsTable from "../../components/SkillsTable.astro";
+import SavesTable from "../../components/SavesTable.astro";
+import "../../../public/styles/style.css";
 ---
 
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adrik Abilities</title>
-  <base target="_blank">
-</head>
-<body>
-
-  <div class="row">
-    <div>
-      <table style="border-spacing: 10px; border: 0px; border-collapse: separate;">
-        <tr>
-          {Object.keys(character.abilityScores).map(ability => (
-            <th style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;" class="modifier">
-              <span class="mono">{ability}</span><br/>
-              <span class="mono">{character.abilityScores[ability]}</span><br/>
-              <span class="checkCell">
-                <CheckCell client:only="react" bonus={character.abilityModifier(ability)} />
-              </span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adrik Abilities</title>
+    <base target="_blank" />
+  </head>
+  <body>
+    <div class="row">
+      <div>
+        <table style="border-spacing: 10px; border: 0px; border-collapse: separate;">
+          <tr>
+            {
+              Object.keys(character.abilityScores).map((ability) => (
+                <th style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;" class="modifier">
+                  <>
+                    <span class="mono">{ability}</span>
+                    <br />
+                  </>
+                  <>
+                    <span class="mono">{character.abilityScores[ability]}</span>
+                    <br />
+                  </>
+                  <span class="checkCell">
+                    <CheckCell client:only="react" bonus={character.abilityModifier(ability)} />
+                  </span>
+                </th>
+              ))
+            }
+          </tr>
+          <tr>
+            <th colspan="6" class="modifier">
+              <span class="mono">Proficiency Bonus</span><br />
+              <span class="mono">+{character.proficiencyBonus}&nbsp;</span>
             </th>
-          ))}
-        </tr>
-        <tr>
-          <th colspan="6" class="modifier">
-            <span class="mono">Proficiency Bonus</span><br/>
-            <span class="mono">+{character.proficiencyBonus}&nbsp;</span>
-          </th>
-        </tr>
-      </table>
+          </tr>
+        </table>
+      </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="column">
-      <SkillsTable
-        title={'Skills<br><a href="https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230">character sheet</a>'}
-        skills={character.skills}
-        scores={character}
-      />
+    <div class="row">
+      <div class="column">
+        <SkillsTable
+          title={'Skills<br><a href="https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230">character sheet</a>'}
+          skills={character.skills}
+          scores={character}
+        />
+      </div>
+      <div class="column">
+        <SkillsTable title="Int skills" skills={character.skills.filter((s) => s.modifier == "Int")} scores={character} />
+        <SkillsTable title="Wis skills" skills={character.skills.filter((s) => s.modifier == "Wis")} scores={character} />
+      </div>
+      <div class="column">
+        <SkillsTable
+          title={'<a href="http://dnd5e.wikidot.com/ranger#:~:text=at%2014th%20level.-,Natural%20Explorer,-Also%20at%201st">Favored Terrain</a><br>expertise on Forest'}
+          skills={character.skills.filter((s) => (s.modifier == "Int" || s.modifier == "Wis") && s.proficient)}
+          proficiencyMultiplier={2}
+          scores={character}
+        />
+        <SkillsTable
+          title={'<a href="http://dnd5e.wikidot.com/ranger#:~:text=of%2020%20arrows-,Favored%20Enemy,-Beginning%20at%201st">Favored Enemy</a><br>ADV on orc, goblin'}
+          skills={character.skills.filter((s) => s.modifier == "Int" || s.skill == "Survival")}
+          advantage={true}
+          scores={character}
+        />
+        <SkillsTable
+          title={'<a href="http://dnd5e.wikidot.com/lineage:dwarf#:~:text=Stonecunning">Stonecunning</a><br>expertise on stonework'}
+          skills={character.skills.filter((s) => s.skill == "History")}
+          proficiencyMultiplier={2}
+          scores={character}
+        />
+        <SkillsTable
+          title={'<a href="https://www.dndbeyond.com/spells/hunters-mark">Hunter&apos;s Mark</a><br>ADV on marked creature'}
+          skills={character.skills.filter((s) => s.skill == "Perception" || s.skill == "Survival")}
+          advantage={true}
+          scores={character}
+        />
+      </div>
+      <div class="column">
+        <SavesTable title="Saves" saves={character.saves} scores={character} />
+        <SavesTable
+          title={'<a href="http://dnd5e.wikidot.com/lineage:dwarf#:~:text=Dwarven%20Resilience">Dwarven Resilience</a><br>ADV against poison<br>also half damage'}
+          saves={character.saves.filter((s) => s.save == "Con")}
+          advantage={true}
+          scores={character}
+        />
+      </div>
     </div>
-    <div class="column">
-      <SkillsTable
-        title="Int skills"
-        skills={character.skills.filter(s => s.modifier == 'Int')}
-        scores={character}
-      />
-      <SkillsTable
-        title="Wis skills"
-        skills={character.skills.filter(s => s.modifier == 'Wis')}
-        scores={character}
-      />
-    </div>
-    <div class="column">
-      <SkillsTable
-        title={'<a href="http://dnd5e.wikidot.com/ranger#:~:text=at%2014th%20level.-,Natural%20Explorer,-Also%20at%201st">Favored Terrain</a><br>expertise on Forest'}
-        skills={character.skills.filter(s => (s.modifier == 'Int' || s.modifier == 'Wis') && s.proficient)}
-        proficiencyMultiplier={2}
-        scores={character}
-      />
-      <SkillsTable
-        title={'<a href="http://dnd5e.wikidot.com/ranger#:~:text=of%2020%20arrows-,Favored%20Enemy,-Beginning%20at%201st">Favored Enemy</a><br>ADV on orc, goblin'}
-        skills={character.skills.filter(s => s.modifier == 'Int' || s.skill == 'Survival')}
-        advantage={true}
-        scores={character}
-      />
-      <SkillsTable
-        title={'<a href="http://dnd5e.wikidot.com/lineage:dwarf#:~:text=Stonecunning">Stonecunning</a><br>expertise on stonework'}
-        skills={character.skills.filter(s => s.skill == 'History')}
-        proficiencyMultiplier={2}
-        scores={character}
-      />
-      <SkillsTable
-        title={'<a href="https://www.dndbeyond.com/spells/hunters-mark">Hunter&apos;s Mark</a><br>ADV on marked creature'}
-        skills={character.skills.filter(s => s.skill == 'Perception' || s.skill == 'Survival')}
-        advantage={true}
-        scores={character}
-      />
-    </div>
-    <div class="column">
-      <SavesTable
-        title="Saves"
-        saves={character.saves}
-        scores={character}
-      />
-      <SavesTable
-        title={'<a href="http://dnd5e.wikidot.com/lineage:dwarf#:~:text=Dwarven%20Resilience">Dwarven Resilience</a><br>ADV against poison<br>also half damage'}
-        saves={character.saves.filter(s => s.save == 'Con')}
-        advantage={true}
-        scores={character}
-      />
-    </div>
-  </div>
-</body>
+  </body>
 </html>

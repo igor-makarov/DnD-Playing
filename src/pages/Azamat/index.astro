@@ -17,16 +17,11 @@ import "../../../public/styles/style.css";
   <body>
     <div class="row">
       <div>
-        <table
-          style="border-spacing: 10px; border: 0px; border-collapse: separate;"
-        >
+        <table style="border-spacing: 10px; border: 0px; border-collapse: separate;">
           <tr>
             {
               Object.keys(character.abilityScores).map((ability) => (
-                <th
-                  style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;"
-                  class="modifier"
-                >
+                <th style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;" class="modifier">
                   <>
                     <span class="mono">{ability}</span>
                     <br />
@@ -36,10 +31,7 @@ import "../../../public/styles/style.css";
                     <br />
                   </>
                   <span class="checkCell">
-                    <CheckCell
-                      client:only="react"
-                      bonus={character.abilityModifier(ability)}
-                    />
+                    <CheckCell client:only="react" bonus={character.abilityModifier(ability)} />
                   </span>
                 </th>
               ))
@@ -64,16 +56,8 @@ import "../../../public/styles/style.css";
         />
       </div>
       <div class="column">
-        <SkillsTable
-          title="Proficient skills"
-          skills={character.skills.filter((s) => s.proficient)}
-          scores={character}
-        />
-        <SkillsTable
-          title="Cha skills"
-          skills={character.skills.filter((s) => s.modifier == "Cha")}
-          scores={character}
-        />
+        <SkillsTable title="Proficient skills" skills={character.skills.filter((s) => s.proficient)} scores={character} />
+        <SkillsTable title="Cha skills" skills={character.skills.filter((s) => s.modifier == "Cha")} scores={character} />
         <WeaponAttackTable character={character} />
       </div>
       <div class="column">
@@ -100,9 +84,7 @@ import "../../../public/styles/style.css";
           <tr>
             <td>HDP (CD)</td>
             <td class="modifier">
-              Max slot level: <span class="mono"
-                >{Math.ceil(0.5 * character.proficiencyBonus)}</span
-              >
+              Max slot level: <span class="mono">{Math.ceil(0.5 * character.proficiencyBonus)}</span>
             </td>
           </tr>
           <tr>
@@ -114,8 +96,7 @@ import "../../../public/styles/style.css";
           <tr>
             <td>Aura of Protection (10ft)</td>
             <td class="modifier">
-              <span class="mono">+{character.abilityModifier("Cha")}&nbsp;</span
-              >
+              <span class="mono">+{character.abilityModifier("Cha")}&nbsp;</span>
             </td>
           </tr>
           <tr>
@@ -129,12 +110,7 @@ import "../../../public/styles/style.css";
         </table>
       </div>
       <div class="column">
-        <SavesTable
-          title="Saves (with added Cha)"
-          saves={character.saves}
-          scores={character}
-          extraBonus={character.abilityModifier("Cha")}
-        />
+        <SavesTable title="Saves (with added Cha)" saves={character.saves} scores={character} extraBonus={character.abilityModifier("Cha")} />
         <SavesTable
           title={'<a href="https://2014.5e.tools/races.html#warforged_erlw">Constructed Resilience</a><br>ADV against poison<br>also half damage'}
           saves={character.saves.filter((s) => s.save == "Con")}

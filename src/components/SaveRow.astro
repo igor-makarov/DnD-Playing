@@ -1,7 +1,8 @@
 ---
-import CheckCell from './CheckCell.tsx';
+import CheckCell from "./CheckCell.tsx";
 const { save, proficiency, bonus, advantage } = Astro.props;
 ---
+
 <tr>
   <td><span class="mono">[{proficiency.symbol}]</span> {save.save}</td>
   <td class="checkCell modifier">

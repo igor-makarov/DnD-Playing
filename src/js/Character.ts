@@ -1,26 +1,26 @@
-export type Ability = 'Str' | 'Dex' | 'Con' | 'Int' | 'Wis' | 'Cha';
+export type Ability = "Str" | "Dex" | "Con" | "Int" | "Wis" | "Cha";
 export type Skill = {
   skill: string;
   modifier: Ability;
   proficient: boolean;
-}
+};
 
 export type SavingThrow = {
   save: Ability;
   proficient: boolean;
-}
+};
 
 export type Weapon = {
   weapon: string;
   damage: string;
   bonus: number;
-}
+};
 
 export type AttackAddon = {
   addon: string;
   damage: string;
   bonus: number;
-}
+};
 
 export class Character {
   abilityScores: [Ability: number];
@@ -46,7 +46,7 @@ export class Character {
 
   createProficiency(proficient, multiplier) {
     multiplier ||= 1;
-    const symbol = multiplier > 1 ? 'E' : 'P';
-    return { symbol: proficient ? symbol : ' ', bonus: (proficient ? 1 : 0) * this.proficiencyBonus * multiplier };
+    const symbol = multiplier > 1 ? "E" : "P";
+    return { symbol: proficient ? symbol : " ", bonus: (proficient ? 1 : 0) * this.proficiencyBonus * multiplier };
   }
 }

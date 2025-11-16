@@ -1,16 +1,16 @@
-import { DiceString } from './DiceString';
+import { DiceString } from "./DiceString";
 
 export const rollOptions: Record<string, (diceExpression: string, options?: { advantage?: boolean; disadvantage?: boolean }) => string> = {
   app: function (diceExpression, { advantage, disadvantage } = {}) {
     let suffix: string;
     if (advantage) {
-      suffix = '(ADV)'
+      suffix = "(ADV)";
     } else if (disadvantage) {
-      suffix = '(DIS)'
+      suffix = "(DIS)";
     } else {
-      suffix = ''
+      suffix = "";
     }
-    return `dice://roll/${diceExpression}${suffix}`
+    return `dice://roll/${diceExpression}${suffix}`;
   },
   site: function (diceExpression, { advantage, disadvantage } = {}) {
     let finalExpression: string;
@@ -22,10 +22,10 @@ export const rollOptions: Record<string, (diceExpression: string, options?: { ad
       finalExpression = diceExpression;
     }
     return `https://dice.run/#/d/${finalExpression}`;
-  }
+  },
 };
 
-export function getRollUrl(diceExpression: string, diceAppKey: string = 'app', options?: { advantage?: boolean; disadvantage?: boolean }): string {
-  const diceUrlFunction = rollOptions[diceAppKey] || rollOptions['app'];
+export function getRollUrl(diceExpression: string, diceAppKey: string = "app", options?: { advantage?: boolean; disadvantage?: boolean }): string {
+  const diceUrlFunction = rollOptions[diceAppKey] || rollOptions["app"];
   return diceUrlFunction(diceExpression, options);
 }

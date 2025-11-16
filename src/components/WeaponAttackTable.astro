@@ -1,20 +1,21 @@
 ---
-import { WeaponAttack, type WeaponAttackData } from './WeaponAttack.tsx';
-import type { Character } from '../js/Character';
-import { DiceString } from '../js/DiceString';
+import { WeaponAttack, type WeaponAttackData } from "./WeaponAttack.tsx";
+import type { Character } from "../js/Character";
+import { DiceString } from "../js/DiceString";
 
 const { character } = Astro.props as { character: Character };
 
-const weaponAttacks: WeaponAttackData[] = character.weapons.map(w => {
-  const damageModifier = character.abilityModifier('Str') + (w.bonus ?? 0);
-  const baseDamage = DiceString.init(w.damage ?? '', damageModifier);
+const weaponAttacks: WeaponAttackData[] = character.weapons.map((w) => {
+  const damageModifier = character.abilityModifier("Str") + (w.bonus ?? 0);
+  const baseDamage = DiceString.init(w.damage ?? "", damageModifier);
 
   return {
     weapon: w.weapon,
-    attackModifier: character.abilityModifier('Str') + character.proficiencyBonus + (w.bonus ?? 0),
+    attackModifier: character.abilityModifier("Str") + character.proficiencyBonus + (w.bonus ?? 0),
     damageRoll: baseDamage.normalize().toString(),
-    critRoll: baseDamage.crit().normalize().toString()
+    critRoll: baseDamage.crit().normalize().toString(),
   };
 });
 ---
+
 <WeaponAttack client:only="react" weaponAttacks={weaponAttacks} />
