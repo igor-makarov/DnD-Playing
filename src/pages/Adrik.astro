@@ -93,7 +93,7 @@ import "../../public/styles/style.css";
         <SavesTable title="Saves" character={character} />
         <SavesTable
           title={'<a href="http://dnd5e.wikidot.com/lineage:dwarf#:~:text=Dwarven%20Resilience">Dwarven Resilience</a><br>ADV against poison<br>also half damage'}
-          saves={character.saves.filter((s) => s.save == "Con")}
+          savingThrows={character.getSavingThrows().filter((s) => s.ability == "Con")}
           advantage={true}
           character={character}
         />

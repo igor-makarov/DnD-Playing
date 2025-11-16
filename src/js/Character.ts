@@ -1,3 +1,6 @@
+import { symbol } from "astro:schema";
+import { DiceString } from "./DiceString";
+
 export type Ability = "Str" | "Dex" | "Con" | "Int" | "Wis" | "Cha";
 
 export type AbilityScores = {
@@ -10,9 +13,20 @@ export type Skill = {
   proficient?: boolean;
 };
 
-export type SavingThrow = {
+export type SavingThrowProficiency = {
   save: Ability;
   proficient?: boolean;
+};
+
+type Proficiency = {
+  symbol: string;
+  bonus: number;
+};
+
+export type SavingThrow = {
+  ability: Ability;
+  proficiency: Proficiency;
+  dice: DiceString;
 };
 
 export type Weapon = {
@@ -39,7 +53,7 @@ export class Character {
   characterLevel: number;
   proficiencyBonus: number;
   skills: Skill[];
-  saves: SavingThrow[];
+  saves: SavingThrowProficiency[];
   weapons: Weapon[];
   attackAddons: AttackAddon[];
   constructor({ abilityScores, characterLevel, proficiencyBonus, skills, saves, weapons = [], attackAddons = [] }) {
@@ -56,11 +70,23 @@ export class Character {
     return Object.keys(this.abilityScores) as Ability[];
   }
 
-  abilityModifier(ability: Ability) {
+  abilityModifier(ability: Ability): number {
     return Math.floor((this.abilityScores[ability] - 10) / 2);
   }
 
-  createProficiency(proficient: boolean, multiplier?: number) {
+  getSavingThrows(): SavingThrow[] {
+    return this.getAbilities().map((ability) => {
+      const save = this.saves.find((s) => s.save === ability);
+      const proficiency = this.createProficiency(save?.proficient ?? false);
+      return {
+        ability,
+        proficiency,
+        dice: DiceString.init("d20", proficiency.bonus),
+      };
+    });
+  }
+
+  createProficiency(proficient: boolean, multiplier?: number): Proficiency {
     multiplier ||= 1;
     const symbol = multiplier > 1 ? "E" : "P";
     return { symbol: proficient ? symbol : " ", bonus: (proficient ? 1 : 0) * this.proficiencyBonus * multiplier };

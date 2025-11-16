@@ -115,10 +115,10 @@ import "../../public/styles/style.css";
         </table>
       </div>
       <div class="column">
-        <SavesTable title="Saves (with added Cha)" character={character} extraBonus={character.abilityModifier("Cha")} />
+        <SavesTable title="Saves (with added Cha)" character={character} />
         <SavesTable
           title={'<a href="https://2014.5e.tools/races.html#warforged_erlw">Constructed Resilience</a><br>ADV against poison<br>also half damage'}
-          saves={character.saves.filter((s) => s.save == "Con")}
+          savingThrows={character.getSavingThrows().filter((s) => s.ability == "Con")}
           advantage={true}
           character={character}
         />

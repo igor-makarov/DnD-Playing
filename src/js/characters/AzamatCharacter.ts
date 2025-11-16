@@ -1,4 +1,5 @@
-import { Character } from "../Character";
+import { Character, type SavingThrow } from "../Character";
+import { DiceString } from "../DiceString";
 
 class AzamatCharacter extends Character {
   constructor() {
@@ -64,6 +65,18 @@ class AzamatCharacter extends Character {
         { addon: "Divine Smite (undead)", damage: { optional: true, damage: "d8" } },
       ],
     });
+  }
+
+  // Override to add Charisma modifier (Aura of Protection)
+  getSavingThrows(): SavingThrow[] {
+    const baseSaves = super.getSavingThrows();
+    const charismaMod = this.abilityModifier("Cha");
+
+    return baseSaves.map(({ ability, proficiency, dice }) => ({
+      ability,
+      proficiency,
+      dice: DiceString.sum(dice, charismaMod),
+    }));
   }
 }
 
