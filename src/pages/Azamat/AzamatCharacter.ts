@@ -62,6 +62,7 @@ class AzamatCharacter extends Character {
             [5, "6d8"],
           ],
         },
+        { addon: "Divine Smite (undead)", damage: { optional: true, damage: "d8" } },
       ],
     });
   }

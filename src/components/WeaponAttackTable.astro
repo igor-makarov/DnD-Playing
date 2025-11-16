@@ -29,6 +29,17 @@ const damageAddons: DamageAddonData[] = character.attackAddons.map((addon) => {
         critRoll: addonBaseDamage.crit().normalize().toString(),
       },
     };
+  } else if ("optional" in addon.damage) {
+    // OptionalDamage - convert to OptionalDamageData
+    const addonBaseDamage = DiceString.parse(addon.damage.damage);
+    return {
+      addon: addon.addon,
+      damage: {
+        optional: true,
+        damageRoll: addonBaseDamage.normalize().toString(),
+        critRoll: addonBaseDamage.crit().normalize().toString(),
+      },
+    };
   } else {
     // DamageWithLevels - convert all levels to damage options
     const options = addon.damage.map(([level, damageString]) => {

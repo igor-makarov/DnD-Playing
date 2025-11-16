@@ -19,9 +19,14 @@ export type Weapon = {
 
 type DamageWithLevels = [level: number, damage: string][];
 
+type OptionalDamage = {
+  optional: true;
+  damage: string;
+};
+
 export type AttackAddon = {
   addon: string;
-  damage: string | DamageWithLevels;
+  damage: string | DamageWithLevels | OptionalDamage;
 };
 
 export class Character {

@@ -13,9 +13,15 @@ export type DamageOptionsData = {
   options: DamageOptionData[];
 };
 
+export type OptionalDamageData = {
+  optional: true;
+  damageRoll: string;
+  critRoll: string;
+};
+
 export type DamageAddonData = {
   addon: string;
-  damage: DamageData | DamageOptionsData;
+  damage: DamageData | DamageOptionsData | OptionalDamageData;
 };
 
 export type WeaponAttackData = {

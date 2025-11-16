@@ -4,7 +4,8 @@ import { getRollUrl } from "../js/rollOptions";
 import { DiceString } from "../js/DiceString";
 import AlwaysOnDamageAddonRow from "./AlwaysOnDamageAddonRow";
 import LevelledDamageAddonRow from "./LevelledDamageAddonRow";
-import type { DamageData, DamageAddonData, DamageOptionsData, WeaponAttackData } from "./WeaponAttackData";
+import OptionalDamageAddonRow from "./OptionalDamageAddonRow";
+import type { DamageData, DamageAddonData, DamageOptionsData, OptionalDamageData, WeaponAttackData } from "./WeaponAttackData";
 
 // This function subscribes to the hashchange event
 function subscribe(callback: () => void) {
@@ -28,6 +29,7 @@ interface WeaponAttackProps {
 const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageAddons }) => {
   const [selectedWeaponName, setSelectedWeaponName] = useState<string>("");
   const [selectedLevels, setSelectedLevels] = useState<Map<string, number>>(new Map());
+  const [enabledOptionals, setEnabledOptionals] = useState<Map<string, boolean>>(new Map());
 
   const selectedWeapon = useMemo(() => {
     if (!selectedWeaponName) {
@@ -48,7 +50,7 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
   const hash = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const diceAppKey = hash?.substring(1) || "app";
 
-  // Helper to get damage for an addon based on selected level
+  // Helper to get damage for an addon based on selected level or enabled state
   const getAddonDamage = (addon: DamageAddonData): DamageData | null => {
     if ("options" in addon.damage) {
       const selectedLevel = selectedLevels.get(addon.addon) ?? -1; // Default to -1 (off)
@@ -60,6 +62,12 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
         return { damageRoll: option.damageRoll, critRoll: option.critRoll };
       }
       return null;
+    } else if ("optional" in addon.damage) {
+      const isEnabled = enabledOptionals.get(addon.addon) ?? false;
+      if (!isEnabled) {
+        return null; // Disabled state
+      }
+      return { damageRoll: addon.damage.damageRoll, critRoll: addon.damage.critRoll };
     } else {
       return addon.damage;
     }
@@ -85,7 +93,7 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
       damageRoll: DiceString.sum(...damageRolls).toString(),
       critRoll: DiceString.sum(...critRolls).toString(),
     };
-  }, [selectedWeapon, damageAddons, selectedLevels]);
+  }, [selectedWeapon, damageAddons, selectedLevels, enabledOptionals]);
 
   return (
     <table>
@@ -127,6 +135,21 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
                 const newMap = new Map(selectedLevels);
                 newMap.set(addon.addon, level);
                 setSelectedLevels(newMap);
+              }}
+            />
+          );
+        }
+
+        if ("optional" in addon.damage) {
+          return (
+            <OptionalDamageAddonRow
+              key={addon.addon}
+              addon={addon as DamageAddonData & { damage: OptionalDamageData }}
+              isEnabled={enabledOptionals.get(addon.addon) ?? false}
+              onToggle={(enabled) => {
+                const newMap = new Map(enabledOptionals);
+                newMap.set(addon.addon, enabled);
+                setEnabledOptionals(newMap);
               }}
             />
           );
