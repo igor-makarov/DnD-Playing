@@ -27,22 +27,29 @@ const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks }) => {
   };
 
   return (
-    <div>
-      <div>
-        <label htmlFor="weapon-select">Choose a weapon:</label>
-        <select name="weapons" id="weapon-select" onChange={handleWeaponChange} value={selectedWeaponName}>
-          <option value="" disabled>--Please choose a weapon--</option>
-          {weaponAttacks.map(weapon => (
-            <option key={weapon.weapon} value={weapon.weapon}>
-              {weapon.weapon}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="grid grid-cols-6">
-        {attackModifier !== null && <CheckCell bonus={attackModifier} />}
-      </div>
-    </div>
+    <table>
+      <tr>
+        <th colSpan={2} style={{ textAlign: 'center' }}>Weapon Attack</th>
+      </tr>
+      <tr>
+        <td colSpan={2} style={{ textAlign: 'center' }}>
+          <select name="weapons" id="weapon-select" onChange={handleWeaponChange} value={selectedWeaponName}>
+            <option value="" disabled>--Please choose a weapon--</option>
+            {weaponAttacks.map(weapon => (
+              <option key={weapon.weapon} value={weapon.weapon}>
+                {weapon.weapon}
+              </option>
+            ))}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Attack</td>
+        <td className="checkCell modifier">
+          {attackModifier !== null && <CheckCell bonus={attackModifier} />}
+        </td>
+      </tr>
+    </table>
   );
 };
 
