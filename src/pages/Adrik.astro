@@ -4,7 +4,6 @@ import CheckCell from "../components/CheckCell.tsx";
 import SkillsTable from "../components/SkillsTable.astro";
 import SavesTable from "../components/SavesTable.astro";
 import "../../public/styles/style.css";
-import type { Ability } from "../js/Character";
 ---
 
 <html lang="en">
@@ -20,7 +19,7 @@ import type { Ability } from "../js/Character";
         <table style="border-spacing: 10px; border: 0px; border-collapse: separate;">
           <tr>
             {
-              Object.keys(character.abilityScores).map((ability) => (
+              character.getAbilities().map((ability) => (
                 <th style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;" class="modifier">
                   <>
                     <span class="mono">{ability}</span>
@@ -31,7 +30,7 @@ import type { Ability } from "../js/Character";
                     <br />
                   </>
                   <span class="checkCell">
-                    <CheckCell client:only="react" bonus={character.abilityModifier(ability as Ability)} />
+                    <CheckCell client:only="react" bonus={character.abilityModifier(ability)} />
                   </span>
                 </th>
               ))

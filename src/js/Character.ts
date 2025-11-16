@@ -1,19 +1,18 @@
 export type Ability = "Str" | "Dex" | "Con" | "Int" | "Wis" | "Cha";
 
-export type AbilityScore = {
-  ability: Ability;
-  score: number;
+export type AbilityScores = {
+  [K in Ability]: number;
 };
 
 export type Skill = {
   skill: string;
   modifier: Ability;
-  proficient: boolean;
+  proficient?: boolean;
 };
 
 export type SavingThrow = {
   save: Ability;
-  proficient: boolean;
+  proficient?: boolean;
 };
 
 export type Weapon = {
@@ -36,7 +35,7 @@ export type AttackAddon = {
 };
 
 export class Character {
-  abilityScores: AbilityScore[];
+  abilityScores: AbilityScores;
   characterLevel: number;
   proficiencyBonus: number;
   skills: Skill[];
@@ -53,11 +52,15 @@ export class Character {
     this.attackAddons = attackAddons;
   }
 
+  getAbilities(): Ability[] {
+    return Object.keys(this.abilityScores) as Ability[];
+  }
+
   abilityModifier(ability: Ability) {
     return Math.floor((this.abilityScores[ability] - 10) / 2);
   }
 
-  createProficiency(proficient: boolean, multiplier: number | undefined) {
+  createProficiency(proficient: boolean, multiplier?: number) {
     multiplier ||= 1;
     const symbol = multiplier > 1 ? "E" : "P";
     return { symbol: proficient ? symbol : " ", bonus: (proficient ? 1 : 0) * this.proficiencyBonus * multiplier };
