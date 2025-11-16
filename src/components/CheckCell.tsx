@@ -1,7 +1,7 @@
 import React from "react";
 import { getRollUrl } from "../js/rollOptions";
 import { DiceString } from "../js/DiceString";
-import { useRollModifiers } from "../hooks/useRollModifiers";
+import { useRollModifiers, RollModifier } from "../hooks/useRollModifiers";
 import { useHash } from "../hooks/useHash";
 import { useIsMobile } from "../hooks/useIsMobile";
 
@@ -13,7 +13,7 @@ interface CheckCellProps {
 const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
   const hash = useHash();
   const isMobile = useIsMobile();
-  const { modifiers: modifierKeys } = useRollModifiers();
+  const { modifier } = useRollModifiers();
 
   const diceAppKey = hash?.substring(1) || "app";
 
@@ -22,20 +22,20 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
 
   // Determine the current roll type based on A/D/S keys
   const getCurrentRollType = () => {
-    if (modifierKeys.regular) return "REG";
-    if (modifierKeys.disadvantage) return "DIS";
-    if (modifierKeys.advantage) return "ADV";
+    if (modifier === RollModifier.REGULAR) return "REG";
+    if (modifier === RollModifier.DISADVANTAGE) return "DIS";
+    if (modifier === RollModifier.ADVANTAGE) return "ADV";
     return advantage ? "ADV" : "REG";
   };
 
   const getCurrentUrl = () => {
-    if (modifierKeys.regular) {
+    if (modifier === RollModifier.REGULAR) {
       return getRollUrl(diceString, diceAppKey);
     }
-    if (modifierKeys.disadvantage) {
+    if (modifier === RollModifier.DISADVANTAGE) {
       return getRollUrl(diceString, diceAppKey, { disadvantage: true });
     }
-    if (modifierKeys.advantage) {
+    if (modifier === RollModifier.ADVANTAGE) {
       return getRollUrl(diceString, diceAppKey, { advantage: true });
     }
     return advantage ? getRollUrl(diceString, diceAppKey, { advantage: true }) : getRollUrl(diceString, diceAppKey);

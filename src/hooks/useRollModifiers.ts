@@ -1,7 +1,15 @@
 import { useSyncExternalStore } from "react";
 
+// Enum for roll modifier types
+export enum RollModifier {
+  NONE = "NONE",
+  ADVANTAGE = "ADVANTAGE",
+  DISADVANTAGE = "DISADVANTAGE",
+  REGULAR = "REGULAR",
+}
+
 // Global state
-let modifierState = { advantage: false, disadvantage: false, regular: false };
+let modifierState: RollModifier = RollModifier.NONE;
 const listeners = new Set<() => void>();
 
 // Subscribe function for useSyncExternalStore
@@ -23,7 +31,7 @@ function getSnapshot() {
 
 // Server snapshot (for SSR)
 function getServerSnapshot() {
-  return { advantage: false, disadvantage: false, regular: false };
+  return RollModifier.NONE;
 }
 
 // Initialize event listeners once
@@ -34,55 +42,40 @@ function initializeEventListeners() {
   initialized = true;
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    let changed = false;
-    if (e.key === "a" || e.key === "A") {
-      if (!modifierState.advantage) {
-        modifierState = { ...modifierState, advantage: true };
-        changed = true;
-      }
+    const key = e.key.toLowerCase();
+    let newState: RollModifier | null = null;
+
+    if (key === "s") {
+      newState = RollModifier.REGULAR;
+    } else if (key === "a") {
+      newState = RollModifier.ADVANTAGE;
+    } else if (key === "d") {
+      newState = RollModifier.DISADVANTAGE;
     }
-    if (e.key === "d" || e.key === "D") {
-      if (!modifierState.disadvantage) {
-        modifierState = { ...modifierState, disadvantage: true };
-        changed = true;
-      }
+
+    if (newState !== null && modifierState !== newState) {
+      modifierState = newState;
+      notifyListeners();
     }
-    if (e.key === "s" || e.key === "S") {
-      if (!modifierState.regular) {
-        modifierState = { ...modifierState, regular: true };
-        changed = true;
-      }
-    }
-    if (changed) notifyListeners();
   };
 
   const handleKeyUp = (e: KeyboardEvent) => {
-    let changed = false;
-    if (e.key === "a" || e.key === "A") {
-      if (modifierState.advantage) {
-        modifierState = { ...modifierState, advantage: false };
-        changed = true;
-      }
+    const key = e.key.toLowerCase();
+    const shouldReset =
+      (key === "a" && modifierState === RollModifier.ADVANTAGE) ||
+      (key === "d" && modifierState === RollModifier.DISADVANTAGE) ||
+      (key === "s" && modifierState === RollModifier.REGULAR);
+
+    if (shouldReset) {
+      modifierState = RollModifier.NONE;
+      notifyListeners();
     }
-    if (e.key === "d" || e.key === "D") {
-      if (modifierState.disadvantage) {
-        modifierState = { ...modifierState, disadvantage: false };
-        changed = true;
-      }
-    }
-    if (e.key === "s" || e.key === "S") {
-      if (modifierState.regular) {
-        modifierState = { ...modifierState, regular: false };
-        changed = true;
-      }
-    }
-    if (changed) notifyListeners();
   };
 
   const handleFocus = () => {
     // Reset modifier state when page regains focus
-    if (modifierState.advantage || modifierState.disadvantage || modifierState.regular) {
-      modifierState = { advantage: false, disadvantage: false, regular: false };
+    if (modifierState !== RollModifier.NONE) {
+      modifierState = RollModifier.NONE;
       notifyListeners();
     }
   };
@@ -94,12 +87,12 @@ function initializeEventListeners() {
 
 // Hook to use roll modifiers
 export function useRollModifiers() {
-  const modifiers = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const modifier = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const resetModifiers = () => {
-    modifierState = { advantage: false, disadvantage: false, regular: false };
+    modifierState = RollModifier.NONE;
     notifyListeners();
   };
 
-  return { modifiers, resetModifiers };
+  return { modifier, resetModifiers };
 }
