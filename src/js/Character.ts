@@ -1,4 +1,10 @@
 export type Ability = "Str" | "Dex" | "Con" | "Int" | "Wis" | "Cha";
+
+export type AbilityScore = {
+  ability: Ability;
+  score: number;
+};
+
 export type Skill = {
   skill: string;
   modifier: Ability;
@@ -30,7 +36,7 @@ export type AttackAddon = {
 };
 
 export class Character {
-  abilityScores: [Ability: number];
+  abilityScores: AbilityScore[];
   characterLevel: number;
   proficiencyBonus: number;
   skills: Skill[];
