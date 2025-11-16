@@ -1,0 +1,32 @@
+---
+import CheckCell from "./CheckCell.tsx";
+import type { Character } from "../js/Character";
+
+interface Props {
+  character: Character;
+}
+
+const { character } = Astro.props;
+---
+
+<table style="border-spacing: 10px; border: 0px; border-collapse: separate;">
+  <tr>
+    {
+      character.getAbilities().map((ability) => (
+        <th style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;" class="modifier">
+          <>
+            <span class="mono">{ability}</span>
+            <br />
+          </>
+          <>
+            <span class="mono">{character.abilityScores[ability]}</span>
+            <br />
+          </>
+          <span class="checkCell">
+            <CheckCell client:only="react" bonus={character.getAbilityModifier(ability)} />
+          </span>
+        </th>
+      ))
+    }
+  </tr>
+</table>

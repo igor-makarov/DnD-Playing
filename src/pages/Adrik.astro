@@ -1,10 +1,11 @@
 ---
+import "../../public/styles/style.css";
 import { character } from "../js/characters/AdrikCharacter.js";
-import CheckCell from "../components/CheckCell.tsx";
+import { DiceString } from "../js/DiceString";
+import AbilitiesTable from "../components/AbilitiesTable.astro";
 import SkillsTable from "../components/SkillsTable.astro";
 import SavesTable from "../components/SavesTable.astro";
-import "../../public/styles/style.css";
-import { DiceString } from "../js/DiceString";
+import CheckCell from "../components/CheckCell.tsx";
 ---
 
 <html lang="en">
@@ -17,27 +18,7 @@ import { DiceString } from "../js/DiceString";
   <body>
     <div class="row">
       <div>
-        <table style="border-spacing: 10px; border: 0px; border-collapse: separate;">
-          <tr>
-            {
-              character.getAbilities().map((ability) => (
-                <th style="padding-top: 10px; padding-bottom: 10px; width: 16.6%;" class="modifier">
-                  <>
-                    <span class="mono">{ability}</span>
-                    <br />
-                  </>
-                  <>
-                    <span class="mono">{character.abilityScores[ability]}</span>
-                    <br />
-                  </>
-                  <span class="checkCell">
-                    <CheckCell client:only="react" bonus={character.getAbilityModifier(ability)} />
-                  </span>
-                </th>
-              ))
-            }
-          </tr>
-        </table>
+        <AbilitiesTable character={character} />
       </div>
     </div>
     <div class="row">
