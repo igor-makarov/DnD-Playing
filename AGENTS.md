@@ -4,6 +4,8 @@
 - Each character is an Astro **page**
 
 # Verification
+
 You MUST run verification when you are done
+
 - Run formatter with `npm run format`
 - Run build with `npm run build`
