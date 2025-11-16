@@ -1,5 +1,5 @@
 ---
-import WeaponAttack from "./WeaponAttack.tsx";
+import WeaponAttackTable from "./WeaponAttackTable.tsx";
 import type { WeaponAttackData, DamageAddonData } from "./WeaponAttackData";
 import type { Character } from "../js/Character";
 import { DiceString } from "../js/DiceString";
@@ -47,4 +47,4 @@ const damageAddons: DamageAddonData[] = character.attackAddons.map((addon) => {
 });
 ---
 
-<WeaponAttack client:only="react" weaponAttacks={weaponAttacks} damageAddons={damageAddons} />
+<WeaponAttackTable client:only="react" weaponAttacks={weaponAttacks} damageAddons={damageAddons} />

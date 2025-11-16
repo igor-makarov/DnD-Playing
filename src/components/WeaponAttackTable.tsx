@@ -25,7 +25,7 @@ interface WeaponAttackProps {
   damageAddons: DamageAddonData[];
 }
 
-const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageAddons }) => {
+const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageAddons }) => {
   const [selectedWeaponName, setSelectedWeaponName] = useState<string>("");
   const [selectedLevels, setSelectedLevels] = useState<Map<string, number>>(new Map());
 
@@ -154,4 +154,4 @@ const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageAddons
   );
 };
 
-export default WeaponAttack;
+export default WeaponAttackTable;
