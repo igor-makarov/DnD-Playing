@@ -2,11 +2,21 @@ import React, { useState, useMemo } from "react";
 import CheckCell from "./CheckCell";
 import { getRollUrl } from "../js/rollOptions";
 
+export type DamageData = {
+  damageRoll: string;
+  critRoll: string;
+};
+
+export type DamageAddonData = {
+  addon: string;
+  damage: DamageData;
+};
+
 export type WeaponAttackData = {
   weapon: string;
   attackModifier: number;
-  damageRoll: string;
-  critRoll: string;
+  damage: DamageData;
+  damageAddons: DamageAddonData[];
 };
 
 interface WeaponAttackProps {
@@ -70,15 +80,27 @@ export const WeaponAttack: React.FC<WeaponAttackProps> = ({ weaponAttacks }) => 
         <td className="checkCell modifier">{attackModifier !== null && <CheckCell bonus={attackModifier} />}</td>
       </tr>
       <tr>
+        <td>Weapon Damage</td>
+        <td className="checkCell modifier">{selectedWeapon && <span className="mono">{selectedWeapon.damage.damageRoll}</span>}</td>
+      </tr>
+      {selectedWeapon?.damageAddons.map((addon) => (
+        <tr key={addon.addon}>
+          <td>{addon.addon}</td>
+          <td className="checkCell modifier">
+            <span className="mono">{addon.damage.damageRoll}</span>
+          </td>
+        </tr>
+      ))}
+      <tr>
         <td>Damage</td>
         <td className="checkCell modifier">
           {selectedWeapon && (
             <span className="mono">
-              <a className="regular-link" href={getRollUrl(selectedWeapon.damageRoll, diceAppKey)}>
-                {selectedWeapon.damageRoll}
+              <a className="regular-link" href={getRollUrl(selectedWeapon.damage.damageRoll, diceAppKey)}>
+                {selectedWeapon.damage.damageRoll}
               </a>
               &nbsp;
-              <a className="regular-link" href={getRollUrl(selectedWeapon.critRoll, diceAppKey)}>
+              <a className="regular-link" href={getRollUrl(selectedWeapon.damage.critRoll, diceAppKey)}>
                 CRIT
               </a>
             </span>
