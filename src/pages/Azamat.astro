@@ -57,7 +57,6 @@ import "../../public/styles/style.css";
       <div class="column">
         <SkillsTable
           title={'Skills<br><a href="https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230">character sheet</a>'}
-          skills={character.skills}
           character={character}
         />
       </div>
@@ -116,7 +115,7 @@ import "../../public/styles/style.css";
         </table>
       </div>
       <div class="column">
-        <SavesTable title="Saves (with added Cha)" saves={character.saves} character={character} extraBonus={character.abilityModifier("Cha")} />
+        <SavesTable title="Saves (with added Cha)" character={character} extraBonus={character.abilityModifier("Cha")} />
         <SavesTable
           title={'<a href="https://2014.5e.tools/races.html#warforged_erlw">Constructed Resilience</a><br>ADV against poison<br>also half damage'}
           saves={character.saves.filter((s) => s.save == "Con")}

@@ -3,6 +3,7 @@ import type { SavingThrow } from "../js/Character";
 import SaveRow from "./SaveRow.astro";
 
 const { title, saves, advantage, character, proficiencyMultiplier, extraBonus = 0 } = Astro.props;
+const savesList = saves ?? character.saves;
 ---
 
 <table>
@@ -14,7 +15,7 @@ const { title, saves, advantage, character, proficiencyMultiplier, extraBonus = 
     <th class="modifier">Modifier</th>
   </tr>
   {
-    saves.map((save: SavingThrow) => {
+    savesList.map((save: SavingThrow) => {
       const proficiency = character.createProficiency(save.proficient, proficiencyMultiplier);
       const bonus = character.abilityModifier(save.save) + proficiency.bonus + extraBonus;
       return <SaveRow save={save} proficiency={proficiency} bonus={bonus} advantage={advantage} />;

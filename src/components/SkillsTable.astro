@@ -3,6 +3,7 @@ import type { Skill } from "../js/Character";
 import SkillRow from "./SkillRow.astro";
 
 const { title, skills, advantage, character, proficiencyMultiplier } = Astro.props;
+const skillsList = skills ?? character.skills;
 ---
 
 <table>
@@ -14,7 +15,7 @@ const { title, skills, advantage, character, proficiencyMultiplier } = Astro.pro
     <th class="modifier">Modifier</th>
   </tr>
   {
-    skills.map((skill: Skill) => {
+    skillsList.map((skill: Skill) => {
       const proficiency = character.createProficiency(skill.proficient, proficiencyMultiplier);
       const bonus = character.abilityModifier(skill.modifier) + proficiency.bonus;
       return <SkillRow skill={skill} proficiency={proficiency} bonus={bonus} advantage={advantage} />;

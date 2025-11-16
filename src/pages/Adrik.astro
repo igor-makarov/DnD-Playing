@@ -56,7 +56,6 @@ import "../../public/styles/style.css";
       <div class="column">
         <SkillsTable
           title={'Skills<br><a href="https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230">character sheet</a>'}
-          skills={character.skills}
           character={character}
         />
       </div>
@@ -91,7 +90,7 @@ import "../../public/styles/style.css";
         />
       </div>
       <div class="column">
-        <SavesTable title="Saves" saves={character.saves} character={character} />
+        <SavesTable title="Saves" character={character} />
         <SavesTable
           title={'<a href="http://dnd5e.wikidot.com/lineage:dwarf#:~:text=Dwarven%20Resilience">Dwarven Resilience</a><br>ADV against poison<br>also half damage'}
           saves={character.saves.filter((s) => s.save == "Con")}
