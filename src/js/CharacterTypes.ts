@@ -39,7 +39,6 @@ export type Weapon = {
   weapon: string;
   ability: Ability;
   damage: DiceString;
-  bonus: number;
 };
 
 export type DamageWithLevels = [level: number, damage: DiceString][];

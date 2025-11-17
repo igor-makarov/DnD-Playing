@@ -266,6 +266,19 @@ export class DiceString {
   }
 
   /**
+   * Get the modifier component of the dice string
+   *
+   * @returns The numeric modifier
+   * @example
+   * new DiceString("2d6+5").getModifier() // 5
+   * new DiceString("d20-2").getModifier() // -2
+   * new DiceString("d8").getModifier() // 0
+   */
+  getModifier(): number {
+    return this.modifier;
+  }
+
+  /**
    * Convert the DiceString back to standard notation
    *
    * Examples:
