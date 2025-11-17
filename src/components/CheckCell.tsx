@@ -55,8 +55,9 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
       </span>
 
       {/* Mobile view: multiple links */}
+      <span className="check-cell-mobile">
       {advantage ? (
-        <span className="check-cell-mobile">
+        <span>
           <a className="dice-roll" href={getRollUrl(diceString, diceAppKey, { advantage: true })}>
             ADV
           </a>
@@ -74,7 +75,7 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
           </a>
         </span>
       ) : (
-        <span className="check-cell-mobile">
+        <span>
           <a className="dice-roll" href={getRollUrl(diceString, diceAppKey)}>
             {bonusSign}
             {bonus}
@@ -89,6 +90,7 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
           </a>
         </span>
       )}
+      </span>
     </span>
   );
 };
