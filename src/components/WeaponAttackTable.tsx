@@ -1,13 +1,14 @@
-import React, { useState, useMemo } from "react";
-import CheckCell from "./CheckCell";
-import { getRollUrl } from "../js/rollOptions";
+import React, { useMemo, useState } from "react";
+
+import { useHash } from "../hooks/useHash";
+import { RollModifier, useRollModifiers } from "../hooks/useRollModifiers";
 import { DiceString } from "../js/DiceString";
+import { getRollUrl } from "../js/rollOptions";
 import AlwaysOnDamageAddonRow from "./AlwaysOnDamageAddonRow";
+import CheckCell from "./CheckCell";
 import LevelledDamageAddonRow from "./LevelledDamageAddonRow";
 import OptionalDamageAddonRow from "./OptionalDamageAddonRow";
-import type { DamageData, DamageAddonData, DamageOptionsData, OptionalDamageData, WeaponAttackData } from "./WeaponAttackData";
-import { useHash } from "../hooks/useHash";
-import { useRollModifiers, RollModifier } from "../hooks/useRollModifiers";
+import type { DamageAddonData, DamageData, DamageOptionsData, OptionalDamageData, WeaponAttackData } from "./WeaponAttackData";
 
 interface WeaponAttackProps {
   weaponAttacks: WeaponAttackData[];

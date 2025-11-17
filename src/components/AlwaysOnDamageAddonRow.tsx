@@ -1,4 +1,5 @@
 import React from "react";
+
 import type { DamageAddonData, DamageData } from "./WeaponAttackData";
 
 interface AlwaysOnDamageAddonRowProps {

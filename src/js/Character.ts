@@ -1,4 +1,3 @@
-import { DiceString } from "./DiceString";
 import type {
   Ability,
   AbilityScores,
@@ -10,6 +9,7 @@ import type {
   SkillProficiency,
   Weapon,
 } from "./CharacterTypes";
+import { DiceString } from "./DiceString";
 
 export class Character {
   abilityScores: AbilityScores;
