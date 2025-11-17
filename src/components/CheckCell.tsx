@@ -46,11 +46,7 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
     <span className="mono check-cell" data-bonus={bonus} data-advantage={advantage}>
       {/* Desktop view: single clickable element */}
       <span className="check-cell-desktop">
-        <a
-          className="dice-roll"
-          href={currentUrl}
-          title="Hold A: advantage | Hold D: disadvantage | Hold S: regular"
-        >
+        <a className="dice-roll" href={currentUrl} title="Hold A: advantage | Hold D: disadvantage | Hold S: regular">
           [{currentRollCaption}
           {bonusSign}
           {bonus}]
