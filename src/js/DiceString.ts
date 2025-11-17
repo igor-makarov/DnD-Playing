@@ -31,10 +31,10 @@ export class DiceString {
    * new DiceString("d20") // 1d20
    * new DiceString(5) // just a modifier of 5
    */
-  constructor(input: string | DiceString | number) {
+  constructor(input: string | DiceString | number, bonus: number = 0) {
     const parsed = DiceString.parse(input);
     this.dice = parsed.dice;
-    this.modifier = parsed.modifier;
+    this.modifier = parsed.modifier + bonus;
   }
 
   /**

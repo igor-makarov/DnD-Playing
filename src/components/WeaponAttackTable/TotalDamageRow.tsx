@@ -1,10 +1,11 @@
 import React from "react";
 
 import { RollModifier } from "../../hooks/useRollModifiers";
+import type { DiceString } from "../../js/DiceString";
 import { getRollUrl } from "../../js/rollOptions";
 
 interface TotalDamageRowProps {
-  totalDamage: { damageRoll: string; critRoll: string } | null;
+  totalDamage: { damageRoll: DiceString; critRoll: DiceString } | null;
   modifier: RollModifier;
   diceAppKey: string;
 }
@@ -28,7 +29,7 @@ const TotalDamageRow: React.FC<TotalDamageRowProps> = ({ totalDamage, modifier, 
   const currentUrl = modifier === RollModifier.CRITICAL ? rollUrls[RollModifier.CRITICAL] : rollUrls[RollModifier.REGULAR];
 
   const mobileOptions = [
-    { key: "damage", caption: totalDamage.damageRoll, url: rollUrls[RollModifier.REGULAR] },
+    { key: "damage", caption: totalDamage.damageRoll.toString(), url: rollUrls[RollModifier.REGULAR] },
     { key: "crit", caption: "CRIT", url: rollUrls[RollModifier.CRITICAL] },
   ];
 
@@ -40,7 +41,7 @@ const TotalDamageRow: React.FC<TotalDamageRowProps> = ({ totalDamage, modifier, 
           {/* Desktop view: single clickable element */}
           <span className="check-cell-desktop">
             <a className="dice-roll" href={currentUrl} title="Hold C: critical">
-              [{currentRoll}]
+              [{currentRoll.toString()}]
             </a>
           </span>
 

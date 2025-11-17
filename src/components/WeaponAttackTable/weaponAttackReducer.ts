@@ -40,7 +40,7 @@ export function computeTotalDamage(
   damageAddons: DamageAddonData[],
   selectedLevels: Map<string, number>,
   enabledOptionals: Map<string, boolean>,
-): { damageRoll: string; critRoll: string } | null {
+): { damageRoll: DiceString; critRoll: DiceString } | null {
   if (!weapon) return null;
 
   const damageRolls = [weapon.damage.damageRoll];
@@ -55,8 +55,8 @@ export function computeTotalDamage(
   }
 
   return {
-    damageRoll: DiceString.sum(...damageRolls).toString(),
-    critRoll: DiceString.sum(...critRolls).toString(),
+    damageRoll: DiceString.sum(...damageRolls),
+    critRoll: DiceString.sum(...critRolls),
   };
 }
 

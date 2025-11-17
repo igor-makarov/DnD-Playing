@@ -17,7 +17,7 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
   const diceAppKey = hash?.substring(1) || "app";
 
   const bonusSign = bonus >= 0 ? "+" : "";
-  const diceString = DiceString.init("d20", bonus).toString();
+  const diceString = new DiceString("d20", bonus);
 
   // Get the effective modifier (keyboard modifier overrides advantage prop)
   const effectiveModifier = (() => {
@@ -69,12 +69,12 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
       {/* Mobile view: multiple links */}
       <span className="check-cell-mobile">
         {mobileOptions.map((option, index) => (
-          <>
+          <span key={index}>
             {index > 0 && <>&nbsp;</>}
             <a className="dice-roll" href={option.url}>
               {option.caption}
             </a>
-          </>
+          </span>
         ))}
       </span>
     </span>
