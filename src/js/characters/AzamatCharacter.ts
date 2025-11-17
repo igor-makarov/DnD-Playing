@@ -1,4 +1,5 @@
-import { Character, type SavingThrow } from "../Character";
+import { Character } from "../Character";
+import type { SavingThrow } from "../CharacterTypes";
 import { DiceString } from "../DiceString";
 
 class AzamatCharacter extends Character {
