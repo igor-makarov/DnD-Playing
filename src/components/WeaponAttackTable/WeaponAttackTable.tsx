@@ -54,11 +54,11 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
       </tr>
       <tr>
         <td>Attack Modifier</td>
-        <td className="checkCell modifier">{attackModifier !== null && <CheckCell bonus={attackModifier} />}</td>
+        <td className="checkCell">{attackModifier !== null && <CheckCell bonus={attackModifier} />}</td>
       </tr>
       <tr>
         <td>Weapon Damage</td>
-        <td className="checkCell modifier">{selectedWeapon && <span className="mono">{selectedWeapon.damage.damageRoll}</span>}</td>
+        <td className="checkCell">{selectedWeapon && <span className="mono">{selectedWeapon.damage.damageRoll}</span>}</td>
       </tr>
       {damageAddons.map((addon) => (
         <AddonRow key={addon.addon} addon={addon} state={state} dispatch={dispatch} />

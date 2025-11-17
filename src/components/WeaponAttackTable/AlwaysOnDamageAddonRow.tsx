@@ -10,9 +10,7 @@ const AlwaysOnDamageAddonRow: React.FC<AlwaysOnDamageAddonRowProps> = ({ addon }
   return (
     <tr>
       <td>{addon.addon}</td>
-      <td className="checkCell modifier">
-        <span className="mono">{addon.damage.damageRoll}</span>
-      </td>
+      <td className="checkCell mono">{addon.damage.damageRoll}</td>
     </tr>
   );
 };

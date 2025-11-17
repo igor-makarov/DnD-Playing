@@ -5,7 +5,7 @@ const { ability, proficiency, bonus, advantage } = Astro.props;
 
 <tr>
   <td><span class="mono">[{proficiency.symbol}]</span> {ability}</td>
-  <td class="checkCell modifier">
+  <td class="checkCell">
     <CheckCell client:only="react" bonus={bonus} advantage={advantage} />
   </td>
 </tr>

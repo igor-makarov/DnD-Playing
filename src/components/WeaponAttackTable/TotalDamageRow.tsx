@@ -13,9 +13,9 @@ const TotalDamageRow: React.FC<TotalDamageRowProps> = ({ totalDamage, modifier, 
   return (
     <tr>
       <td>Total Damage</td>
-      <td className="checkCell modifier">
+      <td className="checkCell mono">
         {totalDamage && (
-          <span className="mono">
+          <span>
             {/* Desktop view: single clickable element */}
             <span className="check-cell-desktop">
               <a
