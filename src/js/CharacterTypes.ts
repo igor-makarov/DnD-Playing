@@ -38,18 +38,18 @@ export type SavingThrow = {
 export type Weapon = {
   weapon: string;
   ability: Ability;
-  damage: string;
+  damage: DiceString;
   bonus: number;
 };
 
-export type DamageWithLevels = [level: number, damage: string][];
+export type DamageWithLevels = [level: number, damage: DiceString][];
 
 export type OptionalDamage = {
   optional: true;
-  damage: string;
+  damage: DiceString;
 };
 
 export type AttackAddon = {
   addon: string;
-  damage: string | DamageWithLevels | OptionalDamage;
+  damage: DiceString | DamageWithLevels | OptionalDamage;
 };

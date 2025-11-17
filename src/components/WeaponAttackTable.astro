@@ -20,8 +20,8 @@ const weaponAttacks: WeaponAttackData[] = character.weapons.map((w) => {
 });
 
 const damageAddons: DamageAddonData[] = character.attackAddons.map((addon) => {
-  if (typeof addon.damage === "string") {
-    const addonBaseDamage = DiceString.parse(addon.damage);
+  if (addon.damage instanceof DiceString) {
+    const addonBaseDamage = addon.damage;
     return {
       addon: addon.addon,
       damage: {
@@ -31,7 +31,7 @@ const damageAddons: DamageAddonData[] = character.attackAddons.map((addon) => {
     };
   } else if ("optional" in addon.damage) {
     // OptionalDamage - convert to OptionalDamageData
-    const addonBaseDamage = DiceString.parse(addon.damage.damage);
+    const addonBaseDamage = addon.damage.damage;
     return {
       addon: addon.addon,
       damage: {
@@ -42,8 +42,7 @@ const damageAddons: DamageAddonData[] = character.attackAddons.map((addon) => {
     };
   } else {
     // DamageWithLevels - convert all levels to damage options
-    const options = addon.damage.map(([level, damageString]) => {
-      const damageObj = DiceString.parse(damageString);
+    const options = addon.damage.map(([level, damageObj]) => {
       return {
         level,
         damageRoll: damageObj.normalize().toString(),

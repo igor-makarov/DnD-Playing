@@ -15,9 +15,9 @@ export const rollOptions: Record<string, (diceExpression: string, options?: { ad
   site: function (diceExpression, { advantage, disadvantage } = {}) {
     let finalExpression: string;
     if (advantage) {
-      finalExpression = DiceString.parse(diceExpression).toMaxString();
+      finalExpression = new DiceString(diceExpression).toMaxString();
     } else if (disadvantage) {
-      finalExpression = DiceString.parse(diceExpression).toMinString();
+      finalExpression = new DiceString(diceExpression).toMinString();
     } else {
       finalExpression = diceExpression;
     }

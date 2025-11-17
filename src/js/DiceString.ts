@@ -19,9 +19,32 @@ export class DiceString {
   private dice: DiceTerm[];
   private modifier: number;
 
-  private constructor(dice: DiceTerm[], modifier: number) {
-    this.dice = dice;
-    this.modifier = modifier;
+  /**
+   * Create a DiceString from a string, number, or another DiceString
+   *
+   * @param input The dice string to parse (string, DiceString, or number)
+   * @returns A new DiceString instance
+   * @throws Error if the input is invalid
+   *
+   * @example
+   * new DiceString("2d6+5") // 2d6 + 5
+   * new DiceString("d20") // 1d20
+   * new DiceString(5) // just a modifier of 5
+   */
+  constructor(input: string | DiceString | number) {
+    const parsed = DiceString.parse(input);
+    this.dice = parsed.dice;
+    this.modifier = parsed.modifier;
+  }
+
+  /**
+   * Internal factory method to create a DiceString from already-parsed components
+   */
+  private static fromParts(dice: DiceTerm[], modifier: number): DiceString {
+    const instance = Object.create(DiceString.prototype);
+    instance.dice = dice;
+    instance.modifier = modifier;
+    return instance;
   }
 
   /**
@@ -41,12 +64,12 @@ export class DiceString {
   static init(dice: string, modifier: number): DiceString {
     // Handle empty dice string - just return modifier
     if (!dice || dice.trim() === "") {
-      return new DiceString([], modifier);
+      return DiceString.fromParts([], modifier);
     }
     // Parse the dice portion (without modifier)
-    const diceOnly = DiceString.parse(dice);
+    const diceOnly = new DiceString(dice);
     // Return a new instance with the combined dice and specified modifier
-    return new DiceString(diceOnly.dice, diceOnly.modifier + modifier);
+    return DiceString.fromParts(diceOnly.dice, diceOnly.modifier + modifier);
   }
 
   /**
@@ -62,11 +85,11 @@ export class DiceString {
    */
   static sum(...diceStrings: (string | DiceString | number)[]): DiceString {
     if (!diceStrings || diceStrings.length === 0) {
-      return new DiceString([], 0);
+      return DiceString.fromParts([], 0);
     }
 
     // Parse all dice strings
-    const parsed = diceStrings.map((str) => DiceString.parse(str));
+    const parsed = diceStrings.map((str) => new DiceString(str));
 
     // Combine all dice and modifiers
     const allDice: DiceTerm[] = [];
@@ -78,11 +101,11 @@ export class DiceString {
     }
 
     // Create and normalize the result
-    return new DiceString(allDice, totalModifier).normalize();
+    return DiceString.fromParts(allDice, totalModifier).normalize();
   }
 
   /**
-   * Parse a dice string expression into a DiceString object
+   * Parse a dice string expression into a DiceString object (private implementation)
    *
    * Supported formats:
    * - "2d6" - multiple dice
@@ -97,7 +120,7 @@ export class DiceString {
    * @returns A new DiceString instance
    * @throws Error if the input is invalid
    */
-  static parse(input: string | DiceString | number): DiceString {
+  private static parse(input: string | DiceString | number): DiceString {
     // If already a DiceString, return as-is
     if (input instanceof DiceString) {
       return input;
@@ -105,7 +128,7 @@ export class DiceString {
 
     // If a number, treat as a modifier
     if (typeof input === "number") {
-      return new DiceString([], input);
+      return DiceString.fromParts([], input);
     }
 
     // Must be a string at this point
@@ -171,7 +194,7 @@ export class DiceString {
       }
     }
 
-    return new DiceString(dice, modifier);
+    return DiceString.fromParts(dice, modifier);
   }
 
   /**
@@ -201,7 +224,7 @@ export class DiceString {
     // Sort by sides for consistent output
     normalizedDice.sort((a, b) => b.sides - a.sides);
 
-    return new DiceString(normalizedDice, this.modifier);
+    return DiceString.fromParts(normalizedDice, this.modifier);
   }
 
   /**
@@ -217,7 +240,7 @@ export class DiceString {
       sides: die.sides,
     }));
 
-    return new DiceString(critDice, this.modifier);
+    return DiceString.fromParts(critDice, this.modifier);
   }
 
   /**
@@ -226,9 +249,9 @@ export class DiceString {
    *
    * @returns The average value of rolling this dice string
    * @example
-   * DiceString.parse("2d6+5").average() // 12 (2 * 3.5 + 5)
-   * DiceString.parse("d20").average() // 10.5
-   * DiceString.parse("d8+3").average() // 7.5
+   * new DiceString("2d6+5").average() // 12 (2 * 3.5 + 5)
+   * new DiceString("d20").average() // 10.5
+   * new DiceString("d8+3").average() // 7.5
    */
   average(): number {
     let total = this.modifier;

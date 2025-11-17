@@ -44,26 +44,26 @@ class AzamatCharacter extends Character {
         { save: "Cha", proficient: true }, // Paladin
       ],
       weapons: [
-        { weapon: "Warhammer +1 (2h)", ability: "Str", damage: "d10", bonus: 1 },
-        { weapon: "Unarmed", ability: "Str", damage: "0" },
-        { weapon: "Laser Axe", ability: "Str", damage: "d10+d6" },
-        { weapon: "Warhammer +1 (1h)", ability: "Str", damage: "d8", bonus: 1 },
-        { weapon: "Javelin", ability: "Str", damage: "d6" },
-        { weapon: "Club", ability: "Str", damage: "d4" },
-        { weapon: "Warhammer", ability: "Str", damage: "d8" },
+        { weapon: "Warhammer +1 (2h)", ability: "Str", damage: new DiceString("d10"), bonus: 1 },
+        { weapon: "Unarmed", ability: "Str", damage: new DiceString(0) },
+        { weapon: "Laser Axe", ability: "Str", damage: new DiceString("d10+d6") },
+        { weapon: "Warhammer +1 (1h)", ability: "Str", damage: new DiceString("d8"), bonus: 1 },
+        { weapon: "Javelin", ability: "Str", damage: new DiceString("d6") },
+        { weapon: "Club", ability: "Str", damage: new DiceString("d4") },
+        { weapon: "Warhammer", ability: "Str", damage: new DiceString("d8") },
       ],
       attackAddons: [
-        { addon: "Radiant Strike", damage: "d8" },
+        { addon: "Radiant Strike", damage: new DiceString("d8") },
         {
           addon: "Divine Smite",
           damage: [
-            [1, "2d8"],
-            [2, "3d8"],
-            [3, "4d8"],
-            [4, "5d8"],
+            [1, new DiceString("2d8")],
+            [2, new DiceString("3d8")],
+            [3, new DiceString("4d8")],
+            [4, new DiceString("5d8")],
           ],
         },
-        { addon: "Divine Smite (undead)", damage: { optional: true, damage: "d8" } },
+        { addon: "Divine Smite (undead)", damage: { optional: true, damage: new DiceString("d8") } },
       ],
     });
   }
