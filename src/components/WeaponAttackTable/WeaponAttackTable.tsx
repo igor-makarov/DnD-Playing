@@ -1,7 +1,5 @@
 import React, { useMemo, useReducer } from "react";
 
-import { useHash } from "../../hooks/useHash";
-import { useRollModifiers } from "../../hooks/useRollModifiers";
 import CheckCell from "../CheckCell";
 import AddonRow from "./AddonRow";
 import TotalDamageRow from "./TotalDamageRow";
@@ -32,10 +30,6 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
     dispatch({ type: "SELECT_WEAPON", weaponName: event.target.value });
   };
 
-  const hash = useHash();
-  const diceAppKey = hash?.substring(1) || "app";
-  const { modifier } = useRollModifiers();
-
   const totalDamage = useMemo(() => {
     return computeTotalDamage(selectedWeapon, damageAddons, state.selectedLevels, state.enabledOptionals);
   }, [selectedWeapon, damageAddons, state.selectedLevels, state.enabledOptionals]);
@@ -63,7 +57,7 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
       {damageAddons.map((addon) => (
         <AddonRow key={addon.addon} addon={addon} state={state} dispatch={dispatch} />
       ))}
-      <TotalDamageRow totalDamage={totalDamage} modifier={modifier} diceAppKey={diceAppKey} />
+      <TotalDamageRow totalDamage={totalDamage} />
     </table>
   );
 };
