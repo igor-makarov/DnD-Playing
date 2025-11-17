@@ -6,6 +6,8 @@ import SkillsTable from "../components/SkillsTable.astro";
 import SavesTable from "../components/SavesTable.astro";
 import WeaponAttackTable from "../components/WeaponAttackTable.astro";
 import CheckCell from "../components/CheckCell.tsx";
+import DamageCell from "../components/DamageCell.tsx";
+import { DiceString } from "../js/DiceString.ts";
 ---
 
 <html lang="en">
@@ -63,6 +65,21 @@ import CheckCell from "../components/CheckCell.tsx";
         <SkillsTable title="Proficient skills" skills={character.getSkills().filter((s) => s.proficiency.bonus > 0)} character={character} />
         <SkillsTable title="Cha skills" skills={character.getSkills().filter((s) => s.ability == "Cha")} character={character} />
         <WeaponAttackTable character={character} />
+        <table>
+          <tr>
+            <th colspan="2" style="text-align: center;">Other Spells</th>
+          </tr>
+          <tr>
+            <th>Spell</th>
+            <th class="modifier">Damage</th>
+          </tr>
+          <tr>
+            <td>Moonbeam</td>
+            <td class="checkCell mono">
+              <DamageCell client:only="react" damageRoll={new DiceString("4d10")} critRoll={new DiceString("8d10")} />
+            </td>
+          </tr>
+        </table>
       </div>
       <div class="column">
         <table>
