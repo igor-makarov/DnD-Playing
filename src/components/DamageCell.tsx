@@ -3,7 +3,7 @@ import React from "react";
 import { useHash } from "../hooks/useHash";
 import { RollModifier, useRollModifiers } from "../hooks/useRollModifiers";
 import { DiceString } from "../js/DiceString";
-import { rehydrate } from "../js/rehydrate";
+import { withAutoRehydration } from "../js/rehydrate";
 import { getRollUrl } from "../js/rollOptions";
 
 interface DamageCellProps {
@@ -11,13 +11,7 @@ interface DamageCellProps {
   critRoll: DiceString;
 }
 
-const DamageCell: React.FC<DamageCellProps> = (props) => {
-  // Rehydrate the DiceString objects in case they were serialized
-  const damageRoll = rehydrate(props.damageRoll, DiceString);
-  const critRoll = rehydrate(props.critRoll, DiceString);
-
-  console.log(`damageRoll`, damageRoll);
-
+const DamageCell: React.FC<DamageCellProps> = withAutoRehydration(({ damageRoll, critRoll }) => {
   const hash = useHash();
   const { modifier } = useRollModifiers();
 
@@ -58,6 +52,6 @@ const DamageCell: React.FC<DamageCellProps> = (props) => {
       </span>
     </span>
   );
-};
+});
 
 export default DamageCell;
