@@ -2,22 +2,23 @@ import React from "react";
 
 import { useHash } from "../hooks/useHash";
 import { RollModifier, useRollModifiers } from "../hooks/useRollModifiers";
-import { DiceString } from "../js/DiceString";
+import { D20Test } from "../js/D20Test";
+import { withAutoRehydration } from "../js/rehydrate";
 import { getRollUrl } from "../js/rollOptions";
 
 interface CheckCellProps {
-  bonus: number;
+  check: D20Test;
   advantage?: boolean;
 }
 
-const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
+const CheckCell: React.FC<CheckCellProps> = withAutoRehydration(({ check, advantage = false }) => {
   const hash = useHash();
   const { modifier } = useRollModifiers();
 
   const diceAppKey = hash?.substring(1) || "app";
 
-  const bonusSign = bonus >= 0 ? "+" : "";
-  const diceString = new DiceString("d20", bonus);
+  const bonus = check.getBonus();
+  const diceString = check.getDiceString();
 
   // Get the effective modifier (keyboard modifier overrides advantage prop)
   const effectiveModifier = (() => {
@@ -43,9 +44,9 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
 
   const mobileOptions = (() => {
     const regOption = { key: "reg", caption: "REG", url: rollUrls[RollModifier.REGULAR] };
-    const regBonusOption = { key: "bonus", caption: `${bonusSign}${bonus}`, url: rollUrls[RollModifier.REGULAR] };
+    const regBonusOption = { key: "bonus", caption: check.getBonusString(), url: rollUrls[RollModifier.REGULAR] };
     const advOption = { key: "adv", caption: "ADV", url: rollUrls[RollModifier.ADVANTAGE] };
-    const advBonusOption = { key: "adv", caption: `ADV${bonusSign}${bonus}`, url: rollUrls[RollModifier.ADVANTAGE] };
+    const advBonusOption = { key: "adv", caption: `ADV${check.getBonusString()}`, url: rollUrls[RollModifier.ADVANTAGE] };
     const disOption = { key: "dis", caption: "DIS", url: rollUrls[RollModifier.DISADVANTAGE] };
 
     if (advantage) {
@@ -61,8 +62,7 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
       <span className="check-cell-desktop">
         <a className="dice-roll" href={currentUrl} title="Hold A: advantage | Hold D: disadvantage | Hold S: regular">
           [{currentCaption}
-          {bonusSign}
-          {bonus}]
+          {check.getBonusString()}]
         </a>
       </span>
 
@@ -79,6 +79,6 @@ const CheckCell: React.FC<CheckCellProps> = ({ bonus, advantage = false }) => {
       </span>
     </span>
   );
-};
+});
 
 export default CheckCell;

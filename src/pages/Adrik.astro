@@ -2,6 +2,7 @@
 import "../../public/styles/style.css";
 import { character } from "../js/characters/AdrikCharacter.js";
 import { DiceString } from "../js/DiceString";
+import { D20Test } from "../js/D20Test.ts";
 import AbilitiesTable from "../components/AbilitiesTable.astro";
 import SkillsTable from "../components/SkillsTable.astro";
 import SavesTable from "../components/SavesTable.astro";
@@ -43,7 +44,7 @@ import CheckCell from "../components/CheckCell.tsx";
           <tr>
             <td class="modifier" style="text-align: center;">
               <span class="checkCell">
-                <CheckCell client:only="react" bonus={character.getAbilityModifier("Dex")} />
+                <CheckCell client:only="react" check={new D20Test(character.getAbilityModifier("Dex"))} />
               </span>
             </td>
           </tr>

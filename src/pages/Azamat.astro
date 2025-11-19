@@ -8,6 +8,7 @@ import WeaponAttackTable from "../components/WeaponAttackTable.astro";
 import CheckCell from "../components/CheckCell.tsx";
 import DamageCell from "../components/DamageCell.tsx";
 import { DiceString } from "../js/DiceString.ts";
+import { D20Test } from "../js/D20Test.ts";
 ---
 
 <html lang="en">
@@ -45,7 +46,7 @@ import { DiceString } from "../js/DiceString.ts";
           <tr>
             <td class="modifier" style="text-align: center;">
               <span class="checkCell">
-                <CheckCell client:only="react" bonus={character.getAbilityModifier("Dex")} advantage={true} />
+                <CheckCell client:only="react" check={new D20Test(character.getAbilityModifier("Dex"))} advantage={true} />
               </span>
             </td>
           </tr>

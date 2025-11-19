@@ -1,5 +1,6 @@
 import React, { useMemo, useReducer } from "react";
 
+import { D20Test } from "../../js/D20Test";
 import CheckCell from "../CheckCell";
 import AddonRow from "./AddonRow";
 import TotalDamageRow from "./TotalDamageRow";
@@ -48,7 +49,7 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
       </tr>
       <tr>
         <td>Attack Modifier</td>
-        <td className="checkCell">{attackModifier !== null && <CheckCell bonus={attackModifier} />}</td>
+        <td className="checkCell">{attackModifier !== null && <CheckCell check={new D20Test(attackModifier)} />}</td>
       </tr>
       <tr>
         <td>Weapon Damage</td>

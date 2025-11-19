@@ -1,5 +1,6 @@
 ---
 import CheckCell from "./CheckCell.tsx";
+import { D20Test } from "../js/D20Test.ts";
 import type { Character } from "../js/Character";
 
 interface Props {
@@ -16,7 +17,7 @@ const { character } = Astro.props;
         <span class="mono ability-name">{ability}</span>
         <span class="mono ability-score">{character.abilityScores[ability]}</span>
         <span class="checkCell">
-          <CheckCell client:only="react" bonus={character.getAbilityModifier(ability)} />
+          <CheckCell client:only="react" check={new D20Test(character.getAbilityModifier(ability))} />
         </span>
       </div>
     ))
