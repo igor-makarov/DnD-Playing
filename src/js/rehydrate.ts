@@ -7,10 +7,10 @@ const rehydratableClasses = new Map<string, Constructor>();
  * Tags instances with __rehydrationType for identification after deserialization.
  *
  * @example
- * @makeRehydratable
+ * @rehydratable
  * class DiceString { ... }
  */
-export function makeRehydratable<T extends Constructor>(target: T, context: ClassDecoratorContext): T {
+export function rehydratable<T extends Constructor>(target: T, context: ClassDecoratorContext): T {
   const className = String(context.name);
 
   console.log("registering class name:", className);
