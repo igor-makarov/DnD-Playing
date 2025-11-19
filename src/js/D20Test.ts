@@ -2,27 +2,60 @@ import { DiceString } from "./DiceString";
 import { rehydratable } from "./rehydrate";
 
 /**
+ * Enum representing the type of d20 roll
+ */
+export enum D20TestKind {
+  ABILITY_CHECK = "ABILITY_CHECK",
+  ATTACK_ROLL = "ATTACK_ROLL",
+  SAVING_THROW = "SAVING_THROW",
+}
+
+/**
  * Represents an ability check with a bonus modifier
  * Used for skill checks, saving throws, and other d20 rolls
  *
  * @example
- * const check = new AbilityCheck(5);
+ * const check = new D20Test("Str", D20TestKind.ABILITY_CHECK, 5);
  * check.getBonus() // 5
  * check.getBonusString() // "+5"
  * check.getDiceString() // DiceString("d20+5")
  */
 @rehydratable
 export class D20Test {
+  private ability: string;
+  private kind: D20TestKind;
   private bonus: number;
 
   /**
-   * Create an AbilityCheck with a given bonus
+   * Create a D20Test with ability, kind, and bonus
    *
+   * @param ability The ability name (e.g., "Str", "Dex")
+   * @param kind The type of roll (ABILITY_CHECK, ATTACK_ROLL, or SAVING_THROW)
    * @param bonus The bonus modifier for the check
    */
-  constructor(bonus: number) {
+  constructor(ability: string, kind: D20TestKind, bonus: number) {
     console.log("in AbilityCheck.constructor");
+    this.ability = ability;
+    this.kind = kind;
     this.bonus = bonus;
+  }
+
+  /**
+   * Get the ability name
+   *
+   * @returns The ability name (e.g., "Str", "Dex")
+   */
+  getAbility(): string {
+    return this.ability;
+  }
+
+  /**
+   * Get the roll kind
+   *
+   * @returns The type of d20 roll
+   */
+  getKind(): D20TestKind {
+    return this.kind;
   }
 
   /**
@@ -30,8 +63,8 @@ export class D20Test {
    *
    * @returns The bonus modifier
    * @example
-   * new AbilityCheck(5).getBonus() // 5
-   * new AbilityCheck(-2).getBonus() // -2
+   * new D20Test("Str", D20TestKind.ABILITY_CHECK, 5).getBonus() // 5
+   * new D20Test("Str", D20TestKind.ABILITY_CHECK, -2).getBonus() // -2
    */
   getBonus(): number {
     return this.bonus;
@@ -42,9 +75,9 @@ export class D20Test {
    *
    * @returns The bonus with appropriate sign (e.g., "+5" or "-2")
    * @example
-   * new AbilityCheck(5).getBonusString() // "+5"
-   * new AbilityCheck(-2).getBonusString() // "-2"
-   * new AbilityCheck(0).getBonusString() // "+0"
+   * new D20Test("Str", D20TestKind.ABILITY_CHECK, 5).getBonusString() // "+5"
+   * new D20Test("Str", D20TestKind.ABILITY_CHECK, -2).getBonusString() // "-2"
+   * new D20Test("Str", D20TestKind.ABILITY_CHECK, 0).getBonusString() // "+0"
    */
   getBonusString(): string {
     const sign = this.bonus >= 0 ? "+" : "";
@@ -56,8 +89,8 @@ export class D20Test {
    *
    * @returns A DiceString representing d20 plus the bonus
    * @example
-   * new AbilityCheck(5).getDiceString() // DiceString("d20+5")
-   * new AbilityCheck(-2).getDiceString() // DiceString("d20-2")
+   * new D20Test("Str", D20TestKind.ABILITY_CHECK, 5).getDiceString() // DiceString("d20+5")
+   * new D20Test("Str", D20TestKind.ABILITY_CHECK, -2).getDiceString() // DiceString("d20-2")
    */
   getDiceString(): DiceString {
     return new DiceString("d20", this.bonus);

@@ -1,5 +1,6 @@
 import type {
   Ability,
+  AbilityCheck,
   AbilityScores,
   AttackAddon,
   Proficiency,
@@ -9,7 +10,7 @@ import type {
   SkillProficiency,
   Weapon,
 } from "./CharacterTypes";
-import { DiceString } from "./DiceString";
+import { D20Test, D20TestKind } from "./D20Test";
 
 export class Character {
   abilityScores: AbilityScores;
@@ -33,6 +34,16 @@ export class Character {
     return Object.keys(this.abilityScores) as Ability[];
   }
 
+  getAbilityChecks(): AbilityCheck[] {
+    return this.getAbilities().map((ability) => {
+      const modifier = this.getAbilityModifier(ability);
+      return {
+        ability,
+        check: new D20Test(ability, D20TestKind.ABILITY_CHECK, modifier),
+      };
+    });
+  }
+
   getAbilityModifier(ability: Ability): number {
     return Math.floor((this.abilityScores[ability] - 10) / 2);
   }
@@ -41,11 +52,12 @@ export class Character {
     return this.skills.map((skillProf) => {
       const proficiency = this.createProficiency(skillProf.proficient ?? false);
       const modifier = this.getAbilityModifier(skillProf.ability);
+      const bonus = modifier + proficiency.bonus;
       return {
         skill: skillProf.skill,
         ability: skillProf.ability,
         proficiency,
-        dice: DiceString.init("d20", modifier + proficiency.bonus),
+        check: new D20Test(skillProf.ability, D20TestKind.ABILITY_CHECK, bonus),
       };
     });
   }
@@ -55,10 +67,11 @@ export class Character {
       const save = this.saves.find((s) => s.save === ability);
       const modifier = this.getAbilityModifier(ability);
       const proficiency = this.createProficiency(save?.proficient ?? false);
+      const bonus = modifier + proficiency.bonus;
       return {
         ability,
         proficiency,
-        dice: DiceString.init("d20", modifier + proficiency.bonus),
+        check: new D20Test(ability, D20TestKind.SAVING_THROW, bonus),
       };
     });
   }

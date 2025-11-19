@@ -1,5 +1,6 @@
 import { Character } from "../Character";
 import type { SavingThrow } from "../CharacterTypes";
+import { D20Test, D20TestKind } from "../D20Test";
 import { DiceString } from "../DiceString";
 
 class AzamatCharacter extends Character {
@@ -73,10 +74,10 @@ class AzamatCharacter extends Character {
     const baseSaves = super.getSavingThrows();
     const charismaMod = this.getAbilityModifier("Cha");
 
-    return baseSaves.map(({ ability, proficiency, dice }) => ({
+    return baseSaves.map(({ ability, proficiency, check }) => ({
       ability,
       proficiency,
-      dice: DiceString.sum(dice, charismaMod),
+      check: new D20Test(ability, D20TestKind.SAVING_THROW, check.getBonus() + charismaMod),
     }));
   }
 }

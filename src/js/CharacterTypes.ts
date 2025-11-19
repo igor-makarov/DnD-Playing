@@ -1,3 +1,4 @@
+import { D20Test } from "./D20Test";
 import { DiceString } from "./DiceString";
 
 export type Ability = "Str" | "Dex" | "Con" | "Int" | "Wis" | "Cha";
@@ -26,13 +27,18 @@ export type Skill = {
   skill: string;
   ability: Ability;
   proficiency: Proficiency;
-  dice: DiceString;
+  check: D20Test;
 };
 
 export type SavingThrow = {
   ability: Ability;
   proficiency: Proficiency;
-  dice: DiceString;
+  check: D20Test;
+};
+
+export type AbilityCheck = {
+  ability: Ability;
+  check: D20Test;
 };
 
 export type Weapon = {

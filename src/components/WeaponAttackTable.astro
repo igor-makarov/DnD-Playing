@@ -12,6 +12,7 @@ const weaponAttacks: WeaponAttackData[] = character.weapons.map((w) => {
 
   return {
     weapon: w.weapon,
+    ability: w.ability,
     attackModifier: weaponBonus + character.getAbilityModifier(w.ability) + character.proficiencyBonus,
     damage: {
       damageRoll: damageWithAbility.normalize().toString(),

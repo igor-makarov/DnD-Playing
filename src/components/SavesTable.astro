@@ -14,9 +14,8 @@ const savingThrowsFinal = savingThrows ?? character.getSavingThrows();
     <th class="modifier">Modifier</th>
   </tr>
   {
-    savingThrowsFinal.map(({ ability, proficiency, dice }) => {
-      const bonus = dice.modifier;
-      return <SaveRow ability={ability} proficiency={proficiency} bonus={bonus} advantage={advantage} />;
+    savingThrowsFinal.map(({ ability, proficiency, check }) => {
+      return <SaveRow ability={ability} proficiency={proficiency} check={check} advantage={advantage} />;
     })
   }
 </table>

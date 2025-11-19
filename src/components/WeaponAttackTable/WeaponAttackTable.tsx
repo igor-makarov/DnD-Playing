@@ -1,6 +1,6 @@
 import React, { useMemo, useReducer } from "react";
 
-import { D20Test } from "../../js/D20Test";
+import { D20Test, D20TestKind } from "../../js/D20Test";
 import CheckCell from "../CheckCell";
 import AddonRow from "./AddonRow";
 import TotalDamageRow from "./TotalDamageRow";
@@ -26,6 +26,7 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
   }, [state.selectedWeaponName, weaponAttacks]);
 
   const attackModifier = selectedWeapon?.attackModifier ?? null;
+  const weaponAbility = selectedWeapon?.ability ?? "";
 
   const handleWeaponChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch({ type: "SELECT_WEAPON", weaponName: event.target.value });
@@ -49,7 +50,9 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
       </tr>
       <tr>
         <td>Attack Modifier</td>
-        <td className="checkCell">{attackModifier !== null && <CheckCell check={new D20Test(attackModifier)} />}</td>
+        <td className="checkCell">
+          {attackModifier !== null && <CheckCell check={new D20Test(weaponAbility, D20TestKind.ATTACK_ROLL, attackModifier)} />}
+        </td>
       </tr>
       <tr>
         <td>Weapon Damage</td>

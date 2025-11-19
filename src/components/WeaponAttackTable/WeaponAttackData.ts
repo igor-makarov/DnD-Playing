@@ -26,6 +26,7 @@ export type DamageAddonData = {
 
 export type WeaponAttackData = {
   weapon: string;
+  ability: string;
   attackModifier: number;
   damage: DamageData;
 };
