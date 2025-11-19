@@ -25,9 +25,6 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
     return weaponAttacks.find((w) => w.weapon === state.selectedWeaponName) || null;
   }, [state.selectedWeaponName, weaponAttacks]);
 
-  const attackModifier = selectedWeapon?.attackModifier ?? null;
-  const weaponAbility = selectedWeapon?.ability ?? "";
-
   const handleWeaponChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch({ type: "SELECT_WEAPON", weaponName: event.target.value });
   };
@@ -51,7 +48,7 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
       <tr>
         <td>Attack Modifier</td>
         <td className="checkCell">
-          {attackModifier !== null && <CheckCell check={new D20Test(weaponAbility, D20TestKind.ATTACK_ROLL, attackModifier)} />}
+          {selectedWeapon && <CheckCell check={new D20Test(selectedWeapon.ability, D20TestKind.ATTACK_ROLL, selectedWeapon.attackModifier)} />}
         </td>
       </tr>
       <tr>

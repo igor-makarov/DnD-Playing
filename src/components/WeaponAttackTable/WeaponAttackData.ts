@@ -1,3 +1,5 @@
+import type { Ability } from "../../js/CharacterTypes";
+
 export type DamageData = {
   damageRoll: string;
   critRoll: string;
@@ -26,7 +28,7 @@ export type DamageAddonData = {
 
 export type WeaponAttackData = {
   weapon: string;
-  ability: string;
+  ability: Ability;
   attackModifier: number;
   damage: DamageData;
 };

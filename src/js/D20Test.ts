@@ -1,3 +1,4 @@
+import type { Ability } from "./CharacterTypes";
 import { DiceString } from "./DiceString";
 import { rehydratable } from "./rehydrate";
 
@@ -22,7 +23,7 @@ export enum D20TestKind {
  */
 @rehydratable
 export class D20Test {
-  private ability: string;
+  private ability: Ability;
   private kind: D20TestKind;
   private bonus: number;
 
@@ -33,7 +34,7 @@ export class D20Test {
    * @param kind The type of roll (ABILITY_CHECK, ATTACK_ROLL, or SAVING_THROW)
    * @param bonus The bonus modifier for the check
    */
-  constructor(ability: string, kind: D20TestKind, bonus: number) {
+  constructor(ability: Ability, kind: D20TestKind, bonus: number) {
     console.log("in AbilityCheck.constructor");
     this.ability = ability;
     this.kind = kind;
@@ -45,7 +46,7 @@ export class D20Test {
    *
    * @returns The ability name (e.g., "Str", "Dex")
    */
-  getAbility(): string {
+  getAbility(): Ability {
     return this.ability;
   }
 
