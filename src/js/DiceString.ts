@@ -1,4 +1,4 @@
-import { rehydratable } from "./rehydrate";
+import { makeRehydratable } from "./rehydrate";
 
 /**
  * Represents a single dice term (e.g., "2d6" means 2 dice with 6 sides)
@@ -17,15 +17,17 @@ interface DiceTerm {
  * - "d20+3" => 1 twenty-sided die plus 3
  * - "2d6+1d4-2" => 2d6, 1d4, minus 2
  */
-@rehydratable
+@makeRehydratable
 export class DiceString {
   private dice: DiceTerm[];
   private modifier: number;
 
   /**
-   * Create a DiceString from a string, number, or another DiceString
+   * Create a DiceString from a string, number, DiceTerm array, or another DiceString
    *
-   * @param input The dice string to parse (string, DiceString, or number)
+   * @param input The dice string to parse (string, DiceString, number, or DiceTerm[])
+   * @param diceOrBonus Either DiceTerm[] array (when input is string/number/DiceString) or bonus modifier
+   * @param bonus Bonus modifier (only used when diceOrBonus is DiceTerm[])
    * @returns A new DiceString instance
    * @throws Error if the input is invalid
    *
@@ -33,21 +35,38 @@ export class DiceString {
    * new DiceString("2d6+5") // 2d6 + 5
    * new DiceString("d20") // 1d20
    * new DiceString(5) // just a modifier of 5
+   * new DiceString("2d6", [{count: 1, sides: 4}], 3) // Creates from string with additional dice and bonus
+   * new DiceString(5, [{count: 2, sides: 6}]) // Creates from modifier with dice array
    */
-  constructor(input: string | DiceString | number, bonus: number = 0) {
-    const parsed = DiceString.parse(input);
-    this.dice = parsed.dice;
-    this.modifier = parsed.modifier + bonus;
+  constructor(input: string | DiceString | number | DiceTerm[], modifier: number = 0) {
+    console.log("in DiceString.constructor");
+
+    // If input is a DiceTerm array, use it directly
+    if (Array.isArray(input)) {
+      this.dice = input;
+      this.modifier = modifier;
+    } else if (input instanceof DiceString) {
+      this.dice = input.dice;
+      this.modifier = input.modifier + modifier;
+    } else {
+      const parsed = DiceString.fromParts(input);
+      this.dice = parsed.dice;
+      this.modifier = parsed.modifier + modifier;
+    }
   }
 
   /**
-   * Internal factory method to create a DiceString from already-parsed components
+   * Parse input into dice and modifier components (does not create DiceString instance)
+   * @returns Object with dice array and modifier
    */
-  private static fromParts(dice: DiceTerm[], modifier: number): DiceString {
-    const instance = Object.create(DiceString.prototype);
-    instance.dice = dice;
-    instance.modifier = modifier;
-    return instance;
+  private static fromParts(input: string | number): { dice: DiceTerm[]; modifier: number } {
+    // If a number, treat as a modifier
+    if (typeof input === "number") {
+      return { dice: [], modifier: input };
+    }
+
+    // Must be a string - parse it
+    return DiceString.parse(input);
   }
 
   /**
@@ -67,12 +86,10 @@ export class DiceString {
   static init(dice: string, modifier: number): DiceString {
     // Handle empty dice string - just return modifier
     if (!dice || dice.trim() === "") {
-      return DiceString.fromParts([], modifier);
+      return new DiceString(modifier);
     }
-    // Parse the dice portion (without modifier)
-    const diceOnly = new DiceString(dice);
-    // Return a new instance with the combined dice and specified modifier
-    return DiceString.fromParts(diceOnly.dice, diceOnly.modifier + modifier);
+    // Parse the dice portion and add the modifier
+    return new DiceString(dice, modifier);
   }
 
   /**
@@ -88,7 +105,7 @@ export class DiceString {
    */
   static sum(...diceStrings: (string | DiceString | number)[]): DiceString {
     if (!diceStrings || diceStrings.length === 0) {
-      return DiceString.fromParts([], 0);
+      return new DiceString(0);
     }
 
     // Parse all dice strings
@@ -104,11 +121,11 @@ export class DiceString {
     }
 
     // Create and normalize the result
-    return DiceString.fromParts(allDice, totalModifier).normalize();
+    return new DiceString(allDice, totalModifier).normalize();
   }
 
   /**
-   * Parse a dice string expression into a DiceString object (private implementation)
+   * Parse a dice string expression into dice and modifier components (private implementation)
    *
    * Supported formats:
    * - "2d6" - multiple dice
@@ -116,27 +133,15 @@ export class DiceString {
    * - "2d6+5" - dice with positive modifier
    * - "2d6-3" - dice with negative modifier
    * - "2d6+1d4+5" - multiple dice types with modifier
-   * - DiceString instance - returns as-is
-   * - number - treated as a modifier
    *
-   * @param input The dice string to parse (string, DiceString, or number)
-   * @returns A new DiceString instance
+   * @param input The dice string to parse (must be a string)
+   * @returns Object with dice array and modifier
    * @throws Error if the input is invalid
    */
-  private static parse(input: string | DiceString | number): DiceString {
-    // If already a DiceString, return as-is
-    if (input instanceof DiceString) {
-      return input;
-    }
-
-    // If a number, treat as a modifier
-    if (typeof input === "number") {
-      return DiceString.fromParts([], input);
-    }
-
+  private static parse(input: string): { dice: DiceTerm[]; modifier: number } {
     // Must be a string at this point
     if (!input || typeof input !== "string") {
-      throw new Error("Invalid input: must be a non-empty string, DiceString, or number");
+      throw new Error("Invalid input: must be a non-empty string");
     }
 
     const dice: DiceTerm[] = [];
@@ -197,7 +202,7 @@ export class DiceString {
       }
     }
 
-    return DiceString.fromParts(dice, modifier);
+    return { dice, modifier };
   }
 
   /**
@@ -227,7 +232,7 @@ export class DiceString {
     // Sort by sides for consistent output
     normalizedDice.sort((a, b) => b.sides - a.sides);
 
-    return DiceString.fromParts(normalizedDice, this.modifier);
+    return new DiceString(normalizedDice, this.modifier);
   }
 
   /**
@@ -243,7 +248,7 @@ export class DiceString {
       sides: die.sides,
     }));
 
-    return DiceString.fromParts(critDice, this.modifier);
+    return new DiceString(critDice, this.modifier);
   }
 
   /**
