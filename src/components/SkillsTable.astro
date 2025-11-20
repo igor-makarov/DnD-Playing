@@ -1,8 +1,17 @@
 ---
 import SkillRow from "./SkillRow.astro";
+import { Character } from "../js/Character";
+import type { SkillAbilityCheck } from "../js/CharacterTypes";
+
+interface Props {
+  title: string;
+  character: Character;
+  skills: SkillAbilityCheck[];
+  advantage: boolean;
+}
 
 const { title, skills, advantage, character } = Astro.props;
-const finalSkills = skills ?? character.getSkills();
+const finalSkills = skills ?? character.getSkillAbilityChecks();
 ---
 
 <table>

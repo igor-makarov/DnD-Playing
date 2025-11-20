@@ -23,7 +23,12 @@ export type Proficiency = {
   bonus: number;
 };
 
-export type Skill = {
+export type AbilityCheck = {
+  ability: Ability;
+  check: D20Test;
+};
+
+export type SkillAbilityCheck = {
   skill: string;
   ability: Ability;
   proficiency: Proficiency;
@@ -33,11 +38,6 @@ export type Skill = {
 export type SavingThrow = {
   ability: Ability;
   proficiency: Proficiency;
-  check: D20Test;
-};
-
-export type AbilityCheck = {
-  ability: Ability;
   check: D20Test;
 };
 

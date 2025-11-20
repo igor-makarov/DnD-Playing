@@ -1,5 +1,14 @@
 ---
+import type { Character } from "../js/Character";
+import type { SavingThrow } from "../js/CharacterTypes";
 import SaveRow from "./SaveRow.astro";
+
+interface Props {
+  title: string;
+  character: Character;
+  savingThrows: SavingThrow[];
+  advantage: boolean;
+}
 
 const { title, advantage, character, savingThrows } = Astro.props;
 const savingThrowsFinal = savingThrows ?? character.getSavingThrows();

@@ -6,7 +6,7 @@ import type {
   Proficiency,
   SavingThrow,
   SavingThrowProficiency,
-  Skill,
+  SkillAbilityCheck,
   SkillProficiency,
   Weapon,
 } from "./CharacterTypes";
@@ -48,7 +48,7 @@ export class Character {
     return Math.floor((this.abilityScores[ability] - 10) / 2);
   }
 
-  getSkills(): Skill[] {
+  getSkillAbilityChecks(): SkillAbilityCheck[] {
     return this.skills.map((skillProf) => {
       const proficiency = this.createProficiency(skillProf.proficient ?? false);
       const modifier = this.getAbilityModifier(skillProf.ability);
