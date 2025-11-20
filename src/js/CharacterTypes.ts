@@ -58,8 +58,10 @@ export type SavingThrowProficiency = {
   proficient?: boolean;
 };
 
+export type ProficiencySymbol = " " | "P" | "E";
+
 export type Proficiency = {
-  symbol: string;
+  symbol: ProficiencySymbol;
   bonus: number;
 };
 

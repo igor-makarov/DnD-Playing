@@ -16,7 +16,7 @@ export enum D20TestKind {
  * Used for skill checks, saving throws, and other d20 rolls
  *
  * @example
- * const check = new D20Test("Str", D20TestKind.ABILITY_CHECK, 3, {symbol: "●", bonus: 2});
+ * const check = new D20Test("Str", D20TestKind.ABILITY_CHECK, 3, {symbol: "P", bonus: 2});
  * check.getBonus() // 5
  * check.getBonusString() // "+5"
  * check.getDiceString() // DiceString("d20+5")
@@ -40,7 +40,7 @@ export class D20Test {
     console.log("in AbilityCheck.constructor");
     this.ability = ability;
     this.kind = kind;
-    this.proficiency = proficiency ?? { symbol: "", bonus: 0 };
+    this.proficiency = proficiency ?? { symbol: " ", bonus: 0 };
     this.abilityModifier = abilityModifier;
   }
 
@@ -86,7 +86,7 @@ export class D20Test {
    * @returns The total bonus modifier
    * @example
    * new D20Test("Str", D20TestKind.ABILITY_CHECK, 5).getBonus() // 5
-   * new D20Test("Str", D20TestKind.ABILITY_CHECK, 3, {symbol: "●", bonus: 2}).getBonus() // 5
+   * new D20Test("Str", D20TestKind.ABILITY_CHECK, 3, {symbol: "P", bonus: 2}).getBonus() // 5
    */
   getBonus(): number {
     return this.abilityModifier + this.proficiency.bonus;
@@ -98,7 +98,7 @@ export class D20Test {
    * @returns The total bonus with appropriate sign (e.g., "+5" or "-2")
    * @example
    * new D20Test("Str", D20TestKind.ABILITY_CHECK, 5).getBonusString() // "+5"
-   * new D20Test("Str", D20TestKind.ABILITY_CHECK, -2, {symbol: "●", bonus: 2}).getBonusString() // "+0"
+   * new D20Test("Str", D20TestKind.ABILITY_CHECK, -2, {symbol: "P", bonus: 2}).getBonusString() // "+0"
    * new D20Test("Str", D20TestKind.ABILITY_CHECK, 0).getBonusString() // "+0"
    */
   getBonusString(): string {
@@ -113,7 +113,7 @@ export class D20Test {
    * @returns A DiceString representing d20 plus the total bonus
    * @example
    * new D20Test("Str", D20TestKind.ABILITY_CHECK, 5).getDiceString() // DiceString("d20+5")
-   * new D20Test("Str", D20TestKind.ABILITY_CHECK, -2, {symbol: "●", bonus: 2}).getDiceString() // DiceString("d20+0")
+   * new D20Test("Str", D20TestKind.ABILITY_CHECK, -2, {symbol: "P", bonus: 2}).getDiceString() // DiceString("d20+0")
    */
   getDiceString(): DiceString {
     return new DiceString("d20", this.getBonus());
