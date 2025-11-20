@@ -3,7 +3,7 @@ import type { SavingThrow } from "../CharacterTypes";
 import { D20Test, D20TestKind } from "../D20Test";
 import { DiceString } from "../DiceString";
 
-class AzamatCharacter extends Character {
+export default class AzamatCharacter extends Character {
   constructor() {
     super({
       abilityScores: {
@@ -67,5 +67,3 @@ class AzamatCharacter extends Character {
     }));
   }
 }
-
-export const character = new AzamatCharacter();

@@ -1,6 +1,5 @@
 ---
 import "../../public/styles/style.css";
-import { character } from "../js/characters/AzamatCharacter.ts";
 import AbilitiesTable from "../components/AbilitiesTable.astro";
 import SkillsTable from "../components/SkillsTable.astro";
 import SavesTable from "../components/SavesTable.astro";
@@ -9,6 +8,8 @@ import CheckCell from "../components/CheckCell.tsx";
 import DamageCell from "../components/DamageCell.tsx";
 import { DiceString } from "../js/DiceString.ts";
 import { D20Test, D20TestKind } from "../js/D20Test.ts";
+import AzamatCharacter from "../js/characters/AzamatCharacter";
+const character = new AzamatCharacter();
 ---
 
 <html lang="en">

@@ -1,11 +1,12 @@
 ---
 import "../../public/styles/style.css";
-import { character } from "../js/characters/AdrikCharacter.js";
+import AdrikCharacter from "../js/characters/AdrikCharacter.js";
 import { D20Test, D20TestKind } from "../js/D20Test.ts";
 import AbilitiesTable from "../components/AbilitiesTable.astro";
 import SkillsTable from "../components/SkillsTable.astro";
 import SavesTable from "../components/SavesTable.astro";
 import CheckCell from "../components/CheckCell.tsx";
+const character = new AdrikCharacter();
 ---
 
 <html lang="en">

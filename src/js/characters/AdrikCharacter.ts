@@ -1,6 +1,6 @@
 import { Character } from "../Character.js";
 
-class AdrikCharacter extends Character {
+export default class AdrikCharacter extends Character {
   constructor() {
     super({
       abilityScores: {
@@ -32,5 +32,3 @@ class AdrikCharacter extends Character {
     });
   }
 }
-
-export const character = new AdrikCharacter();
