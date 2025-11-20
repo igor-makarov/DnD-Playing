@@ -6,23 +6,24 @@ const rehydratableClasses = new Map<string, Constructor>();
  * Class decorator that enables automatic rehydration across serialization boundaries.
  * Tags instances with __rehydrationType for identification after deserialization.
  *
+ * @param name - Explicit name for the class that won't be affected by minification
  * @example
- * @rehydratable
+ * @rehydratable("DiceString")
  * class DiceString { ... }
  */
-export function rehydratable<T extends Constructor>(target: T, context: ClassDecoratorContext): T {
-  const className = String(context.name);
+export function rehydratable(name: string) {
+  return function <T extends Constructor>(target: T, _context: ClassDecoratorContext): T {
+    console.log("registering class name:", name);
+    rehydratableClasses.set(name, target);
 
-  console.log("registering class name:", className);
-  rehydratableClasses.set(className, target);
-
-  return class extends target {
-    constructor(...args: any[]) {
-      super(...args);
-      console.log("tagging instance with type:", className);
-      (this as any).__rehydrationType = className;
-    }
-  } as T;
+    return class extends target {
+      constructor(...args: any[]) {
+        super(...args);
+        console.log("tagging instance with type:", name);
+        (this as any).__rehydrationType = name;
+      }
+    } as T;
+  };
 }
 
 /**

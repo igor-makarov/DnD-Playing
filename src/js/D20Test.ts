@@ -21,7 +21,7 @@ export enum D20TestKind {
  * check.getBonusString() // "+5"
  * check.getDiceString() // DiceString("d20+5")
  */
-@rehydratable
+@rehydratable("D20Test")
 export class D20Test {
   private ability: Ability;
   private kind: D20TestKind;
