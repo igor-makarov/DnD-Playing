@@ -6,8 +6,8 @@ import type { SkillAbilityCheck } from "../js/CharacterTypes";
 interface Props {
   title: string;
   character: Character;
-  skills: SkillAbilityCheck[];
-  advantage: boolean;
+  skills?: SkillAbilityCheck[];
+  advantage?: boolean;
 }
 
 const { title, skills, advantage, character } = Astro.props;

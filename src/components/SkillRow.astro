@@ -1,5 +1,16 @@
 ---
 import CheckCell from "./CheckCell.tsx";
+import type { Ability, Proficiency } from "../js/CharacterTypes";
+import type { D20Test } from "../js/D20Test";
+
+interface Props {
+  skill: string;
+  ability: Ability;
+  proficiency: Proficiency;
+  check: D20Test;
+  advantage?: boolean;
+}
+
 const { skill, ability, proficiency, check, advantage } = Astro.props;
 ---
 

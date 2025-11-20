@@ -4,7 +4,11 @@ import type { WeaponAttackData, DamageAddonData } from "./WeaponAttackTable/Weap
 import type { Character } from "../js/Character";
 import { DiceString } from "../js/DiceString";
 
-const { character } = Astro.props as { character: Character };
+interface Props {
+  character: Character;
+}
+
+const { character } = Astro.props;
 
 const weaponAttacks: WeaponAttackData[] = character.weapons.map((w) => {
   const damageWithAbility = DiceString.sum(w.damage, character.getAbilityModifier(w.ability));

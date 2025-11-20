@@ -6,8 +6,8 @@ import SaveRow from "./SaveRow.astro";
 interface Props {
   title: string;
   character: Character;
-  savingThrows: SavingThrow[];
-  advantage: boolean;
+  savingThrows?: SavingThrow[];
+  advantage?: boolean;
 }
 
 const { title, advantage, character, savingThrows } = Astro.props;
