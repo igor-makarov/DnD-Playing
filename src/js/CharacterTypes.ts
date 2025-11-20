@@ -23,14 +23,34 @@ export type Skill =
   | "Stealth"
   | "Survival";
 
+export const SKILL_TO_DEFAULT_ABILITIY: Record<Skill, Ability> = {
+  Acrobatics: "Dex",
+  "Animal Handling": "Wis",
+  Arcana: "Int",
+  Athletics: "Str",
+  Deception: "Cha",
+  History: "Int",
+  Insight: "Wis",
+  Intimidation: "Cha",
+  Investigation: "Int",
+  Medicine: "Wis",
+  Nature: "Int",
+  Perception: "Wis",
+  Performance: "Cha",
+  Persuasion: "Cha",
+  Religion: "Int",
+  "Sleight of Hand": "Dex",
+  Stealth: "Dex",
+  Survival: "Wis",
+};
+
 export type AbilityScores = {
   [K in Ability]: number;
 };
 
 export type SkillProficiency = {
   skill: Skill;
-  ability: Ability;
-  proficient?: boolean;
+  multiplier?: number;
 };
 
 export type SavingThrowProficiency = {

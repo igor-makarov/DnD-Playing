@@ -6,26 +6,28 @@ import type {
   Proficiency,
   SavingThrow,
   SavingThrowProficiency,
+  Skill,
   SkillAbilityCheck,
   SkillProficiency,
   Weapon,
 } from "./CharacterTypes";
+import { SKILL_TO_DEFAULT_ABILITIY } from "./CharacterTypes";
 import { D20Test, D20TestKind } from "./D20Test";
 
 export class Character {
   abilityScores: AbilityScores;
   characterLevel: number;
   proficiencyBonus: number;
-  skills: SkillProficiency[];
+  skillProficiencies: SkillProficiency[];
   saves: SavingThrowProficiency[];
   weapons: Weapon[];
   attackAddons: AttackAddon[];
-  
+
   constructor({
     abilityScores,
     characterLevel,
     proficiencyBonus,
-    skills,
+    skillProficiencies,
     saves,
     weapons = [],
     attackAddons = [],
@@ -33,7 +35,7 @@ export class Character {
     abilityScores: AbilityScores;
     characterLevel: number;
     proficiencyBonus: number;
-    skills: SkillProficiency[];
+    skillProficiencies: SkillProficiency[];
     saves: SavingThrowProficiency[];
     weapons?: Weapon[];
     attackAddons?: AttackAddon[];
@@ -41,7 +43,7 @@ export class Character {
     this.abilityScores = abilityScores;
     this.characterLevel = characterLevel;
     this.proficiencyBonus = proficiencyBonus;
-    this.skills = skills;
+    this.skillProficiencies = skillProficiencies;
     this.saves = saves;
     this.weapons = weapons;
     this.attackAddons = attackAddons;
@@ -66,13 +68,19 @@ export class Character {
   }
 
   getSkillAbilityChecks(): SkillAbilityCheck[] {
-    return this.skills.map((skillProf) => {
-      const proficiency = this.createProficiency(skillProf.proficient ?? false);
-      const modifier = this.getAbilityModifier(skillProf.ability);
+    const allSkills = Object.keys(SKILL_TO_DEFAULT_ABILITIY) as Skill[];
+
+    return allSkills.map((skill) => {
+      const ability = SKILL_TO_DEFAULT_ABILITIY[skill];
+      const modifier = this.getAbilityModifier(ability);
+
+      const skillProf = this.skillProficiencies.find((sp) => sp.skill === skill);
+      const proficiency = skillProf ? this.createProficiency(true, skillProf.multiplier ?? 1) : this.createProficiency(false);
+
       return {
-        skill: skillProf.skill,
-        ability: skillProf.ability,
-        check: new D20Test(skillProf.ability, D20TestKind.ABILITY_CHECK, modifier, proficiency),
+        skill,
+        ability,
+        check: new D20Test(ability, D20TestKind.ABILITY_CHECK, modifier, proficiency),
       };
     });
   }
