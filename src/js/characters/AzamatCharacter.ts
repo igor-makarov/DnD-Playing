@@ -23,13 +23,9 @@ export default class AzamatCharacter extends Character {
         { skill: "Investigation" },
         { skill: "Perception" },
       ],
-      saves: [
-        { save: "Str" },
-        { save: "Dex" },
-        { save: "Con" },
-        { save: "Int" },
-        { save: "Wis", proficient: true }, // Paladin
-        { save: "Cha", proficient: true }, // Paladin
+      saveProficiencies: [
+        { save: "Wis" }, // Paladin
+        { save: "Cha" }, // Paladin
       ],
       weapons: [
         { weapon: "Warhammer +1 (2h)", ability: "Str", damage: new DiceString("d10+1") },

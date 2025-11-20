@@ -21,13 +21,9 @@ export default class AdrikCharacter extends Character {
         { skill: "Nature" },
         { skill: "Survival" },
       ],
-      saves: [
-        { save: "Str", proficient: true },
-        { save: "Dex", proficient: true },
-        { save: "Con" },
-        { save: "Int" },
-        { save: "Wis" },
-        { save: "Cha" },
+      saveProficiencies: [
+        { save: "Str" }, // Ranger
+        { save: "Dex" }, // Ranger
       ],
     });
   }

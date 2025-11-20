@@ -55,7 +55,6 @@ export type SkillProficiency = {
 
 export type SavingThrowProficiency = {
   save: Ability;
-  proficient?: boolean;
 };
 
 export type ProficiencySymbol = " " | "P" | "E";

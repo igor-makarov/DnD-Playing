@@ -19,7 +19,7 @@ export class Character {
   characterLevel: number;
   proficiencyBonus: number;
   skillProficiencies: SkillProficiency[];
-  saves: SavingThrowProficiency[];
+  saveProficiencies: SavingThrowProficiency[];
   weapons: Weapon[];
   attackAddons: AttackAddon[];
 
@@ -28,7 +28,7 @@ export class Character {
     characterLevel,
     proficiencyBonus,
     skillProficiencies,
-    saves,
+    saveProficiencies,
     weapons = [],
     attackAddons = [],
   }: {
@@ -36,7 +36,7 @@ export class Character {
     characterLevel: number;
     proficiencyBonus: number;
     skillProficiencies: SkillProficiency[];
-    saves: SavingThrowProficiency[];
+    saveProficiencies: SavingThrowProficiency[];
     weapons?: Weapon[];
     attackAddons?: AttackAddon[];
   }) {
@@ -44,7 +44,7 @@ export class Character {
     this.characterLevel = characterLevel;
     this.proficiencyBonus = proficiencyBonus;
     this.skillProficiencies = skillProficiencies;
-    this.saves = saves;
+    this.saveProficiencies = saveProficiencies;
     this.weapons = weapons;
     this.attackAddons = attackAddons;
   }
@@ -87,9 +87,9 @@ export class Character {
 
   getSavingThrows(): SavingThrow[] {
     return this.getAbilities().map((ability) => {
-      const save = this.saves.find((s) => s.save === ability);
+      const isProficient = this.saveProficiencies.some((s) => s.save === ability);
       const modifier = this.getAbilityModifier(ability);
-      const proficiency = this.createProficiency(save?.proficient ?? false);
+      const proficiency = this.createProficiency(isProficient);
       return {
         ability,
         check: new D20Test(ability, D20TestKind.SAVING_THROW, modifier, proficiency),
