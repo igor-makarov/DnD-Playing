@@ -34,6 +34,10 @@ export class Character {
     return Object.keys(this.abilityScores) as Ability[];
   }
 
+  getAbilityModifier(ability: Ability): number {
+    return Math.floor((this.abilityScores[ability] - 10) / 2);
+  }
+
   getAbilityChecks(): AbilityCheck[] {
     return this.getAbilities().map((ability) => {
       const modifier = this.getAbilityModifier(ability);
@@ -42,10 +46,6 @@ export class Character {
         check: new D20Test(ability, D20TestKind.ABILITY_CHECK, modifier),
       };
     });
-  }
-
-  getAbilityModifier(ability: Ability): number {
-    return Math.floor((this.abilityScores[ability] - 10) / 2);
   }
 
   getSkillAbilityChecks(): SkillAbilityCheck[] {
