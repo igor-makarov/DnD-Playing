@@ -20,7 +20,24 @@ export class Character {
   saves: SavingThrowProficiency[];
   weapons: Weapon[];
   attackAddons: AttackAddon[];
-  constructor({ abilityScores, characterLevel, proficiencyBonus, skills, saves, weapons = [], attackAddons = [] }) {
+  
+  constructor({
+    abilityScores,
+    characterLevel,
+    proficiencyBonus,
+    skills,
+    saves,
+    weapons = [],
+    attackAddons = [],
+  }: {
+    abilityScores: AbilityScores;
+    characterLevel: number;
+    proficiencyBonus: number;
+    skills: SkillProficiency[];
+    saves: SavingThrowProficiency[];
+    weapons?: Weapon[];
+    attackAddons?: AttackAddon[];
+  }) {
     this.abilityScores = abilityScores;
     this.characterLevel = characterLevel;
     this.proficiencyBonus = proficiencyBonus;
