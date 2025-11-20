@@ -1,7 +1,6 @@
 ---
 import "../../public/styles/style.css";
 import { character } from "../js/characters/AdrikCharacter.js";
-import { DiceString } from "../js/DiceString";
 import { D20Test, D20TestKind } from "../js/D20Test.ts";
 import AbilitiesTable from "../components/AbilitiesTable.astro";
 import SkillsTable from "../components/SkillsTable.astro";
@@ -69,14 +68,13 @@ import CheckCell from "../components/CheckCell.tsx";
           title={'<a href="http://dnd5e.wikidot.com/ranger#:~:text=at%2014th%20level.-,Natural%20Explorer,-Also%20at%201st">Favored Terrain</a><br>expertise on Forest'}
           skills={character
             .getSkillAbilityChecks()
-            .filter((s) => (s.ability == "Int" || s.ability == "Wis") && s.proficiency.bonus > 0)
+            .filter((s) => (s.ability == "Int" || s.ability == "Wis") && s.check.getProficiency().bonus > 0)
             .map((skill) => {
               const modifier = character.getAbilityModifier(skill.ability);
               const proficiency = character.createProficiency(true, 2);
               return {
                 ...skill,
-                proficiency,
-                dice: DiceString.init("d20", modifier + proficiency.bonus),
+                check: new D20Test(skill.ability, D20TestKind.ABILITY_CHECK, modifier, proficiency),
               };
             })}
           character={character}
@@ -97,8 +95,7 @@ import CheckCell from "../components/CheckCell.tsx";
               const proficiency = character.createProficiency(true, 2);
               return {
                 ...skill,
-                proficiency,
-                dice: DiceString.init("d20", modifier + proficiency.bonus),
+                check: new D20Test(skill.ability, D20TestKind.ABILITY_CHECK, modifier, proficiency),
               };
             })}
           character={character}

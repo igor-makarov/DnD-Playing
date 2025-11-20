@@ -1,20 +1,19 @@
 ---
 import CheckCell from "./CheckCell.tsx";
-import type { Ability, Proficiency } from "../js/CharacterTypes";
+import type { Ability, SavingThrow } from "../js/CharacterTypes";
 import type { D20Test } from "../js/D20Test";
 
 interface Props {
-  ability: Ability;
-  proficiency: Proficiency;
-  check: D20Test;
+  savingThrow: SavingThrow;
   advantage?: boolean;
 }
 
-const { ability, proficiency, check, advantage } = Astro.props;
+const { savingThrow, advantage } = Astro.props;
+const check = savingThrow.check;
 ---
 
 <tr>
-  <td><span class="mono">[{proficiency.symbol}]</span> {ability}</td>
+  <td><span class="mono">[{check.getProficiency().symbol}]</span> {check.getAbility()}</td>
   <td class="checkCell">
     <CheckCell client:only="react" check={check} advantage={advantage} />
   </td>

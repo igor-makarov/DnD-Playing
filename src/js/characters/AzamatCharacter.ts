@@ -74,10 +74,9 @@ class AzamatCharacter extends Character {
     const baseSaves = super.getSavingThrows();
     const charismaMod = this.getAbilityModifier("Cha");
 
-    return baseSaves.map(({ ability, proficiency, check }) => ({
+    return baseSaves.map(({ ability, check }) => ({
       ability,
-      proficiency,
-      check: new D20Test(ability, D20TestKind.SAVING_THROW, check.getBonus() + charismaMod),
+      check: new D20Test(ability, D20TestKind.SAVING_THROW, check.getAbilityModifier() + charismaMod, check.getProficiency()),
     }));
   }
 }

@@ -23,8 +23,8 @@ const finalSkills = skills ?? character.getSkillAbilityChecks();
     <th class="modifier">Modifier</th>
   </tr>
   {
-    finalSkills.map(({ skill, ability, proficiency, check }) => {
-      return <SkillRow skill={skill} ability={ability} proficiency={proficiency} check={check} advantage={advantage} />;
+    finalSkills.map((skill) => {
+      return <SkillRow skill={skill} advantage={advantage} />;
     })
   }
 </table>

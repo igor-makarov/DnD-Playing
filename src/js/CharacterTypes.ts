@@ -31,13 +31,11 @@ export type AbilityCheck = {
 export type SkillAbilityCheck = {
   skill: string;
   ability: Ability;
-  proficiency: Proficiency;
   check: D20Test;
 };
 
 export type SavingThrow = {
   ability: Ability;
-  proficiency: Proficiency;
   check: D20Test;
 };
 

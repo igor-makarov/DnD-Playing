@@ -69,7 +69,7 @@ import { D20Test, D20TestKind } from "../js/D20Test.ts";
       <div class="column">
         <SkillsTable
           title="Proficient skills"
-          skills={character.getSkillAbilityChecks().filter((s) => s.proficiency.bonus > 0)}
+          skills={character.getSkillAbilityChecks().filter((s) => s.check.getProficiency().bonus > 0)}
           character={character}
         />
         <SkillsTable title="Cha skills" skills={character.getSkillAbilityChecks().filter((s) => s.ability == "Cha")} character={character} />
