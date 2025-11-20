@@ -3,12 +3,32 @@ import { DiceString } from "./DiceString";
 
 export type Ability = "Str" | "Dex" | "Con" | "Int" | "Wis" | "Cha";
 
+export type Skill =
+  | "Acrobatics"
+  | "Animal Handling"
+  | "Arcana"
+  | "Athletics"
+  | "Deception"
+  | "History"
+  | "Insight"
+  | "Intimidation"
+  | "Investigation"
+  | "Medicine"
+  | "Nature"
+  | "Perception"
+  | "Performance"
+  | "Persuasion"
+  | "Religion"
+  | "Sleight of Hand"
+  | "Stealth"
+  | "Survival";
+
 export type AbilityScores = {
   [K in Ability]: number;
 };
 
 export type SkillProficiency = {
-  skill: string;
+  skill: Skill;
   ability: Ability;
   proficient?: boolean;
 };
@@ -29,7 +49,7 @@ export type AbilityCheck = {
 };
 
 export type SkillAbilityCheck = {
-  skill: string;
+  skill: Skill;
   ability: Ability;
   check: D20Test;
 };
