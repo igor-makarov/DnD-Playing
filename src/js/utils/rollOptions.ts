@@ -1,4 +1,4 @@
-import { DiceString } from "./DiceString";
+import { DiceString } from "../common/DiceString";
 
 export const rollOptions: Record<string, (diceExpression: DiceString, options?: { advantage?: boolean; disadvantage?: boolean }) => string> = {
   app: function (diceExpression, { advantage, disadvantage } = {}) {

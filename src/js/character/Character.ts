@@ -1,5 +1,5 @@
-import { D20Test } from "../D20Test";
-import { DiceString } from "../DiceString";
+import { D20Test } from "../common/D20Test";
+import { DiceString } from "../common/DiceString";
 import type {
   Ability,
   AbilityCheck,

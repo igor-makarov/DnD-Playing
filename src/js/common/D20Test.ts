@@ -1,6 +1,6 @@
+import type { Ability, Proficiency } from "../character/CharacterTypes";
+import { rehydratable } from "../utils/rehydrate";
 import { DiceString } from "./DiceString";
-import type { Ability, Proficiency } from "./character/CharacterTypes";
-import { rehydratable } from "./rehydrate";
 
 /**
  * Type representing the type of d20 roll

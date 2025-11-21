@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { DiceString } from "../../js/DiceString";
+import type { DiceString } from "../../js/common/DiceString";
 import DamageCell from "../DamageCell";
 
 interface TotalDamageRowProps {

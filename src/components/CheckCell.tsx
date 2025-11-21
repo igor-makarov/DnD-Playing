@@ -2,9 +2,9 @@ import React from "react";
 
 import { useHash } from "../hooks/useHash";
 import { RollModifier, useRollModifiers } from "../hooks/useRollModifiers";
-import { D20Test } from "../js/D20Test";
-import { withAutoRehydration } from "../js/rehydrate";
-import { getRollUrl } from "../js/rollOptions";
+import { D20Test } from "../js/common/D20Test";
+import { withAutoRehydration } from "../js/utils/rehydrate";
+import { getRollUrl } from "../js/utils/rollOptions";
 
 interface CheckCellProps {
   check: D20Test;
