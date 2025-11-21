@@ -27,10 +27,39 @@ export function rehydratable(name: string) {
 }
 
 /**
+ * Rehydrates objects within props that were tagged with __rehydrationType.
+ * Restores prototype chains for serialized objects that have lost their class methods.
+ *
+ * @param props - The props object containing potentially serialized rehydratable objects
+ * @returns The props with rehydrated objects
+ * @example
+ * const rehydratedProps = rehydrate(deserializedProps);
+ */
+export function rehydrate<P extends object>(props: P) {
+  const rehydrated = { ...props } as any;
+
+  for (const key in rehydrated) {
+    const value = rehydrated[key];
+    console.log("rehydration potential:", typeof value);
+    if (value && typeof value === "object" && (value as any).__rehydrationType) {
+      const typeName = (value as any).__rehydrationType;
+      console.log("__rehydrationType:", typeName);
+      const constructor = rehydratableClasses.get(typeName);
+
+      if (constructor) {
+        rehydrateRehydratableObject(value, constructor);
+        console.log("after rehydration:", typeof value);
+      }
+    }
+  }
+  return rehydrated as P;
+}
+
+/**
  * Restores the prototype chain of a serialized object.
  * Use when objects lose their class methods after JSON serialization.
  */
-function rehydrate<T>(obj: any, classConstructor: new (...args: any[]) => T): T {
+function rehydrateRehydratableObject<T>(obj: any, classConstructor: new (...args: any[]) => T) {
   if (!obj) {
     return obj;
   }
@@ -41,30 +70,4 @@ function rehydrate<T>(obj: any, classConstructor: new (...args: any[]) => T): T 
 
   Object.setPrototypeOf(obj, classConstructor.prototype);
   console.log("setting prototype:", classConstructor.prototype);
-  return obj as T;
-}
-
-/**
- * React HOC that automatically rehydrates decorated class instances in props.
- */
-export function withAutoRehydration<P extends object>(Component: React.FC<P>): React.FC<P> {
-  return (props) => {
-    const rehydrated = { ...props } as any;
-
-    for (const key in props) {
-      const value = props[key];
-      console.log("rehydration potential:", value);
-      console.log("rehydration classes:", rehydratableClasses);
-      if (value && typeof value === "object" && (value as any).__rehydrationType) {
-        const typeName = (value as any).__rehydrationType;
-        const constructor = rehydratableClasses.get(typeName);
-
-        if (constructor) {
-          rehydrated[key] = rehydrate(value, constructor);
-        }
-      }
-    }
-
-    return Component(rehydrated as P);
-  };
 }

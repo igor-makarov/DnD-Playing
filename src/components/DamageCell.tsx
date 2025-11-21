@@ -3,8 +3,8 @@ import React from "react";
 import { useHash } from "../hooks/useHash";
 import { RollModifier, useRollModifiers } from "../hooks/useRollModifiers";
 import { DiceString } from "../js/common/DiceString";
-import { withAutoRehydration } from "../js/utils/rehydratable";
 import { getRollUrl } from "../js/utils/rollOptions";
+import { withAutoRehydration } from "../js/utils/withAutoRehydration";
 
 interface DamageCellProps {
   damageRoll: DiceString;
