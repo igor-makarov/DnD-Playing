@@ -95,27 +95,23 @@ export class DiceString {
   /**
    * Sum multiple dice strings and normalize the result
    *
-   * @param diceStrings Array of dice string expressions to sum
+   * @param diceStrings Array of DiceString instances to sum
    * @returns A normalized DiceString combining all inputs
-   * @throws Error if any input is invalid
    *
    * @example
-   * DiceString.sum("2d6+3", "1d6", "2d6") // "5d6+3"
-   * DiceString.sum("d20+5", 2) // "d20+7"
+   * DiceString.sum(new DiceString("2d6+3"), new DiceString("1d6"), new DiceString("2d6")) // "5d6+3"
+   * DiceString.sum(new DiceString("d20+5"), new DiceString(2)) // "d20+7"
    */
-  static sum(...diceStrings: (string | DiceString | number)[]): DiceString {
+  static sum(...diceStrings: DiceString[]): DiceString {
     if (!diceStrings || diceStrings.length === 0) {
       return new DiceString(0);
     }
-
-    // Parse all dice strings
-    const parsed = diceStrings.map((str) => new DiceString(str));
 
     // Combine all dice and modifiers
     const allDice: DiceTerm[] = [];
     let totalModifier = 0;
 
-    for (const ds of parsed) {
+    for (const ds of diceStrings) {
       allDice.push(...ds.dice);
       totalModifier += ds.modifier;
     }

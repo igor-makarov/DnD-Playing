@@ -55,8 +55,8 @@ export function computeTotalDamage(
   }
 
   return {
-    damageRoll: DiceString.sum(...damageRolls),
-    critRoll: DiceString.sum(...critRolls),
+    damageRoll: DiceString.sum(...damageRolls.map((r) => new DiceString(r))),
+    critRoll: DiceString.sum(...critRolls.map((r) => new DiceString(r))),
   };
 }
 

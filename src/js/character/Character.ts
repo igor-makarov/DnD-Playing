@@ -107,7 +107,7 @@ export class Character {
 
   getWeaponAttacks(): WeaponAttackData[] {
     return this.weapons.map((w) => {
-      const damageWithAbility = DiceString.sum(w.damage, this.getAbilityModifier(w.ability));
+      const damageWithAbility = new DiceString(w.damage, this.getAbilityModifier(w.ability));
       const weaponBonus = w.damage.getModifier();
 
       return {
