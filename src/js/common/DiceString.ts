@@ -1,4 +1,4 @@
-import { rehydratable } from "../utils/rehydrate";
+import { rehydratable } from "../utils/rehydratable";
 
 /**
  * Represents a single dice term (e.g., "2d6" means 2 dice with 6 sides)
