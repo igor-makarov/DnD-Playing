@@ -1,3 +1,5 @@
+import { D20Test } from "../D20Test";
+import { DiceString } from "../DiceString";
 import type {
   Ability,
   AbilityCheck,
@@ -12,9 +14,7 @@ import type {
   Weapon,
 } from "./CharacterTypes";
 import { SKILL_TO_DEFAULT_ABILITIY } from "./CharacterTypes";
-import { D20Test } from "./D20Test";
-import { DiceString } from "./DiceString";
-import type { DamageAddonData, WeaponAttackData } from "./character/WeaponAttackTypes";
+import type { DamageAddonData, WeaponAttackData } from "./WeaponAttackTypes";
 
 export class Character {
   abilityScores: AbilityScores;

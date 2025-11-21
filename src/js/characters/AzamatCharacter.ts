@@ -1,7 +1,7 @@
-import { Character } from "../Character";
-import type { SavingThrow } from "../CharacterTypes";
 import { D20Test } from "../D20Test";
 import { DiceString } from "../DiceString";
+import { Character } from "../character/Character";
+import type { SavingThrow } from "../character/CharacterTypes";
 
 export default class AzamatCharacter extends Character {
   constructor() {

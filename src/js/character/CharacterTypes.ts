@@ -1,5 +1,5 @@
-import { D20Test } from "./D20Test";
-import { DiceString } from "./DiceString";
+import { D20Test } from "../D20Test";
+import { DiceString } from "../DiceString";
 
 export type Ability = "Str" | "Dex" | "Con" | "Int" | "Wis" | "Cha";
 

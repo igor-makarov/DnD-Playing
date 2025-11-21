@@ -1,4 +1,4 @@
-import { Character } from "../Character.js";
+import { Character } from "../character/Character.js";
 
 export default class AdrikCharacter extends Character {
   constructor() {
