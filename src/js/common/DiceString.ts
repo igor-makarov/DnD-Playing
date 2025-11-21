@@ -70,29 +70,6 @@ export class DiceString {
   }
 
   /**
-   * Initialize a DiceString from separate dice and modifier values
-   *
-   * @param dice The dice portion as a string (e.g., "2d6+1d4" or "d20"), can be empty
-   * @param modifier The numeric modifier to add
-   * @returns A new DiceString instance
-   * @throws Error if the dice string is invalid
-   *
-   * @example
-   * DiceString.init("2d6", 5) // "2d6+5"
-   * DiceString.init("d20", -2) // "d20-2"
-   * DiceString.init("2d6+1d4", 3) // "2d6+1d4+3"
-   * DiceString.init("", 5) // "5"
-   */
-  static init(dice: string, modifier: number): DiceString {
-    // Handle empty dice string - just return modifier
-    if (!dice || dice.trim() === "") {
-      return new DiceString(modifier);
-    }
-    // Parse the dice portion and add the modifier
-    return new DiceString(dice, modifier);
-  }
-
-  /**
    * Sum multiple dice strings and normalize the result
    *
    * @param diceStrings Array of DiceString instances to sum
