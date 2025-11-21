@@ -11,6 +11,7 @@ interface CheckCellProps {
   advantage?: boolean;
 }
 
+// TODO: rename to D20TestCell and related names
 const CheckCell: React.FC<CheckCellProps> = withAutoRehydration(({ check, advantage = false }) => {
   const hash = useHash();
   const { modifier } = useRollModifiers();
