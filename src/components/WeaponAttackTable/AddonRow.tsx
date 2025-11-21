@@ -1,9 +1,9 @@
 import React from "react";
 
+import type { DamageAddonData, DamageData, DamageOptionsData, OptionalDamageData } from "../../js/character/WeaponAttackTypes";
 import AlwaysOnDamageAddonRow from "./AlwaysOnDamageAddonRow";
 import LevelledDamageAddonRow from "./LevelledDamageAddonRow";
 import OptionalDamageAddonRow from "./OptionalDamageAddonRow";
-import type { DamageAddonData, DamageData, DamageOptionsData, OptionalDamageData } from "./WeaponAttackData";
 import type { WeaponAction, WeaponState } from "./weaponAttackReducer";
 
 interface AddonRowProps {

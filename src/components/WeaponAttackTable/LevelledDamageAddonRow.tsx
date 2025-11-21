@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { DamageAddonData, DamageData, DamageOptionsData } from "./WeaponAttackData";
+import type { DamageAddonData, DamageData, DamageOptionsData } from "../../js/character/WeaponAttackTypes";
 
 interface LevelledDamageAddonRowProps {
   addon: DamageAddonData & { damage: DamageOptionsData };

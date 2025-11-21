@@ -1,4 +1,4 @@
-import type { D20Test } from "../../js/D20Test";
+import type { D20Test } from "../D20Test";
 
 export type DamageData = {
   damageRoll: string;

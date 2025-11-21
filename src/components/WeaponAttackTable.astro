@@ -1,9 +1,6 @@
 ---
 import WeaponAttackTableReact from "./WeaponAttackTable/WeaponAttackTable.tsx";
-import type { WeaponAttackData, DamageAddonData } from "./WeaponAttackTable/WeaponAttackData";
 import type { Character } from "../js/Character";
-import { DiceString } from "../js/DiceString";
-import { D20Test } from "../js/D20Test";
 
 interface Props {
   character: Character;
@@ -11,56 +8,8 @@ interface Props {
 
 const { character } = Astro.props;
 
-const weaponAttacks: WeaponAttackData[] = character.weapons.map((w) => {
-  const damageWithAbility = DiceString.sum(w.damage, character.getAbilityModifier(w.ability));
-  const weaponBonus = w.damage.getModifier();
-
-  return {
-    weapon: w.weapon,
-    attackRoll: new D20Test("Attack Roll", w.ability, character.getAbilityModifier(w.ability), character.createProficiency(true), weaponBonus),
-    damage: {
-      damageRoll: damageWithAbility.normalize().toString(),
-      critRoll: damageWithAbility.crit().normalize().toString(),
-    },
-  };
-});
-
-const damageAddons: DamageAddonData[] = character.attackAddons.map((addon) => {
-  if (addon.damage instanceof DiceString) {
-    const addonBaseDamage = addon.damage;
-    return {
-      addon: addon.addon,
-      damage: {
-        damageRoll: addonBaseDamage.normalize().toString(),
-        critRoll: addonBaseDamage.crit().normalize().toString(),
-      },
-    };
-  } else if ("optional" in addon.damage) {
-    // OptionalDamage - convert to OptionalDamageData
-    const addonBaseDamage = addon.damage.damage;
-    return {
-      addon: addon.addon,
-      damage: {
-        optional: true,
-        damageRoll: addonBaseDamage.normalize().toString(),
-        critRoll: addonBaseDamage.crit().normalize().toString(),
-      },
-    };
-  } else {
-    // DamageWithLevels - convert all levels to damage options
-    const options = addon.damage.map(([level, damageObj]) => {
-      return {
-        level,
-        damageRoll: damageObj.normalize().toString(),
-        critRoll: damageObj.crit().normalize().toString(),
-      };
-    });
-    return {
-      addon: addon.addon,
-      damage: { options },
-    };
-  }
-});
+const weaponAttacks = character.getWeaponAttacks();
+const damageAddons = character.getWeaponAttackAddons();
 ---
 
 <WeaponAttackTableReact client:only="react" weaponAttacks={weaponAttacks} damageAddons={damageAddons} />

@@ -13,6 +13,8 @@ import type {
 } from "./CharacterTypes";
 import { SKILL_TO_DEFAULT_ABILITIY } from "./CharacterTypes";
 import { D20Test } from "./D20Test";
+import { DiceString } from "./DiceString";
+import type { DamageAddonData, WeaponAttackData } from "./character/WeaponAttackTypes";
 
 export class Character {
   abilityScores: AbilityScores;
@@ -101,5 +103,60 @@ export class Character {
     multiplier ||= 1;
     const symbol = multiplier > 1 ? "E" : "P";
     return { symbol: proficient ? symbol : " ", bonus: (proficient ? 1 : 0) * this.proficiencyBonus * multiplier };
+  }
+
+  getWeaponAttacks(): WeaponAttackData[] {
+    return this.weapons.map((w) => {
+      const damageWithAbility = DiceString.sum(w.damage, this.getAbilityModifier(w.ability));
+      const weaponBonus = w.damage.getModifier();
+
+      return {
+        weapon: w.weapon,
+        attackRoll: new D20Test("Attack Roll", w.ability, this.getAbilityModifier(w.ability), this.createProficiency(true), weaponBonus),
+        damage: {
+          damageRoll: damageWithAbility.normalize().toString(),
+          critRoll: damageWithAbility.crit().normalize().toString(),
+        },
+      };
+    });
+  }
+
+  getWeaponAttackAddons(): DamageAddonData[] {
+    return this.attackAddons.map((addon) => {
+      if (addon.damage instanceof DiceString) {
+        const addonBaseDamage = addon.damage;
+        return {
+          addon: addon.addon,
+          damage: {
+            damageRoll: addonBaseDamage.normalize().toString(),
+            critRoll: addonBaseDamage.crit().normalize().toString(),
+          },
+        };
+      } else if ("optional" in addon.damage) {
+        // OptionalDamage - convert to OptionalDamageData
+        const addonBaseDamage = addon.damage.damage;
+        return {
+          addon: addon.addon,
+          damage: {
+            optional: true,
+            damageRoll: addonBaseDamage.normalize().toString(),
+            critRoll: addonBaseDamage.crit().normalize().toString(),
+          },
+        };
+      } else {
+        // DamageWithLevels - convert all levels to damage options
+        const options = addon.damage.map(([level, damageObj]) => {
+          return {
+            level,
+            damageRoll: damageObj.normalize().toString(),
+            critRoll: damageObj.crit().normalize().toString(),
+          };
+        });
+        return {
+          addon: addon.addon,
+          damage: { options },
+        };
+      }
+    });
   }
 }

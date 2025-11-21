@@ -1,9 +1,9 @@
 import React, { useMemo, useReducer } from "react";
 
+import type { DamageAddonData, WeaponAttackData } from "../../js/character/WeaponAttackTypes";
 import CheckCell from "../CheckCell";
 import AddonRow from "./AddonRow";
 import TotalDamageRow from "./TotalDamageRow";
-import type { DamageAddonData, WeaponAttackData } from "./WeaponAttackData";
 import WeaponSelector from "./WeaponSelector";
 import { computeTotalDamage, weaponReducer } from "./weaponAttackReducer";
 

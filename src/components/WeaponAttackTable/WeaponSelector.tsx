@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { WeaponAttackData } from "./WeaponAttackData";
+import type { WeaponAttackData } from "../../js/character/WeaponAttackTypes";
 
 interface WeaponSelectorProps {
   weapons: WeaponAttackData[];
