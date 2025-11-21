@@ -2,6 +2,25 @@ import { describe, expect, it } from "vitest";
 
 import { rehydratable, rehydrate } from "./rehydratable";
 
+describe("@rehydratable decorator", () => {
+  it("should create new instances with __rehydrationType tag", () => {
+    @rehydratable("NewInstanceClass")
+    class NewInstanceClass {
+      value: string;
+      constructor(value: string) {
+        this.value = value;
+      }
+    }
+
+    // Create a NEW instance (not rehydrating)
+    const instance = new NewInstanceClass("test");
+
+    // Should have the __rehydrationType tag
+    expect((instance as any).__rehydrationType).toBe("NewInstanceClass");
+    expect(instance.value).toBe("test");
+  });
+});
+
 describe("rehydrate()", () => {
   it("should rehydrate a registered class instance", () => {
     @rehydratable("TestClass")
@@ -181,5 +200,54 @@ describe("rehydrate()", () => {
     expect(result.parent.child.array[0].deepMethod()).toBe("deep");
     expect(result.parent.child.array[1]).toBeInstanceOf(DeepClass);
     expect(result.parent.child.array[1].deepMethod()).toBe("deep");
+  });
+
+  it("should handle null and undefined values gracefully", () => {
+    @rehydratable("NullTestClass")
+    class NullTestClass {
+      method() {
+        return "works";
+      }
+    }
+
+    const plainObject = {
+      nullValue: null,
+      undefinedValue: undefined,
+      validValue: { __rehydrationType: "NullTestClass" },
+    } as any as {
+      nullValue: null;
+      undefinedValue: undefined;
+      validValue: NullTestClass;
+    };
+
+    const result = rehydrate(plainObject);
+
+    // Null and undefined should pass through unchanged
+    expect(result.nullValue).toBe(null);
+    expect(result.undefinedValue).toBe(undefined);
+    // Valid value should be rehydrated
+    expect(result.validValue).toBeInstanceOf(NullTestClass);
+  });
+
+  it("should skip rehydration if object already has correct prototype", () => {
+    @rehydratable("AlreadyHydratedClass")
+    class AlreadyHydratedClass {
+      method() {
+        return "already hydrated";
+      }
+    }
+
+    // Create an instance that already has the correct prototype
+    const alreadyHydrated = new AlreadyHydratedClass();
+
+    const plainObject = {
+      item: alreadyHydrated,
+    };
+
+    const result = rehydrate(plainObject);
+
+    // Should still work correctly
+    expect(result.item).toBeInstanceOf(AlreadyHydratedClass);
+    expect(result.item.method()).toBe("already hydrated");
   });
 });
