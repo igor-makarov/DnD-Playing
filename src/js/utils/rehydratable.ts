@@ -14,15 +14,19 @@ const rehydratableClasses = new Map<string, Constructor>();
 export function rehydratable(name: string) {
   return function <T extends Constructor>(target: T, _context: ClassDecoratorContext): T {
     console.log("registering class name:", name);
-    rehydratableClasses.set(name, target);
 
-    return class extends target {
+    const wrappedClass = class extends target {
       constructor(...args: any[]) {
         super(...args);
         console.log("tagging instance with type:", name);
         (this as any).__rehydrationType = name;
       }
     } as T;
+
+    // Store the wrapped class so instanceof checks work correctly after rehydration
+    rehydratableClasses.set(name, wrappedClass);
+
+    return wrappedClass;
   };
 }
 

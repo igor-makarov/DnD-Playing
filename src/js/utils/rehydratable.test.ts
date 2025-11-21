@@ -1,0 +1,109 @@
+import { describe, expect, it } from "vitest";
+
+import { rehydratable, rehydrate } from "./rehydratable";
+
+describe("rehydrate()", () => {
+  it("should rehydrate a registered class instance", () => {
+    @rehydratable("TestClass")
+    class TestClass {
+      value: number;
+      constructor(value: number) {
+        this.value = value;
+      }
+      getValue() {
+        return this.value * 2;
+      }
+    }
+
+    const plainObject = {
+      testProp: { value: 42, __rehydrationType: "TestClass" },
+    } as any as { testProp: TestClass };
+
+    const result = rehydrate(plainObject);
+
+    expect(result.testProp).toBeInstanceOf(TestClass);
+    expect(result.testProp.getValue()).toBe(84);
+  });
+
+  it("should leave plain objects unchanged", () => {
+    const plainObject = {
+      name: "test",
+      nested: { value: 42 },
+      array: [1, 2, 3],
+    };
+
+    const result = rehydrate(plainObject);
+
+    expect(result).toEqual(plainObject);
+    expect(result.nested).toEqual({ value: 42 });
+    expect(Object.getPrototypeOf(result.nested)).toBe(Object.prototype);
+  });
+
+  it("should ignore unknown rehydration types", () => {
+    const plainObject = {
+      unknown: { value: 42, __rehydrationType: "UnknownClass" },
+    };
+
+    const result = rehydrate(plainObject);
+
+    expect(result.unknown).toEqual({ value: 42, __rehydrationType: "UnknownClass" });
+    expect(Object.getPrototypeOf(result.unknown)).toBe(Object.prototype);
+  });
+
+  it("should handle multiple rehydratable properties", () => {
+    @rehydratable("ClassA")
+    class ClassA {
+      methodA() {
+        return "A";
+      }
+    }
+
+    @rehydratable("ClassB")
+    class ClassB {
+      methodB() {
+        return "B";
+      }
+    }
+
+    const plainObject = {
+      propA: { __rehydrationType: "ClassA" },
+      propB: { __rehydrationType: "ClassB" },
+      propC: { plain: true },
+    } as any as {
+      propA: ClassA;
+      propB: ClassB;
+      propC: object;
+    };
+
+    const result = rehydrate(plainObject);
+
+    expect(result.propA).toBeInstanceOf(ClassA);
+    expect(result.propA.methodA()).toBe("A");
+    expect(result.propB).toBeInstanceOf(ClassB);
+    expect(result.propB.methodB()).toBe("B");
+    expect(result.propC).toEqual({ plain: true });
+  });
+
+  it("should preserve primitive values", () => {
+    const plainObject = {
+      str: "hello",
+      num: 42,
+      bool: true,
+      nullVal: null,
+      undefinedVal: undefined,
+      zero: 0,
+      emptyStr: "",
+    };
+
+    const result = rehydrate(plainObject);
+
+    expect(result).toEqual(plainObject);
+    expect(result.str).toBe("hello");
+    expect(result.num).toBe(42);
+    expect(result.bool).toBe(true);
+    expect(result.nullVal).toBe(null);
+    expect(result.undefinedVal).toBe(undefined);
+    expect(result.zero).toBe(0);
+    expect(result.emptyStr).toBe("");
+  });
+});
