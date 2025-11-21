@@ -90,10 +90,6 @@ function rehydrateValue(value: any): void {
  * Use when objects lose their class methods after JSON serialization.
  */
 function rehydrateRehydratableObject<T>(obj: any, classConstructor: new (...args: any[]) => T) {
-  if (!obj) {
-    return obj;
-  }
-
   if (Object.getPrototypeOf(obj) === classConstructor.prototype) {
     return obj as T;
   }
