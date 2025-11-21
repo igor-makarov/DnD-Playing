@@ -26,8 +26,7 @@ export class DiceString {
    * Create a DiceString from a string, number, DiceTerm array, or another DiceString
    *
    * @param input The dice string to parse (string, DiceString, number, or DiceTerm[])
-   * @param diceOrBonus Either DiceTerm[] array (when input is string/number/DiceString) or bonus modifier
-   * @param bonus Bonus modifier (only used when diceOrBonus is DiceTerm[])
+   * @param modifier Bonus modifier
    * @returns A new DiceString instance
    * @throws Error if the input is invalid
    *
@@ -38,7 +37,7 @@ export class DiceString {
    * new DiceString("2d6", [{count: 1, sides: 4}], 3) // Creates from string with additional dice and bonus
    * new DiceString(5, [{count: 2, sides: 6}]) // Creates from modifier with dice array
    */
-  constructor(input: string | DiceString | number | DiceTerm[], modifier: number = 0) {
+  constructor(input: DiceString | string | number | DiceTerm[], modifier: number = 0) {
     console.log("in DiceString.constructor");
 
     // If input is a DiceTerm array, use it directly
