@@ -1,7 +1,7 @@
 ---
 import "../../public/styles/style.css";
 import AdrikCharacter from "../js/characters/AdrikCharacter.js";
-import { D20Test, D20TestKind } from "../js/D20Test.ts";
+import { D20Test } from "../js/D20Test.ts";
 import AbilitiesTable from "../components/AbilitiesTable.astro";
 import SkillsTable from "../components/SkillsTable.astro";
 import SavesTable from "../components/SavesTable.astro";
@@ -44,7 +44,7 @@ const character = new AdrikCharacter();
           <tr>
             <td class="modifier" style="text-align: center;">
               <span class="checkCell">
-                <CheckCell client:only="react" check={new D20Test("Dex", D20TestKind.ABILITY_CHECK, character.getAbilityModifier("Dex"))} />
+                <CheckCell client:only="react" check={new D20Test("Ability Check", "Dex", character.getAbilityModifier("Dex"))} />
               </span>
             </td>
           </tr>
@@ -75,7 +75,7 @@ const character = new AdrikCharacter();
               const proficiency = character.createProficiency(true, 2);
               return {
                 ...skill,
-                check: new D20Test(skill.ability, D20TestKind.ABILITY_CHECK, modifier, proficiency),
+                check: new D20Test("Ability Check", skill.ability, modifier, proficiency),
               };
             })}
           character={character}
@@ -96,7 +96,7 @@ const character = new AdrikCharacter();
               const proficiency = character.createProficiency(true, 2);
               return {
                 ...skill,
-                check: new D20Test(skill.ability, D20TestKind.ABILITY_CHECK, modifier, proficiency),
+                check: new D20Test("Ability Check", skill.ability, modifier, proficiency),
               };
             })}
           character={character}

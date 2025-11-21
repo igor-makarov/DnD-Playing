@@ -7,7 +7,7 @@ import WeaponAttackTable from "../components/WeaponAttackTable.astro";
 import CheckCell from "../components/CheckCell.tsx";
 import DamageCell from "../components/DamageCell.tsx";
 import { DiceString } from "../js/DiceString.ts";
-import { D20Test, D20TestKind } from "../js/D20Test.ts";
+import { D20Test } from "../js/D20Test.ts";
 import AzamatCharacter from "../js/characters/AzamatCharacter";
 const character = new AzamatCharacter();
 ---
@@ -47,11 +47,7 @@ const character = new AzamatCharacter();
           <tr>
             <td class="modifier" style="text-align: center;">
               <span class="checkCell">
-                <CheckCell
-                  client:only="react"
-                  check={new D20Test("Dex", D20TestKind.ABILITY_CHECK, character.getAbilityModifier("Dex"))}
-                  advantage={true}
-                />
+                <CheckCell client:only="react" check={new D20Test("Ability Check", "Dex", character.getAbilityModifier("Dex"))} advantage={true} />
               </span>
             </td>
           </tr>

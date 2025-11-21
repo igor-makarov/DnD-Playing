@@ -1,6 +1,6 @@
 import { Character } from "../Character";
 import type { SavingThrow } from "../CharacterTypes";
-import { D20Test, D20TestKind } from "../D20Test";
+import { D20Test } from "../D20Test";
 import { DiceString } from "../DiceString";
 
 export default class AzamatCharacter extends Character {
@@ -59,7 +59,7 @@ export default class AzamatCharacter extends Character {
 
     return baseSaves.map(({ ability, check }) => ({
       ability,
-      check: new D20Test(ability, D20TestKind.SAVING_THROW, check.getAbilityModifier() + charismaMod, check.getProficiency()),
+      check: new D20Test("Saving Throw", ability, check.getAbilityModifier() + charismaMod, check.getProficiency()),
     }));
   }
 }

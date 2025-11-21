@@ -12,7 +12,7 @@ import type {
   Weapon,
 } from "./CharacterTypes";
 import { SKILL_TO_DEFAULT_ABILITIY } from "./CharacterTypes";
-import { D20Test, D20TestKind } from "./D20Test";
+import { D20Test } from "./D20Test";
 
 export class Character {
   abilityScores: AbilityScores;
@@ -62,7 +62,7 @@ export class Character {
       const modifier = this.getAbilityModifier(ability);
       return {
         ability,
-        check: new D20Test(ability, D20TestKind.ABILITY_CHECK, modifier),
+        check: new D20Test("Ability Check", ability, modifier),
       };
     });
   }
@@ -80,7 +80,7 @@ export class Character {
       return {
         skill,
         ability,
-        check: new D20Test(ability, D20TestKind.ABILITY_CHECK, modifier, proficiency),
+        check: new D20Test("Ability Check", ability, modifier, proficiency),
       };
     });
   }
@@ -92,7 +92,7 @@ export class Character {
       const proficiency = this.createProficiency(isProficient);
       return {
         ability,
-        check: new D20Test(ability, D20TestKind.SAVING_THROW, modifier, proficiency),
+        check: new D20Test("Saving Throw", ability, modifier, proficiency),
       };
     });
   }
