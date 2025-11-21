@@ -33,6 +33,7 @@ export function rehydratable(name: string) {
 /**
  * Rehydrates objects within props that were tagged with __rehydrationType.
  * Restores prototype chains for serialized objects that have lost their class methods.
+ * Recursively walks through nested objects and arrays to rehydrate all tagged instances.
  *
  * @param props - The props object containing potentially serialized rehydratable objects
  * @returns The props with rehydrated objects
@@ -43,20 +44,45 @@ export function rehydrate<P extends object>(props: P) {
   const rehydrated = { ...props } as any;
 
   for (const key in rehydrated) {
-    const value = rehydrated[key];
-    console.log("rehydration potential:", typeof value);
-    if (value && typeof value === "object" && (value as any).__rehydrationType) {
-      const typeName = (value as any).__rehydrationType;
-      console.log("__rehydrationType:", typeName);
-      const constructor = rehydratableClasses.get(typeName);
+    rehydrateValue(rehydrated[key]);
+  }
 
-      if (constructor) {
-        rehydrateRehydratableObject(value, constructor);
-        console.log("after rehydration:", typeof value);
-      }
+  return rehydrated as P;
+}
+
+/**
+ * Recursively processes a value, rehydrating any objects with __rehydrationType
+ * and recursing into nested objects and arrays.
+ */
+function rehydrateValue(value: any): void {
+  if (!value || typeof value !== "object") {
+    return;
+  }
+
+  console.log("rehydration potential:", typeof value);
+
+  // If this value is rehydratable, rehydrate it first
+  if ((value as any).__rehydrationType) {
+    const typeName = (value as any).__rehydrationType;
+    console.log("__rehydrationType:", typeName);
+    const constructor = rehydratableClasses.get(typeName);
+
+    if (constructor) {
+      rehydrateRehydratableObject(value, constructor);
+      console.log("after rehydration:", typeof value);
     }
   }
-  return rehydrated as P;
+
+  // Recursively process children (whether rehydrated or not)
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      rehydrateValue(item);
+    }
+  } else {
+    for (const key in value) {
+      rehydrateValue(value[key]);
+    }
+  }
 }
 
 /**

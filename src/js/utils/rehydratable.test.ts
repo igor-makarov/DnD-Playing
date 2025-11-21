@@ -106,4 +106,80 @@ describe("rehydrate()", () => {
     expect(result.zero).toBe(0);
     expect(result.emptyStr).toBe("");
   });
+
+  it("should rehydrate objects nested in sub-objects", () => {
+    @rehydratable("NestedClass")
+    class NestedClass {
+      nestedMethod() {
+        return "nested";
+      }
+    }
+
+    const plainObject = {
+      parent: {
+        child: { __rehydrationType: "NestedClass" },
+      },
+    } as any as {
+      parent: {
+        child: NestedClass;
+      };
+    };
+
+    const result = rehydrate(plainObject);
+
+    expect(result.parent.child).toBeInstanceOf(NestedClass);
+    expect(result.parent.child.nestedMethod()).toBe("nested");
+  });
+
+  it("should rehydrate objects in arrays", () => {
+    @rehydratable("ArrayClass")
+    class ArrayClass {
+      arrayMethod() {
+        return "array";
+      }
+    }
+
+    const plainObject = {
+      items: [{ __rehydrationType: "ArrayClass" }, { __rehydrationType: "ArrayClass" }],
+    } as any as {
+      items: ArrayClass[];
+    };
+
+    const result = rehydrate(plainObject);
+
+    expect(result.items[0]).toBeInstanceOf(ArrayClass);
+    expect(result.items[0].arrayMethod()).toBe("array");
+    expect(result.items[1]).toBeInstanceOf(ArrayClass);
+    expect(result.items[1].arrayMethod()).toBe("array");
+  });
+
+  it("should rehydrate objects in arrays nested in sub-objects", () => {
+    @rehydratable("DeepClass")
+    class DeepClass {
+      deepMethod() {
+        return "deep";
+      }
+    }
+
+    const plainObject = {
+      parent: {
+        child: {
+          array: [{ __rehydrationType: "DeepClass" }, { __rehydrationType: "DeepClass" }],
+        },
+      },
+    } as any as {
+      parent: {
+        child: {
+          array: DeepClass[];
+        };
+      };
+    };
+
+    const result = rehydrate(plainObject);
+
+    expect(result.parent.child.array[0]).toBeInstanceOf(DeepClass);
+    expect(result.parent.child.array[0].deepMethod()).toBe("deep");
+    expect(result.parent.child.array[1]).toBeInstanceOf(DeepClass);
+    expect(result.parent.child.array[1].deepMethod()).toBe("deep");
+  });
 });
