@@ -35,30 +35,32 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
 
   return (
     <table>
-      <tr>
-        <th colSpan={2} style={{ textAlign: "center" }}>
-          Weapon Attack
-        </th>
-      </tr>
-      <tr>
-        <td colSpan={2} style={{ textAlign: "center" }}>
-          <WeaponSelector weapons={weaponAttacks} selectedWeaponName={state.selectedWeaponName} onWeaponChange={handleWeaponChange} />
-        </td>
-      </tr>
-      <tr>
-        <td>Attack Modifier</td>
-        <td className="checkCell">
-          {selectedWeapon && <CheckCell check={new D20Test("Attack Roll", selectedWeapon.ability, selectedWeapon.attackModifier)} />}
-        </td>
-      </tr>
-      <tr>
-        <td>Weapon Damage</td>
-        <td className="checkCell">{selectedWeapon && <span className="mono">{selectedWeapon.damage.damageRoll}</span>}</td>
-      </tr>
-      {damageAddons.map((addon) => (
-        <AddonRow key={addon.addon} addon={addon} state={state} dispatch={dispatch} />
-      ))}
-      <TotalDamageRow totalDamage={totalDamage} />
+      <tbody>
+        <tr>
+          <th colSpan={2} style={{ textAlign: "center" }}>
+            Weapon Attack
+          </th>
+        </tr>
+        <tr>
+          <td colSpan={2} style={{ textAlign: "center" }}>
+            <WeaponSelector weapons={weaponAttacks} selectedWeaponName={state.selectedWeaponName} onWeaponChange={handleWeaponChange} />
+          </td>
+        </tr>
+        <tr>
+          <td>Attack Modifier</td>
+          <td className="checkCell">
+            {selectedWeapon && <CheckCell check={new D20Test("Attack Roll", selectedWeapon.ability, selectedWeapon.attackModifier)} />}
+          </td>
+        </tr>
+        <tr>
+          <td>Weapon Damage</td>
+          <td className="checkCell">{selectedWeapon && <span className="mono">{selectedWeapon.damage.damageRoll}</span>}</td>
+        </tr>
+        {damageAddons.map((addon) => (
+          <AddonRow key={addon.addon} addon={addon} state={state} dispatch={dispatch} />
+        ))}
+        <TotalDamageRow totalDamage={totalDamage} />
+      </tbody>
     </table>
   );
 };
