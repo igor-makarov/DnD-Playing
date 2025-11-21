@@ -1,4 +1,4 @@
-import type { Ability } from "../../js/CharacterTypes";
+import type { D20Test } from "../../js/D20Test";
 
 export type DamageData = {
   damageRoll: string;
@@ -28,7 +28,6 @@ export type DamageAddonData = {
 
 export type WeaponAttackData = {
   weapon: string;
-  ability: Ability;
-  attackModifier: number;
+  attackRoll: D20Test;
   damage: DamageData;
 };

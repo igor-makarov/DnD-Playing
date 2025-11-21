@@ -3,6 +3,7 @@ import WeaponAttackTableReact from "./WeaponAttackTable/WeaponAttackTable.tsx";
 import type { WeaponAttackData, DamageAddonData } from "./WeaponAttackTable/WeaponAttackData";
 import type { Character } from "../js/Character";
 import { DiceString } from "../js/DiceString";
+import { D20Test } from "../js/D20Test";
 
 interface Props {
   character: Character;
@@ -13,11 +14,11 @@ const { character } = Astro.props;
 const weaponAttacks: WeaponAttackData[] = character.weapons.map((w) => {
   const damageWithAbility = DiceString.sum(w.damage, character.getAbilityModifier(w.ability));
   const weaponBonus = w.damage.getModifier();
+  const attackModifier = weaponBonus + character.getAbilityModifier(w.ability) + character.proficiencyBonus;
 
   return {
     weapon: w.weapon,
-    ability: w.ability,
-    attackModifier: weaponBonus + character.getAbilityModifier(w.ability) + character.proficiencyBonus,
+    attackRoll: new D20Test("Attack Roll", w.ability, attackModifier),
     damage: {
       damageRoll: damageWithAbility.normalize().toString(),
       critRoll: damageWithAbility.crit().normalize().toString(),
