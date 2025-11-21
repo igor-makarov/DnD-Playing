@@ -1,6 +1,7 @@
 import React, { useMemo, useReducer } from "react";
 
 import type { DamageAddonData, WeaponAttackData } from "../../js/character/WeaponAttackTypes";
+import { withAutoRehydration } from "../../js/utils/withAutoRehydration";
 import CheckCell from "../CheckCell";
 import AddonRow from "./AddonRow";
 import TotalDamageRow from "./TotalDamageRow";
@@ -12,7 +13,7 @@ interface WeaponAttackProps {
   damageAddons: DamageAddonData[];
 }
 
-const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageAddons }) => {
+const WeaponAttackTable: React.FC<WeaponAttackProps> = withAutoRehydration(({ weaponAttacks, damageAddons }) => {
   const [state, dispatch] = useReducer(weaponReducer, {
     selectedWeaponName: weaponAttacks[0]?.weapon || "",
     selectedLevels: new Map(),
@@ -51,7 +52,7 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
         </tr>
         <tr>
           <td>Weapon Damage</td>
-          <td className="checkCell">{selectedWeapon && <span className="mono">{selectedWeapon.damage.damageRoll}</span>}</td>
+          <td className="checkCell">{selectedWeapon && <span className="mono">{selectedWeapon.damage.damageRoll.toString()}</span>}</td>
         </tr>
         {damageAddons.map((addon) => (
           <AddonRow key={addon.addon} addon={addon} state={state} dispatch={dispatch} />
@@ -60,6 +61,6 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = ({ weaponAttacks, damageA
       </tbody>
     </table>
   );
-};
+});
 
 export default WeaponAttackTable;

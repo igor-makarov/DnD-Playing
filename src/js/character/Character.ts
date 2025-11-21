@@ -114,8 +114,8 @@ export class Character {
         weapon: w.weapon,
         attackRoll: new D20Test("Attack Roll", w.ability, this.getAbilityModifier(w.ability), this.createProficiency(true), weaponBonus),
         damage: {
-          damageRoll: damageWithAbility.normalize().toString(),
-          critRoll: damageWithAbility.crit().normalize().toString(),
+          damageRoll: damageWithAbility.normalize(),
+          critRoll: damageWithAbility.crit().normalize(),
         },
       };
     });
@@ -128,8 +128,8 @@ export class Character {
         return {
           addon: addon.addon,
           damage: {
-            damageRoll: addonBaseDamage.normalize().toString(),
-            critRoll: addonBaseDamage.crit().normalize().toString(),
+            damageRoll: addonBaseDamage.normalize(),
+            critRoll: addonBaseDamage.crit().normalize(),
           },
         };
       } else if ("optional" in addon.damage) {
@@ -139,8 +139,8 @@ export class Character {
           addon: addon.addon,
           damage: {
             optional: true,
-            damageRoll: addonBaseDamage.normalize().toString(),
-            critRoll: addonBaseDamage.crit().normalize().toString(),
+            damageRoll: addonBaseDamage.normalize(),
+            critRoll: addonBaseDamage.crit().normalize(),
           },
         };
       } else {
@@ -148,8 +148,8 @@ export class Character {
         const options = addon.damage.map(([level, damageObj]) => {
           return {
             level,
-            damageRoll: damageObj.normalize().toString(),
-            critRoll: damageObj.crit().normalize().toString(),
+            damageRoll: damageObj.normalize(),
+            critRoll: damageObj.crit().normalize(),
           };
         });
         return {

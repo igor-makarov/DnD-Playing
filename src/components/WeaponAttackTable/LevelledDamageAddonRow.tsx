@@ -36,7 +36,7 @@ const LevelledDamageAddonRow: React.FC<LevelledDamageAddonRowProps> = ({ addon, 
           ))}
         </select>
       </td>
-      <td className="checkCell mono">{addonDamage && addonDamage.damageRoll}</td>
+      <td className="checkCell mono">{addonDamage && addonDamage.damageRoll.toString()}</td>
     </tr>
   );
 };

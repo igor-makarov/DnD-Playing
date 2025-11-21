@@ -16,7 +16,7 @@ const OptionalDamageAddonRow: React.FC<OptionalDamageAddonRowProps> = ({ addon, 
         &nbsp;
         <input type="checkbox" checked={isEnabled} onChange={(e) => onToggle(e.target.checked)} />
       </td>
-      <td className="checkCell mono">{isEnabled && addon.damage.damageRoll}</td>
+      <td className="checkCell mono">{isEnabled && addon.damage.damageRoll.toString()}</td>
     </tr>
   );
 };
