@@ -10,6 +10,7 @@ You MUST run verification when you are done
 - Run formatter with `npm run format`
 - Run type check with `npm run check`
 - Run build with `npm run build`
+- Run tests with `npm test -- --run`
 
 # React notes
 - `useEffect` should not be the first go-to - look for other, better structured alternatives
