@@ -14,11 +14,10 @@ const { character } = Astro.props;
 const weaponAttacks: WeaponAttackData[] = character.weapons.map((w) => {
   const damageWithAbility = DiceString.sum(w.damage, character.getAbilityModifier(w.ability));
   const weaponBonus = w.damage.getModifier();
-  const attackModifier = weaponBonus + character.getAbilityModifier(w.ability) + character.proficiencyBonus;
 
   return {
     weapon: w.weapon,
-    attackRoll: new D20Test("Attack Roll", w.ability, attackModifier),
+    attackRoll: new D20Test("Attack Roll", w.ability, character.getAbilityModifier(w.ability), character.createProficiency(true), weaponBonus),
     damage: {
       damageRoll: damageWithAbility.normalize().toString(),
       critRoll: damageWithAbility.crit().normalize().toString(),

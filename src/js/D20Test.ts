@@ -23,21 +23,24 @@ export class D20Test {
   private ability: Ability;
   private proficiency: Proficiency;
   private abilityModifier: number;
+  private extraBonus: number;
 
   /**
-   * Create a D20Test with kind, ability, ability modifier, and optional proficiency
+   * Create a D20Test with kind, ability, ability modifier, and optional proficiency and extra bonus
    *
    * @param kind The type of roll ("Ability Check", "Attack Roll", or "Saving Throw")
    * @param ability The ability name (e.g., "Str", "Dex")
    * @param abilityModifier The ability modifier for the check
    * @param proficiency The proficiency information (symbol and bonus), defaults to no proficiency
+   * @param extraBonus Additional bonus (e.g., weapon bonus for attack rolls), defaults to 0
    */
-  constructor(kind: D20TestKind, ability: Ability, abilityModifier: number, proficiency?: Proficiency) {
+  constructor(kind: D20TestKind, ability: Ability, abilityModifier: number, proficiency?: Proficiency, extraBonus: number = 0) {
     console.log("in AbilityCheck.constructor");
     this.kind = kind;
     this.ability = ability;
     this.proficiency = proficiency ?? { symbol: " ", bonus: 0 };
     this.abilityModifier = abilityModifier;
+    this.extraBonus = extraBonus;
   }
 
   /**
@@ -77,15 +80,25 @@ export class D20Test {
   }
 
   /**
-   * Get the total bonus (ability modifier + proficiency bonus)
+   * Get the extra bonus
+   *
+   * @returns The extra bonus
+   */
+  getExtraBonus(): number {
+    return this.extraBonus;
+  }
+
+  /**
+   * Get the total bonus (ability modifier + proficiency bonus + extra bonus)
    *
    * @returns The total bonus modifier
    * @example
    * new D20Test("Ability Check", "Str", 5).getBonus() // 5
    * new D20Test("Ability Check", "Str", 3, {symbol: "P", bonus: 2}).getBonus() // 5
+   * new D20Test("Attack Roll", "Str", 3, {symbol: "P", bonus: 2}, 1).getBonus() // 6
    */
   getBonus(): number {
-    return this.abilityModifier + this.proficiency.bonus;
+    return this.abilityModifier + this.proficiency.bonus + this.extraBonus;
   }
 
   /**
