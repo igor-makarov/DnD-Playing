@@ -86,7 +86,11 @@ export type Weapon = {
   damage: DiceString;
 };
 
-export type DamageWithLevels = [level: number, damage: DiceString][];
+export type DamageWithLevels = {
+  base: { level: number; damage: DiceString };
+  increment: DiceString;
+  step?: number;
+};
 
 export type OptionalDamage = {
   optional: true;

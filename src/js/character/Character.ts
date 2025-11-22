@@ -11,10 +11,11 @@ import type {
   Skill,
   SkillAbilityCheck,
   SkillProficiency,
+  SpellSlotsForLevel,
   Weapon,
 } from "./CharacterTypes";
 import { SKILL_TO_DEFAULT_ABILITIY } from "./CharacterTypes";
-import type { DamageAddonData, WeaponAttackData } from "./WeaponAttackTypes";
+import type { DamageAddonData, DamageOptionData, WeaponAttackData } from "./WeaponAttackTypes";
 
 export class Character {
   abilityScores: AbilityScores;
@@ -109,6 +110,41 @@ export class Character {
     return { symbol: proficient ? symbol : " ", bonus: (proficient ? 1 : 0) * this.proficiencyBonus * multiplier };
   }
 
+  // Abstract method stub - override in subclasses to provide spell slots
+  getSpellSlots(): SpellSlotsForLevel[] {
+    return [];
+  }
+
+  // Get list of spell levels that have slots available
+  getSpellLevels(): number[] {
+    return this.getSpellSlots().map((slot) => slot.level);
+  }
+
+  // Get damage progression list for available spell levels
+  getDamageProgression(base: DamageOptionData, increment: DiceString, step: number = 1): DamageOptionData[] {
+    const baseLevel = base.level;
+    const baseDamage = base.damage;
+    const availableLevels = this.getSpellLevels().filter((level) => level >= baseLevel);
+
+    return availableLevels.map((level) => {
+      if (level < baseLevel) {
+        return { level, damage: baseDamage };
+      }
+
+      const stepsProgressed = Math.floor((level - baseLevel) / step);
+
+      if (stepsProgressed === 0) {
+        return { level, damage: baseDamage };
+      }
+
+      // Create array of increments to add
+      const increments = Array(stepsProgressed).fill(increment);
+      const damage = DiceString.sum([baseDamage, ...increments]);
+
+      return { level, damage };
+    });
+  }
+
   getWeaponAttacks(): WeaponAttackData[] {
     return this.weapons.map((w) => {
       const damageWithAbility = new DiceString(w.damage, this.getAbilityModifier(w.ability));
@@ -126,35 +162,30 @@ export class Character {
 
   getWeaponAttackAddons(): DamageAddonData[] {
     return this.attackAddons.map((addon) => {
+      const name = addon.addon;
       if (addon.damage instanceof DiceString) {
-        const addonBaseDamage = addon.damage;
         return {
-          addon: addon.addon,
+          addon: name,
           damage: {
-            damage: addonBaseDamage.normalize(),
+            damage: addon.damage,
           },
         };
       } else if ("optional" in addon.damage) {
         // OptionalDamage - convert to OptionalDamageData
-        const addonBaseDamage = addon.damage.damage;
         return {
-          addon: addon.addon,
+          addon: name,
           damage: {
             optional: true,
-            damage: addonBaseDamage.normalize(),
+            damage: addon.damage.damage,
           },
         };
       } else {
-        // DamageWithLevels - convert all levels to damage options
-        const options = addon.damage.map(([level, damageObj]) => {
-          return {
-            level,
-            damage: damageObj.normalize(),
-          };
-        });
+        // DamageWithLevels - expand using getDamageProgression
         return {
-          addon: addon.addon,
-          damage: { options },
+          addon: name,
+          damage: {
+            options: this.getDamageProgression(addon.damage.base, addon.damage.increment, addon.damage.step),
+          },
         };
       }
     });
