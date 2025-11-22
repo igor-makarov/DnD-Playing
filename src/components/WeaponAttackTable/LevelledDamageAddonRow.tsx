@@ -2,13 +2,13 @@ import React from "react";
 
 import type { DamageAddonData, DamageData, DamageOptionsData } from "../../js/character/WeaponAttackTypes";
 
-interface LevelledDamageAddonRowProps {
+interface Props {
   addon: DamageAddonData & { damage: DamageOptionsData };
   selectedLevel: number;
   onLevelChange: (level: number) => void;
 }
 
-const LevelledDamageAddonRow: React.FC<LevelledDamageAddonRowProps> = ({ addon, selectedLevel, onLevelChange }) => {
+export default function LevelledDamageAddonRow({ addon, selectedLevel, onLevelChange }: Props) {
   const getAddonDamage = (): DamageData | null => {
     if (selectedLevel === -1) {
       return null; // Off state
@@ -39,6 +39,4 @@ const LevelledDamageAddonRow: React.FC<LevelledDamageAddonRowProps> = ({ addon, 
       <td className="checkCell mono">{addonDamage && addonDamage.damageRoll.toString()}</td>
     </tr>
   );
-};
-
-export default LevelledDamageAddonRow;
+}

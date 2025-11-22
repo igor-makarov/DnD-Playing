@@ -6,13 +6,13 @@ import { D20Test } from "../js/common/D20Test";
 import { getRollUrl } from "../js/utils/rollOptions";
 import { withAutoRehydration } from "../js/utils/withAutoRehydration";
 
-interface CheckCellProps {
+interface Props {
   check: D20Test;
   advantage?: boolean;
 }
 
 // TODO: rename to D20TestCell and related names
-const CheckCell: React.FC<CheckCellProps> = withAutoRehydration(({ check, advantage = false }) => {
+export default withAutoRehydration(function CheckCell({ check, advantage = false }: Props) {
   const hash = useHash();
   const { modifier } = useRollModifiers();
 
@@ -81,5 +81,3 @@ const CheckCell: React.FC<CheckCellProps> = withAutoRehydration(({ check, advant
     </span>
   );
 });
-
-export default CheckCell;

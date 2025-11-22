@@ -8,12 +8,12 @@ import TotalDamageRow from "./TotalDamageRow";
 import WeaponSelector from "./WeaponSelector";
 import { computeTotalDamage, weaponReducer } from "./weaponAttackReducer";
 
-interface WeaponAttackProps {
+interface Props {
   weaponAttacks: WeaponAttackData[];
   damageAddons: DamageAddonData[];
 }
 
-const WeaponAttackTable: React.FC<WeaponAttackProps> = withAutoRehydration(({ weaponAttacks, damageAddons }) => {
+export default withAutoRehydration(function WeaponAttackTable({ weaponAttacks, damageAddons }: Props) {
   const [state, dispatch] = useReducer(weaponReducer, {
     selectedWeaponName: weaponAttacks[0]?.weapon || "",
     selectedLevels: new Map(),
@@ -62,5 +62,3 @@ const WeaponAttackTable: React.FC<WeaponAttackProps> = withAutoRehydration(({ we
     </table>
   );
 });
-
-export default WeaponAttackTable;

@@ -2,13 +2,13 @@ import React from "react";
 
 import type { WeaponAttackData } from "../../js/character/WeaponAttackTypes";
 
-interface WeaponSelectorProps {
+interface Props {
   weapons: WeaponAttackData[];
   selectedWeaponName: string;
   onWeaponChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
-const WeaponSelector: React.FC<WeaponSelectorProps> = ({ weapons, selectedWeaponName, onWeaponChange }) => {
+export default function WeaponSelector({ weapons, selectedWeaponName, onWeaponChange }: Props) {
   return (
     <select name="weapons" id="weapon-select" onChange={onWeaponChange} value={selectedWeaponName}>
       <option value="" disabled>
@@ -21,6 +21,4 @@ const WeaponSelector: React.FC<WeaponSelectorProps> = ({ weapons, selectedWeapon
       ))}
     </select>
   );
-};
-
-export default WeaponSelector;
+}

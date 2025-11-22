@@ -6,13 +6,13 @@ import LevelledDamageAddonRow from "./LevelledDamageAddonRow";
 import OptionalDamageAddonRow from "./OptionalDamageAddonRow";
 import type { WeaponAction, WeaponState } from "./weaponAttackReducer";
 
-interface AddonRowProps {
+interface Props {
   addon: DamageAddonData;
   state: WeaponState;
   dispatch: React.Dispatch<WeaponAction>;
 }
 
-const AddonRow: React.FC<AddonRowProps> = ({ addon, state, dispatch }) => {
+export default function AddonRow({ addon, state, dispatch }: Props) {
   if ("options" in addon.damage) {
     return (
       <LevelledDamageAddonRow
@@ -38,6 +38,4 @@ const AddonRow: React.FC<AddonRowProps> = ({ addon, state, dispatch }) => {
   }
 
   return <AlwaysOnDamageAddonRow addon={addon as DamageAddonData & { damage: DamageData }} />;
-};
-
-export default AddonRow;
+}

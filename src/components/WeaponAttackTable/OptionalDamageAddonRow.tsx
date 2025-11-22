@@ -2,13 +2,13 @@ import React from "react";
 
 import type { DamageAddonData, OptionalDamageData } from "../../js/character/WeaponAttackTypes";
 
-interface OptionalDamageAddonRowProps {
+interface Props {
   addon: DamageAddonData & { damage: OptionalDamageData };
   isEnabled: boolean;
   onToggle: (enabled: boolean) => void;
 }
 
-const OptionalDamageAddonRow: React.FC<OptionalDamageAddonRowProps> = ({ addon, isEnabled, onToggle }) => {
+export default function OptionalDamageAddonRow({ addon, isEnabled, onToggle }: Props) {
   return (
     <tr>
       <td>
@@ -19,6 +19,4 @@ const OptionalDamageAddonRow: React.FC<OptionalDamageAddonRowProps> = ({ addon, 
       <td className="checkCell mono">{isEnabled && addon.damage.damageRoll.toString()}</td>
     </tr>
   );
-};
-
-export default OptionalDamageAddonRow;
+}

@@ -6,12 +6,12 @@ import { DiceString } from "../js/common/DiceString";
 import { getRollUrl } from "../js/utils/rollOptions";
 import { withAutoRehydration } from "../js/utils/withAutoRehydration";
 
-interface DamageCellProps {
+interface Props {
   damageRoll: DiceString;
   critRoll: DiceString;
 }
 
-const DamageCell: React.FC<DamageCellProps> = withAutoRehydration(({ damageRoll, critRoll }) => {
+export default withAutoRehydration(function DamageCell({ damageRoll, critRoll }: Props) {
   const hash = useHash();
   const { modifier } = useRollModifiers();
 
@@ -53,5 +53,3 @@ const DamageCell: React.FC<DamageCellProps> = withAutoRehydration(({ damageRoll,
     </span>
   );
 });
-
-export default DamageCell;
