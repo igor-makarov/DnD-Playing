@@ -13,4 +13,15 @@ You MUST run verification when you are done
 - Run tests with `npm test`
 
 # React notes
+- Use idiomatic component declarations to be as consistent as possible with Astro: 
+```typescript 
+interface Props { 
+  // properties
+} 
+
+export default function ComponentName({ ... }: Props) {
+  // impl
+}
+```
+
 - `useEffect` should not be the first go-to - look for other, better structured alternatives
