@@ -15,6 +15,7 @@ You MUST run verification when you are done
 # React notes
 - Use idiomatic component declarations to be as consistent as possible with Astro: 
 ```typescript 
+import React from "react";
 interface Props { 
   // properties
 } 
