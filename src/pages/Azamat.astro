@@ -5,7 +5,8 @@ import SkillsTable from "../components/SkillsTable.astro";
 import SavesTable from "../components/SavesTable.astro";
 import WeaponAttackTable from "../components/WeaponAttackTable.astro";
 import D20TestCell from "../components/common/D20TestCell.tsx";
-import DamageCell from "../components/common/DamageCell.tsx";
+import LevelledSpellLevelSelector from "../components/spells/LevelledSpellLevelSelector.tsx";
+import LevelledSpellDamageCell from "../components/spells/LevelledSpellDamageCell.tsx";
 import { DiceString } from "../js/common/DiceString.ts";
 import AzamatCharacter from "../js/characters/AzamatCharacter";
 const character = new AzamatCharacter();
@@ -79,9 +80,25 @@ const character = new AzamatCharacter();
             <th class="modifier">Damage</th>
           </tr>
           <tr>
-            <td>Moonbeam</td>
+            <td>
+              Moonbeam
+              <LevelledSpellLevelSelector
+                client:only="react"
+                spellName="Moonbeam"
+                options={[
+                  { level: 2, damageRoll: new DiceString("2d10") },
+                  { level: 3, damageRoll: new DiceString("3d10") },
+                  { level: 4, damageRoll: new DiceString("4d10") },
+                  { level: 5, damageRoll: new DiceString("5d10") },
+                  { level: 6, damageRoll: new DiceString("6d10") },
+                  { level: 7, damageRoll: new DiceString("7d10") },
+                  { level: 8, damageRoll: new DiceString("8d10") },
+                  { level: 9, damageRoll: new DiceString("9d10") },
+                ]}
+              />
+            </td>
             <td class="checkCell mono">
-              <DamageCell client:only="react" damageRoll={new DiceString("4d10")} />
+              <LevelledSpellDamageCell client:only="react" spellName="Moonbeam" />
             </td>
           </tr>
         </table>
