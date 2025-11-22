@@ -10,7 +10,7 @@ export default function AlwaysOnDamageAddonRow({ addon }: Props) {
   return (
     <tr>
       <td>{addon.addon}</td>
-      <td className="checkCell mono">{addon.damage.damageRoll.toString()}</td>
+      <td className="checkCell mono">{addon.damage.damage.toString()}</td>
     </tr>
   );
 }

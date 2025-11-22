@@ -118,7 +118,7 @@ export class Character {
         weapon: w.weapon,
         attackRoll: new D20Test("Attack Roll", w.ability, this.getAbilityModifier(w.ability), this.createProficiency(true), weaponBonus),
         damage: {
-          damageRoll: damageWithAbility.normalize(),
+          damage: damageWithAbility.normalize(),
         },
       };
     });
@@ -131,7 +131,7 @@ export class Character {
         return {
           addon: addon.addon,
           damage: {
-            damageRoll: addonBaseDamage.normalize(),
+            damage: addonBaseDamage.normalize(),
           },
         };
       } else if ("optional" in addon.damage) {
@@ -141,7 +141,7 @@ export class Character {
           addon: addon.addon,
           damage: {
             optional: true,
-            damageRoll: addonBaseDamage.normalize(),
+            damage: addonBaseDamage.normalize(),
           },
         };
       } else {
@@ -149,7 +149,7 @@ export class Character {
         const options = addon.damage.map(([level, damageObj]) => {
           return {
             level,
-            damageRoll: damageObj.normalize(),
+            damage: damageObj.normalize(),
           };
         });
         return {

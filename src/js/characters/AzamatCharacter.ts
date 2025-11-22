@@ -91,4 +91,21 @@ export default class AzamatCharacter extends Character {
 
     return paladinSpellSlots[this.characterLevel] || [];
   }
+
+  // Get list of spell levels that have slots available
+  getSpellLevels(): number[] {
+    return this.getSpellSlots().map(([level]) => level);
+  }
+
+  // Get damage progression list for available spell levels
+  getDamageProgressionFunction(
+    base: [level: number, damage: DiceString],
+    increment: DiceString,
+    step: number = 1,
+  ): { level: number; damage: DiceString }[] {
+    const progressionFunc = DiceString.getDamageProgression(base, increment, step);
+    const [baseLevel] = base;
+    const availableLevels = this.getSpellLevels().filter((level) => level >= baseLevel);
+    return availableLevels.map((level) => ({ level, damage: progressionFunc(level) }));
+  }
 }

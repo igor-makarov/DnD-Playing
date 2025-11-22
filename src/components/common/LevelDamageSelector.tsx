@@ -4,7 +4,7 @@ import type { DiceString } from "../../js/common/DiceString";
 
 interface LevelOption {
   level: number;
-  damageRoll: DiceString;
+  damage: DiceString;
 }
 
 interface Props {

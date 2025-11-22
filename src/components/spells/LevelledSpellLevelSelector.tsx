@@ -8,7 +8,7 @@ import LevelDamageSelector from "../common/LevelDamageSelector";
 
 interface LevelOption {
   level: number;
-  damageRoll: DiceString;
+  damage: DiceString;
 }
 
 interface Props {
@@ -24,7 +24,7 @@ export default function LevelledSpellLevelSelector({ spellName, options, optiona
   if (!spellData[spellName] && options[0]) {
     spellLevelStore.setKey(spellName, {
       level: options[0].level,
-      damageRoll: options[0].damageRoll,
+      damageRoll: options[0].damage,
     });
   }
 
@@ -33,7 +33,7 @@ export default function LevelledSpellLevelSelector({ spellName, options, optiona
   const handleLevelChange = (level: number) => {
     const option = options.find((opt) => opt.level === level);
     if (option) {
-      spellLevelStore.setKey(spellName, { level, damageRoll: option.damageRoll });
+      spellLevelStore.setKey(spellName, { level, damageRoll: option.damage });
     }
   };
 

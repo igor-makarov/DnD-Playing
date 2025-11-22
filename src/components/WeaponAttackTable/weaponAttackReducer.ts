@@ -24,11 +24,11 @@ export function getAddonDamage(
     const selectedLevel = selectedLevels.get(addon.addon) ?? -1;
     if (selectedLevel === -1) return null;
     const option = addon.damage.options.find((opt) => opt.level === selectedLevel);
-    return option ? { damageRoll: option.damageRoll } : null;
+    return option ? { damage: option.damage } : null;
   } else if ("optional" in addon.damage) {
     const isEnabled = enabledOptionals.get(addon.addon) ?? false;
     if (!isEnabled) return null;
-    return { damageRoll: addon.damage.damageRoll };
+    return { damage: addon.damage.damage };
   } else {
     return addon.damage;
   }
@@ -43,12 +43,12 @@ export function computeTotalDamage(
 ): DiceString | null {
   if (!weapon) return null;
 
-  const damageRolls = [weapon.damage.damageRoll];
+  const damageRolls = [weapon.damage.damage];
 
   for (const addon of damageAddons) {
     const addonDamage = getAddonDamage(addon, selectedLevels, enabledOptionals);
     if (addonDamage) {
-      damageRolls.push(addonDamage.damageRoll);
+      damageRolls.push(addonDamage.damage);
     }
   }
 

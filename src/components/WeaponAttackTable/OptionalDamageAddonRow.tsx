@@ -16,7 +16,7 @@ export default function OptionalDamageAddonRow({ addon, isEnabled, onToggle }: P
         &nbsp;
         <input type="checkbox" checked={isEnabled} onChange={(e) => onToggle(e.target.checked)} />
       </td>
-      <td className="checkCell mono">{isEnabled && addon.damage.damageRoll.toString()}</td>
+      <td className="checkCell mono">{isEnabled && addon.damage.damage.toString()}</td>
     </tr>
   );
 }

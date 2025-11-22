@@ -85,7 +85,7 @@ const character = new AzamatCharacter();
               <LevelledSpellLevelSelector
                 client:only="react"
                 spellName="Moonbeam"
-                options={Array.from({ length: 8 }, (_, i) => ({ level: i + 2, damageRoll: new DiceString(`${i + 2}d10`) }))}
+                options={character.getDamageProgressionFunction([2, new DiceString("2d10")], new DiceString("1d10"), 1)}
               />
             </td>
             <td class="checkCell mono">

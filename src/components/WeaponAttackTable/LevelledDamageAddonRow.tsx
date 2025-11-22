@@ -16,7 +16,7 @@ export default function LevelledDamageAddonRow({ addon, selectedLevel, onLevelCh
     }
     const option = addon.damage.options.find((opt) => opt.level === selectedLevel);
     if (option) {
-      return { damageRoll: option.damageRoll };
+      return { damage: option.damage };
     }
     return null;
   };
@@ -30,7 +30,7 @@ export default function LevelledDamageAddonRow({ addon, selectedLevel, onLevelCh
         &nbsp;
         <LevelDamageSelector options={addon.damage.options} selectedLevel={selectedLevel} onLevelChange={onLevelChange} optional={true} />
       </td>
-      <td className="checkCell mono">{addonDamage && addonDamage.damageRoll.toString()}</td>
+      <td className="checkCell mono">{addonDamage && addonDamage.damage.toString()}</td>
     </tr>
   );
 }

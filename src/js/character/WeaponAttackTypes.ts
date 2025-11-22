@@ -2,12 +2,12 @@ import type { D20Test } from "../common/D20Test";
 import type { DiceString } from "../common/DiceString";
 
 export type DamageData = {
-  damageRoll: DiceString;
+  damage: DiceString;
 };
 
 export type DamageOptionData = {
   level: number;
-  damageRoll: DiceString;
+  damage: DiceString;
 };
 
 export type DamageOptionsData = {
@@ -16,7 +16,7 @@ export type DamageOptionsData = {
 
 export type OptionalDamageData = {
   optional: true;
-  damageRoll: DiceString;
+  damage: DiceString;
 };
 
 export type DamageAddonData = {
