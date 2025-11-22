@@ -76,6 +76,18 @@ const character = new AzamatCharacter();
             <th colspan="2" style="text-align: center;">Other Spells</th>
           </tr>
           <tr>
+            <td>Spell Attack Modifier</td>
+            <td class="checkCell mono">
+              <D20TestCell client:only="react" roll={character.getSpellAttack()} />
+            </td>
+          </tr>
+          <tr>
+            <td>Spell Save DC</td>
+            <td class="checkCell mono">
+              <span class="mono">{character.getSpellSaveDC()}</span>
+            </td>
+          </tr>
+          <tr>
             <th>Spell</th>
             <th class="modifier">Damage</th>
           </tr>

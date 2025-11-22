@@ -60,6 +60,16 @@ export default class AzamatCharacter extends Character {
     }));
   }
 
+  // Spell Attack Modifier: Charisma modifier + Proficiency bonus
+  getSpellAttack(): D20Test {
+    return new D20Test("Attack Roll", "Cha", this.getAbilityModifier("Cha"), this.createProficiency(true));
+  }
+
+  // Spell Save DC: 8 + Proficiency bonus + Charisma modifier
+  getSpellSaveDC(): number {
+    return 8 + this.getSpellAttack().getBonus();
+  }
+
   // Override: Paladin spell slots based on character level
   getSpellSlots(): SpellSlotsForLevel[] {
     // prettier-ignore
