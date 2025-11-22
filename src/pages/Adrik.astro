@@ -5,7 +5,7 @@ import { D20Test } from "../js/common/D20Test.ts";
 import AbilitiesTable from "../components/AbilitiesTable.astro";
 import SkillsTable from "../components/SkillsTable.astro";
 import SavesTable from "../components/SavesTable.astro";
-import CheckCell from "../components/CheckCell.tsx";
+import D20TestCell from "../components/D20TestCell.tsx";
 const character = new AdrikCharacter();
 ---
 
@@ -44,7 +44,7 @@ const character = new AdrikCharacter();
           <tr>
             <td class="modifier" style="text-align: center;">
               <span class="checkCell">
-                <CheckCell client:only="react" check={new D20Test("Ability Check", "Dex", character.getAbilityModifier("Dex"))} />
+                <D20TestCell client:only="react" roll={new D20Test("Ability Check", "Dex", character.getAbilityModifier("Dex"))} />
               </span>
             </td>
           </tr>

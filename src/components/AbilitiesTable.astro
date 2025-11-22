@@ -1,5 +1,5 @@
 ---
-import CheckCell from "./CheckCell.tsx";
+import D20TestCell from "./D20TestCell.tsx";
 import type { Character } from "../js/character/Character.ts";
 
 interface Props {
@@ -16,7 +16,7 @@ const { character } = Astro.props;
         <span class="mono ability-name">{ability}</span>
         <span class="mono ability-score">{character.abilityScores[ability]}</span>
         <span class="checkCell">
-          <CheckCell client:only="react" check={check} />
+          <D20TestCell client:only="react" roll={check} />
         </span>
       </div>
     ))

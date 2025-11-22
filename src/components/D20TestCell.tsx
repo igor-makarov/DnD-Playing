@@ -7,19 +7,18 @@ import { getRollUrl } from "../js/utils/rollOptions";
 import { withAutoRehydration } from "../js/utils/withAutoRehydration";
 
 interface Props {
-  check: D20Test;
+  roll: D20Test;
   advantage?: boolean;
 }
 
-// TODO: rename to D20TestCell and related names
-export default withAutoRehydration(function CheckCell({ check, advantage = false }: Props) {
+export default withAutoRehydration(function D20TestCell({ roll, advantage = false }: Props) {
   const hash = useHash();
   const { modifier } = useRollModifiers();
 
   const diceAppKey = hash?.substring(1) || "app";
 
-  const bonus = check.getBonus();
-  const diceString = check.getDiceString();
+  const bonus = roll.getBonus();
+  const diceString = roll.getDiceString();
 
   // Get the effective modifier (keyboard modifier overrides advantage prop)
   const effectiveModifier = (() => {
@@ -45,9 +44,9 @@ export default withAutoRehydration(function CheckCell({ check, advantage = false
 
   const mobileOptions = (() => {
     const regOption = { key: "reg", caption: "REG", url: rollUrls[RollModifier.REGULAR] };
-    const regBonusOption = { key: "bonus", caption: check.getBonusString(), url: rollUrls[RollModifier.REGULAR] };
+    const regBonusOption = { key: "bonus", caption: roll.getBonusString(), url: rollUrls[RollModifier.REGULAR] };
     const advOption = { key: "adv", caption: "ADV", url: rollUrls[RollModifier.ADVANTAGE] };
-    const advBonusOption = { key: "adv", caption: `ADV${check.getBonusString()}`, url: rollUrls[RollModifier.ADVANTAGE] };
+    const advBonusOption = { key: "adv", caption: `ADV${roll.getBonusString()}`, url: rollUrls[RollModifier.ADVANTAGE] };
     const disOption = { key: "dis", caption: "DIS", url: rollUrls[RollModifier.DISADVANTAGE] };
 
     if (advantage) {
@@ -63,7 +62,7 @@ export default withAutoRehydration(function CheckCell({ check, advantage = false
       <span className="check-cell-desktop">
         <a className="dice-roll" href={currentUrl} title="Hold A: advantage | Hold D: disadvantage | Hold S: regular">
           [{currentCaption}
-          {check.getBonusString()}]
+          {roll.getBonusString()}]
         </a>
       </span>
 

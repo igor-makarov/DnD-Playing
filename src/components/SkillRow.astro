@@ -1,5 +1,5 @@
 ---
-import CheckCell from "./CheckCell.tsx";
+import D20TestCell from "./D20TestCell.tsx";
 import type { SkillAbilityCheck } from "../js/character/CharacterTypes.ts";
 
 interface Props {
@@ -14,6 +14,6 @@ const check = skill.check;
 <tr>
   <td><span class="mono">[{check.getProficiency().symbol}]</span> {skill.skill} ({check.getAbility()})</td>
   <td class="checkCell">
-    <CheckCell client:only="react" check={check} advantage={advantage} />
+    <D20TestCell client:only="react" roll={check} advantage={advantage} />
   </td>
 </tr>

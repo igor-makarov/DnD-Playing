@@ -2,7 +2,7 @@ import React, { useMemo, useReducer } from "react";
 
 import type { DamageAddonData, WeaponAttackData } from "../../js/character/WeaponAttackTypes";
 import { withAutoRehydration } from "../../js/utils/withAutoRehydration";
-import CheckCell from "../CheckCell";
+import D20TestCell from "../D20TestCell.tsx";
 import AddonRow from "./AddonRow";
 import TotalDamageRow from "./TotalDamageRow";
 import WeaponSelector from "./WeaponSelector";
@@ -48,7 +48,7 @@ export default withAutoRehydration(function WeaponAttackTable({ weaponAttacks, d
         </tr>
         <tr>
           <td>Attack Modifier</td>
-          <td className="checkCell">{selectedWeapon && <CheckCell check={selectedWeapon.attackRoll} />}</td>
+          <td className="checkCell">{selectedWeapon && <D20TestCell roll={selectedWeapon.attackRoll} />}</td>
         </tr>
         <tr>
           <td>Weapon Damage</td>
