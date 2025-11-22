@@ -38,14 +38,13 @@ export default class AzamatCharacter extends Character {
       ],
       attackAddons: [
         { name: "Radiant Strike", damage: new DiceString("d8") },
-        {
-          name: "Divine Smite",
-          damage: {
-            base: { level: 1, damage: new DiceString("2d8") },
-            increment: new DiceString("d8"),
-          },
-        },
+        { name: "Divine Smite", damage: { base: { level: 1, damage: new DiceString("2d8") }, increment: new DiceString("d8") } },
         { name: "Divine Smite (undead)", damage: { optional: true, damage: new DiceString("d8") } },
+        { name: "Searing Smite", damage: { base: { level: 1, damage: new DiceString("d6") }, increment: new DiceString("d6") } },
+        { name: "Thunderous Smite", damage: { base: { level: 1, damage: new DiceString("2d6") }, increment: new DiceString("d6") } },
+        { name: "Wrathful Smite", damage: { base: { level: 1, damage: new DiceString("d6") }, increment: new DiceString("d6") } },
+        { name: "Shining Smite", damage: { base: { level: 2, damage: new DiceString("2d6") }, increment: new DiceString("d6") } },
+        { name: "Blinding Smite", damage: { base: { level: 3, damage: new DiceString("3d8") }, increment: new DiceString("d8") } },
       ],
     });
   }
