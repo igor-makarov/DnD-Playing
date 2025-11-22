@@ -5,6 +5,7 @@ import type {
   AbilityCheck,
   AbilityScores,
   AttackAddon,
+  HitPointRoll,
   Proficiency,
   SavingThrow,
   SavingThrowProficiency,
@@ -26,6 +27,7 @@ export class Character {
   saveProficiencies: SavingThrowProficiency[];
   weapons: Weapon[];
   attackAddons: AttackAddon[];
+  hitPointRolls: HitPointRoll[];
 
   constructor({
     abilityScores,
@@ -35,6 +37,7 @@ export class Character {
     saveProficiencies,
     weapons = [],
     attackAddons = [],
+    hitPointRolls = [],
   }: {
     abilityScores: AbilityScores;
     characterLevel: number;
@@ -43,6 +46,7 @@ export class Character {
     saveProficiencies: SavingThrowProficiency[];
     weapons?: Weapon[];
     attackAddons?: AttackAddon[];
+    hitPointRolls?: HitPointRoll[];
   }) {
     this.abilityScores = abilityScores;
     this.characterLevel = characterLevel;
@@ -51,6 +55,7 @@ export class Character {
     this.saveProficiencies = saveProficiencies;
     this.weapons = weapons;
     this.attackAddons = attackAddons;
+    this.hitPointRolls = hitPointRolls;
   }
 
   getAbilities(): Ability[] {
@@ -177,5 +182,27 @@ export class Character {
         };
       }
     });
+  }
+
+  getHitPointsForLevel(level: number): number | undefined {
+    const rollData = this.hitPointRolls.find((r) => r.level === level);
+    if (!rollData) {
+      return undefined;
+    }
+
+    return rollData.roll + this.getAbilityModifier("Con");
+  }
+
+  getHitPoints(): number {
+    let total = 0;
+
+    for (const rollData of this.hitPointRolls) {
+      const hitPointsPerLevel = this.getHitPointsForLevel(rollData.level);
+      if (hitPointsPerLevel) {
+        total += hitPointsPerLevel;
+      }
+    }
+
+    return total;
   }
 }

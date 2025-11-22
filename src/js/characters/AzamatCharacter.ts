@@ -46,6 +46,22 @@ export default class AzamatCharacter extends Character {
         { name: "Shining Smite", damage: { base: { level: 2, damage: new DiceString("2d6") }, increment: new DiceString("d6") } },
         { name: "Blinding Smite", damage: { base: { level: 3, damage: new DiceString("3d8") }, increment: new DiceString("d8") } },
       ],
+      hitPointRolls: [
+        { level: 1, roll: 10 },
+        { level: 2, roll: 6 },
+        { level: 3, roll: 6 },
+        { level: 4, roll: 7 },
+        { level: 5, roll: 6 },
+        { level: 6, roll: 6 },
+        { level: 7, roll: 7 },
+        { level: 8, roll: 6 },
+        { level: 9, roll: 9 },
+        { level: 10, roll: 10 },
+        { level: 11, roll: 6 },
+        { level: 12, roll: 6 },
+        { level: 13, roll: 8 },
+        { level: 14, roll: 5 },
+      ],
     });
   }
 

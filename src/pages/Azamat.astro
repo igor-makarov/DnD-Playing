@@ -26,7 +26,6 @@ const character = new AzamatCharacter();
       </div>
     </div>
     <div class="row">
-      <div class="column top-bar"></div>
       <div class="column top-bar">
         <table>
           <tr>
@@ -47,6 +46,18 @@ const character = new AzamatCharacter();
           <tr>
             <td style="text-align: center;">
               <span class="mono">20</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="column top-bar">
+        <table>
+          <tr>
+            <th style="text-align: center;">HP</th>
+          </tr>
+          <tr>
+            <td style="text-align: center;">
+              <span class="mono">{character.getHitPoints()}</span>
             </td>
           </tr>
         </table>

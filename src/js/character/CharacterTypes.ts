@@ -96,3 +96,8 @@ export type SpellSlotsForLevel = {
   level: number;
   slots: number;
 };
+
+export type HitPointRoll = {
+  level: number;
+  roll: number; // HP rolled/taken at this level (before any modifiers)
+};
