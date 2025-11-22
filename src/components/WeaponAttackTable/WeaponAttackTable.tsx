@@ -2,7 +2,7 @@ import React, { useMemo, useReducer } from "react";
 
 import type { DamageAddonData, WeaponAttackData } from "../../js/character/WeaponAttackTypes";
 import { withAutoRehydration } from "../../js/utils/withAutoRehydration";
-import D20TestCell from "../D20TestCell.tsx";
+import D20TestCell from "../common/D20TestCell.tsx";
 import AddonRow from "./AddonRow";
 import TotalDamageRow from "./TotalDamageRow";
 import WeaponSelector from "./WeaponSelector";
