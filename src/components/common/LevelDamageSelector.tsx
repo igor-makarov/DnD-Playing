@@ -1,6 +1,7 @@
 import React from "react";
 
 import type { DiceString } from "../../js/common/DiceString";
+import { withAutoRehydration } from "../../js/utils/withAutoRehydration";
 
 interface LevelOption {
   level: number;
@@ -14,15 +15,18 @@ interface Props {
   optional?: boolean;
 }
 
-export default function LevelDamageSelector({ options, selectedLevel, onLevelChange, optional = false }: Props) {
+export default withAutoRehydration(function LevelDamageSelector({ options, selectedLevel, onLevelChange, optional = false }: Props) {
   return (
-    <select value={selectedLevel} onChange={(e) => onLevelChange(parseInt(e.target.value))}>
+    <select value={selectedLevel} onChange={(e) => onLevelChange(parseInt(e.target.value))} style={{ maxWidth: "30pt" }}>
       {optional && <option value={-1}>-</option>}
-      {options.map((opt) => (
-        <option key={opt.level} value={opt.level}>
-          Level {opt.level}
-        </option>
-      ))}
+      {options.map((opt) => {
+        const average = opt.damage.average();
+        return (
+          <option key={opt.level} value={opt.level}>
+            {opt.level} {opt.damage.toString()} ({average})
+          </option>
+        );
+      })}
     </select>
   );
-}
+});
