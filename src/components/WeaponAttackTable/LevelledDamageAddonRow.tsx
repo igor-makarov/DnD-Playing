@@ -1,12 +1,12 @@
 import React from "react";
 
-import type { DamageOptionsData } from "../../js/character/DamageTypes";
+import type { LevelledDamage } from "../../js/character/DamageTypes";
 import type { DamageAddonData } from "../../js/character/WeaponAttackTypes";
 import type { DiceString } from "../../js/common/DiceString";
 import LevelDamageSelector from "../common/LevelDamageSelector";
 
 interface Props {
-  addon: DamageAddonData & { damage: DamageOptionsData };
+  addon: DamageAddonData & { damage: LevelledDamage };
   selectedLevel: number;
   onLevelChange: (level: number) => void;
 }
@@ -25,7 +25,7 @@ export default function LevelledDamageAddonRow({ addon, selectedLevel, onLevelCh
   return (
     <tr>
       <td>
-        {addon.addon}
+        {addon.name}
         &nbsp;
         <LevelDamageSelector options={addon.damage.options} selectedLevel={selectedLevel} onLevelChange={onLevelChange} optional={true} />
       </td>

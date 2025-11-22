@@ -1,10 +1,10 @@
 import type { D20Test } from "../common/D20Test";
 import type { DiceString } from "../common/DiceString";
-import type { DamageOptionsData, OptionalDamage } from "./DamageTypes";
+import type { LevelledDamage, OptionalDamage } from "./DamageTypes";
 
 export type DamageAddonData = {
-  addon: string;
-  damage: DiceString | DamageOptionsData | OptionalDamage;
+  name: string;
+  damage: DiceString | OptionalDamage | LevelledDamage;
 };
 
 export type WeaponAttackData = {

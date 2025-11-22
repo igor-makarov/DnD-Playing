@@ -37,15 +37,15 @@ export default class AzamatCharacter extends Character {
         { weapon: "Warhammer", ability: "Str", damage: new DiceString("d8") },
       ],
       attackAddons: [
-        { addon: "Radiant Strike", damage: new DiceString("d8") },
+        { name: "Radiant Strike", damage: new DiceString("d8") },
         {
-          addon: "Divine Smite",
+          name: "Divine Smite",
           damage: {
             base: { level: 1, damage: new DiceString("2d8") },
             increment: new DiceString("d8"),
           },
         },
-        { addon: "Divine Smite (undead)", damage: { optional: true, damage: new DiceString("d8") } },
+        { name: "Divine Smite (undead)", damage: { optional: true, damage: new DiceString("d8") } },
       ],
     });
   }

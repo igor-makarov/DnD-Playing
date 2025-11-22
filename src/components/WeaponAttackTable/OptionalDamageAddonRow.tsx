@@ -13,7 +13,7 @@ export default function OptionalDamageAddonRow({ addon, isEnabled, onToggle }: P
   return (
     <tr>
       <td>
-        {addon.addon}
+        {addon.name}
         &nbsp;
         <input type="checkbox" checked={isEnabled} onChange={(e) => onToggle(e.target.checked)} />
       </td>

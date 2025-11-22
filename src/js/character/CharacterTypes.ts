@@ -1,6 +1,6 @@
 import { D20Test } from "../common/D20Test";
 import { DiceString } from "../common/DiceString";
-import type { DamageWithLevels, OptionalDamage } from "./DamageTypes";
+import type { LevelledDamageDefinition, OptionalDamage } from "./DamageTypes";
 
 export type Ability = "Str" | "Dex" | "Con" | "Int" | "Wis" | "Cha";
 
@@ -88,8 +88,8 @@ export type Weapon = {
 };
 
 export type AttackAddon = {
-  addon: string;
-  damage: DiceString | DamageWithLevels | OptionalDamage;
+  name: string;
+  damage: DiceString | OptionalDamage | LevelledDamageDefinition;
 };
 
 export type SpellSlotsForLevel = {

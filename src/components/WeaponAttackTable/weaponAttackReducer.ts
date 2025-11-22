@@ -21,12 +21,12 @@ export function getAddonDamage(
   enabledOptionals: Map<string, boolean>,
 ): DiceString | null {
   if ("options" in addon.damage) {
-    const selectedLevel = selectedLevels.get(addon.addon) ?? -1;
+    const selectedLevel = selectedLevels.get(addon.name) ?? -1;
     if (selectedLevel === -1) return null;
     const option = addon.damage.options.find((opt) => opt.level === selectedLevel);
     return option ? option.damage : null;
   } else if ("optional" in addon.damage) {
-    const isEnabled = enabledOptionals.get(addon.addon) ?? false;
+    const isEnabled = enabledOptionals.get(addon.name) ?? false;
     if (!isEnabled) return null;
     return addon.damage.damage;
   } else {

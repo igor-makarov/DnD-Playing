@@ -1,25 +1,25 @@
 import type { DiceString } from "../common/DiceString";
 
-// Single damage option for a specific level
-export type DamageOptionData = {
-  level: number;
-  damage: DiceString;
-};
-
-// Multiple damage options for different levels
-export type DamageOptionsData = {
-  options: DamageOptionData[];
-};
-
 // Optional damage that can be toggled on/off
 export type OptionalDamage = {
   optional: true;
   damage: DiceString;
 };
 
+// Single damage option for a specific level
+export type DamageLevel = {
+  level: number;
+  damage: DiceString;
+};
+
 // Damage that scales with character/spell level
-export type DamageWithLevels = {
-  base: DamageOptionData;
+export type LevelledDamageDefinition = {
+  base: DamageLevel;
   increment: DiceString;
   step?: number;
+};
+
+// Multiple damage options for different levels
+export type LevelledDamage = {
+  options: DamageLevel[];
 };

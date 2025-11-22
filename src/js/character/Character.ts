@@ -15,7 +15,7 @@ import type {
   Weapon,
 } from "./CharacterTypes";
 import { SKILL_TO_DEFAULT_ABILITIY } from "./CharacterTypes";
-import type { DamageOptionData } from "./DamageTypes";
+import type { DamageLevel, OptionalDamage } from "./DamageTypes";
 import type { DamageAddonData, WeaponAttackData } from "./WeaponAttackTypes";
 
 export class Character {
@@ -122,7 +122,7 @@ export class Character {
   }
 
   // Get damage progression list for available spell levels
-  getDamageProgression(base: DamageOptionData, increment: DiceString, step: number = 1): DamageOptionData[] {
+  getDamageProgression(base: DamageLevel, increment: DiceString, step: number = 1): DamageLevel[] {
     const baseLevel = base.level;
     const baseDamage = base.damage;
     const availableLevels = this.getSpellLevels().filter((level) => level >= baseLevel);
@@ -161,27 +161,18 @@ export class Character {
 
   getWeaponAttackAddons(): DamageAddonData[] {
     return this.attackAddons.map((addon) => {
-      const name = addon.addon;
-      if (addon.damage instanceof DiceString) {
-        return {
-          addon: name,
-          damage: addon.damage,
-        };
-      } else if ("optional" in addon.damage) {
+      const { name, damage } = addon;
+      if (damage instanceof DiceString) {
+        return { name, damage: damage as DiceString };
+      } else if ("optional" in damage) {
         // OptionalDamage
-        return {
-          addon: name,
-          damage: {
-            optional: true,
-            damage: addon.damage.damage,
-          },
-        };
+        return { name, damage: damage as OptionalDamage };
       } else {
         // DamageWithLevels - expand using getDamageProgression
         return {
-          addon: name,
+          name,
           damage: {
-            options: this.getDamageProgression(addon.damage.base, addon.damage.increment, addon.damage.step),
+            options: this.getDamageProgression(damage.base, damage.increment, damage.step),
           },
         };
       }
