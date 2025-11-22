@@ -99,6 +99,10 @@ export class Character {
     });
   }
 
+  getInitiative(): D20Test {
+    return new D20Test("Ability Check", "Dex", this.getAbilityModifier("Dex"));
+  }
+
   createProficiency(proficient: boolean, multiplier?: number): Proficiency {
     multiplier ||= 1;
     const symbol = multiplier > 1 ? "E" : "P";

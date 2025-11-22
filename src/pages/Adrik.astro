@@ -44,7 +44,7 @@ const character = new AdrikCharacter();
           <tr>
             <td class="modifier" style="text-align: center;">
               <span class="checkCell">
-                <D20TestCell client:only="react" roll={new D20Test("Ability Check", "Dex", character.getAbilityModifier("Dex"))} />
+                <D20TestCell client:only="react" roll={character.getInitiative()} />
               </span>
             </td>
           </tr>
