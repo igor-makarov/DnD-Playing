@@ -1,5 +1,5 @@
 import { Character } from "../character/Character";
-import type { SavingThrow } from "../character/CharacterTypes";
+import type { SavingThrow, SpellSlotsForLevel } from "../character/CharacterTypes";
 import { D20Test } from "../common/D20Test";
 import { DiceString } from "../common/DiceString";
 
@@ -61,5 +61,34 @@ export default class AzamatCharacter extends Character {
       ability,
       check: new D20Test("Saving Throw", ability, check.getAbilityModifier() + charismaMod, check.getProficiency()),
     }));
+  }
+
+  // Paladin spell slots based on character level
+  getSpellSlots(): SpellSlotsForLevel[] {
+    // prettier-ignore
+    const paladinSpellSlots: Record<number, SpellSlotsForLevel[]> = {
+      1: [[1, 2]],
+      2: [[1, 2]],
+      3: [[1, 3]],
+      4: [[1, 3]],
+      5: [[1, 4], [2, 2]],
+      6: [[1, 4], [2, 2]],
+      7: [[1, 4], [2, 3]],
+      8: [[1, 4], [2, 3]],
+      9: [[1, 4], [2, 3], [3, 2]],
+      10: [[1, 4], [2, 3], [3, 2]],
+      11: [[1, 4], [2, 3], [3, 3]],
+      12: [[1, 4], [2, 3], [3, 3]],
+      13: [[1, 4], [2, 3], [3, 3], [4, 1]],
+      14: [[1, 4], [2, 3], [3, 3], [4, 1]],
+      15: [[1, 4], [2, 3], [3, 3], [4, 2]],
+      16: [[1, 4], [2, 3], [3, 3], [4, 2]],
+      17: [[1, 4], [2, 3], [3, 3], [4, 3], [5, 1]],
+      18: [[1, 4], [2, 3], [3, 3], [4, 3], [5, 1]],
+      19: [[1, 4], [2, 3], [3, 3], [4, 3], [5, 2]],
+      20: [[1, 4], [2, 3], [3, 3], [4, 3], [5, 2]],
+    };
+
+    return paladinSpellSlots[this.characterLevel] || [];
   }
 }
