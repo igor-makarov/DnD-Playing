@@ -2,6 +2,7 @@ import React from "react";
 
 import type { DiceString } from "../../js/common/DiceString";
 import { withAutoRehydration } from "../../js/utils/withAutoRehydration";
+import TinyDropdown from "./TinyDropdown";
 
 interface LevelOption {
   level: number;
@@ -16,17 +17,19 @@ interface Props {
 }
 
 export default withAutoRehydration(function LevelDamageSelector({ options, selectedLevel, onLevelChange, optional = false }: Props) {
+  const displayText = selectedLevel === -1 ? "-" : `Level ${selectedLevel}`;
+
   return (
-    <select value={selectedLevel} onChange={(e) => onLevelChange(parseInt(e.target.value))} style={{ maxWidth: "30pt" }}>
+    <TinyDropdown value={selectedLevel} onChange={(value) => onLevelChange(parseInt(value))} displayText={displayText}>
       {optional && <option value={-1}>-</option>}
       {options.map((opt) => {
         const average = opt.damage.average();
         return (
           <option key={opt.level} value={opt.level}>
-            {opt.level} {opt.damage.toString()} ({average})
+            Level {opt.level} - {opt.damage.toString()} ({average})
           </option>
         );
       })}
-    </select>
+    </TinyDropdown>
   );
 });
