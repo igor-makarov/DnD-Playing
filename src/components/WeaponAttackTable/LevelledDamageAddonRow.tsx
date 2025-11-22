@@ -15,7 +15,7 @@ export default function LevelledDamageAddonRow({ addon, selectedLevel, onLevelCh
     }
     const option = addon.damage.options.find((opt) => opt.level === selectedLevel);
     if (option) {
-      return { damageRoll: option.damageRoll, critRoll: option.critRoll };
+      return { damageRoll: option.damageRoll };
     }
     return null;
   };

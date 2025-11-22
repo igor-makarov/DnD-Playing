@@ -8,33 +8,35 @@ import { withAutoRehydration } from "../js/utils/withAutoRehydration";
 
 interface Props {
   damageRoll: DiceString;
-  critRoll: DiceString;
+  attack?: boolean;
 }
 
-export default withAutoRehydration(function DamageCell({ damageRoll, critRoll }: Props) {
+export default withAutoRehydration(function DamageCell({ damageRoll, attack }: Props) {
   const hash = useHash();
   const { modifier } = useRollModifiers();
 
   const diceAppKey = hash?.substring(1) || "app";
+
+  const critRoll = damageRoll.crit();
 
   const rollUrls = {
     [RollModifier.REGULAR]: getRollUrl(damageRoll, diceAppKey),
     [RollModifier.CRITICAL]: getRollUrl(critRoll, diceAppKey),
   };
 
-  const currentRoll = modifier === RollModifier.CRITICAL ? critRoll : damageRoll;
-  const currentUrl = modifier === RollModifier.CRITICAL ? rollUrls[RollModifier.CRITICAL] : rollUrls[RollModifier.REGULAR];
+  const currentRoll = attack && modifier === RollModifier.CRITICAL ? critRoll : damageRoll;
+  const currentUrl = attack && modifier === RollModifier.CRITICAL ? rollUrls[RollModifier.CRITICAL] : rollUrls[RollModifier.REGULAR];
 
   const mobileOptions = [
     { key: "damage", caption: damageRoll.toString(), url: rollUrls[RollModifier.REGULAR] },
-    { key: "crit", caption: "CRIT", url: rollUrls[RollModifier.CRITICAL] },
+    ...(attack ? [{ key: "crit", caption: "CRIT", url: rollUrls[RollModifier.CRITICAL] }] : []),
   ];
 
   return (
     <span className="mono check-cell">
       {/* Desktop view: single clickable element */}
       <span className="check-cell-desktop">
-        <a className="dice-roll" href={currentUrl} title="Hold C: critical">
+        <a className="dice-roll" href={currentUrl} title={attack ? "Hold C: critical" : undefined}>
           [{currentRoll.toString()}]
         </a>
       </span>

@@ -3,13 +3,11 @@ import type { DiceString } from "../common/DiceString";
 
 export type DamageData = {
   damageRoll: DiceString;
-  critRoll: DiceString;
 };
 
 export type DamageOptionData = {
   level: number;
   damageRoll: DiceString;
-  critRoll: DiceString;
 };
 
 export type DamageOptionsData = {
@@ -19,7 +17,6 @@ export type DamageOptionsData = {
 export type OptionalDamageData = {
   optional: true;
   damageRoll: DiceString;
-  critRoll: DiceString;
 };
 
 export type DamageAddonData = {

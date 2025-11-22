@@ -24,11 +24,11 @@ export function getAddonDamage(
     const selectedLevel = selectedLevels.get(addon.addon) ?? -1;
     if (selectedLevel === -1) return null;
     const option = addon.damage.options.find((opt) => opt.level === selectedLevel);
-    return option ? { damageRoll: option.damageRoll, critRoll: option.critRoll } : null;
+    return option ? { damageRoll: option.damageRoll } : null;
   } else if ("optional" in addon.damage) {
     const isEnabled = enabledOptionals.get(addon.addon) ?? false;
     if (!isEnabled) return null;
-    return { damageRoll: addon.damage.damageRoll, critRoll: addon.damage.critRoll };
+    return { damageRoll: addon.damage.damageRoll };
   } else {
     return addon.damage;
   }
@@ -40,24 +40,19 @@ export function computeTotalDamage(
   damageAddons: DamageAddonData[],
   selectedLevels: Map<string, number>,
   enabledOptionals: Map<string, boolean>,
-): { damageRoll: DiceString; critRoll: DiceString } | null {
+): DiceString | null {
   if (!weapon) return null;
 
   const damageRolls = [weapon.damage.damageRoll];
-  const critRolls = [weapon.damage.critRoll];
 
   for (const addon of damageAddons) {
     const addonDamage = getAddonDamage(addon, selectedLevels, enabledOptionals);
     if (addonDamage) {
       damageRolls.push(addonDamage.damageRoll);
-      critRolls.push(addonDamage.critRoll);
     }
   }
 
-  return {
-    damageRoll: DiceString.sum(...damageRolls.map((r) => new DiceString(r))),
-    critRoll: DiceString.sum(...critRolls.map((r) => new DiceString(r))),
-  };
+  return DiceString.sum(...damageRolls.map((r) => new DiceString(r)));
 }
 
 // Reducer
