@@ -6,7 +6,7 @@ import D20TestCell from "../common/D20TestCell.tsx";
 import AddonRow from "./AddonRow";
 import TotalDamageRow from "./TotalDamageRow";
 import WeaponSelector from "./WeaponSelector";
-import { computeTotalDamage, weaponReducer } from "./weaponAttackReducer";
+import { type WeaponState, computeTotalDamage, weaponReducer } from "./weaponAttackReducer";
 
 interface Props {
   weaponAttacks: WeaponAttackData[];
@@ -18,7 +18,7 @@ export default withAutoRehydration(function WeaponAttackTable({ weaponAttacks, d
     selectedWeaponName: weaponAttacks[0]?.weapon || "",
     selectedLevels: new Map(),
     enabledOptionals: new Map(),
-  });
+  } as WeaponState);
 
   const selectedWeapon = useMemo(() => {
     if (!state.selectedWeaponName) return null;

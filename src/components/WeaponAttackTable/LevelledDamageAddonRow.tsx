@@ -1,6 +1,7 @@
 import React from "react";
 
 import type { DamageAddonData, DamageData, DamageOptionsData } from "../../js/character/WeaponAttackTypes";
+import LevelDamageSelector from "../common/LevelDamageSelector";
 
 interface Props {
   addon: DamageAddonData & { damage: DamageOptionsData };
@@ -27,14 +28,7 @@ export default function LevelledDamageAddonRow({ addon, selectedLevel, onLevelCh
       <td>
         {addon.addon}
         &nbsp;
-        <select value={selectedLevel} onChange={(e) => onLevelChange(parseInt(e.target.value))}>
-          <option value={-1}>-</option>
-          {addon.damage.options.map((opt) => (
-            <option key={opt.level} value={opt.level}>
-              Level {opt.level}
-            </option>
-          ))}
-        </select>
+        <LevelDamageSelector options={addon.damage.options} selectedLevel={selectedLevel} onLevelChange={onLevelChange} optional={true} />
       </td>
       <td className="checkCell mono">{addonDamage && addonDamage.damageRoll.toString()}</td>
     </tr>

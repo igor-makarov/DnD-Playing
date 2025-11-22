@@ -52,7 +52,7 @@ export function computeTotalDamage(
     }
   }
 
-  return DiceString.sum(...damageRolls.map((r) => new DiceString(r)));
+  return DiceString.sum(damageRolls);
 }
 
 // Reducer

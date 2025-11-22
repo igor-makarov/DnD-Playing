@@ -76,7 +76,7 @@ export class DiceString {
    * DiceString.sum(new DiceString("2d6+3"), new DiceString("1d6"), new DiceString("2d6")) // "5d6+3"
    * DiceString.sum(new DiceString("d20+5"), new DiceString(2)) // "d20+7"
    */
-  static sum(...diceStrings: DiceString[]): DiceString {
+  static sum(diceStrings: DiceString[]): DiceString {
     if (!diceStrings || diceStrings.length === 0) {
       return new DiceString(0);
     }
