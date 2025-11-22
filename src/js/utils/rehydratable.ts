@@ -13,12 +13,9 @@ const rehydratableClasses = new Map<string, Constructor>();
  */
 export function rehydratable(name: string) {
   return function <T extends Constructor>(target: T, _context: ClassDecoratorContext): T {
-    console.log("registering class name:", name);
-
     const wrappedClass = class extends target {
       constructor(...args: any[]) {
         super(...args);
-        console.log("tagging instance with type:", name);
         (this as any).__rehydrationType = name;
       }
     } as T;
@@ -59,17 +56,13 @@ function rehydrateValue(value: any): void {
     return;
   }
 
-  console.log("rehydration potential:", typeof value);
-
   // If this value is rehydratable, rehydrate it first
   if ((value as any).__rehydrationType) {
     const typeName = (value as any).__rehydrationType;
-    console.log("__rehydrationType:", typeName);
     const constructor = rehydratableClasses.get(typeName);
 
     if (constructor) {
       rehydrateRehydratableObject(value, constructor);
-      console.log("after rehydration:", typeof value);
     }
   }
 
@@ -95,5 +88,4 @@ function rehydrateRehydratableObject<T>(obj: any, classConstructor: new (...args
   }
 
   Object.setPrototypeOf(obj, classConstructor.prototype);
-  console.log("setting prototype:", classConstructor.prototype);
 }

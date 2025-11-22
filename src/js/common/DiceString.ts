@@ -38,8 +38,6 @@ export class DiceString {
    * new DiceString(5, [{count: 2, sides: 6}]) // Creates from modifier with dice array
    */
   constructor(input: DiceString | string | number | DiceTerm[], modifier: number = 0) {
-    console.log("in DiceString.constructor, input:", input, typeof input, modifier);
-
     // If input is a DiceTerm array, use it directly
     if (Array.isArray(input)) {
       this.dice = input;

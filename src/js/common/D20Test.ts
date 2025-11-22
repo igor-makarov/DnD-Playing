@@ -35,7 +35,6 @@ export class D20Test {
    * @param extraBonus Additional bonus (e.g., weapon bonus for attack rolls), defaults to 0
    */
   constructor(kind: D20TestKind, ability: Ability, abilityModifier: number, proficiency?: Proficiency, extraBonus: number = 0) {
-    console.log("in AbilityCheck.constructor");
     this.kind = kind;
     this.ability = ability;
     this.proficiency = proficiency ?? { symbol: " ", bonus: 0 };
