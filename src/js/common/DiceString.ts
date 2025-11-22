@@ -95,43 +95,6 @@ export class DiceString {
   }
 
   /**
-   * Create a damage progression function that scales with level
-   *
-   * @param base Tuple of [starting level, base damage]
-   * @param increment Damage to add for each step
-   * @param step Number of levels between each increment (default: 1)
-   * @returns Function that takes a level and returns the damage at that level
-   *
-   * @example
-   * const cantrip = DiceString.getDamageProgression([1, new DiceString("1d10")], new DiceString("1d10"), 6);
-   * cantrip(1) // "1d10" (levels 1-5)
-   * cantrip(5) // "1d10" (levels 1-5)
-   * cantrip(6) // "2d10" (levels 6-10)
-   * cantrip(11) // "3d10" (levels 11-16)
-   * cantrip(17) // "4d10" (levels 17+)
-   */
-  static getDamageProgression(base: [level: number, damage: DiceString], increment: DiceString, step: number = 1): (level: number) => DiceString {
-    const [baseLevel, baseDamage] = base;
-
-    return (level: number): DiceString => {
-      if (level < baseLevel) {
-        return baseDamage;
-      }
-
-      const stepsProgressed = Math.floor((level - baseLevel) / step);
-
-      if (stepsProgressed === 0) {
-        return baseDamage;
-      }
-
-      // Create array of increments to add
-      const increments = Array(stepsProgressed).fill(increment);
-
-      return DiceString.sum([baseDamage, ...increments]);
-    };
-  }
-
-  /**
    * Parse a dice string expression into dice and modifier components (private implementation)
    *
    * Supported formats:

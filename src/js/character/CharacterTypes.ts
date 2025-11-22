@@ -98,4 +98,7 @@ export type AttackAddon = {
   damage: DiceString | DamageWithLevels | OptionalDamage;
 };
 
-export type SpellSlotsForLevel = [level: number, slots: number];
+export type SpellSlotsForLevel = {
+  level: number;
+  slots: number;
+};

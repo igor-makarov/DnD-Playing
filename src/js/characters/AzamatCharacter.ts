@@ -1,5 +1,6 @@
 import { Character } from "../character/Character";
 import type { SavingThrow, SpellSlotsForLevel } from "../character/CharacterTypes";
+import type { DamageOptionData } from "../character/WeaponAttackTypes";
 import { D20Test } from "../common/D20Test";
 import { DiceString } from "../common/DiceString";
 
@@ -67,26 +68,26 @@ export default class AzamatCharacter extends Character {
   getSpellSlots(): SpellSlotsForLevel[] {
     // prettier-ignore
     const paladinSpellSlots: Record<number, SpellSlotsForLevel[]> = {
-      1: [[1, 2]],
-      2: [[1, 2]],
-      3: [[1, 3]],
-      4: [[1, 3]],
-      5: [[1, 4], [2, 2]],
-      6: [[1, 4], [2, 2]],
-      7: [[1, 4], [2, 3]],
-      8: [[1, 4], [2, 3]],
-      9: [[1, 4], [2, 3], [3, 2]],
-      10: [[1, 4], [2, 3], [3, 2]],
-      11: [[1, 4], [2, 3], [3, 3]],
-      12: [[1, 4], [2, 3], [3, 3]],
-      13: [[1, 4], [2, 3], [3, 3], [4, 1]],
-      14: [[1, 4], [2, 3], [3, 3], [4, 1]],
-      15: [[1, 4], [2, 3], [3, 3], [4, 2]],
-      16: [[1, 4], [2, 3], [3, 3], [4, 2]],
-      17: [[1, 4], [2, 3], [3, 3], [4, 3], [5, 1]],
-      18: [[1, 4], [2, 3], [3, 3], [4, 3], [5, 1]],
-      19: [[1, 4], [2, 3], [3, 3], [4, 3], [5, 2]],
-      20: [[1, 4], [2, 3], [3, 3], [4, 3], [5, 2]],
+      1: [{level: 1, slots: 2}],
+      2: [{level: 1, slots: 2}],
+      3: [{level: 1, slots: 3}],
+      4: [{level: 1, slots: 3}],
+      5: [{level: 1, slots: 4}, {level: 2, slots: 2}],
+      6: [{level: 1, slots: 4}, {level: 2, slots: 2}],
+      7: [{level: 1, slots: 4}, {level: 2, slots: 3}],
+      8: [{level: 1, slots: 4}, {level: 2, slots: 3}],
+      9: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 2}],
+      10: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 2}],
+      11: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}],
+      12: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}],
+      13: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 1}],
+      14: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 1}],
+      15: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 2}],
+      16: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 2}],
+      17: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 3}, {level: 5, slots: 1}],
+      18: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 3}, {level: 5, slots: 1}],
+      19: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 3}, {level: 5, slots: 2}],
+      20: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 3}, {level: 5, slots: 2}],
     };
 
     return paladinSpellSlots[this.characterLevel] || [];
@@ -94,18 +95,31 @@ export default class AzamatCharacter extends Character {
 
   // Get list of spell levels that have slots available
   getSpellLevels(): number[] {
-    return this.getSpellSlots().map(([level]) => level);
+    return this.getSpellSlots().map((slot) => slot.level);
   }
 
   // Get damage progression list for available spell levels
-  getDamageProgressionFunction(
-    base: [level: number, damage: DiceString],
-    increment: DiceString,
-    step: number = 1,
-  ): { level: number; damage: DiceString }[] {
-    const progressionFunc = DiceString.getDamageProgression(base, increment, step);
-    const [baseLevel] = base;
+  getDamageProgression(base: DamageOptionData, increment: DiceString, step: number = 1): DamageOptionData[] {
+    const baseLevel = base.level;
+    const baseDamage = base.damage;
     const availableLevels = this.getSpellLevels().filter((level) => level >= baseLevel);
-    return availableLevels.map((level) => ({ level, damage: progressionFunc(level) }));
+
+    return availableLevels.map((level) => {
+      if (level < baseLevel) {
+        return { level, damage: baseDamage };
+      }
+
+      const stepsProgressed = Math.floor((level - baseLevel) / step);
+
+      if (stepsProgressed === 0) {
+        return { level, damage: baseDamage };
+      }
+
+      // Create array of increments to add
+      const increments = Array(stepsProgressed).fill(increment);
+      const damage = DiceString.sum([baseDamage, ...increments]);
+
+      return { level, damage };
+    });
   }
 }
