@@ -55,8 +55,16 @@ a:visited {
 
 .column {
   float: left;
-  width: 25%;
+  width: 22%;
   padding: 5px;
+}
+
+.column.features {
+  width: 34%;
+}
+
+.column.top-bar {
+  width: 25%;
 }
 
 @media screen and (max-width: 600px) {
