@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useHash } from "../../hooks/useHash";
+import { useRollMode } from "../../hooks/useRollMode";
 import { RollModifier, useRollModifiers } from "../../hooks/useRollModifiers";
 import { DiceString } from "../../js/common/DiceString";
 import { getRollUrl } from "../../js/utils/rollOptions";
@@ -12,10 +12,10 @@ interface Props {
 }
 
 export default withAutoRehydration(function DamageCell({ damageRoll, attack }: Props) {
-  const hash = useHash();
+  const [rollMode] = useRollMode();
   const { modifier } = useRollModifiers();
 
-  const diceAppKey = hash?.substring(1) || "app";
+  const diceAppKey = rollMode || "app";
 
   const critRoll = damageRoll.crit();
 
