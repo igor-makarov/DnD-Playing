@@ -1,9 +1,10 @@
 import React from "react";
 
-import type { DamageAddonData, OptionalDamageData } from "../../js/character/WeaponAttackTypes";
+import type { OptionalDamage } from "../../js/character/DamageTypes";
+import type { DamageAddonData } from "../../js/character/WeaponAttackTypes";
 
 interface Props {
-  addon: DamageAddonData & { damage: OptionalDamageData };
+  addon: DamageAddonData & { damage: OptionalDamage };
   isEnabled: boolean;
   onToggle: (enabled: boolean) => void;
 }

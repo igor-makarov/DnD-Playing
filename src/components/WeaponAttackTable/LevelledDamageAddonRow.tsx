@@ -1,6 +1,8 @@
 import React from "react";
 
-import type { DamageAddonData, DamageData, DamageOptionsData } from "../../js/character/WeaponAttackTypes";
+import type { DamageOptionsData } from "../../js/character/DamageTypes";
+import type { DamageAddonData } from "../../js/character/WeaponAttackTypes";
+import type { DiceString } from "../../js/common/DiceString";
 import LevelDamageSelector from "../common/LevelDamageSelector";
 
 interface Props {
@@ -10,15 +12,12 @@ interface Props {
 }
 
 export default function LevelledDamageAddonRow({ addon, selectedLevel, onLevelChange }: Props) {
-  const getAddonDamage = (): DamageData | null => {
+  const getAddonDamage = (): DiceString | null => {
     if (selectedLevel === -1) {
       return null; // Off state
     }
     const option = addon.damage.options.find((opt) => opt.level === selectedLevel);
-    if (option) {
-      return { damage: option.damage };
-    }
-    return null;
+    return option ? option.damage : null;
   };
 
   const addonDamage = getAddonDamage();
@@ -30,7 +29,7 @@ export default function LevelledDamageAddonRow({ addon, selectedLevel, onLevelCh
         &nbsp;
         <LevelDamageSelector options={addon.damage.options} selectedLevel={selectedLevel} onLevelChange={onLevelChange} optional={true} />
       </td>
-      <td className="checkCell mono">{addonDamage && addonDamage.damage.toString()}</td>
+      <td className="checkCell mono">{addonDamage && addonDamage.toString()}</td>
     </tr>
   );
 }

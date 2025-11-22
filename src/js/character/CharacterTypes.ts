@@ -1,5 +1,6 @@
 import { D20Test } from "../common/D20Test";
 import { DiceString } from "../common/DiceString";
+import type { DamageWithLevels, OptionalDamage } from "./DamageTypes";
 
 export type Ability = "Str" | "Dex" | "Con" | "Int" | "Wis" | "Cha";
 
@@ -83,17 +84,6 @@ export type SavingThrow = {
 export type Weapon = {
   weapon: string;
   ability: Ability;
-  damage: DiceString;
-};
-
-export type DamageWithLevels = {
-  base: { level: number; damage: DiceString };
-  increment: DiceString;
-  step?: number;
-};
-
-export type OptionalDamage = {
-  optional: true;
   damage: DiceString;
 };
 

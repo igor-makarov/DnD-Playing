@@ -52,7 +52,7 @@ export default withAutoRehydration(function WeaponAttackTable({ weaponAttacks, d
         </tr>
         <tr>
           <td>Weapon Damage</td>
-          <td className="checkCell">{selectedWeapon && <span className="mono">{selectedWeapon.damage.damage.toString()}</span>}</td>
+          <td className="checkCell">{selectedWeapon && <span className="mono">{selectedWeapon.damage.toString()}</span>}</td>
         </tr>
         {damageAddons.map((addon) => (
           <AddonRow key={addon.addon} addon={addon} state={state} dispatch={dispatch} />

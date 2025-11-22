@@ -1,4 +1,4 @@
-import type { DamageAddonData, DamageData, WeaponAttackData } from "../../js/character/WeaponAttackTypes";
+import type { DamageAddonData, WeaponAttackData } from "../../js/character/WeaponAttackTypes";
 import { DiceString } from "../../js/common/DiceString";
 
 // State type
@@ -19,16 +19,16 @@ export function getAddonDamage(
   addon: DamageAddonData,
   selectedLevels: Map<string, number>,
   enabledOptionals: Map<string, boolean>,
-): DamageData | null {
+): DiceString | null {
   if ("options" in addon.damage) {
     const selectedLevel = selectedLevels.get(addon.addon) ?? -1;
     if (selectedLevel === -1) return null;
     const option = addon.damage.options.find((opt) => opt.level === selectedLevel);
-    return option ? { damage: option.damage } : null;
+    return option ? option.damage : null;
   } else if ("optional" in addon.damage) {
     const isEnabled = enabledOptionals.get(addon.addon) ?? false;
     if (!isEnabled) return null;
-    return { damage: addon.damage.damage };
+    return addon.damage.damage;
   } else {
     return addon.damage;
   }
@@ -43,12 +43,12 @@ export function computeTotalDamage(
 ): DiceString | null {
   if (!weapon) return null;
 
-  const damageRolls = [weapon.damage.damage];
+  const damageRolls = [weapon.damage];
 
   for (const addon of damageAddons) {
     const addonDamage = getAddonDamage(addon, selectedLevels, enabledOptionals);
     if (addonDamage) {
-      damageRolls.push(addonDamage.damage);
+      damageRolls.push(addonDamage);
     }
   }
 

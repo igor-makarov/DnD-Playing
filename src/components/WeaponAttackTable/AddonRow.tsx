@@ -1,6 +1,8 @@
 import React from "react";
 
-import type { DamageAddonData, DamageData, DamageOptionsData, OptionalDamageData } from "../../js/character/WeaponAttackTypes";
+import type { DamageOptionsData, OptionalDamage } from "../../js/character/DamageTypes";
+import type { DamageAddonData } from "../../js/character/WeaponAttackTypes";
+import type { DiceString } from "../../js/common/DiceString";
 import AlwaysOnDamageAddonRow from "./AlwaysOnDamageAddonRow";
 import LevelledDamageAddonRow from "./LevelledDamageAddonRow";
 import OptionalDamageAddonRow from "./OptionalDamageAddonRow";
@@ -28,7 +30,7 @@ export default function AddonRow({ addon, state, dispatch }: Props) {
   if ("optional" in addon.damage) {
     return (
       <OptionalDamageAddonRow
-        addon={addon as DamageAddonData & { damage: OptionalDamageData }}
+        addon={addon as DamageAddonData & { damage: OptionalDamage }}
         isEnabled={state.enabledOptionals.get(addon.addon) ?? false}
         onToggle={(enabled) => {
           dispatch({ type: "TOGGLE_OPTIONAL", addon: addon.addon, enabled });
@@ -37,5 +39,5 @@ export default function AddonRow({ addon, state, dispatch }: Props) {
     );
   }
 
-  return <AlwaysOnDamageAddonRow addon={addon as DamageAddonData & { damage: DamageData }} />;
+  return <AlwaysOnDamageAddonRow addon={addon as DamageAddonData & { damage: DiceString }} />;
 }

@@ -15,7 +15,8 @@ import type {
   Weapon,
 } from "./CharacterTypes";
 import { SKILL_TO_DEFAULT_ABILITIY } from "./CharacterTypes";
-import type { DamageAddonData, DamageOptionData, WeaponAttackData } from "./WeaponAttackTypes";
+import type { DamageOptionData } from "./DamageTypes";
+import type { DamageAddonData, WeaponAttackData } from "./WeaponAttackTypes";
 
 export class Character {
   abilityScores: AbilityScores;
@@ -153,9 +154,7 @@ export class Character {
       return {
         weapon: w.weapon,
         attackRoll: new D20Test("Attack Roll", w.ability, this.getAbilityModifier(w.ability), this.createProficiency(true), weaponBonus),
-        damage: {
-          damage: damageWithAbility.normalize(),
-        },
+        damage: damageWithAbility.normalize(),
       };
     });
   }
@@ -166,12 +165,10 @@ export class Character {
       if (addon.damage instanceof DiceString) {
         return {
           addon: name,
-          damage: {
-            damage: addon.damage,
-          },
+          damage: addon.damage,
         };
       } else if ("optional" in addon.damage) {
-        // OptionalDamage - convert to OptionalDamageData
+        // OptionalDamage
         return {
           addon: name,
           damage: {
