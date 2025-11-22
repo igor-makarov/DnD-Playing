@@ -64,12 +64,6 @@ const character = new AzamatCharacter();
         />
       </div>
       <div class="column">
-        <SkillsTable
-          title="Proficient skills"
-          skills={character.getSkillAbilityChecks().filter((s) => s.check.getProficiency().bonus > 0)}
-          character={character}
-        />
-        <SkillsTable title="Cha skills" skills={character.getSkillAbilityChecks().filter((s) => s.ability == "Cha")} character={character} />
         <WeaponAttackTable character={character} />
         <table>
           <tr>
