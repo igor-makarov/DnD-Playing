@@ -3,6 +3,7 @@ import { useStore } from "@nanostores/react";
 import React from "react";
 
 import type { DiceString } from "../../js/common/DiceString";
+import { withAutoRehydration } from "../../js/utils/withAutoRehydration";
 import { spellLevelStore } from "../../stores/spellLevelStore";
 import LevelDamageSelector from "../common/LevelDamageSelector";
 
@@ -17,7 +18,7 @@ interface Props {
   optional?: boolean;
 }
 
-export default function LevelledSpellLevelSelector({ spellName, options, optional = false }: Props) {
+export default withAutoRehydration(function LevelledSpellLevelSelector({ spellName, options, optional = false }: Props) {
   const spellData = useStore(spellLevelStore);
 
   // Initialize store with first option if spell not yet set
@@ -38,4 +39,4 @@ export default function LevelledSpellLevelSelector({ spellName, options, optiona
   };
 
   return <LevelDamageSelector options={options} selectedLevel={selectedLevel} onLevelChange={handleLevelChange} optional={optional} />;
-}
+});

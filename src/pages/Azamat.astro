@@ -12,6 +12,10 @@ import LevelledSpellDamageCell from "../components/spells/LevelledSpellDamageCel
 import { DiceString } from "../js/common/DiceString.ts";
 import AzamatCharacter from "../js/characters/AzamatCharacter";
 const character = new AzamatCharacter();
+const moonbeamSpell = {
+  name: "Moonbeam",
+  damageOptions: character.getDamageProgression({ level: 2, damage: new DiceString("2d10") }, new DiceString("1d10")),
+};
 ---
 
 <html lang="en">
@@ -121,14 +125,10 @@ const character = new AzamatCharacter();
           <tr>
             <td>
               Moonbeam
-              <LevelledSpellLevelSelector
-                client:only="react"
-                spellName="Moonbeam"
-                options={character.getDamageProgression({ level: 2, damage: new DiceString("2d10") }, new DiceString("1d10"))}
-              />
+              <LevelledSpellLevelSelector client:load spellName={moonbeamSpell.name} options={moonbeamSpell.damageOptions} />
             </td>
             <td class="checkCell mono">
-              <LevelledSpellDamageCell client:only="react" spellName="Moonbeam" />
+              <LevelledSpellDamageCell client:load spellName={moonbeamSpell.name} initialDamageRoll={moonbeamSpell.damageOptions[0].damage} />
             </td>
           </tr>
         </table>
