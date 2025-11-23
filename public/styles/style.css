@@ -132,3 +132,11 @@ tr:nth-child(odd) {
 .ability-score {
   margin-bottom: 4px;
 }
+
+input[type="text"] {
+  width: 5em;
+  height: 1.6em;
+  text-align: right;
+  vertical-align: middle;
+  margin-top: -2.7px;
+}

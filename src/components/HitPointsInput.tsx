@@ -98,16 +98,7 @@ export default function HitPointsInput({ maxHP, queryKey = "hit-points" }: Props
 
   return (
     <span className="mono">
-      <input
-        type="text"
-        value={displayValue}
-        onFocus={handleFocus}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        onBlur={handleBlur}
-        style={{ width: "5em", textAlign: "right" }}
-      />{" "}
-      / {maxHP}
+      <input type="text" value={displayValue} onFocus={handleFocus} onChange={handleChange} onKeyDown={handleKeyDown} onBlur={handleBlur} /> / {maxHP}
     </span>
   );
 }
