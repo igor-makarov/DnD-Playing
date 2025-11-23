@@ -7,6 +7,7 @@ import WeaponAttackTable from "../components/WeaponAttackTable.astro";
 import D20TestCell from "../components/common/D20TestCell.tsx";
 import HitPointsInput from "../components/HitPointsInput.tsx";
 import SpellSlotsTable from "../components/spells/SpellSlotsTable.tsx";
+import ChannelDivinityCheckboxes from "../components/ChannelDivinityCheckboxes.tsx";
 
 import { DiceString } from "../js/common/DiceString.ts";
 import AzamatCharacter from "../js/characters/AzamatCharacter";
@@ -143,7 +144,7 @@ const character = new AzamatCharacter();
           <tr>
             <td>Channel Divinity</td>
             <td class="modifier">
-              <span class="mono">2</span>/short/long rest
+              <ChannelDivinityCheckboxes client:load maxUses={character.getChannelDivinity()} />
             </td>
           </tr>
           <tr>

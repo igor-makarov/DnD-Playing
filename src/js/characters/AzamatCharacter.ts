@@ -86,6 +86,10 @@ export default class AzamatCharacter extends Character {
     return 8 + this.getSpellAttack().getBonus();
   }
 
+  getChannelDivinity(): number {
+    return 2;
+  }
+
   // Override: Paladin spell slots based on character level
   getSpellSlots(): SpellSlotsForLevel[] {
     // prettier-ignore

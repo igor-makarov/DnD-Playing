@@ -42,27 +42,45 @@ function useSpellSlotsSpent(): readonly [number[], Dispatch<SetStateAction<numbe
   return [currentArray, setSlots];
 }
 
+// Sub-hook for managing channel divinity uses
+function useChannelDivinityUsed(): readonly [number, Dispatch<SetStateAction<number>>] {
+  const [channelDivinityUsedStr, setChannelDivinityUsedStr] = useQueryState("channel-divinity-used");
+
+  const currentUsed = channelDivinityUsedStr !== undefined ? parseInt(channelDivinityUsedStr, 10) : 0;
+
+  const setUsed = (value: SetStateAction<number>) => {
+    const resolvedValue = typeof value === "function" ? value(currentUsed) : value;
+    setChannelDivinityUsedStr(resolvedValue > 0 ? resolvedValue.toString() : undefined);
+  };
+
+  return [currentUsed, setUsed];
+}
+
 // Centralized hook for managing all character dynamic state (HP, spell slots, etc.)
 // Excludes roll mode which is managed separately via useRollMode
 
 interface CharacterDynamicState {
   hitPoints: readonly [number | undefined, Dispatch<SetStateAction<number | undefined>>];
   spellSlotsSpent: readonly [number[], Dispatch<SetStateAction<number[]>>];
+  channelDivinityUsed: readonly [number, Dispatch<SetStateAction<number>>];
   finishLongRest: () => void;
 }
 
 export function useCharacterDynamicState(): CharacterDynamicState {
   const [hitPointsValue, setHitPoints] = useHitPoints();
   const [spellSlotsSpentValue, setSpellSlotsSpent] = useSpellSlotsSpent();
+  const [channelDivinityUsedValue, setChannelDivinityUsed] = useChannelDivinityUsed();
 
   const finishLongRest = () => {
     setHitPoints(undefined);
     setSpellSlotsSpent([]);
+    setChannelDivinityUsed(0);
   };
 
   return {
     hitPoints: [hitPointsValue, setHitPoints],
     spellSlotsSpent: [spellSlotsSpentValue, setSpellSlotsSpent],
+    channelDivinityUsed: [channelDivinityUsedValue, setChannelDivinityUsed],
     finishLongRest,
   };
 }
