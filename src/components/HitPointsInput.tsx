@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function HitPointsInput({ maxHP }: Props) {
-  const { hitPoints, finishLongRest } = useCharacterDynamicState();
+  const { hitPoints, finishShortRest, finishLongRest } = useCharacterDynamicState();
   const [remainingHP, setRemainingHP] = hitPoints;
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -97,14 +97,14 @@ export default function HitPointsInput({ maxHP }: Props) {
   };
 
   return (
-    <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
-      <span style={{ flex: 1 }} />
-      <span className="mono">
+    <span style={{ display: "flex", alignItems: "center" }}>
+      <span className="mono" style={{ flex: 1 }}>
         <input type="text" value={displayValue} onFocus={handleFocus} onChange={handleChange} onKeyDown={handleKeyDown} onBlur={handleBlur} />
         &nbsp;/&nbsp;
         {maxHP}
       </span>
-      <span style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
+      <span style={{ justifyContent: "flex-end" }}>
+        <button onClick={finishShortRest}>Short Rest</button>
         <button onClick={finishLongRest}>Long Rest</button>
       </span>
     </span>

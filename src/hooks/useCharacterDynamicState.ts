@@ -71,6 +71,7 @@ interface CharacterDynamicState {
   hitPoints: StateWithSetter<number>;
   spellSlotsSpent: StateWithSetter<number[]>;
   channelDivinityUsed: StateWithSetter<number>;
+  finishShortRest: () => void;
   finishLongRest: () => void;
 }
 
@@ -78,6 +79,10 @@ export function useCharacterDynamicState(): CharacterDynamicState {
   const [hitPointsValue, setHitPoints] = useHitPoints();
   const [spellSlotsSpentValue, setSpellSlotsSpent] = useSpellSlotsSpent();
   const [channelDivinityUsedValue, setChannelDivinityUsed] = useChannelDivinityUsed();
+
+  const finishShortRest = () => {
+    setChannelDivinityUsed(undefined);
+  };
 
   const finishLongRest = () => {
     setHitPoints(undefined);
@@ -89,6 +94,7 @@ export function useCharacterDynamicState(): CharacterDynamicState {
     hitPoints: [hitPointsValue, setHitPoints],
     spellSlotsSpent: [spellSlotsSpentValue, setSpellSlotsSpent],
     channelDivinityUsed: [channelDivinityUsedValue, setChannelDivinityUsed],
+    finishShortRest,
     finishLongRest,
   };
 }
