@@ -26,7 +26,7 @@ const character = new AzamatCharacter();
         <AbilitiesTable character={character} />
       </div>
     </div>
-    <div class="row">
+    <div class="row top-bar">
       <div class="column top-bar">
         <table>
           <tr>
@@ -77,123 +77,123 @@ const character = new AzamatCharacter();
           </tr>
         </table>
       </div>
+    </div>
 
-      <div class="row">
-        <div class="column">
-          <SkillsTable
-            title={'Skills<br><a href="https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230">character sheet</a>'}
-            character={character}
-          />
-        </div>
-        <div class="column">
-          <SavesTable title="Saves (with added Cha)" character={character} />
-          <SavesTable
-            title={'<a href="https://2014.5e.tools/races.html#warforged_erlw">Constructed Resilience</a><br>ADV against poison<br>also half damage'}
-            savingThrows={character.getSavingThrows().filter((s) => s.ability == "Con")}
-            advantage={true}
-            character={character}
-          />
-        </div>
-        <div class="column">
-          <WeaponAttackTable character={character} />
-          <table>
-            <tr>
-              <th colspan="2" style="text-align: center;">Other Spells</th>
-            </tr>
-            <tr>
-              <td>Spell Attack Modifier</td>
-              <td class="checkCell mono">
-                <D20TestCell client:only="react" roll={character.getSpellAttack()} />
-              </td>
-            </tr>
-            <tr>
-              <td>Spell Save DC</td>
-              <td class="checkCell mono">
-                <span class="mono">{character.getSpellSaveDC()}</span>
-              </td>
-            </tr>
-            <tr>
-              <th>Spell</th>
-              <th class="modifier">Damage</th>
-            </tr>
-            <tr>
-              <td>
-                Moonbeam
-                <LevelledSpellLevelSelector
-                  client:only="react"
-                  spellName="Moonbeam"
-                  options={character.getDamageProgression({ level: 2, damage: new DiceString("2d10") }, new DiceString("1d10"))}
-                />
-              </td>
-              <td class="checkCell mono">
-                <LevelledSpellDamageCell client:only="react" spellName="Moonbeam" />
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="column features">
-          <table>
-            <tr>
-              <th colspan="2" style="text-align: center;">Features</th>
-            </tr>
-            <tr>
-              <th>Feature</th>
-              <th class="modifier">Effect</th>
-            </tr>
-            <tr>
-              <td>Lay on Hands</td>
-              <td class="modifier">
-                <span class="mono">{5 * character.characterLevel}</span>/long rest
-              </td>
-            </tr>
-            <tr>
-              <td>Channel Divinity</td>
-              <td class="modifier">
-                <span class="mono">2</span>/short/long rest
-              </td>
-            </tr>
-            <tr>
-              <td>[CD] Divine Sense (60ft)</td>
-              <td class="modifier">celestial/fiend/undead</td>
-            </tr>
-            <tr>
-              <td>[CD] Harness Divine Power</td>
-              <td class="modifier">
-                max slot lv: <span class="mono">{Math.ceil(0.5 * character.proficiencyBonus)}</span>
-              </td>
-            </tr>
-            <tr>
-              <td>[CD] Watcher's Will (30ft)</td>
-              <td class="modifier">
-                <span class="mono">{character.getAbilityModifier("Cha")}</span> + self
-              </td>
-            </tr>
-            <tr>
-              <td>[CD] Abjure the Extraplanar (30ft)</td>
-              <td class="modifier">WIS save</td>
-            </tr>
-            <tr>
-              <td>Cleansing Touch</td>
-              <td class="modifier">
-                <span class="mono">{character.getAbilityModifier("Cha")}</span>/long rest
-              </td>
-            </tr>
-            <tr>
-              <td>Aura of Protection (10ft)</td>
-              <td class="modifier">
-                <span class="mono">+{character.getAbilityModifier("Cha")}&nbsp;</span>
-              </td>
-            </tr>
-            <tr>
-              <td>Aura of the Sentinel (10ft)</td>
-              <td class="modifier">Advantage: Initiative</td>
-            </tr>
-            <tr>
-              <td>Aura of Courage (10ft)</td>
-              <td class="modifier">Immunity: frightened</td>
-            </tr>
-          </table>
-        </div>
+    <div class="row main">
+      <div class="column">
+        <SkillsTable
+          title={'Skills<br><a href="https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230">character sheet</a>'}
+          character={character}
+        />
+      </div>
+      <div class="column">
+        <SavesTable title="Saves (with added Cha)" character={character} />
+        <SavesTable
+          title={'<a href="https://2014.5e.tools/races.html#warforged_erlw">Constructed Resilience</a><br>ADV against poison<br>also half damage'}
+          savingThrows={character.getSavingThrows().filter((s) => s.ability == "Con")}
+          advantage={true}
+          character={character}
+        />
+      </div>
+      <div class="column">
+        <WeaponAttackTable character={character} />
+        <table>
+          <tr>
+            <th colspan="2" style="text-align: center;">Other Spells</th>
+          </tr>
+          <tr>
+            <td>Spell Attack Modifier</td>
+            <td class="checkCell mono">
+              <D20TestCell client:only="react" roll={character.getSpellAttack()} />
+            </td>
+          </tr>
+          <tr>
+            <td>Spell Save DC</td>
+            <td class="checkCell mono">
+              <span class="mono">{character.getSpellSaveDC()}</span>
+            </td>
+          </tr>
+          <tr>
+            <th>Spell</th>
+            <th class="modifier">Damage</th>
+          </tr>
+          <tr>
+            <td>
+              Moonbeam
+              <LevelledSpellLevelSelector
+                client:only="react"
+                spellName="Moonbeam"
+                options={character.getDamageProgression({ level: 2, damage: new DiceString("2d10") }, new DiceString("1d10"))}
+              />
+            </td>
+            <td class="checkCell mono">
+              <LevelledSpellDamageCell client:only="react" spellName="Moonbeam" />
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="column features">
+        <table>
+          <tr>
+            <th colspan="2" style="text-align: center;">Features</th>
+          </tr>
+          <tr>
+            <th>Feature</th>
+            <th class="modifier">Effect</th>
+          </tr>
+          <tr>
+            <td>Lay on Hands</td>
+            <td class="modifier">
+              <span class="mono">{5 * character.characterLevel}</span>/long rest
+            </td>
+          </tr>
+          <tr>
+            <td>Channel Divinity</td>
+            <td class="modifier">
+              <span class="mono">2</span>/short/long rest
+            </td>
+          </tr>
+          <tr>
+            <td>[CD] Divine Sense (60ft)</td>
+            <td class="modifier">celestial/fiend/undead</td>
+          </tr>
+          <tr>
+            <td>[CD] Harness Divine Power</td>
+            <td class="modifier">
+              max slot lv: <span class="mono">{Math.ceil(0.5 * character.proficiencyBonus)}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>[CD] Watcher's Will (30ft)</td>
+            <td class="modifier">
+              <span class="mono">{character.getAbilityModifier("Cha")}</span> + self
+            </td>
+          </tr>
+          <tr>
+            <td>[CD] Abjure the Extraplanar (30ft)</td>
+            <td class="modifier">WIS save</td>
+          </tr>
+          <tr>
+            <td>Cleansing Touch</td>
+            <td class="modifier">
+              <span class="mono">{character.getAbilityModifier("Cha")}</span>/long rest
+            </td>
+          </tr>
+          <tr>
+            <td>Aura of Protection (10ft)</td>
+            <td class="modifier">
+              <span class="mono">+{character.getAbilityModifier("Cha")}&nbsp;</span>
+            </td>
+          </tr>
+          <tr>
+            <td>Aura of the Sentinel (10ft)</td>
+            <td class="modifier">Advantage: Initiative</td>
+          </tr>
+          <tr>
+            <td>Aura of Courage (10ft)</td>
+            <td class="modifier">Immunity: frightened</td>
+          </tr>
+        </table>
       </div>
     </div>
   </body>
