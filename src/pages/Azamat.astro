@@ -7,15 +7,11 @@ import WeaponAttackTable from "../components/WeaponAttackTable.astro";
 import D20TestCell from "../components/common/D20TestCell.tsx";
 import HitPointsInput from "../components/HitPointsInput.tsx";
 import SpellSlotsTable from "../components/spells/SpellSlotsTable.tsx";
-import LevelledSpellLevelSelector from "../components/spells/LevelledSpellLevelSelector.tsx";
-import LevelledSpellDamageCell from "../components/spells/LevelledSpellDamageCell.tsx";
+
 import { DiceString } from "../js/common/DiceString.ts";
 import AzamatCharacter from "../js/characters/AzamatCharacter";
+import LevelledSpellDamageRow from "../components/spells/LevelledSpellDamageRow.astro";
 const character = new AzamatCharacter();
-const moonbeamSpell = {
-  name: "Moonbeam",
-  damageOptions: character.getDamageProgression({ level: 2, damage: new DiceString("2d10") }, new DiceString("1d10")),
-};
 ---
 
 <html lang="en">
@@ -103,34 +99,31 @@ const moonbeamSpell = {
       <div class="column">
         <WeaponAttackTable character={character} />
         <table>
-          <tr>
-            <th colspan="2" style="text-align: center;">Other Spells</th>
-          </tr>
-          <tr>
-            <td>Spell Attack Modifier</td>
-            <td class="checkCell mono">
-              <D20TestCell client:load roll={character.getSpellAttack()} />
-            </td>
-          </tr>
-          <tr>
-            <td>Spell Save DC</td>
-            <td class="checkCell mono">
-              <span class="mono">{character.getSpellSaveDC()}</span>
-            </td>
-          </tr>
-          <tr>
-            <th>Spell</th>
-            <th class="modifier">Damage</th>
-          </tr>
-          <tr>
-            <td>
-              Moonbeam
-              <LevelledSpellLevelSelector client:load spellName={moonbeamSpell.name} options={moonbeamSpell.damageOptions} />
-            </td>
-            <td class="checkCell mono">
-              <LevelledSpellDamageCell client:load spellName={moonbeamSpell.name} initialDamageRoll={moonbeamSpell.damageOptions[0].damage} />
-            </td>
-          </tr>
+          <tbody>
+            <tr>
+              <th colspan="2" style="text-align: center;">Other Spells</th>
+            </tr>
+            <tr>
+              <td>Spell Attack Modifier</td>
+              <td class="checkCell mono">
+                <D20TestCell client:load roll={character.getSpellAttack()} />
+              </td>
+            </tr>
+            <tr>
+              <td>Spell Save DC</td>
+              <td class="checkCell mono">
+                <span class="mono">{character.getSpellSaveDC()}</span>
+              </td>
+            </tr>
+            <tr>
+              <th>Spell</th>
+              <th class="modifier">Damage</th>
+            </tr>
+            <LevelledSpellDamageRow
+              name="Moonbeam"
+              damageOptions={character.getDamageProgression({ level: 2, damage: new DiceString("2d10") }, new DiceString("1d10"))}
+            />
+          </tbody>
         </table>
       </div>
       <div class="column features">
