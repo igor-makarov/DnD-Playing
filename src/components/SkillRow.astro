@@ -14,6 +14,6 @@ const check = skill.check;
 <tr>
   <td><span class="mono">[{check.getProficiency().symbol}]</span> {skill.skill} ({check.getAbility()})</td>
   <td class="checkCell">
-    <D20TestCell client:only="react" roll={check} advantage={advantage} />
+    <D20TestCell client:load roll={check} advantage={advantage} />
   </td>
 </tr>

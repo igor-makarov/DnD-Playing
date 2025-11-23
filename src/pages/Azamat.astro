@@ -59,7 +59,7 @@ const character = new AzamatCharacter();
           </tr>
           <tr>
             <td style="text-align: center;">
-              <HitPointsInput client:only="react" maxHP={character.getHitPoints()} />
+              <HitPointsInput client:load maxHP={character.getHitPoints()} />
             </td>
           </tr>
         </table>
@@ -72,7 +72,7 @@ const character = new AzamatCharacter();
           <tr>
             <td class="modifier" style="text-align: center;">
               <span class="checkCell">
-                <D20TestCell client:only="react" roll={character.getInitiative()} advantage={true} />
+                <D20TestCell client:load roll={character.getInitiative()} advantage={true} />
               </span>
             </td>
           </tr>
@@ -105,7 +105,7 @@ const character = new AzamatCharacter();
           <tr>
             <td>Spell Attack Modifier</td>
             <td class="checkCell mono">
-              <D20TestCell client:only="react" roll={character.getSpellAttack()} />
+              <D20TestCell client:load roll={character.getSpellAttack()} />
             </td>
           </tr>
           <tr>
@@ -134,7 +134,7 @@ const character = new AzamatCharacter();
         </table>
       </div>
       <div class="column features">
-        <SpellSlotsTable client:only="react" spellSlots={character.getSpellSlots()} />
+        <SpellSlotsTable client:load spellSlots={character.getSpellSlots()} />
         <table>
           <tr>
             <th colspan="2" style="text-align: center;">Features</th>

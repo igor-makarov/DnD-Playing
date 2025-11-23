@@ -14,6 +14,6 @@ const check = savingThrow.check;
 <tr>
   <td><span class="mono">[{check.getProficiency().symbol}]</span> {check.getAbility()}</td>
   <td class="checkCell">
-    <D20TestCell client:only="react" roll={check} advantage={advantage} />
+    <D20TestCell client:load roll={check} advantage={advantage} />
   </td>
 </tr>

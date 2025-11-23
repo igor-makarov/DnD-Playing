@@ -16,7 +16,7 @@ const { character } = Astro.props;
         <span class="mono ability-name">{ability}</span>
         <span class="mono ability-score">{character.abilityScores[ability]}</span>
         <span class="checkCell">
-          <D20TestCell client:only="react" roll={check} />
+          <D20TestCell client:load roll={check} />
         </span>
       </div>
     ))
