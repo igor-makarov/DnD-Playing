@@ -11,27 +11,36 @@ interface Props {
 export default function SpellSlotsTable({ spellSlots }: Props) {
   const [usedSlotsData, setUsedSlotsData] = useQueryState("spell-slots");
 
-  // Parse used slots from query state (format: hyphen-separated used slots per level)
-  // Example: "1-1-1-0" means 1 first level used, 1 second level used, 1 third level used, 0 fourth level used
-  const parseUsedSlots = (): number[] => {
+  // Parse used slots counts from query state (format: hyphen-separated counts per level)
+  // Example: "1-2-0" means 1 slot used at level 1, 2 slots used at level 2, 0 at level 3
+  const parseUsedCounts = (): number[] => {
     if (!usedSlotsData) {
       return [];
     }
     return usedSlotsData.split("-").map((n) => parseInt(n, 10) || 0);
   };
 
-  const usedSlots = parseUsedSlots();
+  const usedCounts = parseUsedCounts();
+
+  const isSlotUsed = (levelIndex: number, slotIndex: number): boolean => {
+    const count = usedCounts[levelIndex] || 0;
+    return slotIndex < count;
+  };
 
   const toggleSlot = (levelIndex: number, slotIndex: number) => {
-    const currentUsed = usedSlots[levelIndex] || 0;
-    const newUsed = slotIndex < currentUsed ? slotIndex : slotIndex + 1;
+    const currentCount = usedCounts[levelIndex] || 0;
+    // If clicking on an unchecked slot (at or beyond current count), increment by 1
+    // If clicking on a checked slot (before current count), decrement by 1
+    const newCount = slotIndex < currentCount ? currentCount - 1 : currentCount + 1;
 
-    // Create new array with proper length
-    const newUsedSlots = Array.from({ length: spellSlots.length }, (_, i) => usedSlots[i] || 0);
-    newUsedSlots[levelIndex] = newUsed;
+    // Update URL with counts
+    const newUsedCounts = Array.from({ length: spellSlots.length }, (_, i) => {
+      if (i === levelIndex) return newCount;
+      return usedCounts[i] || 0;
+    });
 
     // Convert to hyphen-separated string, trimming trailing zeros
-    let trimmedArray = [...newUsedSlots];
+    let trimmedArray = [...newUsedCounts];
     while (trimmedArray.length > 0 && trimmedArray[trimmedArray.length - 1] === 0) {
       trimmedArray.pop();
     }
@@ -59,14 +68,13 @@ export default function SpellSlotsTable({ spellSlots }: Props) {
       </thead>
       <tbody>
         {spellSlots.map(({ level, slots }, levelIndex) => {
-          const used = usedSlots[levelIndex] || 0;
           return (
             <tr key={level}>
               <td>Level {level}</td>
               <td className="checkCell">
                 <span style={{ display: "flex", gap: "4px", justifyContent: "end", paddingInlineEnd: "5px" }}>
                   {Array.from({ length: slots }, (_, i) => (
-                    <input key={i} type="checkbox" checked={i < used} onChange={() => toggleSlot(levelIndex, i)} style={{ cursor: "pointer" }} />
+                    <input key={i} type="checkbox" checked={isSlotUsed(levelIndex, i)} onChange={() => toggleSlot(levelIndex, i)} />
                   ))}
                 </span>
               </td>
