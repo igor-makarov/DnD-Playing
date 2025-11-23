@@ -1,4 +1,4 @@
-import { type Dispatch, type SetStateAction, useMemo } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 
 import { useQueryState } from "./useQueryState";
 
@@ -6,16 +6,14 @@ import { useQueryState } from "./useQueryState";
 function useHitPoints(): readonly [number | undefined, Dispatch<SetStateAction<number | undefined>>] {
   const [hitPointsStr, setHitPointsStr] = useQueryState("hit-points");
 
-  return useMemo(
-    () => [
-      hitPointsStr !== undefined ? parseInt(hitPointsStr, 10) : undefined,
-      (value) => {
-        const resolvedValue = typeof value === "function" ? value(hitPointsStr !== undefined ? parseInt(hitPointsStr, 10) : undefined) : value;
-        setHitPointsStr(resolvedValue !== undefined ? resolvedValue.toString() : undefined);
-      },
-    ],
-    [hitPointsStr, setHitPointsStr],
-  );
+  const currentHP = hitPointsStr !== undefined ? parseInt(hitPointsStr, 10) : undefined;
+
+  const setHP = (value: SetStateAction<number | undefined>) => {
+    const resolvedValue = typeof value === "function" ? value(currentHP) : value;
+    setHitPointsStr(resolvedValue !== undefined ? resolvedValue.toString() : undefined);
+  };
+
+  return [currentHP, setHP];
 }
 
 // Sub-hook for managing spell slots spent
@@ -27,24 +25,21 @@ function useHitPoints(): readonly [number | undefined, Dispatch<SetStateAction<n
 function useSpellSlotsSpent(): readonly [number[], Dispatch<SetStateAction<number[]>>] {
   const [spellSlotsSpentStr, setSpellSlotsSpentStr] = useQueryState("spell-slots-spent");
 
-  return useMemo(
-    () => [
-      spellSlotsSpentStr ? spellSlotsSpentStr.split("-").map((n) => parseInt(n, 10) || 0) : [],
-      (value) => {
-        const currentArray = spellSlotsSpentStr ? spellSlotsSpentStr.split("-").map((n) => parseInt(n, 10) || 0) : [];
-        const resolvedValue = typeof value === "function" ? value(currentArray) : value;
+  const currentArray = spellSlotsSpentStr ? spellSlotsSpentStr.split("-").map((n) => parseInt(n, 10) || 0) : [];
 
-        // Trim trailing zeros
-        const trimmed = [...resolvedValue];
-        while (trimmed.length > 0 && trimmed[trimmed.length - 1] === 0) {
-          trimmed.pop();
-        }
+  const setSlots = (value: SetStateAction<number[]>) => {
+    const resolvedValue = typeof value === "function" ? value(currentArray) : value;
 
-        setSpellSlotsSpentStr(trimmed.length > 0 ? trimmed.join("-") : undefined);
-      },
-    ],
-    [spellSlotsSpentStr, setSpellSlotsSpentStr],
-  );
+    // Trim trailing zeros
+    const trimmed = [...resolvedValue];
+    while (trimmed.length > 0 && trimmed[trimmed.length - 1] === 0) {
+      trimmed.pop();
+    }
+
+    setSpellSlotsSpentStr(trimmed.length > 0 ? trimmed.join("-") : undefined);
+  };
+
+  return [currentArray, setSlots];
 }
 
 // Centralized hook for managing all character dynamic state (HP, spell slots, etc.)
@@ -57,20 +52,17 @@ interface CharacterDynamicState {
 }
 
 export function useCharacterDynamicState(): CharacterDynamicState {
-  const hitPoints = useHitPoints();
-  const spellSlotsSpent = useSpellSlotsSpent();
+  const [hitPointsValue, setHitPoints] = useHitPoints();
+  const [spellSlotsSpentValue, setSpellSlotsSpent] = useSpellSlotsSpent();
 
-  const finishLongRest = useMemo(
-    () => () => {
-      hitPoints[1](undefined);
-      spellSlotsSpent[1]([]);
-    },
-    [hitPoints, spellSlotsSpent],
-  );
+  const finishLongRest = () => {
+    setHitPoints(undefined);
+    setSpellSlotsSpent([]);
+  };
 
   return {
-    hitPoints,
-    spellSlotsSpent,
+    hitPoints: [hitPointsValue, setHitPoints],
+    spellSlotsSpent: [spellSlotsSpentValue, setSpellSlotsSpent],
     finishLongRest,
   };
 }
