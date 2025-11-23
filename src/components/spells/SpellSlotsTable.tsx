@@ -10,18 +10,7 @@ interface Props {
 
 export default function SpellSlotsTable({ spellSlots }: Props) {
   const { spellSlotsSpent } = useCharacterDynamicState();
-  const [usedSlotsData, setUsedSlotsData] = spellSlotsSpent;
-
-  // Parse used slots counts from query state (format: hyphen-separated counts per level)
-  // Example: "1-2-0" means 1 slot used at level 1, 2 slots used at level 2, 0 at level 3
-  const parseUsedCounts = (): number[] => {
-    if (!usedSlotsData) {
-      return [];
-    }
-    return usedSlotsData.split("-").map((n) => parseInt(n, 10) || 0);
-  };
-
-  const usedCounts = parseUsedCounts();
+  const [usedCounts, setUsedCounts] = spellSlotsSpent;
 
   const isSlotUsed = (levelIndex: number, slotIndex: number): boolean => {
     const count = usedCounts[levelIndex] || 0;
@@ -34,20 +23,13 @@ export default function SpellSlotsTable({ spellSlots }: Props) {
     // If clicking on a checked slot (before current count), decrement by 1
     const newCount = slotIndex < currentCount ? currentCount - 1 : currentCount + 1;
 
-    // Update URL with counts
+    // Update array with new counts
     const newUsedCounts = Array.from({ length: spellSlots.length }, (_, i) => {
       if (i === levelIndex) return newCount;
       return usedCounts[i] || 0;
     });
 
-    // Convert to hyphen-separated string, trimming trailing zeros
-    let trimmedArray = [...newUsedCounts];
-    while (trimmedArray.length > 0 && trimmedArray[trimmedArray.length - 1] === 0) {
-      trimmedArray.pop();
-    }
-
-    const dataString = trimmedArray.length > 0 ? trimmedArray.join("-") : undefined;
-    setUsedSlotsData(dataString);
+    setUsedCounts(newUsedCounts);
   };
 
   if (spellSlots.length === 0) {

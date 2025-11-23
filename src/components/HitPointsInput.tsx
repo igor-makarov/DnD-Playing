@@ -12,7 +12,7 @@ export default function HitPointsInput({ maxHP }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const currentHP = remainingHP ? parseInt(remainingHP, 10) : maxHP;
+  const currentHP = remainingHP ?? maxHP;
   const displayValue = isEditing ? inputValue : currentHP.toString();
 
   const handleFocus = () => {
@@ -90,7 +90,7 @@ export default function HitPointsInput({ maxHP }: Props) {
     if (clampedValue === maxHP) {
       setRemainingHP(undefined);
     } else {
-      setRemainingHP(clampedValue.toString());
+      setRemainingHP(clampedValue);
     }
 
     return clampedValue;
