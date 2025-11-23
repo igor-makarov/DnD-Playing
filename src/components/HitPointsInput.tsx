@@ -7,8 +7,8 @@ interface Props {
 }
 
 export default function HitPointsInput({ maxHP }: Props) {
-  const { hitPointsSpent, finishLongRest } = useCharacterDynamicState();
-  const [remainingHP, setRemainingHP] = hitPointsSpent;
+  const { hitPoints, finishLongRest } = useCharacterDynamicState();
+  const [remainingHP, setRemainingHP] = hitPoints;
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
 

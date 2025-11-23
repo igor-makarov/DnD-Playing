@@ -2,20 +2,19 @@ import { type Dispatch, type SetStateAction, useMemo } from "react";
 
 import { useQueryState } from "./useQueryState";
 
-// Sub-hook for managing hit points spent
-function useHitPointsSpent(): readonly [number | undefined, Dispatch<SetStateAction<number | undefined>>] {
-  const [hitPointsSpentStr, setHitPointsSpentStr] = useQueryState("hit-points-spent");
+// Sub-hook for managing hit points
+function useHitPoints(): readonly [number | undefined, Dispatch<SetStateAction<number | undefined>>] {
+  const [hitPointsStr, setHitPointsStr] = useQueryState("hit-points");
 
   return useMemo(
     () => [
-      hitPointsSpentStr !== undefined ? parseInt(hitPointsSpentStr, 10) : undefined,
+      hitPointsStr !== undefined ? parseInt(hitPointsStr, 10) : undefined,
       (value) => {
-        const resolvedValue =
-          typeof value === "function" ? value(hitPointsSpentStr !== undefined ? parseInt(hitPointsSpentStr, 10) : undefined) : value;
-        setHitPointsSpentStr(resolvedValue !== undefined ? resolvedValue.toString() : undefined);
+        const resolvedValue = typeof value === "function" ? value(hitPointsStr !== undefined ? parseInt(hitPointsStr, 10) : undefined) : value;
+        setHitPointsStr(resolvedValue !== undefined ? resolvedValue.toString() : undefined);
       },
     ],
-    [hitPointsSpentStr, setHitPointsSpentStr],
+    [hitPointsStr, setHitPointsStr],
   );
 }
 
@@ -52,25 +51,25 @@ function useSpellSlotsSpent(): readonly [number[], Dispatch<SetStateAction<numbe
 // Excludes roll mode which is managed separately via useRollMode
 
 interface CharacterDynamicState {
-  hitPointsSpent: readonly [number | undefined, Dispatch<SetStateAction<number | undefined>>];
+  hitPoints: readonly [number | undefined, Dispatch<SetStateAction<number | undefined>>];
   spellSlotsSpent: readonly [number[], Dispatch<SetStateAction<number[]>>];
   finishLongRest: () => void;
 }
 
 export function useCharacterDynamicState(): CharacterDynamicState {
-  const hitPointsSpent = useHitPointsSpent();
+  const hitPoints = useHitPoints();
   const spellSlotsSpent = useSpellSlotsSpent();
 
   const finishLongRest = useMemo(
     () => () => {
-      hitPointsSpent[1](undefined);
+      hitPoints[1](undefined);
       spellSlotsSpent[1]([]);
     },
-    [hitPointsSpent, spellSlotsSpent],
+    [hitPoints, spellSlotsSpent],
   );
 
   return {
-    hitPointsSpent,
+    hitPoints,
     spellSlotsSpent,
     finishLongRest,
   };
