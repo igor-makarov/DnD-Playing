@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 
-import { useFinishLongRest } from "../hooks/useFinishLongRest";
-import { useQueryState } from "../hooks/useQueryState";
+import { useCharacterDynamicState } from "../hooks/useCharacterDynamicState";
 
 interface Props {
   maxHP: number;
-  queryKey?: string;
 }
 
-export default function HitPointsInput({ maxHP, queryKey = "hit-points-spent" }: Props) {
-  const [remainingHP, setRemainingHP] = useQueryState(queryKey);
+export default function HitPointsInput({ maxHP }: Props) {
+  const { hitPointsSpent, finishLongRest } = useCharacterDynamicState();
+  const [remainingHP, setRemainingHP] = hitPointsSpent;
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const finishLongRest = useFinishLongRest();
 
   const currentHP = remainingHP ? parseInt(remainingHP, 10) : maxHP;
   const displayValue = isEditing ? inputValue : currentHP.toString();

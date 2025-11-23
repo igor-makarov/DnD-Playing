@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useQueryState } from "../../hooks/useQueryState";
+import { useCharacterDynamicState } from "../../hooks/useCharacterDynamicState";
 import type { SpellSlotsForLevel } from "../../js/character/CharacterTypes";
 
 interface Props {
@@ -9,7 +9,8 @@ interface Props {
 }
 
 export default function SpellSlotsTable({ spellSlots }: Props) {
-  const [usedSlotsData, setUsedSlotsData] = useQueryState("spell-slots-spent");
+  const { spellSlotsSpent } = useCharacterDynamicState();
+  const [usedSlotsData, setUsedSlotsData] = spellSlotsSpent;
 
   // Parse used slots counts from query state (format: hyphen-separated counts per level)
   // Example: "1-2-0" means 1 slot used at level 1, 2 slots used at level 2, 0 at level 3
