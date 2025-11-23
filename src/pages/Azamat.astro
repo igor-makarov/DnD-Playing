@@ -6,6 +6,7 @@ import SavesTable from "../components/SavesTable.astro";
 import WeaponAttackTable from "../components/WeaponAttackTable.astro";
 import D20TestCell from "../components/common/D20TestCell.tsx";
 import HitPointsInput from "../components/HitPointsInput.tsx";
+import SpellSlotsTable from "../components/spells/SpellSlotsTable.tsx";
 import LevelledSpellLevelSelector from "../components/spells/LevelledSpellLevelSelector.tsx";
 import LevelledSpellDamageCell from "../components/spells/LevelledSpellDamageCell.tsx";
 import { DiceString } from "../js/common/DiceString.ts";
@@ -133,6 +134,7 @@ const character = new AzamatCharacter();
         </table>
       </div>
       <div class="column features">
+        <SpellSlotsTable client:only="react" spellSlots={character.getSpellSlots()} />
         <table>
           <tr>
             <th colspan="2" style="text-align: center;">Features</th>
