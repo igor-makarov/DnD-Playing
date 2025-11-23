@@ -64,6 +64,20 @@ function useChannelDivinityUsed(): StateWithSetter<number> {
   return [currentUsed, setUsed];
 }
 
+// Sub-hook for managing Lay on Hands points remaining
+function useLayOnHands(): StateWithSetter<number> {
+  const [layOnHandsStr, setLayOnHandsStr] = useQueryState("lay-on-hands");
+
+  const currentPoints = layOnHandsStr !== undefined ? parseInt(layOnHandsStr, 10) : undefined;
+
+  const setPoints = (value: SetStateAction<number | undefined>) => {
+    const resolvedValue = typeof value === "function" ? value(currentPoints) : value;
+    setLayOnHandsStr(resolvedValue !== undefined ? resolvedValue.toString() : undefined);
+  };
+
+  return [currentPoints, setPoints];
+}
+
 // Centralized hook for managing all character dynamic state (HP, spell slots, etc.)
 // Excludes roll mode which is managed separately via useRollMode
 
@@ -71,6 +85,7 @@ interface CharacterDynamicState {
   useHitPoints: StateWithSetter<number>;
   useSpellSlotsSpent: StateWithSetter<number[]>;
   useChannelDivinityUsed: StateWithSetter<number>;
+  useLayOnHands: StateWithSetter<number>;
   finishShortRest: () => void;
   finishLongRest: () => void;
 }
@@ -79,6 +94,7 @@ export function useCharacterDynamicState(): CharacterDynamicState {
   const [hitPoints, setHitPoints] = useHitPoints();
   const [spellSlotsSpent, setSpellSlotsSpent] = useSpellSlotsSpent();
   const [channelDivinityUsed, setChannelDivinityUsed] = useChannelDivinityUsed();
+  const [layOnHands, setLayOnHands] = useLayOnHands();
 
   const finishShortRest = () => {
     setChannelDivinityUsed(undefined);
@@ -88,12 +104,14 @@ export function useCharacterDynamicState(): CharacterDynamicState {
     setHitPoints(undefined);
     setSpellSlotsSpent(undefined);
     setChannelDivinityUsed(undefined);
+    setLayOnHands(undefined);
   };
 
   return {
     useHitPoints: [hitPoints, setHitPoints],
     useSpellSlotsSpent: [spellSlotsSpent, setSpellSlotsSpent],
     useChannelDivinityUsed: [channelDivinityUsed, setChannelDivinityUsed],
+    useLayOnHands: [layOnHands, setLayOnHands],
     finishShortRest,
     finishLongRest,
   };

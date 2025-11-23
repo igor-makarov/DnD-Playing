@@ -8,6 +8,7 @@ import D20TestCell from "../components/common/D20TestCell.tsx";
 import HitPointsInput from "../components/HitPointsInput.tsx";
 import SpellSlotsTable from "../components/spells/SpellSlotsTable.tsx";
 import ChannelDivinityCheckboxes from "../components/ChannelDivinityCheckboxes.tsx";
+import LayOnHandsInput from "../components/LayOnHandsInput.tsx";
 
 import { DiceString } from "../js/common/DiceString.ts";
 import AzamatCharacter from "../js/characters/AzamatCharacter";
@@ -138,7 +139,7 @@ const character = new AzamatCharacter();
           <tr>
             <td>Lay on Hands</td>
             <td class="modifier">
-              <span class="mono">{5 * character.characterLevel}</span>/long rest
+              <LayOnHandsInput client:load layOnHandsMaximum={character.getLayOnHandsMaximum()} /> per long rest
             </td>
           </tr>
           <tr>

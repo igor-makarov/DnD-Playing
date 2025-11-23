@@ -90,6 +90,10 @@ export default class AzamatCharacter extends Character {
     return 2;
   }
 
+  getLayOnHandsMaximum(): number {
+    return 5 * this.characterLevel;
+  }
+
   // Override: Paladin spell slots based on character level
   getSpellSlots(): SpellSlotsForLevel[] {
     // prettier-ignore
