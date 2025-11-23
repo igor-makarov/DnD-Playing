@@ -2,8 +2,11 @@ import { type Dispatch, type SetStateAction } from "react";
 
 import { useQueryState } from "./useQueryState";
 
+// Generic type for state tuple with optional values
+type StateWithSetter<T> = readonly [T | undefined, Dispatch<SetStateAction<T | undefined>>];
+
 // Sub-hook for managing hit points
-function useHitPoints(): readonly [number | undefined, Dispatch<SetStateAction<number | undefined>>] {
+function useHitPoints(): StateWithSetter<number> {
   const [hitPointsStr, setHitPointsStr] = useQueryState("hit-points");
 
   const currentHP = hitPointsStr !== undefined ? parseInt(hitPointsStr, 10) : undefined;
@@ -19,16 +22,21 @@ function useHitPoints(): readonly [number | undefined, Dispatch<SetStateAction<n
 // Sub-hook for managing spell slots spent
 // Returns array of numbers where each index represents spell level and value is slots used
 // Format: Stored in URL as hyphen-separated string (e.g., "1-2-0" means 1 slot used at level 1, 2 at level 2, 0 at level 3)
-// - Empty/undefined query param = no slots spent (returns empty array [])
+// - Empty/undefined query param = no slots spent (returns undefined)
 // - Trailing zeros are automatically trimmed when saving (e.g., [1, 2, 0] -> "1-2")
 // - Array indices correspond to spell levels (index 0 = level 1, index 1 = level 2, etc.)
-function useSpellSlotsSpent(): readonly [number[], Dispatch<SetStateAction<number[]>>] {
+function useSpellSlotsSpent(): StateWithSetter<number[]> {
   const [spellSlotsSpentStr, setSpellSlotsSpentStr] = useQueryState("spell-slots-spent");
 
-  const currentArray = spellSlotsSpentStr ? spellSlotsSpentStr.split("-").map((n) => parseInt(n, 10) || 0) : [];
+  const currentArray = spellSlotsSpentStr ? spellSlotsSpentStr.split("-").map((n) => parseInt(n, 10) || 0) : undefined;
 
-  const setSlots = (value: SetStateAction<number[]>) => {
+  const setSlots = (value: SetStateAction<number[] | undefined>) => {
     const resolvedValue = typeof value === "function" ? value(currentArray) : value;
+
+    if (resolvedValue === undefined) {
+      setSpellSlotsSpentStr(undefined);
+      return;
+    }
 
     // Trim trailing zeros
     const trimmed = [...resolvedValue];
@@ -43,14 +51,14 @@ function useSpellSlotsSpent(): readonly [number[], Dispatch<SetStateAction<numbe
 }
 
 // Sub-hook for managing channel divinity uses
-function useChannelDivinityUsed(): readonly [number, Dispatch<SetStateAction<number>>] {
+function useChannelDivinityUsed(): StateWithSetter<number> {
   const [channelDivinityUsedStr, setChannelDivinityUsedStr] = useQueryState("channel-divinity-used");
 
-  const currentUsed = channelDivinityUsedStr !== undefined ? parseInt(channelDivinityUsedStr, 10) : 0;
+  const currentUsed = channelDivinityUsedStr !== undefined ? parseInt(channelDivinityUsedStr, 10) : undefined;
 
-  const setUsed = (value: SetStateAction<number>) => {
+  const setUsed = (value: SetStateAction<number | undefined>) => {
     const resolvedValue = typeof value === "function" ? value(currentUsed) : value;
-    setChannelDivinityUsedStr(resolvedValue > 0 ? resolvedValue.toString() : undefined);
+    setChannelDivinityUsedStr(resolvedValue !== undefined ? resolvedValue.toString() : undefined);
   };
 
   return [currentUsed, setUsed];
@@ -60,9 +68,9 @@ function useChannelDivinityUsed(): readonly [number, Dispatch<SetStateAction<num
 // Excludes roll mode which is managed separately via useRollMode
 
 interface CharacterDynamicState {
-  hitPoints: readonly [number | undefined, Dispatch<SetStateAction<number | undefined>>];
-  spellSlotsSpent: readonly [number[], Dispatch<SetStateAction<number[]>>];
-  channelDivinityUsed: readonly [number, Dispatch<SetStateAction<number>>];
+  hitPoints: StateWithSetter<number>;
+  spellSlotsSpent: StateWithSetter<number[]>;
+  channelDivinityUsed: StateWithSetter<number>;
   finishLongRest: () => void;
 }
 
@@ -73,8 +81,8 @@ export function useCharacterDynamicState(): CharacterDynamicState {
 
   const finishLongRest = () => {
     setHitPoints(undefined);
-    setSpellSlotsSpent([]);
-    setChannelDivinityUsed(0);
+    setSpellSlotsSpent(undefined);
+    setChannelDivinityUsed(undefined);
   };
 
   return {

@@ -10,15 +10,17 @@ export default function ChannelDivinityCheckboxes({ maxUses }: Props) {
   const { channelDivinityUsed } = useCharacterDynamicState();
   const [used, setUsed] = channelDivinityUsed;
 
+  const currentUsed = used ?? 0;
+
   const isSlotUsed = (index: number): boolean => {
-    return index < used;
+    return index < currentUsed;
   };
 
   const toggleSlot = (index: number) => {
     // If clicking on an unchecked slot (at or beyond current count), increment by 1
     // If clicking on a checked slot (before current count), decrement by 1
-    const newCount = index < used ? used - 1 : used + 1;
-    setUsed(newCount);
+    const newCount = index < currentUsed ? currentUsed - 1 : currentUsed + 1;
+    setUsed(newCount > 0 ? newCount : undefined);
   };
 
   return (

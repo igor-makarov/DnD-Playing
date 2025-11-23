@@ -12,13 +12,15 @@ export default function SpellSlotsTable({ spellSlots }: Props) {
   const { spellSlotsSpent } = useCharacterDynamicState();
   const [usedCounts, setUsedCounts] = spellSlotsSpent;
 
+  const currentUsedCounts = usedCounts ?? [];
+
   const isSlotUsed = (levelIndex: number, slotIndex: number): boolean => {
-    const count = usedCounts[levelIndex] || 0;
+    const count = currentUsedCounts[levelIndex] || 0;
     return slotIndex < count;
   };
 
   const toggleSlot = (levelIndex: number, slotIndex: number) => {
-    const currentCount = usedCounts[levelIndex] || 0;
+    const currentCount = currentUsedCounts[levelIndex] || 0;
     // If clicking on an unchecked slot (at or beyond current count), increment by 1
     // If clicking on a checked slot (before current count), decrement by 1
     const newCount = slotIndex < currentCount ? currentCount - 1 : currentCount + 1;
@@ -26,7 +28,7 @@ export default function SpellSlotsTable({ spellSlots }: Props) {
     // Update array with new counts
     const newUsedCounts = Array.from({ length: spellSlots.length }, (_, i) => {
       if (i === levelIndex) return newCount;
-      return usedCounts[i] || 0;
+      return currentUsedCounts[i] || 0;
     });
 
     setUsedCounts(newUsedCounts);
