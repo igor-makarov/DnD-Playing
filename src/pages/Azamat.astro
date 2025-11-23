@@ -5,6 +5,7 @@ import SkillsTable from "../components/SkillsTable.astro";
 import SavesTable from "../components/SavesTable.astro";
 import WeaponAttackTable from "../components/WeaponAttackTable.astro";
 import D20TestCell from "../components/common/D20TestCell.tsx";
+import HitPointsInput from "../components/HitPointsInput.tsx";
 import LevelledSpellLevelSelector from "../components/spells/LevelledSpellLevelSelector.tsx";
 import LevelledSpellDamageCell from "../components/spells/LevelledSpellDamageCell.tsx";
 import { DiceString } from "../js/common/DiceString.ts";
@@ -57,7 +58,7 @@ const character = new AzamatCharacter();
           </tr>
           <tr>
             <td style="text-align: center;">
-              <span class="mono">{character.getHitPoints()}</span>
+              <HitPointsInput client:only="react" maxHP={character.getHitPoints()} />
             </td>
           </tr>
         </table>

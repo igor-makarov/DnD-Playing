@@ -1,0 +1,113 @@
+import React, { useState } from "react";
+
+import { useQueryState } from "../hooks/useQueryState";
+
+interface Props {
+  maxHP: number;
+  queryKey?: string;
+}
+
+export default function HitPointsInput({ maxHP, queryKey = "hit-points" }: Props) {
+  const [remainingHP, setRemainingHP] = useQueryState(queryKey);
+  const [isEditing, setIsEditing] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+
+  const currentHP = remainingHP ? parseInt(remainingHP, 10) : maxHP;
+  const displayValue = isEditing ? inputValue : currentHP.toString();
+
+  const handleFocus = () => {
+    setIsEditing(true);
+    setInputValue(currentHP.toString());
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      const newHP = processInput();
+      // Keep focus after Enter, update inputValue to show new HP
+      setInputValue(newHP.toString());
+    } else if (e.key === "Escape") {
+      setIsEditing(false);
+      e.currentTarget.blur();
+    }
+  };
+
+  const handleBlur = () => {
+    processInput();
+    setIsEditing(false);
+  };
+
+  const processInput = (): number => {
+    const trimmed = inputValue.replace(/\s+/g, ""); // Remove all spaces
+
+    // Empty input resets to full HP
+    if (trimmed === "") {
+      setRemainingHP(undefined);
+      return maxHP;
+    }
+
+    // Check for illegal characters (anything that's not 0-9, +, or -)
+    if (/[^0-9+\-]/.test(trimmed)) {
+      // Illegal input - revert to current HP (do nothing)
+      return currentHP;
+    }
+
+    // Try to evaluate as arithmetic expression
+    // Match pattern: number followed by any number of (+/- number) operations
+    const exprMatch = trimmed.match(/^(\d+)((?:[+\-]\d+)+)$/);
+    if (exprMatch) {
+      let result = parseInt(exprMatch[1], 10);
+      const operations = exprMatch[2];
+
+      // Parse and apply each operation
+      const opRegex = /([+\-])(\d+)/g;
+      let match;
+      while ((match = opRegex.exec(operations)) !== null) {
+        const operator = match[1];
+        const operand = parseInt(match[2], 10);
+        result = operator === "+" ? result + operand : result - operand;
+      }
+
+      return updateHP(result);
+    }
+
+    // Otherwise treat as direct number
+    const numValue = parseInt(trimmed, 10);
+    if (!isNaN(numValue)) {
+      return updateHP(numValue);
+    }
+    // If invalid format, just discard the input (current HP remains unchanged)
+    return currentHP;
+  };
+
+  const updateHP = (value: number): number => {
+    // Clamp between 0 and maxHP
+    const clampedValue = Math.max(0, Math.min(maxHP, value));
+
+    if (clampedValue === maxHP) {
+      setRemainingHP(undefined);
+    } else {
+      setRemainingHP(clampedValue.toString());
+    }
+
+    return clampedValue;
+  };
+
+  return (
+    <span className="mono">
+      <input
+        type="text"
+        value={displayValue}
+        onFocus={handleFocus}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        onBlur={handleBlur}
+        style={{ width: "5em", textAlign: "right" }}
+      />{" "}
+      / {maxHP}
+    </span>
+  );
+}
