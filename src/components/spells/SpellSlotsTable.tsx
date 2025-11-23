@@ -2,6 +2,7 @@ import React from "react";
 
 import { useCharacterDynamicState } from "../../hooks/useCharacterDynamicState";
 import type { SpellSlotsForLevel } from "../../js/character/CharacterTypes";
+import CheckboxUsesRow from "../common/CheckboxUsesRow";
 
 interface Props {
   spellSlots: SpellSlotsForLevel[];
@@ -13,17 +14,7 @@ export default function SpellSlotsTable({ spellSlots }: Props) {
 
   const currentSpellSlotsSpent = spellSlotsSpent ?? [];
 
-  const isSlotUsed = (levelIndex: number, slotIndex: number): boolean => {
-    const count = currentSpellSlotsSpent[levelIndex] || 0;
-    return slotIndex < count;
-  };
-
-  const toggleSlot = (levelIndex: number, slotIndex: number) => {
-    const currentCount = currentSpellSlotsSpent[levelIndex] || 0;
-    // If clicking on an unchecked slot (at or beyond current count), increment by 1
-    // If clicking on a checked slot (before current count), decrement by 1
-    const newCount = slotIndex < currentCount ? currentCount - 1 : currentCount + 1;
-
+  const handleChange = (levelIndex: number, newCount: number) => {
     // Update array with new counts
     const newSpellSlotsSpent = Array.from({ length: spellSlots.length }, (_, i) => {
       if (i === levelIndex) return newCount;
@@ -57,9 +48,11 @@ export default function SpellSlotsTable({ spellSlots }: Props) {
               <td>Level {level}</td>
               <td className="checkCell">
                 <span style={{ display: "flex", gap: "4px", justifyContent: "end", paddingInlineEnd: "5px" }}>
-                  {Array.from({ length: slots }, (_, i) => (
-                    <input key={i} type="checkbox" checked={isSlotUsed(levelIndex, i)} onChange={() => toggleSlot(levelIndex, i)} />
-                  ))}
+                  <CheckboxUsesRow
+                    maxUses={slots}
+                    currentUsed={currentSpellSlotsSpent[levelIndex] || 0}
+                    onChange={(newCount) => handleChange(levelIndex, newCount)}
+                  />
                 </span>
               </td>
             </tr>
