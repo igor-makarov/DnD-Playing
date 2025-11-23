@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import { useFinishLongRest } from "../hooks/useFinishLongRest";
 import { useQueryState } from "../hooks/useQueryState";
 
 interface Props {
@@ -11,6 +12,7 @@ export default function HitPointsInput({ maxHP, queryKey = "hit-points" }: Props
   const [remainingHP, setRemainingHP] = useQueryState(queryKey);
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const finishLongRest = useFinishLongRest();
 
   const currentHP = remainingHP ? parseInt(remainingHP, 10) : maxHP;
   const displayValue = isEditing ? inputValue : currentHP.toString();
@@ -97,8 +99,16 @@ export default function HitPointsInput({ maxHP, queryKey = "hit-points" }: Props
   };
 
   return (
-    <span className="mono">
-      <input type="text" value={displayValue} onFocus={handleFocus} onChange={handleChange} onKeyDown={handleKeyDown} onBlur={handleBlur} /> / {maxHP}
+    <span style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+      <span style={{ flex: 1 }} />
+      <span className="mono">
+        <input type="text" value={displayValue} onFocus={handleFocus} onChange={handleChange} onKeyDown={handleKeyDown} onBlur={handleBlur} />
+        &nbsp;/&nbsp;
+        {maxHP}
+      </span>
+      <span style={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
+        <button onClick={finishLongRest}>Long Rest</button>
+      </span>
     </span>
   );
 }
