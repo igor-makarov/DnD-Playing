@@ -3,21 +3,21 @@ import React, { useState } from "react";
 import { useCharacterDynamicState } from "../hooks/useCharacterDynamicState";
 
 interface Props {
-  maxHP: number;
+  hitPointMaximum: number;
 }
 
-export default function HitPointsInput({ maxHP }: Props) {
-  const { hitPoints, finishShortRest, finishLongRest } = useCharacterDynamicState();
-  const [remainingHP, setRemainingHP] = hitPoints;
+export default function HitPointsInput({ hitPointMaximum }: Props) {
+  const { useHitPoints, finishShortRest, finishLongRest } = useCharacterDynamicState();
+  const [hitPoints, setHitPoints] = useHitPoints;
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const currentHP = remainingHP ?? maxHP;
-  const displayValue = isEditing ? inputValue : currentHP.toString();
+  const currentHitPoints = hitPoints ?? hitPointMaximum;
+  const displayValue = isEditing ? inputValue : currentHitPoints.toString();
 
   const handleFocus = () => {
     setIsEditing(true);
-    setInputValue(currentHP.toString());
+    setInputValue(currentHitPoints.toString());
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,9 +26,9 @@ export default function HitPointsInput({ maxHP }: Props) {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      const newHP = processInput();
+      const newHitPoints = processInput();
       // Keep focus after Enter, update inputValue to show new HP
-      setInputValue(newHP.toString());
+      setInputValue(newHitPoints.toString());
     } else if (e.key === "Escape") {
       setIsEditing(false);
       e.currentTarget.blur();
@@ -45,14 +45,14 @@ export default function HitPointsInput({ maxHP }: Props) {
 
     // Empty input resets to full HP
     if (trimmed === "") {
-      setRemainingHP(undefined);
-      return maxHP;
+      setHitPoints(undefined);
+      return hitPointMaximum;
     }
 
     // Check for illegal characters (anything that's not 0-9, +, or -)
     if (/[^0-9+\-]/.test(trimmed)) {
       // Illegal input - revert to current HP (do nothing)
-      return currentHP;
+      return currentHitPoints;
     }
 
     // Try to evaluate as arithmetic expression
@@ -71,26 +71,26 @@ export default function HitPointsInput({ maxHP }: Props) {
         result = operator === "+" ? result + operand : result - operand;
       }
 
-      return updateHP(result);
+      return updateHitPoints(result);
     }
 
     // Otherwise treat as direct number
     const numValue = parseInt(trimmed, 10);
     if (!isNaN(numValue)) {
-      return updateHP(numValue);
+      return updateHitPoints(numValue);
     }
     // If invalid format, just discard the input (current HP remains unchanged)
-    return currentHP;
+    return currentHitPoints;
   };
 
-  const updateHP = (value: number): number => {
-    // Clamp between 0 and maxHP
-    const clampedValue = Math.max(0, Math.min(maxHP, value));
+  const updateHitPoints = (value: number): number => {
+    // Clamp between 0 and max
+    const clampedValue = Math.max(0, Math.min(hitPointMaximum, value));
 
-    if (clampedValue === maxHP) {
-      setRemainingHP(undefined);
+    if (clampedValue === hitPointMaximum) {
+      setHitPoints(undefined);
     } else {
-      setRemainingHP(clampedValue);
+      setHitPoints(clampedValue);
     }
 
     return clampedValue;
@@ -101,7 +101,7 @@ export default function HitPointsInput({ maxHP }: Props) {
       <span className="mono" style={{ flex: 1 }}>
         <input type="text" value={displayValue} onFocus={handleFocus} onChange={handleChange} onKeyDown={handleKeyDown} onBlur={handleBlur} />
         &nbsp;/&nbsp;
-        {maxHP}
+        {hitPointMaximum}
       </span>
       <span style={{ justifyContent: "flex-end" }}>
         <button onClick={finishShortRest}>Short Rest</button>

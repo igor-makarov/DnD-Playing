@@ -68,17 +68,17 @@ function useChannelDivinityUsed(): StateWithSetter<number> {
 // Excludes roll mode which is managed separately via useRollMode
 
 interface CharacterDynamicState {
-  hitPoints: StateWithSetter<number>;
-  spellSlotsSpent: StateWithSetter<number[]>;
-  channelDivinityUsed: StateWithSetter<number>;
+  useHitPoints: StateWithSetter<number>;
+  useSpellSlotsSpent: StateWithSetter<number[]>;
+  useChannelDivinityUsed: StateWithSetter<number>;
   finishShortRest: () => void;
   finishLongRest: () => void;
 }
 
 export function useCharacterDynamicState(): CharacterDynamicState {
-  const [hitPointsValue, setHitPoints] = useHitPoints();
-  const [spellSlotsSpentValue, setSpellSlotsSpent] = useSpellSlotsSpent();
-  const [channelDivinityUsedValue, setChannelDivinityUsed] = useChannelDivinityUsed();
+  const [hitPoints, setHitPoints] = useHitPoints();
+  const [spellSlotsSpent, setSpellSlotsSpent] = useSpellSlotsSpent();
+  const [channelDivinityUsed, setChannelDivinityUsed] = useChannelDivinityUsed();
 
   const finishShortRest = () => {
     setChannelDivinityUsed(undefined);
@@ -91,9 +91,9 @@ export function useCharacterDynamicState(): CharacterDynamicState {
   };
 
   return {
-    hitPoints: [hitPointsValue, setHitPoints],
-    spellSlotsSpent: [spellSlotsSpentValue, setSpellSlotsSpent],
-    channelDivinityUsed: [channelDivinityUsedValue, setChannelDivinityUsed],
+    useHitPoints: [hitPoints, setHitPoints],
+    useSpellSlotsSpent: [spellSlotsSpent, setSpellSlotsSpent],
+    useChannelDivinityUsed: [channelDivinityUsed, setChannelDivinityUsed],
     finishShortRest,
     finishLongRest,
   };

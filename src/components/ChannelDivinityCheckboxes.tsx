@@ -7,8 +7,7 @@ interface Props {
 }
 
 export default function ChannelDivinityCheckboxes({ maxUses }: Props) {
-  const { channelDivinityUsed } = useCharacterDynamicState();
-  const [used, setUsed] = channelDivinityUsed;
+  const [used, setUsed] = useCharacterDynamicState().useChannelDivinityUsed;
 
   const currentUsed = used ?? 0;
 
