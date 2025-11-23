@@ -9,16 +9,14 @@ interface Props {
 const { character } = Astro.props;
 ---
 
-<div class="abilities-container">
-  {
-    character.getAbilityChecks().map(({ ability, check }) => (
-      <div class="ability-item">
-        <span class="mono ability-name">{ability}</span>
-        <span class="mono ability-score">{character.abilityScores[ability]}</span>
-        <span class="checkCell">
-          <D20TestCell client:load roll={check} />
-        </span>
-      </div>
-    ))
-  }
-</div>
+{
+  character.getAbilityChecks().map(({ ability, check }) => (
+    <div class="column ability-item">
+      <span class="mono ability-name">{ability}</span>
+      <span class="mono ability-score">{character.abilityScores[ability]}</span>
+      <span class="checkCell">
+        <D20TestCell client:load roll={check} />
+      </span>
+    </div>
+  ))
+}

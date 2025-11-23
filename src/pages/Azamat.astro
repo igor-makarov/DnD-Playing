@@ -22,13 +22,11 @@ const character = new AzamatCharacter();
     <base target="_blank" />
   </head>
   <body>
-    <div class="row">
-      <div>
-        <AbilitiesTable character={character} />
-      </div>
+    <div class="row six-across">
+      <AbilitiesTable character={character} />
     </div>
-    <div class="row top-bar">
-      <div class="column top-bar">
+    <div class="row four-across">
+      <div class="column">
         <table>
           <tr>
             <th style="text-align: center;">Proficiency Bonus</th>
@@ -40,7 +38,7 @@ const character = new AzamatCharacter();
           </tr>
         </table>
       </div>
-      <div class="column top-bar">
+      <div class="column">
         <table>
           <tr>
             <th style="text-align: center;">AC</th>
@@ -52,7 +50,7 @@ const character = new AzamatCharacter();
           </tr>
         </table>
       </div>
-      <div class="column top-bar">
+      <div class="column">
         <table>
           <tr>
             <th style="text-align: center;">HP</th>
@@ -64,7 +62,7 @@ const character = new AzamatCharacter();
           </tr>
         </table>
       </div>
-      <div class="column top-bar">
+      <div class="column">
         <table>
           <tr>
             <th style="text-align: center;">Initiative</th>
@@ -80,7 +78,7 @@ const character = new AzamatCharacter();
       </div>
     </div>
 
-    <div class="row main">
+    <div class="row three-and-large">
       <div class="column">
         <SkillsTable
           title={'Skills<br><a href="https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230">character sheet</a>'}

@@ -52,15 +52,21 @@ a:visited {
   margin-bottom: 10px;
 }
 
-/* Top bar: 4 equal columns */
-.row.top-bar {
+/* 4 equal columns */
+.row.four-across {
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(4, 1fr);
 }
 
-/* Regular columns: 22% 22% 22% remaining */
-.row.main {
+.row.six-across {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+/* Specialcolumns: 22% 22% 22% remaining */
+.row.three-and-large {
   display: grid;
   gap: 10px;
   grid-template-columns: 22% 22% 22% 1fr;
@@ -75,6 +81,9 @@ a:visited {
 @media screen and (max-width: 600px) {
   .row:has(> .column) {
     grid-template-columns: 1fr;
+  }
+  .row.six-across:has(> .column) {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -104,24 +113,11 @@ tr:nth-child(odd) {
   background-color: #eee;
 }
 
-.abilities-container {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-}
-
-@media screen and (max-width: 600px) {
-  .abilities-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 .ability-item {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   text-align: center;
   background-color: #eee;
+  padding: 10px 0;
 }
 
 .ability-name {
