@@ -8,7 +8,7 @@ interface Props {
   queryKey?: string;
 }
 
-export default function HitPointsInput({ maxHP, queryKey = "hit-points" }: Props) {
+export default function HitPointsInput({ maxHP, queryKey = "hit-points-spent" }: Props) {
   const [remainingHP, setRemainingHP] = useQueryState(queryKey);
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");

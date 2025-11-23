@@ -2,7 +2,7 @@ import { useQueryState } from "./useQueryState";
 
 // Hook to clear multiple query state values (Long Rest functionality)
 
-export function useFinishLongRest(queryKeys: string[] = ["hit-points", "spell-slots"]) {
+export function useFinishLongRest(queryKeys: string[] = ["hit-points-spent", "spell-slots-spent"]) {
   const setters = queryKeys.map((key) => useQueryState(key)[1]);
 
   const longRest = () => {
