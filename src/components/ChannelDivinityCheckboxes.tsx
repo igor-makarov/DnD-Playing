@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useCharacterDynamicState } from "../hooks/useCharacterDynamicState";
+import { useCharacterDynamicState } from "../js/hooks/useCharacterDynamicState";
 import CheckboxUsesRow from "./common/CheckboxUsesRow";
 
 interface Props {

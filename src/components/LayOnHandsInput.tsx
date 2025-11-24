@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useCharacterDynamicState } from "../hooks/useCharacterDynamicState";
+import { useCharacterDynamicState } from "../js/hooks/useCharacterDynamicState";
 import PointsCountInput from "./common/PointsCountInput";
 
 interface Props {

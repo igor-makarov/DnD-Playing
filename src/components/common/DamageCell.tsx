@@ -1,8 +1,8 @@
 import React from "react";
 
-import { useRollMode } from "../../hooks/useRollMode";
-import { RollModifier, useRollModifiers } from "../../hooks/useRollModifiers";
 import { DiceString } from "../../js/common/DiceString";
+import { useRollMode } from "../../js/hooks/useRollMode";
+import { RollModifier, useRollModifiers } from "../../js/hooks/useRollModifiers";
 import { getRollUrl } from "../../js/utils/rollOptions";
 import { withAutoRehydration } from "../../js/utils/withAutoRehydration";
 
