@@ -99,5 +99,6 @@ export type SpellSlotsForLevel = {
 
 export type HitPointRoll = {
   level: number;
+  die: DiceString;
   roll: number; // HP rolled/taken at this level (before any modifiers)
 };

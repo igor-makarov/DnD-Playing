@@ -1,4 +1,5 @@
 import { Character } from "@/js/character/Character.js";
+import { DiceString } from "@/js/common/DiceString";
 
 export default class AdrikCharacter extends Character {
   constructor() {
@@ -27,19 +28,19 @@ export default class AdrikCharacter extends Character {
       ],
       hitPointRolls: [
         // Ranger (D10) levels 1-5
-        { level: 1, roll: 10 },
-        { level: 2, roll: 5 },
-        { level: 3, roll: 9 },
-        { level: 4, roll: 9 },
-        { level: 5, roll: 7 },
+        { level: 1, die: new DiceString("d10"), roll: 10 },
+        { level: 2, die: new DiceString("d10"), roll: 5 },
+        { level: 3, die: new DiceString("d10"), roll: 9 },
+        { level: 4, die: new DiceString("d10"), roll: 9 },
+        { level: 5, die: new DiceString("d10"), roll: 7 },
         // Cleric (D8) levels 6-12
-        { level: 6, roll: 5 },
-        { level: 7, roll: 5 },
-        { level: 8, roll: 5 },
-        { level: 9, roll: 5 },
-        { level: 10, roll: 5 },
-        { level: 11, roll: 5 },
-        { level: 12, roll: 5 },
+        { level: 6, die: new DiceString("d8"), roll: 5 },
+        { level: 7, die: new DiceString("d8"), roll: 5 },
+        { level: 8, die: new DiceString("d8"), roll: 5 },
+        { level: 9, die: new DiceString("d8"), roll: 5 },
+        { level: 10, die: new DiceString("d8"), roll: 5 },
+        { level: 11, die: new DiceString("d8"), roll: 5 },
+        { level: 12, die: new DiceString("d8"), roll: 5 },
       ],
     });
   }
