@@ -1,4 +1,4 @@
-import { kebabNumberArrayCodec, numberCodec, numberMapCodec } from "@/js/stores/primitives/queryCodecs";
+import { kebabNumberArrayCodec, numberCodec } from "@/js/stores/primitives/queryCodecs";
 import { queryAtom, queryMap } from "@/js/stores/primitives/queryStores";
 
 // Query atoms for character dynamic state
