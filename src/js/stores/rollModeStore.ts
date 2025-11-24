@@ -1,4 +1,4 @@
-import { queryAtom } from "@/js/stores/queryStores";
+import { queryAtom } from "@/js/stores/primitives/queryStores";
 
 export type RollMode = "app" | "site";
 

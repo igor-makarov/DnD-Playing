@@ -1,4 +1,4 @@
-import { queryAtom } from "@/js/stores/queryStores";
+import { queryAtom } from "@/js/stores/primitives/queryStores";
 
 // Query atoms for character dynamic state
 export const $hitPoints = queryAtom<number | undefined>("hit-points", undefined, {
