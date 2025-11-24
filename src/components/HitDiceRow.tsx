@@ -1,11 +1,10 @@
 import React from "react";
 
-import CheckboxUsesRow from "@/components/common/CheckboxUsesRow";
 import DamageCell from "@/components/common/DamageCell";
-import { $hitDiceUsed } from "@/js/character/dynamic-state/stores";
+import PointsCountInput from "@/components/common/PointsCountInput";
+import { $hitDice } from "@/js/character/dynamic-state/stores";
 import { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 
 interface Props {
   die: DiceString;
@@ -14,33 +13,34 @@ interface Props {
 }
 
 export default function HitDiceRow({ die, count, conModifier }: Props) {
-  const hitDiceUsed = useStore($hitDiceUsed);
+  const hitDice = useStore($hitDice);
   const dieKey = die.toString();
-  const currentUsed = hitDiceUsed[dieKey] || 0;
+  const available = hitDice[dieKey] ?? count;
 
   const dieWithModifier = new DiceString(die, conModifier);
 
-  const handleChange = (newCount: number) => {
-    $hitDiceUsed.setKey(dieKey, newCount > 0 ? newCount : undefined);
+  const handleChange = (newCount: number | undefined) => {
+    $hitDice.setKey(dieKey, newCount);
   };
 
   const handleDiceClick = () => {
-    if (currentUsed < count) {
-      handleChange(currentUsed + 1);
+    if (available > 0) {
+      handleChange(available - 1);
     }
   };
 
   return (
     <tr>
       <td>
-        <span onClick={handleDiceClick} style={{ cursor: currentUsed < count ? "pointer" : "not-allowed" }}>
-          <DamageCell damageRoll={dieWithModifier} attack={false} />
-        </span>{" "}
-        ({count})
+        <span className="mono">
+          <PointsCountInput maximum={count} current={available} onChange={handleChange} />
+          &nbsp;/&nbsp;
+          {count}
+        </span>
       </td>
       <td className="checkCell">
-        <span style={{ display: "flex", gap: "4px", justifyContent: "end", paddingInlineEnd: "5px" }}>
-          <CheckboxUsesRow maxUses={count} currentUsed={currentUsed} onChange={handleChange} />
+        <span onClick={handleDiceClick} style={{ cursor: available > 0 ? "pointer" : "not-allowed" }}>
+          <DamageCell damageRoll={dieWithModifier} attack={false} />
         </span>
       </td>
     </tr>
