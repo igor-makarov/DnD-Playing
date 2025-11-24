@@ -205,4 +205,31 @@ export class Character {
 
     return total;
   }
+
+  getHitDice(): Array<{ die: DiceString; count: number }> {
+    // Group hit dice by their sides
+    const diceMap = new Map<string, number>();
+
+    for (const rollData of this.hitPointRolls) {
+      const dieString = rollData.die.toString();
+      const current = diceMap.get(dieString) || 0;
+      diceMap.set(dieString, current + 1);
+    }
+
+    // Convert to array and sort by die size (descending)
+    const result: Array<{ die: DiceString; count: number }> = [];
+    for (const [dieString, count] of diceMap.entries()) {
+      result.push({ die: new DiceString(dieString), count });
+    }
+
+    // Sort by die size (largest first)
+    result.sort((a, b) => {
+      // Extract die size from string (e.g., "d10" -> 10)
+      const aSides = parseInt(a.die.toString().substring(1));
+      const bSides = parseInt(b.die.toString().substring(1));
+      return bSides - aSides;
+    });
+
+    return result;
+  }
 }

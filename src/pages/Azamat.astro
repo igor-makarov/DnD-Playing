@@ -9,6 +9,7 @@ import HitPointsInput from "@/components/HitPointsInput.tsx";
 import SpellSlotsTable from "@/components/spells/SpellSlotsTable.tsx";
 import ChannelDivinityCheckboxes from "@/components/ChannelDivinityCheckboxes.tsx";
 import LayOnHandsInput from "@/components/LayOnHandsInput.tsx";
+import HitDiceTable from "@/components/HitDiceTable.tsx";
 
 import { DiceString } from "@/js/common/DiceString.ts";
 import AzamatCharacter from "@/js/characters/AzamatCharacter";
@@ -128,6 +129,7 @@ const character = new AzamatCharacter();
       </div>
       <div class="column features">
         <SpellSlotsTable client:load spellSlots={character.getSpellSlots()} />
+        <HitDiceTable client:load hitDice={character.getHitDice()} conModifier={character.getAbilityModifier("Con")} />
         <table>
           <tr>
             <th colspan="2" style="text-align: center;">Features</th>
