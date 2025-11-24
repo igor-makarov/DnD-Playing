@@ -24,10 +24,19 @@ export default function HitDiceRow({ die, count, conModifier }: Props) {
     $hitDiceUsed.setKey(dieKey, newCount > 0 ? newCount : undefined);
   };
 
+  const handleDiceClick = () => {
+    if (currentUsed < count) {
+      handleChange(currentUsed + 1);
+    }
+  };
+
   return (
     <tr>
       <td>
-        <DamageCell damageRoll={dieWithModifier} attack={false} /> ({count})
+        <span onClick={handleDiceClick} style={{ cursor: currentUsed < count ? "pointer" : "not-allowed" }}>
+          <DamageCell damageRoll={dieWithModifier} attack={false} />
+        </span>{" "}
+        ({count})
       </td>
       <td className="checkCell">
         <span style={{ display: "flex", gap: "4px", justifyContent: "end", paddingInlineEnd: "5px" }}>
