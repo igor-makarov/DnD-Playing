@@ -11,4 +11,4 @@ export const $channelDivinityUsed = queryAtom<number | undefined>("channel-divin
 export const $layOnHands = queryAtom<number | undefined>("lay-on-hands", undefined, numberCodec);
 
 // Map from die type (e.g., "d10", "d8") to number of dice used
-export const $hitDiceUsed = queryMap<number>("hit-dice-used-", {}, numberMapCodec);
+export const $hitDiceUsed = queryMap<number | undefined>("hit-dice-used-", {}, numberCodec);

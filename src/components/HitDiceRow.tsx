@@ -20,10 +20,8 @@ export default function HitDiceRow({ die, count, conModifier }: Props) {
 
   const dieWithModifier = new DiceString(die, conModifier);
 
-  const handleChange = (newUsed: number) => {
-    console.log("dieKey", dieKey);
-    console.log("newUsed", newUsed);
-    $hitDiceUsed.setKey(dieKey, newUsed);
+  const handleChange = (newCount: number) => {
+    $hitDiceUsed.setKey(dieKey, newCount > 0 ? newCount : undefined);
   };
 
   return (

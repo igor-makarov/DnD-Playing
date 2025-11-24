@@ -91,16 +91,16 @@ export function queryAtom<T>(name: string, initial: T, opts: QueryAtomOptions<T>
 }
 
 export interface QueryMapOptions<T, S = string> {
-  encode?: (value: T) => S;
+  encode?: (value: T) => S | undefined;
   decode?: (value: S) => T;
   listen?: boolean;
 }
 
-export function queryMap<T>(prefix: string, initial: Record<string, T> = {}, opts: QueryMapOptions<T> = {}) {
-  let encode = opts.encode || (identity as (value: T) => string);
+export function queryMap<T>(prefix: string, initial: Record<string, T | undefined> = {}, opts: QueryMapOptions<T> = {}) {
+  let encode = opts.encode || (identity as (value: T) => string | undefined);
   let decode = opts.decode || (identity as (value: string) => T);
 
-  let store = map<Record<string, T>>();
+  let store = map<Record<string, T | undefined>>();
 
   let setKey = store.setKey;
   let storeKey = (key: string, newValue: T | undefined) => {
@@ -108,7 +108,12 @@ export function queryMap<T>(prefix: string, initial: Record<string, T> = {}, opt
     if (typeof newValue === "undefined") {
       params.delete(prefix + key);
     } else {
-      params.set(prefix + key, encode(newValue));
+      let encoded = encode(newValue);
+      if (typeof encoded === "undefined") {
+        params.delete(prefix + key);
+      } else {
+        params.set(prefix + key, encoded);
+      }
     }
     updateURL(params);
   };
@@ -119,12 +124,22 @@ export function queryMap<T>(prefix: string, initial: Record<string, T> = {}, opt
   };
 
   let set = store.set;
-  store.set = function (newObject: Record<string, T>) {
+  store.set = function (newObject: Record<string, T | undefined>) {
     let params = getParams();
 
     // Set new values
     for (let key in newObject) {
-      params.set(prefix + key, encode(newObject[key]));
+      let value = newObject[key];
+      if (typeof value === "undefined") {
+        params.delete(prefix + key);
+      } else {
+        let encoded = encode(value);
+        if (typeof encoded === "undefined") {
+          params.delete(prefix + key);
+        } else {
+          params.set(prefix + key, encoded);
+        }
+      }
     }
 
     // Remove old values
@@ -140,7 +155,7 @@ export function queryMap<T>(prefix: string, initial: Record<string, T> = {}, opt
 
   function listener() {
     let params = getParams();
-    let data: Record<string, T> = {};
+    let data: Record<string, T | undefined> = {};
 
     for (let [key, value] of params.entries()) {
       if (key.startsWith(prefix)) {
@@ -163,7 +178,7 @@ export function queryMap<T>(prefix: string, initial: Record<string, T> = {}, opt
 
   function restore() {
     let params = getParams();
-    let data: Record<string, T> = { ...initial };
+    let data: Record<string, T | undefined> = { ...initial };
 
     for (let [key, value] of params.entries()) {
       if (key.startsWith(prefix)) {
