@@ -1,12 +1,10 @@
 import { queryAtom } from "@/js/stores/primitives/queryStores";
 
+import { closedStringCodec } from "./primitives/queryCodecs";
+
 export type RollMode = "app" | "site";
 
-// Create the store with default "app", and encode to remove from URL when set to "app"
-export const rollModeStore = queryAtom<RollMode>("roll", "app", {
-  encode: (value) => (value === "app" ? undefined : value),
-  decode: (str) => (str as RollMode) ?? "app",
-});
+export const rollModeStore = queryAtom<RollMode>("roll", "app", closedStringCodec(["app", "site"]));
 
 // Initialize keydown event listener once
 let initialized = false;
