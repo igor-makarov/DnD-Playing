@@ -1,19 +1,48 @@
+import { useStore } from "@nanostores/react";
+
 import { type Dispatch, type SetStateAction } from "react";
 
-import { useQueryState } from "./useQueryState";
+import { queryAtom } from "../stores/queryStores";
+
+// Query atoms for character dynamic state
+const $hitPoints = queryAtom<number | undefined>("hit-points", undefined, {
+  encode: (value) => (value !== undefined ? value.toString() : undefined),
+  decode: (str) => parseInt(str, 10),
+});
+
+const $spellSlotsSpent = queryAtom<number[] | undefined>("spell-slots-spent", undefined, {
+  encode: (value) => {
+    if (value === undefined) return undefined;
+    // Trim trailing zeros
+    const trimmed = [...value];
+    while (trimmed.length > 0 && trimmed[trimmed.length - 1] === 0) {
+      trimmed.pop();
+    }
+    return trimmed.length > 0 ? trimmed.join("-") : undefined;
+  },
+  decode: (str) => str.split("-").map((n: string) => parseInt(n, 10) || 0),
+});
+
+const $channelDivinityUsed = queryAtom<number | undefined>("channel-divinity-used", undefined, {
+  encode: (value) => (value !== undefined ? value.toString() : undefined),
+  decode: (str) => parseInt(str, 10),
+});
+
+const $layOnHands = queryAtom<number | undefined>("lay-on-hands", undefined, {
+  encode: (value) => (value !== undefined ? value.toString() : undefined),
+  decode: (str) => parseInt(str, 10),
+});
 
 // Generic type for state tuple with optional values
 type StateWithSetter<T> = readonly [T | undefined, Dispatch<SetStateAction<T | undefined>>];
 
 // Sub-hook for managing hit points
 function useHitPoints(): StateWithSetter<number> {
-  const [hitPointsStr, setHitPointsStr] = useQueryState("hit-points");
-
-  const currentHP = hitPointsStr !== undefined ? parseInt(hitPointsStr, 10) : undefined;
+  const currentHP = useStore($hitPoints);
 
   const setHP = (value: SetStateAction<number | undefined>) => {
     const resolvedValue = typeof value === "function" ? value(currentHP) : value;
-    setHitPointsStr(resolvedValue !== undefined ? resolvedValue.toString() : undefined);
+    $hitPoints.set(resolvedValue);
   };
 
   return [currentHP, setHP];
@@ -26,25 +55,11 @@ function useHitPoints(): StateWithSetter<number> {
 // - Trailing zeros are automatically trimmed when saving (e.g., [1, 2, 0] -> "1-2")
 // - Array indices correspond to spell levels (index 0 = level 1, index 1 = level 2, etc.)
 function useSpellSlotsSpent(): StateWithSetter<number[]> {
-  const [spellSlotsSpentStr, setSpellSlotsSpentStr] = useQueryState("spell-slots-spent");
-
-  const currentArray = spellSlotsSpentStr ? spellSlotsSpentStr.split("-").map((n) => parseInt(n, 10) || 0) : undefined;
+  const currentArray = useStore($spellSlotsSpent);
 
   const setSlots = (value: SetStateAction<number[] | undefined>) => {
     const resolvedValue = typeof value === "function" ? value(currentArray) : value;
-
-    if (resolvedValue === undefined) {
-      setSpellSlotsSpentStr(undefined);
-      return;
-    }
-
-    // Trim trailing zeros
-    const trimmed = [...resolvedValue];
-    while (trimmed.length > 0 && trimmed[trimmed.length - 1] === 0) {
-      trimmed.pop();
-    }
-
-    setSpellSlotsSpentStr(trimmed.length > 0 ? trimmed.join("-") : undefined);
+    $spellSlotsSpent.set(resolvedValue);
   };
 
   return [currentArray, setSlots];
@@ -52,13 +67,11 @@ function useSpellSlotsSpent(): StateWithSetter<number[]> {
 
 // Sub-hook for managing channel divinity uses
 function useChannelDivinityUsed(): StateWithSetter<number> {
-  const [channelDivinityUsedStr, setChannelDivinityUsedStr] = useQueryState("channel-divinity-used");
-
-  const currentUsed = channelDivinityUsedStr !== undefined ? parseInt(channelDivinityUsedStr, 10) : undefined;
+  const currentUsed = useStore($channelDivinityUsed);
 
   const setUsed = (value: SetStateAction<number | undefined>) => {
     const resolvedValue = typeof value === "function" ? value(currentUsed) : value;
-    setChannelDivinityUsedStr(resolvedValue !== undefined ? resolvedValue.toString() : undefined);
+    $channelDivinityUsed.set(resolvedValue);
   };
 
   return [currentUsed, setUsed];
@@ -66,13 +79,11 @@ function useChannelDivinityUsed(): StateWithSetter<number> {
 
 // Sub-hook for managing Lay on Hands points remaining
 function useLayOnHands(): StateWithSetter<number> {
-  const [layOnHandsStr, setLayOnHandsStr] = useQueryState("lay-on-hands");
-
-  const currentPoints = layOnHandsStr !== undefined ? parseInt(layOnHandsStr, 10) : undefined;
+  const currentPoints = useStore($layOnHands);
 
   const setPoints = (value: SetStateAction<number | undefined>) => {
     const resolvedValue = typeof value === "function" ? value(currentPoints) : value;
-    setLayOnHandsStr(resolvedValue !== undefined ? resolvedValue.toString() : undefined);
+    $layOnHands.set(resolvedValue);
   };
 
   return [currentPoints, setPoints];
