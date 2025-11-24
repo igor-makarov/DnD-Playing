@@ -1,6 +1,8 @@
-import { useStore } from "@/js/hooks/useStore";
+import { useSyncExternalStore } from "react";
+
 import { rollModeStore } from "@/js/stores/rollModeStore";
 
 export function useRollMode() {
-  return useStore(rollModeStore);
+  // *somehow*, we still cannot use our `useStore` here
+  return useSyncExternalStore(rollModeStore.subscribe, rollModeStore.get, () => "app")
 }
