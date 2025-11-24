@@ -24,4 +24,5 @@ export default function ComponentName({ ... }: Props) {
 }
 ```
 
-- `useEffect` should not be the first go-to - look for other, better structured alternatives
+- `useEffect` should not be the first go-to - YOU MUST look for other, better structured alternatives
+- `useStore` to interact with nanostores - custom impl in `@/js/hooks/useStore`

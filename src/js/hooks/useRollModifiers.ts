@@ -1,5 +1,6 @@
-import { useStore } from "@nanostores/react";
 import { atom } from "nanostores";
+
+import { useStore } from "@/js/hooks/useStore";
 
 // Enum for roll modifier types
 export enum RollModifier {
@@ -68,7 +69,7 @@ function initializeEventListeners() {
 // Hook to use roll modifiers
 export function useRollModifiers() {
   initializeEventListeners();
-  const modifier = useStore(rollModifierStore);
+  const modifier = useStore(rollModifierStore, RollModifier.NONE);
 
   const resetModifiers = () => {
     rollModifierStore.set(RollModifier.NONE);

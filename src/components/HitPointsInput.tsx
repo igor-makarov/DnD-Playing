@@ -1,9 +1,8 @@
-import { useStore } from "@nanostores/react";
-
 import React from "react";
 
 import { finishLongRest, finishShortRest } from "@/js/character/dynamic-state/rests";
 import { $hitPoints } from "@/js/character/dynamic-state/stores";
+import { useStore } from "@/js/hooks/useStore";
 
 import PointsCountInput from "./common/PointsCountInput";
 
@@ -12,7 +11,7 @@ interface Props {
 }
 
 export default function HitPointsInput({ hitPointMaximum }: Props) {
-  const hitPoints = useStore($hitPoints);
+  const hitPoints = useStore($hitPoints, undefined);
 
   return (
     <span style={{ display: "flex", alignItems: "center" }}>

@@ -1,9 +1,8 @@
-import { useStore } from "@nanostores/react";
-
 import React from "react";
 
 import DamageCell from "@/components/common/DamageCell";
 import type { DiceString } from "@/js/common/DiceString";
+import { useStore } from "@/js/hooks/useStore";
 import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 import { spellLevelStore } from "@/stores/spellLevelStore";
 
@@ -13,7 +12,7 @@ interface Props {
 }
 
 export default withAutoRehydration(function LevelledSpellDamageCell({ spellName, initialDamageRoll }: Props) {
-  const spellData = useStore(spellLevelStore);
+  const spellData = useStore(spellLevelStore, {});
   // Use store value if available, otherwise fall back to initial value
   // This ensures SSR and initial client render are consistent
   const damageRoll = spellData[spellName]?.damageRoll ?? initialDamageRoll;

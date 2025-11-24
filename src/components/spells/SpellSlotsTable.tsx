@@ -1,10 +1,9 @@
-import { useStore } from "@nanostores/react";
-
 import React from "react";
 
 import CheckboxUsesRow from "@/components/common/CheckboxUsesRow";
 import type { SpellSlotsForLevel } from "@/js/character/CharacterTypes";
 import { $spellSlotsSpent } from "@/js/character/dynamic-state/stores";
+import { useStore } from "@/js/hooks/useStore";
 
 interface Props {
   spellSlots: SpellSlotsForLevel[];
@@ -12,7 +11,7 @@ interface Props {
 }
 
 export default function SpellSlotsTable({ spellSlots }: Props) {
-  const spellSlotsSpent = useStore($spellSlotsSpent);
+  const spellSlotsSpent = useStore($spellSlotsSpent, undefined);
 
   const currentSpellSlotsSpent = spellSlotsSpent ?? [];
 
