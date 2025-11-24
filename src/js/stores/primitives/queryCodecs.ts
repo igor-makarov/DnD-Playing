@@ -24,9 +24,11 @@ export const kebabNumberArrayCodec: QueryAtomOptions<number[] | undefined> = {
 };
 
 // Create the store with default first string, and encode to remove from URL when set to first string
-export function closedStringCodec<T extends string>(list: T[]): QueryAtomOptions<T> {
+export function closedStringCodec<const T extends readonly string[]>(
+  list: T & (T extends readonly [infer _First, ...infer _Rest] ? unknown : never),
+): QueryAtomOptions<T[number]> {
   return {
     encode: (value) => (value == list[0] ? undefined : value),
-    decode: (str) => (str in list ? (str as T) : list[0]),
+    decode: (str) => (list.includes(str) ? (str as T[number]) : list[0]),
   };
 }
