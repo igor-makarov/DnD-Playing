@@ -12,7 +12,7 @@ export enum RollModifier {
 }
 
 // Create the nanostore atom
-export const rollModifierStore = atom<RollModifier>(RollModifier.NONE);
+export const $rollModifierStore = atom<RollModifier>(RollModifier.NONE);
 
 // Initialize event listeners once
 let initialized = false;
@@ -35,14 +35,14 @@ function initializeEventListeners() {
       newState = RollModifier.CRITICAL;
     }
 
-    if (newState !== null && rollModifierStore.get() !== newState) {
-      rollModifierStore.set(newState);
+    if (newState !== null && $rollModifierStore.get() !== newState) {
+      $rollModifierStore.set(newState);
     }
   };
 
   const handleKeyUp = (e: KeyboardEvent) => {
     const key = e.key.toLowerCase();
-    const currentState = rollModifierStore.get();
+    const currentState = $rollModifierStore.get();
     const shouldReset =
       (key === "a" && currentState === RollModifier.ADVANTAGE) ||
       (key === "d" && currentState === RollModifier.DISADVANTAGE) ||
@@ -50,14 +50,14 @@ function initializeEventListeners() {
       (key === "c" && currentState === RollModifier.CRITICAL);
 
     if (shouldReset) {
-      rollModifierStore.set(RollModifier.NONE);
+      $rollModifierStore.set(RollModifier.NONE);
     }
   };
 
   const handleFocus = () => {
     // Reset modifier state when page regains focus
-    if (rollModifierStore.get() !== RollModifier.NONE) {
-      rollModifierStore.set(RollModifier.NONE);
+    if ($rollModifierStore.get() !== RollModifier.NONE) {
+      $rollModifierStore.set(RollModifier.NONE);
     }
   };
 
@@ -69,10 +69,10 @@ function initializeEventListeners() {
 // Hook to use roll modifiers
 export function useRollModifiers() {
   initializeEventListeners();
-  const modifier = useStore(rollModifierStore, RollModifier.NONE);
+  const modifier = useStore($rollModifierStore, RollModifier.NONE);
 
   const resetModifiers = () => {
-    rollModifierStore.set(RollModifier.NONE);
+    $rollModifierStore.set(RollModifier.NONE);
   };
 
   return { modifier, resetModifiers };
