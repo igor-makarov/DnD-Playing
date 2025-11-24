@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function LayOnHandsInput({ layOnHandsMaximum }: Props) {
-  const layOnHands = useStore($layOnHands, undefined);
+  const layOnHands = useStore($layOnHands);
 
   return (
     <span className="mono">

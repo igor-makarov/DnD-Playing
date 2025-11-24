@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function HitPointsInput({ hitPointMaximum }: Props) {
-  const hitPoints = useStore($hitPoints, undefined);
+  const hitPoints = useStore($hitPoints);
 
   return (
     <span style={{ display: "flex", alignItems: "center" }}>

@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default withAutoRehydration(function LevelledSpellDamageCell({ spellName, initialDamageRoll }: Props) {
-  const spellData = useStore($spellLevelStore, {});
+  const spellData = useStore($spellLevelStore);
   // Use store value if available, otherwise fall back to initial value
   // This ensures SSR and initial client render are consistent
   const damageRoll = spellData[spellName]?.damageRoll ?? initialDamageRoll;

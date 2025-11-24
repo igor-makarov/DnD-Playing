@@ -18,7 +18,7 @@ interface Props {
 }
 
 export default withAutoRehydration(function LevelledSpellLevelSelector({ spellName, options, optional = false }: Props) {
-  const spellData = useStore($spellLevelStore, {});
+  const spellData = useStore($spellLevelStore);
 
   // Initialize store with first option if spell not yet set
   if (!spellData[spellName] && options[0]) {

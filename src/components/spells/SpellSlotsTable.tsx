@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function SpellSlotsTable({ spellSlots }: Props) {
-  const spellSlotsSpent = useStore($spellSlotsSpent, undefined);
+  const spellSlotsSpent = useStore($spellSlotsSpent);
 
   const currentSpellSlotsSpent = spellSlotsSpent ?? [];
 

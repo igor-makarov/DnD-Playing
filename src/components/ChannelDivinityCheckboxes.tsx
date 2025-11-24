@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function ChannelDivinityCheckboxes({ maxUses }: Props) {
-  const used = useStore($channelDivinityUsed, undefined);
+  const used = useStore($channelDivinityUsed);
 
   const currentUsed = used ?? 0;
 
