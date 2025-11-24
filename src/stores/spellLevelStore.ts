@@ -7,4 +7,4 @@ export interface SpellSelection {
   damageRoll: DiceString;
 }
 
-export const spellLevelStore = map<Record<string, SpellSelection>>({});
+export const $spellLevelStore = map<Record<string, SpellSelection>>({});

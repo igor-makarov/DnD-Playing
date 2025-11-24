@@ -4,7 +4,7 @@ import LevelDamageSelector from "@/components/common/LevelDamageSelector";
 import type { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";
 import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
-import { spellLevelStore } from "@/stores/spellLevelStore";
+import { $spellLevelStore } from "@/stores/spellLevelStore";
 
 interface LevelOption {
   level: number;
@@ -18,11 +18,11 @@ interface Props {
 }
 
 export default withAutoRehydration(function LevelledSpellLevelSelector({ spellName, options, optional = false }: Props) {
-  const spellData = useStore(spellLevelStore, {});
+  const spellData = useStore($spellLevelStore, {});
 
   // Initialize store with first option if spell not yet set
   if (!spellData[spellName] && options[0]) {
-    spellLevelStore.setKey(spellName, {
+    $spellLevelStore.setKey(spellName, {
       level: options[0].level,
       damageRoll: options[0].damage,
     });
@@ -33,7 +33,7 @@ export default withAutoRehydration(function LevelledSpellLevelSelector({ spellNa
   const handleLevelChange = (level: number) => {
     const option = options.find((opt) => opt.level === level);
     if (option) {
-      spellLevelStore.setKey(spellName, { level, damageRoll: option.damage });
+      $spellLevelStore.setKey(spellName, { level, damageRoll: option.damage });
     }
   };
 
