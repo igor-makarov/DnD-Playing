@@ -1,6 +1,8 @@
+import { useStore } from "@nanostores/react";
+
 import React from "react";
 
-import { useCharacterDynamicState } from "../js/hooks/useCharacterDynamicState";
+import { $channelDivinityUsed } from "../js/character/dynamic-state/stores";
 import CheckboxUsesRow from "./common/CheckboxUsesRow";
 
 interface Props {
@@ -8,12 +10,12 @@ interface Props {
 }
 
 export default function ChannelDivinityCheckboxes({ maxUses }: Props) {
-  const [used, setUsed] = useCharacterDynamicState().useChannelDivinityUsed;
+  const used = useStore($channelDivinityUsed);
 
   const currentUsed = used ?? 0;
 
   const handleChange = (newCount: number) => {
-    setUsed(newCount > 0 ? newCount : undefined);
+    $channelDivinityUsed.set(newCount > 0 ? newCount : undefined);
   };
 
   return (
