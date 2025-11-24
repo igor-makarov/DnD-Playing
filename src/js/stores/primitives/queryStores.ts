@@ -90,18 +90,6 @@ export function queryAtom<T>(name: string, initial: T, opts: QueryAtomOptions<T>
   return store;
 }
 
-export function queryBoolean(key: string, initial = false, opts: QueryAtomOptions<boolean> = {}) {
-  return queryAtom(key, initial, {
-    ...opts,
-    decode(str: string) {
-      return str === "yes";
-    },
-    encode(value: boolean) {
-      return value ? "yes" : undefined;
-    },
-  });
-}
-
 export interface QueryMapOptions<T, S = string> {
   encode?: (value: T) => S;
   decode?: (value: S) => T;
