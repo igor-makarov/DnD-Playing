@@ -12,10 +12,8 @@ interface Props {
 }
 
 export default withAutoRehydration(function D20TestCell({ roll, advantage = false }: Props) {
-  const [rollMode] = useRollMode();
+  const rollMode = useRollMode();
   const { modifier } = useRollModifiers();
-
-  const diceAppKey = rollMode || "app";
 
   const bonus = roll.getBonus();
   const diceString = roll.getDiceString();
@@ -30,9 +28,9 @@ export default withAutoRehydration(function D20TestCell({ roll, advantage = fals
   })();
 
   const rollUrls = {
-    [RollModifier.ADVANTAGE]: getRollUrl(diceString, diceAppKey, { advantage: true }),
-    [RollModifier.DISADVANTAGE]: getRollUrl(diceString, diceAppKey, { disadvantage: true }),
-    [RollModifier.REGULAR]: getRollUrl(diceString, diceAppKey),
+    [RollModifier.ADVANTAGE]: getRollUrl(diceString, rollMode, { advantage: true }),
+    [RollModifier.DISADVANTAGE]: getRollUrl(diceString, rollMode, { disadvantage: true }),
+    [RollModifier.REGULAR]: getRollUrl(diceString, rollMode),
   };
 
   const currentCaption = {

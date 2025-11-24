@@ -1,5 +1,7 @@
-import { useQueryState } from "./useQueryState";
+import { useSyncExternalStore } from "react";
 
-export function useRollMode(): ["app" | "site" | undefined, (value: "app" | "site" | undefined) => void] {
-  return useQueryState<"app" | "site">("roll");
+import { type RollMode, rollModeStore } from "./rollModeStore";
+
+export function useRollMode() {
+  return useSyncExternalStore<RollMode>(rollModeStore.subscribe, rollModeStore.get, () => "app");
 }

@@ -12,16 +12,14 @@ interface Props {
 }
 
 export default withAutoRehydration(function DamageCell({ damageRoll, attack }: Props) {
-  const [rollMode] = useRollMode();
+  const rollMode = useRollMode();
   const { modifier } = useRollModifiers();
-
-  const diceAppKey = rollMode || "app";
 
   const critRoll = damageRoll.crit();
 
   const rollUrls = {
-    [RollModifier.REGULAR]: getRollUrl(damageRoll, diceAppKey),
-    [RollModifier.CRITICAL]: getRollUrl(critRoll, diceAppKey),
+    [RollModifier.REGULAR]: getRollUrl(damageRoll, rollMode),
+    [RollModifier.CRITICAL]: getRollUrl(critRoll, rollMode),
   };
 
   const currentRoll = attack && modifier === RollModifier.CRITICAL ? critRoll : damageRoll;

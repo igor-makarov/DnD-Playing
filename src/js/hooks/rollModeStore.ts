@@ -1,6 +1,6 @@
 import { queryAtom } from "@/js/stores/queryStores";
 
-type RollMode = "app" | "site";
+export type RollMode = "app" | "site";
 
 // Create the store with default "app", and encode to remove from URL when set to "app"
 export const rollModeStore = queryAtom<RollMode>("roll", "app", {
