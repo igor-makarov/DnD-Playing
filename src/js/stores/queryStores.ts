@@ -16,7 +16,7 @@ export function subscribeToQueryString(callback: () => void) {
 
 // Get current query string
 function getSnapshot() {
-  if (typeof window === "undefined") return undefined;
+  if (typeof window === "undefined") return "";
   return window.location.search;
 }
 
