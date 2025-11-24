@@ -1,5 +1,5 @@
-import type { DamageAddonData, WeaponAttackData } from "../../js/character/WeaponAttackTypes";
-import { DiceString } from "../../js/common/DiceString";
+import type { DamageAddonData, WeaponAttackData } from "@/js/character/WeaponAttackTypes";
+import { DiceString } from "@/js/common/DiceString";
 
 // State type
 export type WeaponState = {

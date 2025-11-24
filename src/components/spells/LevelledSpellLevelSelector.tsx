@@ -2,10 +2,10 @@ import { useStore } from "@nanostores/react";
 
 import React from "react";
 
-import type { DiceString } from "../../js/common/DiceString";
-import { withAutoRehydration } from "../../js/utils/withAutoRehydration";
-import { spellLevelStore } from "../../stores/spellLevelStore";
-import LevelDamageSelector from "../common/LevelDamageSelector";
+import LevelDamageSelector from "@/components/common/LevelDamageSelector";
+import type { DiceString } from "@/js/common/DiceString";
+import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
+import { spellLevelStore } from "@/stores/spellLevelStore";
 
 interface LevelOption {
   level: number;

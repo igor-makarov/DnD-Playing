@@ -2,8 +2,9 @@ import { useStore } from "@nanostores/react";
 
 import React from "react";
 
-import { finishLongRest, finishShortRest } from "../js/character/dynamic-state/rests";
-import { $hitPoints } from "../js/character/dynamic-state/stores";
+import { finishLongRest, finishShortRest } from "@/js/character/dynamic-state/rests";
+import { $hitPoints } from "@/js/character/dynamic-state/stores";
+
 import PointsCountInput from "./common/PointsCountInput";
 
 interface Props {

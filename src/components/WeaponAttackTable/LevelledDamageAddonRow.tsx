@@ -1,9 +1,9 @@
 import React from "react";
 
-import type { LevelledDamage } from "../../js/character/DamageTypes";
-import type { DamageAddonData } from "../../js/character/WeaponAttackTypes";
-import type { DiceString } from "../../js/common/DiceString";
-import LevelDamageSelector from "../common/LevelDamageSelector";
+import LevelDamageSelector from "@/components/common/LevelDamageSelector";
+import type { LevelledDamage } from "@/js/character/DamageTypes";
+import type { DamageAddonData } from "@/js/character/WeaponAttackTypes";
+import type { DiceString } from "@/js/common/DiceString";
 
 interface Props {
   addon: DamageAddonData & { damage: LevelledDamage };

@@ -1,6 +1,6 @@
 import { map } from "nanostores";
 
-import type { DiceString } from "../js/common/DiceString";
+import type { DiceString } from "@/js/common/DiceString";
 
 export interface SpellSelection {
   level: number;

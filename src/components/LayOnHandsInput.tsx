@@ -2,7 +2,8 @@ import { useStore } from "@nanostores/react";
 
 import React from "react";
 
-import { $layOnHands } from "../js/character/dynamic-state/stores";
+import { $layOnHands } from "@/js/character/dynamic-state/stores";
+
 import PointsCountInput from "./common/PointsCountInput";
 
 interface Props {

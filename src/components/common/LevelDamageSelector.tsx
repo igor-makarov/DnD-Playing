@@ -1,7 +1,8 @@
 import React from "react";
 
-import type { DiceString } from "../../js/common/DiceString";
-import { withAutoRehydration } from "../../js/utils/withAutoRehydration";
+import type { DiceString } from "@/js/common/DiceString";
+import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
+
 import TinyDropdown from "./TinyDropdown";
 
 interface LevelOption {

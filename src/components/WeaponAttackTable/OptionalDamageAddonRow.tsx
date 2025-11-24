@@ -1,7 +1,7 @@
 import React from "react";
 
-import type { OptionalDamage } from "../../js/character/DamageTypes";
-import type { DamageAddonData } from "../../js/character/WeaponAttackTypes";
+import type { OptionalDamage } from "@/js/character/DamageTypes";
+import type { DamageAddonData } from "@/js/character/WeaponAttackTypes";
 
 interface Props {
   addon: DamageAddonData & { damage: OptionalDamage };

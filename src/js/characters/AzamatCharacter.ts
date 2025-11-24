@@ -1,7 +1,7 @@
-import { Character } from "../character/Character";
-import type { SavingThrow, SpellSlotsForLevel } from "../character/CharacterTypes";
-import { D20Test } from "../common/D20Test";
-import { DiceString } from "../common/DiceString";
+import { Character } from "@/js/character/Character";
+import type { SavingThrow, SpellSlotsForLevel } from "@/js/character/CharacterTypes";
+import { D20Test } from "@/js/common/D20Test";
+import { DiceString } from "@/js/common/DiceString";
 
 export default class AzamatCharacter extends Character {
   constructor() {

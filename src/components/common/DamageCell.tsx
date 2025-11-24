@@ -1,10 +1,10 @@
 import React from "react";
 
-import { DiceString } from "../../js/common/DiceString";
-import { useRollMode } from "../../js/hooks/useRollMode";
-import { RollModifier, useRollModifiers } from "../../js/hooks/useRollModifiers";
-import { getRollUrl } from "../../js/utils/rollOptions";
-import { withAutoRehydration } from "../../js/utils/withAutoRehydration";
+import { DiceString } from "@/js/common/DiceString";
+import { useRollMode } from "@/js/hooks/useRollMode";
+import { RollModifier, useRollModifiers } from "@/js/hooks/useRollModifiers";
+import { getRollUrl } from "@/js/utils/rollOptions";
+import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 
 interface Props {
   damageRoll: DiceString;

@@ -1,7 +1,7 @@
 import React from "react";
 
-import type { DiceString } from "../../js/common/DiceString";
-import DamageCell from "../common/DamageCell";
+import DamageCell from "@/components/common/DamageCell";
+import type { DiceString } from "@/js/common/DiceString";
 
 interface Props {
   totalDamage: DiceString | null;

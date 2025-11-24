@@ -1,18 +1,18 @@
 ---
 import "../../public/styles/style.css";
-import AbilitiesTable from "../components/AbilitiesTable.astro";
-import SkillsTable from "../components/SkillsTable.astro";
-import SavesTable from "../components/SavesTable.astro";
-import WeaponAttackTable from "../components/WeaponAttackTable.astro";
-import D20TestCell from "../components/common/D20TestCell.tsx";
-import HitPointsInput from "../components/HitPointsInput.tsx";
-import SpellSlotsTable from "../components/spells/SpellSlotsTable.tsx";
-import ChannelDivinityCheckboxes from "../components/ChannelDivinityCheckboxes.tsx";
-import LayOnHandsInput from "../components/LayOnHandsInput.tsx";
+import AbilitiesTable from "@/components/AbilitiesTable.astro";
+import SkillsTable from "@/components/SkillsTable.astro";
+import SavesTable from "@/components/SavesTable.astro";
+import WeaponAttackTable from "@/components/WeaponAttackTable.astro";
+import D20TestCell from "@/components/common/D20TestCell.tsx";
+import HitPointsInput from "@/components/HitPointsInput.tsx";
+import SpellSlotsTable from "@/components/spells/SpellSlotsTable.tsx";
+import ChannelDivinityCheckboxes from "@/components/ChannelDivinityCheckboxes.tsx";
+import LayOnHandsInput from "@/components/LayOnHandsInput.tsx";
 
-import { DiceString } from "../js/common/DiceString.ts";
-import AzamatCharacter from "../js/characters/AzamatCharacter";
-import LevelledSpellDamageRow from "../components/spells/LevelledSpellDamageRow.astro";
+import { DiceString } from "@/js/common/DiceString.ts";
+import AzamatCharacter from "@/js/characters/AzamatCharacter";
+import LevelledSpellDamageRow from "@/components/spells/LevelledSpellDamageRow.astro";
 const character = new AzamatCharacter();
 ---
 

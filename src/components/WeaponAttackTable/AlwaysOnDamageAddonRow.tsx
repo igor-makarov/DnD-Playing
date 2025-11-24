@@ -1,7 +1,7 @@
 import React from "react";
 
-import type { DamageAddonData } from "../../js/character/WeaponAttackTypes";
-import type { DiceString } from "../../js/common/DiceString";
+import type { DamageAddonData } from "@/js/character/WeaponAttackTypes";
+import type { DiceString } from "@/js/common/DiceString";
 
 interface Props {
   addon: DamageAddonData & { damage: DiceString };

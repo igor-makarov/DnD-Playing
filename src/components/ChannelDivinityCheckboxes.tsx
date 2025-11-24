@@ -2,7 +2,8 @@ import { useStore } from "@nanostores/react";
 
 import React from "react";
 
-import { $channelDivinityUsed } from "../js/character/dynamic-state/stores";
+import { $channelDivinityUsed } from "@/js/character/dynamic-state/stores";
+
 import CheckboxUsesRow from "./common/CheckboxUsesRow";
 
 interface Props {

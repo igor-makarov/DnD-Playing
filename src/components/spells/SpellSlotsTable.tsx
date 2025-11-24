@@ -2,9 +2,9 @@ import { useStore } from "@nanostores/react";
 
 import React from "react";
 
-import type { SpellSlotsForLevel } from "../../js/character/CharacterTypes";
-import { $spellSlotsSpent } from "../../js/character/dynamic-state/stores";
-import CheckboxUsesRow from "../common/CheckboxUsesRow";
+import CheckboxUsesRow from "@/components/common/CheckboxUsesRow";
+import type { SpellSlotsForLevel } from "@/js/character/CharacterTypes";
+import { $spellSlotsSpent } from "@/js/character/dynamic-state/stores";
 
 interface Props {
   spellSlots: SpellSlotsForLevel[];

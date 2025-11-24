@@ -1,10 +1,10 @@
 import React from "react";
 
-import { D20Test } from "../../js/common/D20Test";
-import { useRollMode } from "../../js/hooks/useRollMode";
-import { RollModifier, useRollModifiers } from "../../js/hooks/useRollModifiers";
-import { getRollUrl } from "../../js/utils/rollOptions";
-import { withAutoRehydration } from "../../js/utils/withAutoRehydration";
+import { D20Test } from "@/js/common/D20Test";
+import { useRollMode } from "@/js/hooks/useRollMode";
+import { RollModifier, useRollModifiers } from "@/js/hooks/useRollModifiers";
+import { getRollUrl } from "@/js/utils/rollOptions";
+import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 
 interface Props {
   roll: D20Test;
