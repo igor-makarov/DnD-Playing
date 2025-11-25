@@ -6,11 +6,5 @@ export { RollModifier };
 
 // Hook to use roll modifiers
 export function useRollModifiers() {
-  const modifier = useStore($rollModifierStore);
-
-  const resetModifiers = () => {
-    $rollModifierStore.set(RollModifier.NONE);
-  };
-
-  return { modifier, resetModifiers };
+  return useStore($rollModifierStore);
 }

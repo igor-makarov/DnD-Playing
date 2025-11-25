@@ -13,7 +13,7 @@ interface Props {
 
 export default withAutoRehydration(function D20TestCell({ roll, advantage = false }: Props) {
   const rollMode = useRollMode();
-  const { modifier } = useRollModifiers();
+  const modifier = useRollModifiers();
 
   const bonus = roll.getBonus();
   const diceString = roll.getDiceString();

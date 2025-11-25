@@ -13,7 +13,7 @@ interface Props {
 
 export default withAutoRehydration(function DamageCell({ damageRoll, attack }: Props) {
   const rollMode = useRollMode();
-  const { modifier } = useRollModifiers();
+  const modifier = useRollModifiers();
 
   const critRoll = damageRoll.crit();
 

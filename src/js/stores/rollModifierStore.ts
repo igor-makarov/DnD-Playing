@@ -1,4 +1,4 @@
-import { atom } from "nanostores";
+import { createStore } from "@/js/stores/primitives/createStore";
 
 // Enum for roll modifier types
 export enum RollModifier {
@@ -9,8 +9,8 @@ export enum RollModifier {
   CRITICAL = "CRITICAL",
 }
 
-// Create the nanostore atom
-export const $rollModifierStore = atom<RollModifier>(RollModifier.NONE);
+// Create the store
+export const $rollModifierStore = createStore<RollModifier>(RollModifier.NONE);
 
 // Initialize event listeners once
 let initialized = false;

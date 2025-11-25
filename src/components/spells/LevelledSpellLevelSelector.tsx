@@ -20,20 +20,15 @@ interface Props {
 export default withAutoRehydration(function LevelledSpellLevelSelector({ spellName, options, optional = false }: Props) {
   const spellData = useStore($spellLevelStore);
 
-  // Initialize store with first option if spell not yet set
-  if (!spellData[spellName] && options[0]) {
-    $spellLevelStore.setKey(spellName, {
-      level: options[0].level,
-      damageRoll: options[0].damage,
-    });
-  }
-
   const selectedLevel = spellData[spellName]?.level ?? options[0]?.level ?? 1;
 
   const handleLevelChange = (level: number) => {
     const option = options.find((opt) => opt.level === level);
     if (option) {
-      $spellLevelStore.setKey(spellName, { level, damageRoll: option.damage });
+      $spellLevelStore.set((prev) => ({
+        ...prev,
+        [spellName]: { level, damageRoll: option.damage },
+      }));
     }
   };
 
