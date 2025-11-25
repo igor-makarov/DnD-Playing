@@ -1,4 +1,5 @@
 import { type Store, createStore } from "./createStore";
+import { $searchParamsStore } from "./searchParamsStore";
 
 type SetStateAction<S> = S | ((prevState: S) => S);
 
@@ -27,46 +28,6 @@ function isEqual<S>(a: S, b: S): boolean {
   return false;
 }
 
-// Subscribe to URL changes (popstate for back/forward, and custom events for programmatic changes)
-function subscribeToQueryString(callback: () => void) {
-  if (typeof window === "undefined") return () => {};
-  window.addEventListener("popstate", callback);
-  window.addEventListener("pushstate", callback);
-  window.addEventListener("replacestate", callback);
-  return () => {
-    window.removeEventListener("popstate", callback);
-    window.removeEventListener("pushstate", callback);
-    window.removeEventListener("replacestate", callback);
-  };
-}
-
-// Get current URLSearchParams
-function getParams(): URLSearchParams {
-  if (typeof window === "undefined") return new URLSearchParams();
-  return new URLSearchParams(window.location.search);
-}
-
-// Helper to dispatch custom events when URL changes programmatically
-function dispatchURLChangeEvent(type: string) {
-  if (typeof window === "undefined") return;
-  window.dispatchEvent(new Event(type));
-}
-
-// Helper to update URL with new params
-function updateURL(params: URLSearchParams, mode: "pushState" | "replaceState" = "pushState") {
-  if (typeof window === "undefined") return;
-  const newSearch = params.toString();
-  const newURL = newSearch ? `${window.location.pathname}?${newSearch}` : window.location.pathname;
-
-  if (mode === "replaceState") {
-    window.history.replaceState({}, "", newURL);
-    dispatchURLChangeEvent("replacestate");
-  } else {
-    window.history.pushState({}, "", newURL);
-    dispatchURLChangeEvent("pushstate");
-  }
-}
-
 export interface SearchParamStoreOptions<S> {
   encode?: (value: S) => string | undefined;
   decode?: (value: string) => S;
@@ -88,22 +49,21 @@ export function createSearchParamStore<S>(paramName: string, defaultValue: S, op
     return value !== null ? decode(value) : defaultValue;
   };
 
-  // Get initial value from URL
-  const initialValue = extractValue(new URLSearchParams());
+  // Start with default value, will be restored from URL in onMount
+  const initialValue = defaultValue;
 
   // Create base store with onMount lifecycle
   const store = createStore<S>(initialValue, {
     onMount: () => {
       // Restore value from URL when first subscriber is added
-      const currentParams = getParams();
+      const currentParams = $searchParamsStore.get();
       const currentValue = extractValue(currentParams);
       if (!isEqual(store.get(), currentValue)) {
         originalSet(currentValue);
       }
 
-      // Subscribe to URL changes
-      return subscribeToQueryString(() => {
-        const params = getParams();
+      // Subscribe to URL changes via searchParamsStore
+      return $searchParamsStore.subscribe((params) => {
         const newValue = extractValue(params);
         if (!isEqual(store.get(), newValue)) {
           originalSet(newValue);
@@ -120,19 +80,24 @@ export function createSearchParamStore<S>(paramName: string, defaultValue: S, op
     const currentState = store.get();
     const newState = typeof value === "function" ? (value as (prevState: S) => S)(currentState) : value;
 
-    // Update URL
-    const params = getParams();
-    if (isEqual(newState, defaultValue)) {
-      params.delete(paramName);
-    } else {
-      const encoded = encode(newState);
-      if (encoded === undefined) {
-        params.delete(paramName);
-      } else {
-        params.set(paramName, encoded);
-      }
-    }
-    updateURL(params, historyMode);
+    // Update URL via searchParamsStore
+    $searchParamsStore.set(
+      (params) => {
+        const newParams = new URLSearchParams(params);
+        if (isEqual(newState, defaultValue)) {
+          newParams.delete(paramName);
+        } else {
+          const encoded = encode(newState);
+          if (encoded === undefined) {
+            newParams.delete(paramName);
+          } else {
+            newParams.set(paramName, encoded);
+          }
+        }
+        return newParams;
+      },
+      { historyMode },
+    );
 
     // Update store
     originalSet(newState);

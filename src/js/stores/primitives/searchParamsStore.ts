@@ -11,6 +11,12 @@ export interface SearchParamsStore {
   getInitialValue: () => URLSearchParams;
 }
 
+// Helper to dispatch custom events when URL changes programmatically
+function dispatchURLChangeEvent(type: string) {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new Event(type));
+}
+
 function get(): URLSearchParams {
   if (typeof window === "undefined") return new URLSearchParams();
   return new URLSearchParams(window.location.search);
@@ -32,6 +38,9 @@ function set(value: SetStateAction<URLSearchParams>, options?: SearchParamsSetOp
     const newSearch = newState.toString();
     const newURL = newSearch ? `${window.location.pathname}?${newSearch}` : window.location.pathname;
     window.history[historyMode]({}, "", newURL);
+
+    // Dispatch custom event to notify subscribers
+    dispatchURLChangeEvent(historyMode === "replaceState" ? "replacestate" : "pushstate");
   }
 }
 
