@@ -1,7 +1,9 @@
 type SetStateAction<S> = S | ((prevState: S) => S);
 
+export type HistoryMode = "pushState" | "replaceState";
+
 export interface SearchParamsSetOptions {
-  historyMode?: "pushState" | "replaceState";
+  historyMode?: HistoryMode;
 }
 
 export interface SearchParamsStore {

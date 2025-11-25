@@ -1,5 +1,5 @@
 import { type Store, createStore } from "./createStore";
-import { $searchParamsStore } from "./searchParamsStore";
+import { $searchParamsStore, type HistoryMode } from "./searchParamsStore";
 
 type SetStateAction<S> = S | ((prevState: S) => S);
 
@@ -31,7 +31,7 @@ function isEqual<S>(a: S, b: S): boolean {
 export interface SearchParamStoreOptions<S> {
   encode?: (value: S) => string | undefined;
   decode?: (value: string) => S;
-  historyMode?: "pushState" | "replaceState";
+  historyMode?: HistoryMode;
 }
 
 /**
