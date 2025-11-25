@@ -1,8 +1,6 @@
-import type { Store } from "./createStore";
-import { $searchParamsStore } from "./searchParamsStore";
+import { type Store, createStore } from "./createStore";
 
 type SetStateAction<S> = S | ((prevState: S) => S);
-type Dispatch<A> = (value: A) => void;
 
 function defaultSerialize<S>(value: S): string {
   if (typeof value === "string") return value;
@@ -29,6 +27,46 @@ function isEqual<S>(a: S, b: S): boolean {
   return false;
 }
 
+// Subscribe to URL changes (popstate for back/forward, and custom events for programmatic changes)
+function subscribeToQueryString(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
+  window.addEventListener("popstate", callback);
+  window.addEventListener("pushstate", callback);
+  window.addEventListener("replacestate", callback);
+  return () => {
+    window.removeEventListener("popstate", callback);
+    window.removeEventListener("pushstate", callback);
+    window.removeEventListener("replacestate", callback);
+  };
+}
+
+// Get current URLSearchParams
+function getParams(): URLSearchParams {
+  if (typeof window === "undefined") return new URLSearchParams();
+  return new URLSearchParams(window.location.search);
+}
+
+// Helper to dispatch custom events when URL changes programmatically
+function dispatchURLChangeEvent(type: string) {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new Event(type));
+}
+
+// Helper to update URL with new params
+function updateURL(params: URLSearchParams, mode: "pushState" | "replaceState" = "pushState") {
+  if (typeof window === "undefined") return;
+  const newSearch = params.toString();
+  const newURL = newSearch ? `${window.location.pathname}?${newSearch}` : window.location.pathname;
+
+  if (mode === "replaceState") {
+    window.history.replaceState({}, "", newURL);
+    dispatchURLChangeEvent("replacestate");
+  } else {
+    window.history.pushState({}, "", newURL);
+    dispatchURLChangeEvent("pushstate");
+  }
+}
+
 export interface SearchParamStoreOptions<S> {
   encode?: (value: S) => string | undefined;
   decode?: (value: string) => S;
@@ -37,12 +75,12 @@ export interface SearchParamStoreOptions<S> {
 
 /**
  * Creates a store for a single query parameter.
- * This is a convenience wrapper around createSearchParamsStore.
+ * Uses createStore with onMount lifecycle for URL synchronization.
  */
 export function createSearchParamStore<S>(paramName: string, defaultValue: S, options?: SearchParamStoreOptions<S>): Store<S> {
   const encode = options?.encode ?? ((v: S) => defaultSerialize(v));
   const decode = options?.decode ?? ((v: string) => defaultDeserialize(v, defaultValue));
-  const historyMode = options?.historyMode;
+  const historyMode = options?.historyMode ?? "pushState";
 
   // Helper to extract value from params
   const extractValue = (params: URLSearchParams): S => {
@@ -50,50 +88,56 @@ export function createSearchParamStore<S>(paramName: string, defaultValue: S, op
     return value !== null ? decode(value) : defaultValue;
   };
 
-  const initialValue = extractValue($searchParamsStore.getInitialValue());
-  let state = extractValue($searchParamsStore.get());
+  // Get initial value from URL
+  const initialParams = getParams();
+  const initialValue = extractValue(initialParams);
 
-  function get(): S {
-    return state;
-  }
-
-  function getInitialValue(): S {
-    return initialValue;
-  }
-
-  function set(value: SetStateAction<S>): void {
-    const newState = typeof value === "function" ? (value as (prevState: S) => S)(state) : value;
-    state = newState;
-
-    // Update the params store
-    $searchParamsStore.set(
-      (params) => {
-        const newParams = new URLSearchParams(params);
-        if (isEqual(newState, defaultValue)) {
-          newParams.delete(paramName);
-        } else {
-          const encoded = encode(newState);
-          if (encoded === undefined) {
-            newParams.delete(paramName);
-          } else {
-            newParams.set(paramName, encoded);
-          }
-        }
-        return newParams;
-      },
-      { historyMode },
-    );
-  }
-
-  function subscribe(listener: (state: S) => void): () => void {
-    return $searchParamsStore.subscribe((params) => {
-      const newValue = extractValue(params);
-      if (!isEqual(state, newValue)) {
-        state = newValue;
-        listener(state);
+  // Create base store with onMount lifecycle
+  const store = createStore<S>(initialValue, {
+    onMount: () => {
+      // Restore value from URL when first subscriber is added
+      const currentParams = getParams();
+      const currentValue = extractValue(currentParams);
+      if (!isEqual(store.get(), currentValue)) {
+        originalSet(currentValue);
       }
-    });
-  }
 
-  return { get, set: set as Dispatch<SetStateAction<S>>, subscribe, getInitialValue };
+      // Subscribe to URL changes
+      return subscribeToQueryString(() => {
+        const params = getParams();
+        const newValue = extractValue(params);
+        if (!isEqual(store.get(), newValue)) {
+          originalSet(newValue);
+        }
+      });
+    },
+  });
+
+  // Keep reference to original set
+  const originalSet = store.set;
+
+  // Override set to update URL
+  store.set = (value: SetStateAction<S>) => {
+    const currentState = store.get();
+    const newState = typeof value === "function" ? (value as (prevState: S) => S)(currentState) : value;
+
+    // Update URL
+    const params = getParams();
+    if (isEqual(newState, defaultValue)) {
+      params.delete(paramName);
+    } else {
+      const encoded = encode(newState);
+      if (encoded === undefined) {
+        params.delete(paramName);
+      } else {
+        params.set(paramName, encoded);
+      }
+    }
+    updateURL(params, historyMode);
+
+    // Update store
+    originalSet(newState);
+  };
+
+  return store;
 }
