@@ -5,7 +5,7 @@ import react from "@astrojs/react";
 
 export default defineConfig({
   site: "https://igor-makarov.github.io",
-  base: "/DnD-Playing",
+  base: process.env.BASE_URL || "/",
   vite: {
     plugins: [tsconfigPaths()],
   },
