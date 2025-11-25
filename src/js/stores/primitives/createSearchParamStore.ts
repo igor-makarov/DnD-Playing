@@ -1,5 +1,5 @@
-import { $searchParamsStore } from "./searchParamsStore";
 import type { Store } from "./createStore";
+import { $searchParamsStore } from "./searchParamsStore";
 
 type SetStateAction<S> = S | ((prevState: S) => S);
 type Dispatch<A> = (value: A) => void;
