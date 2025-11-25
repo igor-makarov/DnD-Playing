@@ -1,10 +1,9 @@
-import { queryAtom } from "@/js/stores/primitives/queryStores";
-
+import { createSearchParamStore } from "./primitives/createSearchParamStore";
 import { closedStringCodec } from "./primitives/queryCodecs";
 
 export type RollMode = "app" | "site";
 
-export const rollModeStore = queryAtom<RollMode>("roll", "app", closedStringCodec(["app", "site"]));
+export const rollModeStore = createSearchParamStore<RollMode>("roll", "app", closedStringCodec(["app", "site"]));
 
 // Initialize keydown event listener once
 let initialized = false;
