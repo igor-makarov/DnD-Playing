@@ -1,7 +1,14 @@
-import { type Store } from "nanostores";
+import { type Store as NanoStore } from "nanostores";
 
 import { useSyncExternalStore } from "react";
 
-export function useStore<T>(store: Store<T>) {
-  return useSyncExternalStore<T>(store.subscribe, store.get, () => store.value as T);
+import { type Store } from "@/js/stores/primitives/createStore";
+
+export function useStore<T>(store: NanoStore<T> | Store<T>) {
+  const getServerSnapshot = () => {
+    // nanostores have a 'value' property, our stores don't
+    return "value" in store ? (store.value as T) : store.get();
+  };
+
+  return useSyncExternalStore<T>(store.subscribe, store.get, getServerSnapshot);
 }

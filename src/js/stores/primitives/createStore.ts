@@ -1,7 +1,14 @@
 type SetStateAction<S> = S | ((prevState: S) => S);
 type Dispatch<A> = (value: A) => void;
 
-export function createStore<S>(initialState: S | (() => S)) {
+export type Store<S> = {
+  get: () => S;
+  set: Dispatch<SetStateAction<S>>;
+  subscribe: (listener: (state: S) => void) => () => void;
+  getInitialValue: () => S;
+};
+
+export function createStore<S>(initialState: S | (() => S)): Store<S> {
   const initialValue = typeof initialState === "function" ? (initialState as () => S)() : initialState;
   let state = initialValue;
   const listeners = new Set<(state: S) => void>();
