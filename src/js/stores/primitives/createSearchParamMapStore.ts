@@ -1,8 +1,11 @@
-import { type MapStore, map, onMount } from "nanostores";
-
+import { type Store, createStore } from "./createStore";
 import { $searchParamsStore, type HistoryMode } from "./searchParamsStore";
 
 type SetStateAction<S> = S | ((prevState: S) => S);
+
+export interface MapStore<S extends Record<string, any>> extends Store<S> {
+  setKey: <K extends keyof S>(key: K, value: S[K]) => void;
+}
 
 function defaultSerialize<S>(value: S): string {
   if (typeof value === "string") return value;
@@ -37,7 +40,7 @@ export interface SearchParamMapStoreOptions<S> {
 
 /**
  * Creates a map store for multiple query parameters with a common prefix.
- * Uses nanostores map with onMount lifecycle for URL synchronization.
+ * Uses createStore with onMount lifecycle for URL synchronization.
  */
 export function createSearchParamMapStore<S>(
   prefix: string,
@@ -60,71 +63,78 @@ export function createSearchParamMapStore<S>(
     return result;
   };
 
-  // Create base map store with onMount lifecycle
-  const store = map<Record<string, S | undefined>>();
-
-  // Keep reference to original set and setKey
-  const originalSet = store.set;
-  const originalSetKey = store.setKey;
-
   let isRestoring = false;
 
-  onMount(store, () => {
-    // Restore values from URL when first subscriber is added
-    const currentParams = $searchParamsStore.get();
-    const urlValues = extractValues(currentParams);
-
-    isRestoring = true;
-    // Set initial values from defaultValue
-    for (const key in defaultValue) {
-      originalSetKey(key, defaultValue[key]);
-    }
-    // Override with URL values
-    for (const key in urlValues) {
-      originalSetKey(key, urlValues[key]);
-    }
-    isRestoring = false;
-
-    // Subscribe to URL changes via searchParamsStore
-    return $searchParamsStore.subscribe((params) => {
-      const newValues = extractValues(params);
-      const currentValue = store.get();
+  // Create base store with onMount lifecycle
+  const baseStore = createStore<Record<string, S | undefined>>(defaultValue, {
+    onMount: () => {
+      // Restore values from URL when first subscriber is added
+      const currentParams = $searchParamsStore.get();
+      const urlValues = extractValues(currentParams);
 
       isRestoring = true;
-      // Remove keys that are no longer in URL
-      for (const key in currentValue) {
-        if (!(key in newValues) && !(key in defaultValue)) {
-          originalSetKey(key, undefined);
-        } else if (!(key in newValues) && key in defaultValue) {
-          if (!isEqual(currentValue[key], defaultValue[key])) {
-            originalSetKey(key, defaultValue[key]);
+      // Start with default values and merge URL values
+      const mergedValues = { ...defaultValue };
+      for (const key in urlValues) {
+        mergedValues[key] = urlValues[key];
+      }
+      originalSet(mergedValues);
+      isRestoring = false;
+
+      // Subscribe to URL changes via searchParamsStore
+      return $searchParamsStore.subscribe((params) => {
+        const newValues = extractValues(params);
+        const currentValue = baseStore.get();
+
+        isRestoring = true;
+        const updatedValues = { ...currentValue };
+        let hasChanges = false;
+
+        // Remove keys that are no longer in URL
+        for (const key in currentValue) {
+          if (!(key in newValues) && !(key in defaultValue)) {
+            delete updatedValues[key];
+            hasChanges = true;
+          } else if (!(key in newValues) && key in defaultValue) {
+            if (!isEqual(currentValue[key], defaultValue[key])) {
+              updatedValues[key] = defaultValue[key];
+              hasChanges = true;
+            }
           }
         }
-      }
 
-      // Update with new values from URL
-      for (const key in newValues) {
-        if (!isEqual(currentValue[key], newValues[key])) {
-          originalSetKey(key, newValues[key]);
+        // Update with new values from URL
+        for (const key in newValues) {
+          if (!isEqual(currentValue[key], newValues[key])) {
+            updatedValues[key] = newValues[key];
+            hasChanges = true;
+          }
         }
-      }
-      isRestoring = false;
-    });
+
+        if (hasChanges) {
+          originalSet(updatedValues);
+        }
+        isRestoring = false;
+      });
+    },
   });
 
-  // Override setKey to update URL
-  store.setKey = (key: string, value: S | undefined) => {
+  // Keep reference to original set
+  const originalSet = baseStore.set;
+
+  // Create setKey method
+  const setKey = <K extends keyof Record<string, S | undefined>>(key: K, value: Record<string, S | undefined>[K]) => {
     // Update URL via searchParamsStore
     if (!isRestoring) {
       $searchParamsStore.set(
         (params) => {
           const newParams = new URLSearchParams(params);
-          const prefixedKey = prefix + key;
+          const prefixedKey = prefix + String(key);
 
-          if (value === undefined || (key in defaultValue && isEqual(value, defaultValue[key]))) {
+          if (value === undefined || (key in defaultValue && isEqual(value, defaultValue[key as string]))) {
             newParams.delete(prefixedKey);
           } else {
-            const encoded = encode(value);
+            const encoded = encode(value as S);
             if (encoded === undefined) {
               newParams.delete(prefixedKey);
             } else {
@@ -138,12 +148,14 @@ export function createSearchParamMapStore<S>(
     }
 
     // Update store
-    originalSetKey(key, value);
+    const currentState = baseStore.get();
+    const newState = { ...currentState, [key]: value };
+    originalSet(newState);
   };
 
   // Override set to update URL for all keys
-  store.set = (value: SetStateAction<Record<string, S | undefined>>) => {
-    const currentState = store.get();
+  const set = (value: SetStateAction<Record<string, S | undefined>>) => {
+    const currentState = baseStore.get();
     const newState =
       typeof value === "function" ? (value as (prevState: Record<string, S | undefined>) => Record<string, S | undefined>)(currentState) : value;
 
@@ -187,5 +199,11 @@ export function createSearchParamMapStore<S>(
     originalSet(newState);
   };
 
-  return store;
+  return {
+    get: baseStore.get,
+    set,
+    setKey,
+    subscribe: baseStore.subscribe,
+    getInitialValue: baseStore.getInitialValue,
+  };
 }
