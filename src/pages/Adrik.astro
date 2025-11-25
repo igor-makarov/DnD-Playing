@@ -6,6 +6,8 @@ import AbilitiesTable from "@/components/AbilitiesTable.astro";
 import SkillsTable from "@/components/SkillsTable.astro";
 import SavesTable from "@/components/SavesTable.astro";
 import D20TestCell from "@/components/common/D20TestCell.tsx";
+import HitPointsInput from "@/components/HitPointsInput.tsx";
+import HitDiceTable from "@/components/HitDiceTable.tsx";
 const character = new AdrikCharacter();
 ---
 
@@ -36,11 +38,23 @@ const character = new AdrikCharacter();
       <div class="column">
         <table>
           <tr>
+            <th style="text-align: center;">AC</th>
+          </tr>
+          <tr>
+            <td style="text-align: center;">
+              <span class="mono">17</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="column">
+        <table>
+          <tr>
             <th style="text-align: center;">HP</th>
           </tr>
           <tr>
             <td style="text-align: center;">
-              <span class="mono">{character.getHitPoints()}</span>
+              <HitPointsInput client:load hitPointMaximum={character.getHitPoints()} hitDiceByType={character.getHitDice()} />
             </td>
           </tr>
         </table>
@@ -124,6 +138,7 @@ const character = new AdrikCharacter();
           advantage={true}
           character={character}
         />
+        <HitDiceTable client:load hitDice={character.getHitDice()} conModifier={character.getAbilityModifier("Con")} />
       </div>
     </div>
   </body>
