@@ -1,7 +1,16 @@
-import type { QueryAtomOptions, QueryMapOptions } from "./queryStores";
+// Type definitions for query parameter codecs
+export interface QueryParamOptions<T, S = string> {
+  encode?: (value: T) => S | undefined;
+  decode?: (value: S) => T;
+}
+
+export interface QueryMapOptions<T, S = string> {
+  encode?: (value: T) => S | undefined;
+  decode?: (value: S) => T;
+}
 
 // Codec for simple numeric values
-export const numberCodec: QueryAtomOptions<number | undefined> = {
+export const numberCodec: QueryParamOptions<number | undefined> = {
   encode: (value) => (value !== undefined ? value.toString() : undefined),
   decode: (str) => parseInt(str, 10),
 };
@@ -16,7 +25,7 @@ export const numberMapCodec: QueryMapOptions<number> = {
 // - Empty/undefined query param = no slots spent (returns undefined)
 // - Trailing zeros are automatically trimmed when saving (e.g., [1, 2, 0] -> "1-2")
 // - Array indices correspond to spell levels (index 0 = level 1, index 1 = level 2, etc.)
-export const kebabNumberArrayCodec: QueryAtomOptions<number[] | undefined> = {
+export const kebabNumberArrayCodec: QueryParamOptions<number[] | undefined> = {
   encode: (value) => {
     if (value === undefined) return undefined;
     // Trim trailing zeros
@@ -32,7 +41,7 @@ export const kebabNumberArrayCodec: QueryAtomOptions<number[] | undefined> = {
 // Create the store with default first string, and encode to remove from URL when set to first string
 export function closedStringCodec<const T extends readonly string[]>(
   list: T & (T extends readonly [infer _First, ...infer _Rest] ? unknown : never),
-): QueryAtomOptions<T[number]> {
+): QueryParamOptions<T[number]> {
   return {
     encode: (value) => (value == list[0] ? undefined : value),
     decode: (str) => (list.includes(str) ? (str as T[number]) : list[0]),
