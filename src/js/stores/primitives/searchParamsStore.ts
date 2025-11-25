@@ -35,11 +35,26 @@ function set(value: SetStateAction<URLSearchParams>, options?: SearchParamsSetOp
   }
 }
 
+const listeners = new Set<() => void>();
+
 function subscribe(listener: (state: URLSearchParams) => void): () => void {
-  const callback = () => {
+  const wrappedListener = () => {
     const newParams = get();
     listener(newParams);
   };
+  listeners.add(wrappedListener);
+  return () => listeners.delete(wrappedListener);
+}
+
+const callback = () => {
+  listeners.forEach((fn) => fn());
+};
+
+let initialized = false;
+
+function initializeEventListeners() {
+  if (initialized) return;
+  initialized = true;
   window.addEventListener("popstate", callback);
   window.addEventListener("pushstate", callback);
   window.addEventListener("replacestate", callback);
@@ -48,6 +63,10 @@ function subscribe(listener: (state: URLSearchParams) => void): () => void {
     window.removeEventListener("pushstate", callback);
     window.removeEventListener("replacestate", callback);
   };
+}
+
+if (typeof window !== "undefined") {
+  initializeEventListeners();
 }
 
 /**
