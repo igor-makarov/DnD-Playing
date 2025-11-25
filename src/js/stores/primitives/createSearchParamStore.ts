@@ -89,8 +89,7 @@ export function createSearchParamStore<S>(paramName: string, defaultValue: S, op
   };
 
   // Get initial value from URL
-  const initialParams = getParams();
-  const initialValue = extractValue(initialParams);
+  const initialValue = extractValue(new URLSearchParams());
 
   // Create base store with onMount lifecycle
   const store = createStore<S>(initialValue, {

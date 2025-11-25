@@ -7,7 +7,8 @@ export const $hitPoints = createSearchParamStore<number | undefined>("hit-points
 
 export const $spellSlotsSpent = createSearchParamStore<number[] | undefined>("spell-slots-spent", undefined, kebabNumberArrayCodec);
 
-export const $channelDivinityUsed = createSearchParamStore<number | undefined>("channel-divinity-used", 0, numberCodec);
+// export const $channelDivinityUsed = queryAtom<number | undefined>("channel-divinity-used", 0, numberCodec);
+export const $channelDivinityUsed = createSearchParamStore<number | undefined>("channel-divinity-used", undefined, numberCodec);
 
 export const $layOnHands = createSearchParamStore<number | undefined>("lay-on-hands", undefined, numberCodec);
 
