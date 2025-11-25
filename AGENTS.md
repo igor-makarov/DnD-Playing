@@ -11,7 +11,7 @@ You MUST run verification when you are done
 - Run type check with `npm run check`
 - Run build with `npm run build`
 - Run tests with `npm test`
-- Run e2e tests with `npm run test:e2e` (if relevant)
+- Run e2e tests with `npm run test:e2e`
 
 # React notes
 - Use idiomatic component declarations to be as consistent as possible with Astro: 
