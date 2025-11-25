@@ -30,8 +30,8 @@ function isEqual<S>(a: S, b: S): boolean {
 }
 
 export interface SearchParamStoreOptions<S> {
-  serialize?: (value: S) => string;
-  deserialize?: (value: string) => S;
+  encode?: (value: S) => string | undefined;
+  decode?: (value: string) => S;
   historyMode?: "pushState" | "replaceState";
 }
 
@@ -40,14 +40,14 @@ export interface SearchParamStoreOptions<S> {
  * This is a convenience wrapper around createSearchParamsStore.
  */
 export function createSearchParamStore<S>(paramName: string, defaultValue: S, options?: SearchParamStoreOptions<S>): Store<S> {
-  const serialize = options?.serialize ?? ((v: S) => defaultSerialize(v));
-  const deserialize = options?.deserialize ?? ((v: string) => defaultDeserialize(v, defaultValue));
+  const encode = options?.encode ?? ((v: S) => defaultSerialize(v));
+  const decode = options?.decode ?? ((v: string) => defaultDeserialize(v, defaultValue));
   const historyMode = options?.historyMode;
 
   // Helper to extract value from params
   const extractValue = (params: URLSearchParams): S => {
     const value = params.get(paramName);
-    return value !== null ? deserialize(value) : defaultValue;
+    return value !== null ? decode(value) : defaultValue;
   };
 
   const initialValue = extractValue($searchParamsStore.getInitialValue());
@@ -72,7 +72,12 @@ export function createSearchParamStore<S>(paramName: string, defaultValue: S, op
         if (isEqual(newState, defaultValue)) {
           newParams.delete(paramName);
         } else {
-          newParams.set(paramName, serialize(newState));
+          const encoded = encode(newState);
+          if (encoded === undefined) {
+            newParams.delete(paramName);
+          } else {
+            newParams.set(paramName, encoded);
+          }
         }
         return newParams;
       },
