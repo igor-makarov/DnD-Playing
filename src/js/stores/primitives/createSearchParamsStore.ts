@@ -27,22 +27,12 @@ export function createSearchParamsStore(historyMode: HistoryMode = "pushState"):
     onMount: () => {
       if (typeof window === "undefined") return;
 
-      // Set up event listeners when first subscriber is added
-      const callback = () => {
-        const newParams = getURLSearchParams();
-        originalSet(newParams);
-      };
-
+      // Set up event listener for browser back/forward navigation
+      const callback = () => originalSet(getURLSearchParams());
       window.addEventListener("popstate", callback);
-      window.addEventListener("pushstate", callback);
-      window.addEventListener("replacestate", callback);
 
       // Return cleanup function
-      return () => {
-        window.removeEventListener("popstate", callback);
-        window.removeEventListener("pushstate", callback);
-        window.removeEventListener("replacestate", callback);
-      };
+      return () => window.removeEventListener("popstate", callback);
     },
   });
 
@@ -50,35 +40,23 @@ export function createSearchParamsStore(historyMode: HistoryMode = "pushState"):
   const originalSet = store.set;
 
   // Override set to update URL with the fixed historyMode
-  function set(value: SetStateAction<URLSearchParams>): void {
-    const state = store.get();
-    const newState = typeof value === "function" ? (value as (prevState: URLSearchParams) => URLSearchParams)(state) : value;
+  store.set = (value: SetStateAction<URLSearchParams>): void => {
+    const newState = typeof value === "function" ? value(store.get()) : value;
 
-    // Update URL
+    // Update URL and push history if changed (prevents double entries in Safari)
     if (typeof window !== "undefined") {
-      const newSearch = newState.toString();
-      const newURL = newSearch ? `${window.location.pathname}?${newSearch}` : window.location.pathname;
       const currentURL = window.location.pathname + window.location.search;
-
-      // Only push history if URL actually changed (prevents double entries in Safari)
+      const newURL = newState.toString() ? `${window.location.pathname}?${newState}` : window.location.pathname;
       if (newURL !== currentURL) {
         window.history[historyMode]({}, "", newURL);
       }
     }
 
-    // Update store
     originalSet(newState);
-  }
-
-  const wrappedStore: Store<URLSearchParams> = {
-    get: store.get,
-    set,
-    subscribe: store.subscribe,
-    getInitialValue: store.getInitialValue,
   };
 
   // Cache the store instance
-  storeCache.set(historyMode, wrappedStore);
+  storeCache.set(historyMode, store);
 
-  return wrappedStore;
+  return store;
 }
