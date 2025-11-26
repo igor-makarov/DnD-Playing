@@ -1,10 +1,10 @@
 import { createSearchParamStore } from "./primitives/createSearchParamStore";
-import { createSearchParamsStore } from "./primitives/createSearchParamsStore";
+import { createURLSearchParamsStore } from "./primitives/createURLSearchParamsStore";
 import { closedStringCodec } from "./primitives/queryCodecs";
 
 export type RollMode = "app" | "site";
 
-export const rollModeStore = createSearchParamStore<RollMode>(createSearchParamsStore(), "roll", "app", closedStringCodec(["app", "site"]));
+export const rollModeStore = createSearchParamStore<RollMode>(createURLSearchParamsStore(), "roll", "app", closedStringCodec(["app", "site"]));
 
 // Initialize keydown event listener once
 let initialized = false;

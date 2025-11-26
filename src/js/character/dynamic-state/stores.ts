@@ -1,10 +1,10 @@
 import { createSearchParamMapStore } from "@/js/stores/primitives/createSearchParamMapStore";
 import { createSearchParamStore } from "@/js/stores/primitives/createSearchParamStore";
-import { createSearchParamsStore } from "@/js/stores/primitives/createSearchParamsStore";
+import { createURLSearchParamsStore } from "@/js/stores/primitives/createURLSearchParamsStore";
 import { kebabNumberArrayCodec, numberCodec } from "@/js/stores/primitives/queryCodecs";
 
 // Create shared base store for all character state
-const searchParamsStore = createSearchParamsStore();
+const searchParamsStore = createURLSearchParamsStore();
 
 // Query atoms for character dynamic state
 export const $hitPoints = createSearchParamStore<number | undefined>(searchParamsStore, "hit-points", undefined, numberCodec);

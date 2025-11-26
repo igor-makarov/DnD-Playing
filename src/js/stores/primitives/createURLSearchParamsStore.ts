@@ -14,10 +14,9 @@ const storeCache = new Map<HistoryMode, Store<URLSearchParams>>();
 
 /**
  * Factory that creates a singleton store for URLSearchParams with a specific history mode.
- * Returns cached instances, so effectively there are two singletons (one per historyMode).
+ * Returns cached instances, so effectively there are N singletons (one per historyMode).
  */
-export function createSearchParamsStore(historyMode: HistoryMode = "pushState"): Store<URLSearchParams> {
-  // Return cached instance if it exists
+export function createURLSearchParamsStore(historyMode: HistoryMode = "pushState"): Store<URLSearchParams> {
   if (storeCache.has(historyMode)) {
     return storeCache.get(historyMode)!;
   }
@@ -36,17 +35,15 @@ export function createSearchParamsStore(historyMode: HistoryMode = "pushState"):
     },
   });
 
-  // Keep reference to original set
+  // Override set to update URL
   const originalSet = store.set;
-
-  // Override set to update URL with the fixed historyMode
   store.set = (value: SetStateAction<URLSearchParams>): void => {
     const newState = typeof value === "function" ? value(store.get()) : value;
 
-    // Update URL and push history if changed (prevents double entries in Safari)
     if (typeof window !== "undefined") {
       const currentURL = window.location.pathname + window.location.search;
       const newURL = newState.toString() ? `${window.location.pathname}?${newState}` : window.location.pathname;
+      // Update URL with history mode IFF changed (prevents double entries in Safari)
       if (newURL !== currentURL) {
         window.history[historyMode]({}, "", newURL);
       }
@@ -55,7 +52,6 @@ export function createSearchParamsStore(historyMode: HistoryMode = "pushState"):
     originalSet(newState);
   };
 
-  // Cache the store instance
   storeCache.set(historyMode, store);
 
   return store;
