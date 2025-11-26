@@ -4,12 +4,6 @@ type SetStateAction<S> = S | ((prevState: S) => S);
 
 export type HistoryMode = "pushState" | "replaceState";
 
-// Helper to dispatch custom events when URL changes programmatically
-function dispatchURLChangeEvent(type: string) {
-  if (typeof window === "undefined") return;
-  window.dispatchEvent(new Event(type));
-}
-
 function getURLSearchParams(): URLSearchParams {
   if (typeof window === "undefined") return new URLSearchParams();
   return new URLSearchParams(window.location.search);
@@ -69,9 +63,6 @@ export function createSearchParamsStore(historyMode: HistoryMode = "pushState"):
       // Only push history if URL actually changed (prevents double entries in Safari)
       if (newURL !== currentURL) {
         window.history[historyMode]({}, "", newURL);
-
-        // Dispatch custom event to notify subscribers
-        dispatchURLChangeEvent(historyMode === "replaceState" ? "replacestate" : "pushstate");
       }
     }
 
