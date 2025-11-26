@@ -1,3 +1,5 @@
+import { createStore } from "./createStore";
+
 type SetStateAction<S> = S | ((prevState: S) => S);
 
 export type HistoryMode = "pushState" | "replaceState";
@@ -19,20 +21,42 @@ function dispatchURLChangeEvent(type: string) {
   window.dispatchEvent(new Event(type));
 }
 
-function get(): URLSearchParams {
+function getURLSearchParams(): URLSearchParams {
   if (typeof window === "undefined") return new URLSearchParams();
   return new URLSearchParams(window.location.search);
 }
 
-const initialValue = get();
+// Create the base store using createStore
+const store = createStore<URLSearchParams>(getURLSearchParams(), {
+  onMount: () => {
+    if (typeof window === "undefined") return;
 
-function getInitialValue(): URLSearchParams {
-  return initialValue;
-}
+    // Set up event listeners when first subscriber is added
+    const callback = () => {
+      const newParams = getURLSearchParams();
+      originalSet(newParams);
+    };
 
+    window.addEventListener("popstate", callback);
+    window.addEventListener("pushstate", callback);
+    window.addEventListener("replacestate", callback);
+
+    // Return cleanup function
+    return () => {
+      window.removeEventListener("popstate", callback);
+      window.removeEventListener("pushstate", callback);
+      window.removeEventListener("replacestate", callback);
+    };
+  },
+});
+
+// Keep reference to original set
+const originalSet = store.set;
+
+// Override set to update URL
 function set(value: SetStateAction<URLSearchParams>, options?: SearchParamsSetOptions): void {
   const historyMode = options?.historyMode ?? "pushState";
-  const state = get();
+  const state = store.get();
   const newState = typeof value === "function" ? (value as (prevState: URLSearchParams) => URLSearchParams)(state) : value;
 
   // Update URL
@@ -44,44 +68,18 @@ function set(value: SetStateAction<URLSearchParams>, options?: SearchParamsSetOp
     // Dispatch custom event to notify subscribers
     dispatchURLChangeEvent(historyMode === "replaceState" ? "replacestate" : "pushstate");
   }
-}
 
-const listeners = new Set<() => void>();
-
-function subscribe(listener: (state: URLSearchParams) => void): () => void {
-  const wrappedListener = () => {
-    const newParams = get();
-    listener(newParams);
-  };
-  listeners.add(wrappedListener);
-  return () => listeners.delete(wrappedListener);
-}
-
-const callback = () => {
-  listeners.forEach((fn) => fn());
-};
-
-let initialized = false;
-
-function initializeEventListeners() {
-  if (initialized) return;
-  initialized = true;
-  window.addEventListener("popstate", callback);
-  window.addEventListener("pushstate", callback);
-  window.addEventListener("replacestate", callback);
-  return () => {
-    window.removeEventListener("popstate", callback);
-    window.removeEventListener("pushstate", callback);
-    window.removeEventListener("replacestate", callback);
-  };
-}
-
-if (typeof window !== "undefined") {
-  initializeEventListeners();
+  // Update store
+  originalSet(newState);
 }
 
 /**
  * Singleton store that works with URLSearchParams directly.
  * This is the lower-level primitive that manages the entire query string.
  */
-export const $searchParamsStore: SearchParamsStore = { get, set, subscribe, getInitialValue };
+export const $searchParamsStore: SearchParamsStore = {
+  get: store.get,
+  set,
+  subscribe: store.subscribe,
+  getInitialValue: store.getInitialValue,
+};
