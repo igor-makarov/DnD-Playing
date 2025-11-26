@@ -64,10 +64,15 @@ export function createSearchParamsStore(historyMode: HistoryMode = "pushState"):
     if (typeof window !== "undefined") {
       const newSearch = newState.toString();
       const newURL = newSearch ? `${window.location.pathname}?${newSearch}` : window.location.pathname;
-      window.history[historyMode]({}, "", newURL);
+      const currentURL = window.location.pathname + window.location.search;
 
-      // Dispatch custom event to notify subscribers
-      dispatchURLChangeEvent(historyMode === "replaceState" ? "replacestate" : "pushstate");
+      // Only push history if URL actually changed (prevents double entries in Safari)
+      if (newURL !== currentURL) {
+        window.history[historyMode]({}, "", newURL);
+
+        // Dispatch custom event to notify subscribers
+        dispatchURLChangeEvent(historyMode === "replaceState" ? "replacestate" : "pushstate");
+      }
     }
 
     // Update store
