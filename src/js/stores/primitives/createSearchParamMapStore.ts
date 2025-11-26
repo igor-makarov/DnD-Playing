@@ -1,5 +1,4 @@
 import { type Store, createStore } from "./createStore";
-import { $searchParamsStore, type HistoryMode } from "./searchParamsStore";
 
 type SetStateAction<S> = S | ((prevState: S) => S);
 
@@ -35,21 +34,20 @@ function isEqual<S>(a: S, b: S): boolean {
 export interface SearchParamMapStoreOptions<S> {
   encode?: (value: S) => string | undefined;
   decode?: (value: string) => S;
-  historyMode?: HistoryMode;
 }
 
 /**
  * Creates a map store for multiple query parameters with a common prefix.
- * Uses createStore with onMount lifecycle for URL synchronization.
+ * Composes on top of a searchParamsStore for URL synchronization.
  */
 export function createSearchParamMapStore<S>(
+  searchParamsStore: Store<URLSearchParams>,
   prefix: string,
   defaultValue: Record<string, S | undefined>,
   options?: SearchParamMapStoreOptions<S>,
 ): MapStore<Record<string, S | undefined>> {
   const encode = options?.encode ?? ((v: S) => defaultSerialize(v));
   const decode = options?.decode ?? ((v: string) => defaultDeserialize(v, {} as S));
-  const historyMode = options?.historyMode ?? "pushState";
 
   // Helper to extract all values with the prefix from params
   const extractValues = (params: URLSearchParams): Record<string, S | undefined> => {
@@ -69,7 +67,7 @@ export function createSearchParamMapStore<S>(
   const baseStore = createStore<Record<string, S | undefined>>(defaultValue, {
     onMount: () => {
       // Restore values from URL when first subscriber is added
-      const currentParams = $searchParamsStore.get();
+      const currentParams = searchParamsStore.get();
       const urlValues = extractValues(currentParams);
 
       isRestoring = true;
@@ -82,7 +80,7 @@ export function createSearchParamMapStore<S>(
       isRestoring = false;
 
       // Subscribe to URL changes via searchParamsStore
-      return $searchParamsStore.subscribe((params) => {
+      return searchParamsStore.subscribe((params: URLSearchParams) => {
         const newValues = extractValues(params);
         const currentValue = baseStore.get();
 
@@ -126,25 +124,22 @@ export function createSearchParamMapStore<S>(
   const setKey = <K extends keyof Record<string, S | undefined>>(key: K, value: Record<string, S | undefined>[K]) => {
     // Update URL via searchParamsStore
     if (!isRestoring) {
-      $searchParamsStore.set(
-        (params) => {
-          const newParams = new URLSearchParams(params);
-          const prefixedKey = prefix + String(key);
+      searchParamsStore.set((params: URLSearchParams) => {
+        const newParams = new URLSearchParams(params);
+        const prefixedKey = prefix + String(key);
 
-          if (value === undefined || (key in defaultValue && isEqual(value, defaultValue[key as string]))) {
+        if (value === undefined || (key in defaultValue && isEqual(value, defaultValue[key as string]))) {
+          newParams.delete(prefixedKey);
+        } else {
+          const encoded = encode(value as S);
+          if (encoded === undefined) {
             newParams.delete(prefixedKey);
           } else {
-            const encoded = encode(value as S);
-            if (encoded === undefined) {
-              newParams.delete(prefixedKey);
-            } else {
-              newParams.set(prefixedKey, encoded);
-            }
+            newParams.set(prefixedKey, encoded);
           }
-          return newParams;
-        },
-        { historyMode },
-      );
+        }
+        return newParams;
+      });
     }
 
     // Update store
@@ -161,38 +156,35 @@ export function createSearchParamMapStore<S>(
 
     // Update URL via searchParamsStore
     if (!isRestoring) {
-      $searchParamsStore.set(
-        (params) => {
-          const newParams = new URLSearchParams(params);
+      searchParamsStore.set((params: URLSearchParams) => {
+        const newParams = new URLSearchParams(params);
 
-          // Set new values
-          for (const key in newState) {
-            const prefixedKey = prefix + key;
-            const val = newState[key];
+        // Set new values
+        for (const key in newState) {
+          const prefixedKey = prefix + key;
+          const val = newState[key];
 
-            if (val === undefined || (key in defaultValue && isEqual(val, defaultValue[key]))) {
+          if (val === undefined || (key in defaultValue && isEqual(val, defaultValue[key]))) {
+            newParams.delete(prefixedKey);
+          } else {
+            const encoded = encode(val);
+            if (encoded === undefined) {
               newParams.delete(prefixedKey);
             } else {
-              const encoded = encode(val);
-              if (encoded === undefined) {
-                newParams.delete(prefixedKey);
-              } else {
-                newParams.set(prefixedKey, encoded);
-              }
+              newParams.set(prefixedKey, encoded);
             }
           }
+        }
 
-          // Remove old values that are not in newState
-          for (const key in currentState) {
-            if (!(key in newState)) {
-              newParams.delete(prefix + key);
-            }
+        // Remove old values that are not in newState
+        for (const key in currentState) {
+          if (!(key in newState)) {
+            newParams.delete(prefix + key);
           }
+        }
 
-          return newParams;
-        },
-        { historyMode },
-      );
+        return newParams;
+      });
     }
 
     // Update store
