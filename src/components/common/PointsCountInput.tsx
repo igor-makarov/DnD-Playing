@@ -1,4 +1,6 @@
-import React, { useState, useSyncExternalStore } from "react";
+import React, { useState } from "react";
+
+import { useIsServerSideRender } from "@/js/hooks/useIsServerSideRender";
 
 interface Props {
   maximum: number;
@@ -9,19 +11,15 @@ interface Props {
 export default function PointsCountInput({ maximum, current, onChange }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const isMounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  );
+  const isServerSideRender = useIsServerSideRender();
 
   const currentValue = current ?? maximum;
 
-  const displayValue = !isMounted
-    ? "" // SSR: render empty
+  const displayValue = isServerSideRender
+    ? "" // Server-side render: render empty
     : isEditing
       ? inputValue // User is editing: show raw input
-      : currentValue.toString(); // Default: show current value
+      : currentValue.toString(); // Not editing: show current value
 
   const handleFocus = () => {
     setIsEditing(true);
