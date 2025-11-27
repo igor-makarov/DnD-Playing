@@ -12,7 +12,7 @@ interface Props {
   disadvantage?: boolean;
   critical?: boolean;
   title?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export default withAutoRehydration(function RollLink({ dice, advantage = false, disadvantage = false, critical = false, title, children }: Props) {
@@ -29,7 +29,7 @@ export default withAutoRehydration(function RollLink({ dice, advantage = false, 
 
   return (
     <a className="dice-roll" href={url} title={title}>
-      {children}
+      {children ?? `[${effectiveDice.toString()}]`}
     </a>
   );
 });

@@ -1,7 +1,7 @@
 import React from "react";
 
-import DamageCell from "@/components/common/DamageCell";
 import PointsCountInput from "@/components/common/PointsCountInput";
+import RollLink from "@/components/common/RollLink";
 import { $hitDice } from "@/js/character/dynamic-state/stores";
 import { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";
@@ -40,7 +40,7 @@ export default function HitDiceRow({ die, count, conModifier }: Props) {
       </td>
       <td className="checkCell">
         <span onClick={handleDiceClick} style={{ cursor: available > 0 ? "pointer" : "not-allowed" }}>
-          <DamageCell damageRoll={dieWithModifier} attack={false} />
+          <RollLink dice={dieWithModifier} />
         </span>
       </td>
     </tr>

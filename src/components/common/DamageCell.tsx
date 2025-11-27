@@ -26,9 +26,7 @@ export default withAutoRehydration(function DamageCell({ damageRoll, attack }: P
     <span className="mono check-cell">
       {/* Desktop view: single clickable element */}
       <span className="check-cell-desktop">
-        <RollLink dice={damageRoll} critical={isCritical} title={attack ? "Hold C: critical" : undefined}>
-          [{currentRoll.toString()}]
-        </RollLink>
+        <RollLink dice={damageRoll} critical={isCritical} title={attack ? "Hold C: critical" : undefined} />
       </span>
 
       {/* Mobile view: multiple links */}
