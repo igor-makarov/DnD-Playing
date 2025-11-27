@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useSyncExternalStore } from "react";
 
 interface Props {
   maximum: number;
@@ -9,9 +9,19 @@ interface Props {
 export default function PointsCountInput({ maximum, current, onChange }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const isMounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   const currentValue = current ?? maximum;
-  const displayValue = isEditing ? inputValue : currentValue.toString();
+
+  const displayValue = !isMounted
+    ? "" // SSR: render empty
+    : isEditing
+      ? inputValue // User is editing: show raw input
+      : currentValue.toString(); // Default: show current value
 
   const handleFocus = () => {
     setIsEditing(true);
