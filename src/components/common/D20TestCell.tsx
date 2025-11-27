@@ -1,8 +1,9 @@
 import React from "react";
 
 import { D20Test } from "@/js/common/D20Test";
-import { useRollMode } from "@/js/hooks/useRollMode";
 import { RollModifier, useRollModifiers } from "@/js/hooks/useRollModifiers";
+import { useStore } from "@/js/hooks/useStore";
+import { $rollModeStore } from "@/js/stores/rollModeStore";
 import { getRollUrl } from "@/js/utils/rollOptions";
 import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 
@@ -12,7 +13,7 @@ interface Props {
 }
 
 export default withAutoRehydration(function D20TestCell({ roll, advantage = false }: Props) {
-  const rollMode = useRollMode();
+  const rollMode = useStore($rollModeStore);
   const modifier = useRollModifiers();
 
   const bonus = roll.getBonus();

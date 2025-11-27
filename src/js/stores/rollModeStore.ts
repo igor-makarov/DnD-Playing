@@ -4,7 +4,7 @@ import { closedStringCodec } from "./primitives/queryCodecs";
 
 export type RollMode = "app" | "site";
 
-export const rollModeStore = createSearchParamStore<RollMode>(createURLSearchParamsStore(), "roll", "app", closedStringCodec(["app", "site"]));
+export const $rollModeStore = createSearchParamStore<RollMode>(createURLSearchParamsStore(), "roll", "app", closedStringCodec(["app", "site"]));
 
 // Initialize keydown event listener once
 let initialized = false;
@@ -26,11 +26,11 @@ function initializeEventListeners() {
       e.preventDefault();
 
       // Toggle between "app" and "site"
-      const current = rollModeStore.get();
+      const current = $rollModeStore.get();
       if (current === "site") {
-        rollModeStore.set("app");
+        $rollModeStore.set("app");
       } else {
-        rollModeStore.set("site");
+        $rollModeStore.set("site");
       }
     }
   };

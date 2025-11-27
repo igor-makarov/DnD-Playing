@@ -1,8 +1,9 @@
 import React from "react";
 
 import { DiceString } from "@/js/common/DiceString";
-import { useRollMode } from "@/js/hooks/useRollMode";
 import { RollModifier, useRollModifiers } from "@/js/hooks/useRollModifiers";
+import { useStore } from "@/js/hooks/useStore";
+import { $rollModeStore } from "@/js/stores/rollModeStore";
 import { getRollUrl } from "@/js/utils/rollOptions";
 import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 
@@ -12,7 +13,7 @@ interface Props {
 }
 
 export default withAutoRehydration(function DamageCell({ damageRoll, attack }: Props) {
-  const rollMode = useRollMode();
+  const rollMode = useStore($rollModeStore);
   const modifier = useRollModifiers();
 
   const critRoll = damageRoll.crit();
