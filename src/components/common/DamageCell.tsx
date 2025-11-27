@@ -2,10 +2,9 @@ import React from "react";
 
 import { DiceString } from "@/js/common/DiceString";
 import { RollModifier, useRollModifiers } from "@/js/hooks/useRollModifiers";
-import { useStore } from "@/js/hooks/useStore";
-import { $rollModeStore } from "@/js/stores/rollModeStore";
-import { getRollUrl } from "@/js/utils/rollOptions";
 import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
+
+import RollLink from "./RollLink";
 
 interface Props {
   damageRoll: DiceString;
@@ -13,31 +12,23 @@ interface Props {
 }
 
 export default withAutoRehydration(function DamageCell({ damageRoll, attack }: Props) {
-  const rollMode = useStore($rollModeStore);
   const modifier = useRollModifiers();
 
-  const critRoll = damageRoll.crit();
-
-  const rollUrls = {
-    [RollModifier.REGULAR]: getRollUrl(damageRoll, rollMode),
-    [RollModifier.CRITICAL]: getRollUrl(critRoll, rollMode),
-  };
-
-  const currentRoll = attack && modifier === RollModifier.CRITICAL ? critRoll : damageRoll;
-  const currentUrl = attack && modifier === RollModifier.CRITICAL ? rollUrls[RollModifier.CRITICAL] : rollUrls[RollModifier.REGULAR];
+  const isCritical = attack && modifier === RollModifier.CRITICAL;
+  const currentRoll = isCritical ? damageRoll.crit() : damageRoll;
 
   const mobileOptions = [
-    { key: "damage", caption: damageRoll.toString(), url: rollUrls[RollModifier.REGULAR] },
-    ...(attack ? [{ key: "crit", caption: "CRIT", url: rollUrls[RollModifier.CRITICAL] }] : []),
+    { key: "damage", caption: damageRoll.toString(), critical: false },
+    ...(attack ? [{ key: "crit", caption: "CRIT", critical: true }] : []),
   ];
 
   return (
     <span className="mono check-cell">
       {/* Desktop view: single clickable element */}
       <span className="check-cell-desktop">
-        <a className="dice-roll" href={currentUrl} title={attack ? "Hold C: critical" : undefined}>
+        <RollLink dice={damageRoll} critical={isCritical} title={attack ? "Hold C: critical" : undefined}>
           [{currentRoll.toString()}]
-        </a>
+        </RollLink>
       </span>
 
       {/* Mobile view: multiple links */}
@@ -45,9 +36,9 @@ export default withAutoRehydration(function DamageCell({ damageRoll, attack }: P
         {mobileOptions.map((option, index) => (
           <React.Fragment key={option.key}>
             {index > 0 && <>&nbsp;</>}
-            <a className="dice-roll" href={option.url}>
+            <RollLink dice={damageRoll} critical={option.critical}>
               {option.caption}
-            </a>
+            </RollLink>
           </React.Fragment>
         ))}
       </span>

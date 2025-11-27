@@ -2,10 +2,9 @@ import React from "react";
 
 import { D20Test } from "@/js/common/D20Test";
 import { RollModifier, useRollModifiers } from "@/js/hooks/useRollModifiers";
-import { useStore } from "@/js/hooks/useStore";
-import { $rollModeStore } from "@/js/stores/rollModeStore";
-import { getRollUrl } from "@/js/utils/rollOptions";
 import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
+
+import RollLink from "./RollLink";
 
 interface Props {
   roll: D20Test;
@@ -13,7 +12,6 @@ interface Props {
 }
 
 export default withAutoRehydration(function D20TestCell({ roll, advantage = false }: Props) {
-  const rollMode = useStore($rollModeStore);
   const modifier = useRollModifiers();
 
   const bonus = roll.getBonus();
@@ -28,25 +26,18 @@ export default withAutoRehydration(function D20TestCell({ roll, advantage = fals
     return advantage ? RollModifier.ADVANTAGE : RollModifier.REGULAR;
   })();
 
-  const rollUrls = {
-    [RollModifier.ADVANTAGE]: getRollUrl(diceString, rollMode, { advantage: true }),
-    [RollModifier.DISADVANTAGE]: getRollUrl(diceString, rollMode, { disadvantage: true }),
-    [RollModifier.REGULAR]: getRollUrl(diceString, rollMode),
-  };
-
   const currentCaption = {
     [RollModifier.ADVANTAGE]: "ADV",
     [RollModifier.DISADVANTAGE]: "DIS",
     [RollModifier.REGULAR]: "",
   }[effectiveModifier];
-  const currentUrl = rollUrls[effectiveModifier];
 
   const mobileOptions = (() => {
-    const regOption = { key: "reg", caption: "REG", url: rollUrls[RollModifier.REGULAR] };
-    const regBonusOption = { key: "bonus", caption: roll.getBonusString(), url: rollUrls[RollModifier.REGULAR] };
-    const advOption = { key: "adv", caption: "ADV", url: rollUrls[RollModifier.ADVANTAGE] };
-    const advBonusOption = { key: "adv", caption: `ADV${roll.getBonusString()}`, url: rollUrls[RollModifier.ADVANTAGE] };
-    const disOption = { key: "dis", caption: "DIS", url: rollUrls[RollModifier.DISADVANTAGE] };
+    const regOption = { key: "reg", caption: "REG", advantage: false, disadvantage: false };
+    const regBonusOption = { key: "bonus", caption: roll.getBonusString(), advantage: false, disadvantage: false };
+    const advOption = { key: "adv", caption: "ADV", advantage: true, disadvantage: false };
+    const advBonusOption = { key: "adv", caption: `ADV${roll.getBonusString()}`, advantage: true, disadvantage: false };
+    const disOption = { key: "dis", caption: "DIS", advantage: false, disadvantage: true };
 
     if (advantage) {
       return [advBonusOption, regOption, disOption];
@@ -59,10 +50,15 @@ export default withAutoRehydration(function D20TestCell({ roll, advantage = fals
     <span className="mono check-cell" data-bonus={bonus} data-advantage={advantage}>
       {/* Desktop view: single clickable element */}
       <span className="check-cell-desktop">
-        <a className="dice-roll" href={currentUrl} title="Hold A: advantage | Hold D: disadvantage | Hold S: regular">
+        <RollLink
+          dice={diceString}
+          advantage={effectiveModifier === RollModifier.ADVANTAGE}
+          disadvantage={effectiveModifier === RollModifier.DISADVANTAGE}
+          title="Hold A: advantage | Hold D: disadvantage | Hold S: regular"
+        >
           [{currentCaption}
           {roll.getBonusString()}]
-        </a>
+        </RollLink>
       </span>
 
       {/* Mobile view: multiple links */}
@@ -70,9 +66,9 @@ export default withAutoRehydration(function D20TestCell({ roll, advantage = fals
         {mobileOptions.map((option, index) => (
           <span key={index}>
             {index > 0 && <>&nbsp;</>}
-            <a className="dice-roll" href={option.url}>
+            <RollLink dice={diceString} advantage={option.advantage} disadvantage={option.disadvantage}>
               {option.caption}
-            </a>
+            </RollLink>
           </span>
         ))}
       </span>
