@@ -4,7 +4,12 @@ import { closedStringCodec } from "./primitives/queryCodecs";
 
 export type RollMode = "app" | "site";
 
-export const $rollModeStore = createSearchParamStore<RollMode>(createURLSearchParamsStore(), "roll", "app", closedStringCodec(["app", "site"]));
+export const $rollModeStore = createSearchParamStore<RollMode>(
+  createURLSearchParamsStore("replaceState"),
+  "roll",
+  "app",
+  closedStringCodec(["app", "site"]),
+);
 
 // Initialize keydown event listener once
 let initialized = false;
