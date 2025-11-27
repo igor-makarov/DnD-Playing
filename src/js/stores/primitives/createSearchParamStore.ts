@@ -1,11 +1,7 @@
+import type { SearchParamStoreOptions, SetStateAction } from "./StoreTypes";
 import { type Store, createStore } from "./createStore";
 
-type SetStateAction<S> = S | ((prevState: S) => S);
-
-export interface SearchParamStoreOptions<S> {
-  encode: (value: S) => string | undefined;
-  decode: (value: string) => S;
-}
+export type { SearchParamStoreOptions };
 
 /**
  * Creates a store for a single query parameter.

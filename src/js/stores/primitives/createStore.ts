@@ -1,12 +1,6 @@
-type SetStateAction<S> = S | ((prevState: S) => S);
-type Dispatch<A> = (value: A) => void;
+import type { Dispatch, SetStateAction, Store } from "./StoreTypes";
 
-export type Store<S> = {
-  get: () => S;
-  set: Dispatch<SetStateAction<S>>;
-  subscribe: (listener: (state: S) => void) => () => void;
-  getInitialValue: () => S;
-};
+export type { Store };
 
 export type StoreOptions = {
   onMount?: () => void | (() => void);

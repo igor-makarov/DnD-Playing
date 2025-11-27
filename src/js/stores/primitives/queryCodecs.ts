@@ -1,15 +1,8 @@
-import { type SearchParamMapStoreOptions } from "./createSearchParamMapStore";
-import { type SearchParamStoreOptions } from "./createSearchParamStore";
+import { type SearchParamStoreOptions } from "./StoreTypes";
 
 // Codec for simple numeric values
 export const numberCodec: SearchParamStoreOptions<number | undefined> = {
   encode: (value) => (value !== undefined ? value.toString() : undefined),
-  decode: (str) => parseInt(str, 10),
-};
-
-// Codec for queryMap numeric values (always returns a string, never undefined)
-export const numberMapCodec: SearchParamMapStoreOptions<number> = {
-  encode: (value) => value.toString(),
   decode: (str) => parseInt(str, 10),
 };
 

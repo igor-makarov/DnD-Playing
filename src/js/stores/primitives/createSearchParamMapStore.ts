@@ -1,6 +1,5 @@
+import type { SearchParamStoreOptions, SetStateAction } from "./StoreTypes";
 import { type Store, createStore } from "./createStore";
-
-type SetStateAction<S> = S | ((prevState: S) => S);
 
 export interface MapStore<S extends Record<string, any>> extends Store<S> {
   setKey: <K extends keyof S>(key: K, value: S[K]) => void;
@@ -14,11 +13,6 @@ function isEqual<S>(a: S, b: S): boolean {
   return false;
 }
 
-export interface SearchParamMapStoreOptions<S> {
-  encode: (value: S) => string | undefined;
-  decode: (value: string) => S;
-}
-
 /**
  * Creates a map store for multiple query parameters with a common prefix.
  * Composes on top of a searchParamsStore for URL synchronization.
@@ -27,7 +21,7 @@ export function createSearchParamMapStore<S>(
   searchParamsStore: Store<URLSearchParams>,
   prefix: string,
   defaultValue: Record<string, S | undefined>,
-  options: SearchParamMapStoreOptions<S>,
+  options: SearchParamStoreOptions<S>,
 ): MapStore<Record<string, S | undefined>> {
   const encode = options.encode;
   const decode = options.decode;

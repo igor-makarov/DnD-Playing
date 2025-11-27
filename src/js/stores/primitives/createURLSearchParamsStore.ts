@@ -1,6 +1,5 @@
+import type { SetStateAction } from "./StoreTypes";
 import { type Store, createStore } from "./createStore";
-
-type SetStateAction<S> = S | ((prevState: S) => S);
 
 export type HistoryMode = "pushState" | "replaceState";
 
