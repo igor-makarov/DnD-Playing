@@ -88,8 +88,9 @@ test.describe("Hit Dice Query String", () => {
     await expect(damageRollCell).toBeVisible();
     console.log("Damage roll cell text:", await damageRollCell.textContent());
 
-    // Click the damage roll cell to use one hit die
-    await damageRollCell.click();
+    // Find and click the link inside the cell
+    const rollLink = damageRollCell.locator("a.dice-roll");
+    await rollLink.click();
     await page.waitForTimeout(500);
 
     // Check the URL has been updated
@@ -101,7 +102,7 @@ test.describe("Hit Dice Query String", () => {
     expect(hitDiceD10).toBe("13");
 
     // Click again
-    await damageRollCell.click();
+    await rollLink.click();
     await page.waitForTimeout(500);
 
     const url2 = new URL(page.url());

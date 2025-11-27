@@ -28,7 +28,7 @@ export default withAutoRehydration(function RollLink({ dice, advantage = false, 
   });
 
   return (
-    <a className="dice-roll" href={url} title={title}>
+    <a className="dice-roll mono" href={url} title={title}>
       {children ?? `[${effectiveDice.toString()}]`}
     </a>
   );
