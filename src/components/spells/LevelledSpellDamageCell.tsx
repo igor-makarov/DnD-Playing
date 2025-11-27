@@ -1,6 +1,6 @@
 import React from "react";
 
-import DamageCell from "@/components/common/DamageCell";
+import RollLink from "@/components/common/RollLink";
 import type { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";
 import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
@@ -21,5 +21,9 @@ export default withAutoRehydration(function LevelledSpellDamageCell({ spellName,
     return null;
   }
 
-  return <DamageCell damageRoll={damageRoll} />;
+  return (
+    <span className="mono check-cell">
+      <RollLink dice={damageRoll} />
+    </span>
+  );
 });

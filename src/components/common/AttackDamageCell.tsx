@@ -7,26 +7,24 @@ import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 import RollLink from "./RollLink";
 
 interface Props {
-  damageRoll: DiceString;
-  attack?: boolean;
+  dice: DiceString;
 }
 
-export default withAutoRehydration(function DamageCell({ damageRoll, attack }: Props) {
+export default withAutoRehydration(function AttackDamageCell({ dice }: Props) {
   const modifier = useRollModifiers();
 
-  const isCritical = attack && modifier === RollModifier.CRITICAL;
-  const currentRoll = isCritical ? damageRoll.crit() : damageRoll;
+  const isCritical = modifier === RollModifier.CRITICAL;
 
   const mobileOptions = [
-    { key: "damage", caption: damageRoll.toString(), critical: false },
-    ...(attack ? [{ key: "crit", caption: "CRIT", critical: true }] : []),
+    { key: "damage", caption: dice.toString(), critical: false },
+    { key: "crit", caption: "CRIT", critical: true },
   ];
 
   return (
     <span className="mono check-cell">
       {/* Desktop view: single clickable element */}
       <span className="check-cell-desktop">
-        <RollLink dice={damageRoll} critical={isCritical} title={attack ? "Hold C: critical" : undefined} />
+        <RollLink dice={dice} critical={isCritical} title="Hold C: critical" />
       </span>
 
       {/* Mobile view: multiple links */}
@@ -34,7 +32,7 @@ export default withAutoRehydration(function DamageCell({ damageRoll, attack }: P
         {mobileOptions.map((option, index) => (
           <React.Fragment key={option.key}>
             {index > 0 && <>&nbsp;</>}
-            <RollLink dice={damageRoll} critical={option.critical}>
+            <RollLink dice={dice} critical={option.critical}>
               {option.caption}
             </RollLink>
           </React.Fragment>

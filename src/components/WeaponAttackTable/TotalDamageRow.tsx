@@ -1,6 +1,6 @@
 import React from "react";
 
-import DamageCell from "@/components/common/DamageCell";
+import AttackDamageCell from "@/components/common/AttackDamageCell";
 import type { DiceString } from "@/js/common/DiceString";
 
 interface Props {
@@ -11,7 +11,7 @@ export default function TotalDamageRow({ totalDamage }: Props) {
   return (
     <tr>
       <td>Total Damage</td>
-      <td className="checkCell mono">{totalDamage && <DamageCell damageRoll={totalDamage} attack />}</td>
+      <td className="checkCell mono">{totalDamage && <AttackDamageCell dice={totalDamage} />}</td>
     </tr>
   );
 }
