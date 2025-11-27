@@ -6,23 +6,6 @@ export interface MapStore<S extends Record<string, any>> extends Store<S> {
   setKey: <K extends keyof S>(key: K, value: S[K]) => void;
 }
 
-function defaultSerialize<S>(value: S): string {
-  if (typeof value === "string") return value;
-  if (typeof value === "number" || typeof value === "boolean") return String(value);
-  return JSON.stringify(value);
-}
-
-function defaultDeserialize<S>(value: string, defaultValue: S): S {
-  if (typeof defaultValue === "string") return value as S;
-  if (typeof defaultValue === "number") return Number(value) as S;
-  if (typeof defaultValue === "boolean") return (value === "true") as S;
-  try {
-    return JSON.parse(value) as S;
-  } catch {
-    return defaultValue;
-  }
-}
-
 function isEqual<S>(a: S, b: S): boolean {
   if (a === b) return true;
   if (typeof a === "object" && typeof b === "object" && a !== null && b !== null) {
@@ -32,8 +15,8 @@ function isEqual<S>(a: S, b: S): boolean {
 }
 
 export interface SearchParamMapStoreOptions<S> {
-  encode?: (value: S) => string | undefined;
-  decode?: (value: string) => S;
+  encode: (value: S) => string | undefined;
+  decode: (value: string) => S;
 }
 
 /**
@@ -44,10 +27,10 @@ export function createSearchParamMapStore<S>(
   searchParamsStore: Store<URLSearchParams>,
   prefix: string,
   defaultValue: Record<string, S | undefined>,
-  options?: SearchParamMapStoreOptions<S>,
+  options: SearchParamMapStoreOptions<S>,
 ): MapStore<Record<string, S | undefined>> {
-  const encode = options?.encode ?? ((v: S) => defaultSerialize(v));
-  const decode = options?.decode ?? ((v: string) => defaultDeserialize(v, {} as S));
+  const encode = options.encode;
+  const decode = options.decode;
 
   // Helper to extract all values with the prefix from params
   const extractValues = (params: URLSearchParams): Record<string, S | undefined> => {

@@ -3,8 +3,8 @@ import { type Store, createStore } from "./createStore";
 type SetStateAction<S> = S | ((prevState: S) => S);
 
 export interface SearchParamStoreOptions<S> {
-  encode?: (value: S) => string | undefined;
-  decode?: (value: string) => S;
+  encode: (value: S) => string | undefined;
+  decode: (value: string) => S;
 }
 
 /**
@@ -15,10 +15,10 @@ export function createSearchParamStore<S>(
   searchParamsStore: Store<URLSearchParams>,
   paramName: string,
   defaultValue: S,
-  options?: SearchParamStoreOptions<S>,
+  options: SearchParamStoreOptions<S>,
 ): Store<S> {
-  const encode = options?.encode ?? JSON.stringify;
-  const decode = options?.decode ?? ((v: string) => JSON.parse(v) as S);
+  const encode = options.encode;
+  const decode = options.decode;
 
   const store = createStore<S>(defaultValue, {
     onMount: () => {
