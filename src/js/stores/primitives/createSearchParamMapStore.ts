@@ -43,6 +43,7 @@ export function createSearchParamMapStore<S>(
     },
   });
 
+  // Override set to sync with URL
   const originalSet = baseStore.set;
 
   const setKey = (key: string, value: S) => {

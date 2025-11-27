@@ -13,12 +13,11 @@ export function createSearchParamStore<S>(
   defaultValue: S,
   options: SearchParamStoreOptions<S>,
 ): Store<S> {
-  const encode = options.encode;
-  const decode = options.decode;
+  const { encode, decode } = options;
 
-  const store = createStore<S>(defaultValue, {
+  const baseStore = createStore<S>(defaultValue, {
     onMount: () => {
-      // Restore from URL on mount
+      // Restore from URL
       const value = searchParamsStore.get().get(paramName);
       if (value) originalSet(decode(value));
 
@@ -31,9 +30,10 @@ export function createSearchParamStore<S>(
   });
 
   // Override set to sync with URL
-  const originalSet = store.set;
-  store.set = (value: SetStateAction<S>) => {
-    const newState = typeof value === "function" ? (value as (prevState: S) => S)(store.get()) : value;
+  const originalSet = baseStore.set;
+
+  baseStore.set = (value: SetStateAction<S>) => {
+    const newState = typeof value === "function" ? (value as (prevState: S) => S)(baseStore.get()) : value;
 
     searchParamsStore.set((params) => {
       const newParams = new URLSearchParams(params);
@@ -52,5 +52,5 @@ export function createSearchParamStore<S>(
     originalSet(newState);
   };
 
-  return store;
+  return baseStore;
 }
