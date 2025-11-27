@@ -24,9 +24,10 @@ test.describe("Hit Dice Query String", () => {
     const inputField = d10Row.locator('input[type="text"]');
     await expect(inputField).toBeVisible();
 
-    // Check initial value should be empty (meaning max)
+    // Check initial value should be "14" (at maximum)
     const initialValue = await inputField.inputValue();
     console.log("Initial input value:", initialValue);
+    expect(initialValue).toBe("14");
 
     // Edit the input to set available dice to 10
     await inputField.click();
@@ -264,5 +265,69 @@ test.describe("Hit Dice Query String", () => {
     const hitDiceD8 = url.searchParams.get("hit-dice-d8");
     expect(hitDiceD10).toBe("2");
     expect(hitDiceD8).toBe("5");
+  });
+
+  test("Adrik - should create only one history entry when using Long Rest button (bulk set)", async ({ page }) => {
+    // Navigate to Adrik page
+    await page.goto("/Adrik");
+    await page.waitForLoadState("networkidle");
+
+    // First, spend some hit dice to create state
+    const hitDiceTable = page.locator("table").filter({ hasText: "Hit Dice" });
+    const d10Row = hitDiceTable.locator("tr").filter({ hasText: "d10" });
+    const d10Input = d10Row.locator('input[type="text"]');
+    const d8Row = hitDiceTable.locator("tr").filter({ hasText: "d8" });
+    const d8Input = d8Row.locator('input[type="text"]');
+
+    // Spend some d10 dice
+    await d10Input.click();
+    await d10Input.fill("2");
+    await d10Input.press("Enter");
+    await page.waitForTimeout(500);
+
+    // Spend some d8 dice
+    await d8Input.click();
+    await d8Input.fill("3");
+    await d8Input.press("Enter");
+    await page.waitForTimeout(500);
+
+    // Verify both params are in URL
+    let url = new URL(page.url());
+    expect(url.searchParams.get("hit-dice-d10")).toBe("2");
+    expect(url.searchParams.get("hit-dice-d8")).toBe("3");
+
+    // Get history length before Long Rest
+    const initialHistoryLength = await page.evaluate(() => window.history.length);
+    console.log("History length before Long Rest:", initialHistoryLength);
+
+    // Find and click the Long Rest button
+    const longRestButton = page.locator("button", { hasText: "Long Rest" });
+    await expect(longRestButton).toBeVisible();
+    await longRestButton.click();
+
+    // Wait for the URL to update
+    await page.waitForTimeout(500);
+
+    // Get history length after Long Rest
+    const afterLongRestHistoryLength = await page.evaluate(() => window.history.length);
+    console.log("History length after Long Rest:", afterLongRestHistoryLength);
+
+    // Should have added only ONE history entry despite updating multiple hit dice values
+    expect(afterLongRestHistoryLength).toBe(initialHistoryLength + 1);
+
+    // Verify hit dice were restored (Long Rest restores up to half of total hit dice)
+    // Adrik has 5d10 + 7d8 = 12 total, started with 2d10 + 3d8 (7 spent)
+    // Can restore: floor(12/2) = 6
+    // Restores largest first: 3 to d10 (2+3=5, which is max so becomes null), then 3 to d8 (3+3=6)
+    url = new URL(page.url());
+    const hitDiceD10After = url.searchParams.get("hit-dice-d10");
+    const hitDiceD8After = url.searchParams.get("hit-dice-d8");
+    console.log("hit-dice-d10 after Long Rest:", hitDiceD10After);
+    console.log("hit-dice-d8 after Long Rest:", hitDiceD8After);
+
+    // d10 should be restored to max (5), represented as null in URL
+    expect(hitDiceD10After).toBeNull();
+    // d8 should be restored from 3 to 6
+    expect(hitDiceD8After).toBe("6");
   });
 });
