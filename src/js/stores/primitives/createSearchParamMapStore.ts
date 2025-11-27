@@ -28,24 +28,17 @@ export function createSearchParamMapStore<S>(
     return result;
   };
 
-  let isRestoring = false;
-
   const baseStore = createStore<Record<string, S>>(defaultValue, {
     onMount: () => {
       // Restore from URL
       const urlValues = extractValues(searchParamsStore.get());
-      isRestoring = true;
       originalSet({ ...defaultValue, ...urlValues });
-      isRestoring = false;
 
       // Subscribe to URL changes
       return searchParamsStore.subscribe((params) => {
         const urlValues = extractValues(params);
         const newState: Record<string, S> = { ...defaultValue, ...urlValues };
-
-        isRestoring = true;
         originalSet(newState);
-        isRestoring = false;
       });
     },
   });
@@ -53,20 +46,18 @@ export function createSearchParamMapStore<S>(
   const originalSet = baseStore.set;
 
   const setKey = (key: string, value: S) => {
-    if (!isRestoring) {
-      searchParamsStore.set((params) => {
-        const newParams = new URLSearchParams(params);
-        const encoded = encode(value);
+    searchParamsStore.set((params) => {
+      const newParams = new URLSearchParams(params);
+      const encoded = encode(value);
 
-        if (encoded === undefined || (key in defaultValue && value === defaultValue[key])) {
-          newParams.delete(prefix + key);
-        } else {
-          newParams.set(prefix + key, encoded);
-        }
+      if (encoded === undefined || (key in defaultValue && value === defaultValue[key])) {
+        newParams.delete(prefix + key);
+      } else {
+        newParams.set(prefix + key, encoded);
+      }
 
-        return newParams;
-      });
-    }
+      return newParams;
+    });
 
     originalSet({ ...baseStore.get(), [key]: value });
   };
@@ -74,26 +65,24 @@ export function createSearchParamMapStore<S>(
   const set = (value: SetStateAction<Record<string, S>>) => {
     const newState = typeof value === "function" ? value(baseStore.get()) : value;
 
-    if (!isRestoring) {
-      searchParamsStore.set((params) => {
-        const newParams = new URLSearchParams(params);
+    searchParamsStore.set((params) => {
+      const newParams = new URLSearchParams(params);
 
-        // Clear all prefix params
-        for (const key of Array.from(params.keys())) {
-          if (key.startsWith(prefix)) newParams.delete(key);
+      // Clear all prefix params
+      for (const key of Array.from(params.keys())) {
+        if (key.startsWith(prefix)) newParams.delete(key);
+      }
+
+      // Set new params
+      for (const key in newState) {
+        const encoded = encode(newState[key]);
+        if (encoded !== undefined && !(key in defaultValue && newState[key] === defaultValue[key])) {
+          newParams.set(prefix + key, encoded);
         }
+      }
 
-        // Set new params
-        for (const key in newState) {
-          const encoded = encode(newState[key]);
-          if (encoded !== undefined && !(key in defaultValue && newState[key] === defaultValue[key])) {
-            newParams.set(prefix + key, encoded);
-          }
-        }
-
-        return newParams;
-      });
-    }
+      return newParams;
+    });
 
     originalSet(newState);
   };
