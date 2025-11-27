@@ -38,8 +38,9 @@ export function createSearchParamStore<S>(
     searchParamsStore.set((params) => {
       const newParams = new URLSearchParams(params);
       const encoded = encode(newState);
+      const encodedDefault = encode(defaultValue);
 
-      if (encoded === undefined || JSON.stringify(newState) === JSON.stringify(defaultValue)) {
+      if (encoded === undefined || encoded === encodedDefault) {
         newParams.delete(paramName);
       } else {
         newParams.set(paramName, encoded);
