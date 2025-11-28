@@ -1,4 +1,4 @@
-import { $channelDivinityUsed, $hitDice, $hitPoints, $layOnHands, $spellSlotsSpent } from "@/js/character/dynamic-state/stores";
+import { $channelDivinityUsed, $hitDice, $hitPoints, $layOnHands, $spellSlotsSpent, $temporaryHitPoints } from "@/js/character/dynamic-state/stores";
 import type { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";
 import { batchUpdates } from "@/js/stores/primitives/createURLSearchParamsStore";
@@ -11,6 +11,7 @@ export function useLongRest(hitDiceByType: Array<{ die: DiceString; count: numbe
     batchUpdates(() => {
       // Reset all resources
       $hitPoints.set(undefined);
+      $temporaryHitPoints.set(undefined);
       $spellSlotsSpent.set(undefined);
       $channelDivinityUsed.set(undefined);
       $layOnHands.set(undefined);
