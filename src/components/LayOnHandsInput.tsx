@@ -14,7 +14,7 @@ export default function LayOnHandsInput({ layOnHandsMaximum }: Props) {
 
   return (
     <span className="mono">
-      <PointsCountInput maximum={layOnHandsMaximum} current={layOnHands} onChange={$layOnHands.set} />
+      <PointsCountInput current={layOnHands} defaultValue={layOnHandsMaximum} maximum={layOnHandsMaximum} onChange={$layOnHands.set} />
       &nbsp;/&nbsp;
       {layOnHandsMaximum}
     </span>

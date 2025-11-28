@@ -4,18 +4,18 @@ import { useIsServerSideRender } from "@/js/hooks/useIsServerSideRender";
 import { calculateNewPoints } from "@/js/utils/calculatePoints";
 
 interface Props {
-  maximum: number;
   current: number | undefined;
+  defaultValue: number;
+  maximum?: number;
   onChange: (current: number | undefined) => void;
-  allowAboveMaximum?: boolean;
 }
 
-export default function PointsCountInput({ maximum, current, onChange, allowAboveMaximum }: Props) {
+export default function PointsCountInput({ current, defaultValue, maximum, onChange }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const isServerSideRender = useIsServerSideRender();
 
-  const currentValue = current ?? maximum;
+  const currentValue = current ?? defaultValue;
 
   const displayValue = isServerSideRender
     ? "" // Server-side render: render empty
@@ -34,9 +34,9 @@ export default function PointsCountInput({ maximum, current, onChange, allowAbov
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      const newValue = calculateNewPoints(inputValue, currentValue, { maximum, allowAboveMaximum });
+      const newValue = calculateNewPoints(inputValue, currentValue, { defaultValue, maximum });
 
-      if (newValue === maximum && !allowAboveMaximum) {
+      if (newValue === defaultValue) {
         onChange(undefined);
       } else {
         onChange(newValue);
@@ -51,9 +51,9 @@ export default function PointsCountInput({ maximum, current, onChange, allowAbov
   };
 
   const handleBlur = () => {
-    const newValue = calculateNewPoints(inputValue, currentValue, { maximum, allowAboveMaximum });
+    const newValue = calculateNewPoints(inputValue, currentValue, { defaultValue, maximum });
 
-    if (newValue === maximum && !allowAboveMaximum) {
+    if (newValue === defaultValue && maximum === undefined) {
       onChange(undefined);
     } else {
       onChange(newValue);

@@ -22,7 +22,7 @@ export default withAutoRehydration(function HitPointsInput({ hitPointMaximum, hi
   return (
     <span style={{ display: "flex", alignItems: "center" }}>
       <span className="mono" style={{ flex: 1 }}>
-        <PointsCountInput maximum={hitPointMaximum} current={hitPoints} onChange={$hitPoints.set} />
+        <PointsCountInput current={hitPoints} defaultValue={hitPointMaximum} maximum={hitPointMaximum} onChange={$hitPoints.set} />
         &nbsp;/&nbsp;
         {hitPointMaximum}
       </span>

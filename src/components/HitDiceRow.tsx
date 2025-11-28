@@ -33,7 +33,7 @@ export default function HitDiceRow({ die, count, conModifier }: Props) {
     <tr>
       <td>
         <span className="mono">
-          <PointsCountInput maximum={count} current={available} onChange={handleChange} />
+          <PointsCountInput current={available} defaultValue={count} maximum={count} onChange={handleChange} />
           &nbsp;/&nbsp;
           {count}
         </span>

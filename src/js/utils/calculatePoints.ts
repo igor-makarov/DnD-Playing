@@ -1,27 +1,27 @@
 interface CalculateNewPointsOptions {
-  maximum: number;
-  allowAboveMaximum?: boolean;
+  defaultValue: number;
+  maximum?: number;
 }
 
 export function calculateNewPoints(inputValue: string, currentValue: number, options: CalculateNewPointsOptions): number {
-  const { maximum, allowAboveMaximum } = options;
+  const { defaultValue, maximum } = options;
 
   const updateValue = (value: number): number => {
-    // Clamp between 0 and max, or just 0 if allowAboveMaximum is true
+    // Clamp between 0 and maximum (if provided), or defaultValue
     const lowerClampedValue = Math.max(0, value);
-    const clampedValue = allowAboveMaximum ? lowerClampedValue : Math.min(maximum, lowerClampedValue);
+    const clampedValue = maximum === undefined ? Math.min(defaultValue, lowerClampedValue) : Math.min(maximum, lowerClampedValue);
 
     return clampedValue;
   };
 
   const trimmed = inputValue.replace(/\s+/g, ""); // Remove all spaces
 
-  // Empty input resets to maximum (or 0 if allowAboveMaximum is true and current value is 0)
+  // Empty input resets to defaultValue (or 0 if maximum is not provided and current value is 0)
   if (trimmed === "") {
-    if (allowAboveMaximum && currentValue === 0) {
-      return 0; // If allowing above max and currently 0, keep 0
+    if (maximum === undefined && currentValue === 0) {
+      return 0; // If no maximum and currently 0, keep 0
     }
-    return maximum;
+    return defaultValue;
   }
 
   // Check for illegal characters (anything that's not 0-9, +, or -)
