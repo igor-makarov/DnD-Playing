@@ -53,7 +53,7 @@ export default function PointsCountInput({ current, defaultValue, maximum, onCha
   const handleBlur = () => {
     const newValue = calculateNewPoints(inputValue, currentValue, { defaultValue, maximum });
 
-    if (newValue === defaultValue && maximum === undefined) {
+    if (newValue === defaultValue) {
       onChange(undefined);
     } else {
       onChange(newValue);

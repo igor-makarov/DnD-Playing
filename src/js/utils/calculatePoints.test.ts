@@ -14,10 +14,14 @@ describe("calculateNewPoints", () => {
     expect(calculateNewPoints("abc", currentValue, { defaultValue })).toBe(currentValue);
   });
 
-  it("should parse direct number input and clamp it within 0 and defaultValue (if no maximum is provided)", () => {
+  it("should parse direct number input and clamp it within 0 (if no maximum is provided)", () => {
     expect(calculateNewPoints("7", currentValue, { defaultValue })).toBe(7);
-    expect(calculateNewPoints("15", currentValue, { defaultValue })).toBe(defaultValue); // Clamped to defaultValue
+    expect(calculateNewPoints("15", currentValue, { defaultValue })).toBe(15); // Should not be clamped to defaultValue
     expect(calculateNewPoints("-5", currentValue, { defaultValue })).toBe(0); // Clamped to 0
+  });
+
+  it("should allow values above defaultValue when no maximum is provided", () => {
+    expect(calculateNewPoints("100", currentValue, { defaultValue })).toBe(100);
   });
 
   it("should handle arithmetic expressions", () => {
@@ -25,7 +29,7 @@ describe("calculateNewPoints", () => {
     expect(calculateNewPoints("10-3", currentValue, { defaultValue })).toBe(7);
     expect(calculateNewPoints("1+1+1", currentValue, { defaultValue })).toBe(3);
     expect(calculateNewPoints("10-100", currentValue, { defaultValue })).toBe(0); // Clamped to 0
-    expect(calculateNewPoints("1+100", currentValue, { defaultValue })).toBe(defaultValue); // Clamped to defaultValue
+    expect(calculateNewPoints("1+100", currentValue, { defaultValue })).toBe(101);
   });
 
   describe("maximum option", () => {

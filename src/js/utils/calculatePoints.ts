@@ -9,7 +9,7 @@ export function calculateNewPoints(inputValue: string, currentValue: number, opt
   const updateValue = (value: number): number => {
     // Clamp between 0 and maximum (if provided), or defaultValue
     const lowerClampedValue = Math.max(0, value);
-    const clampedValue = maximum === undefined ? Math.min(defaultValue, lowerClampedValue) : Math.min(maximum, lowerClampedValue);
+    const clampedValue = maximum === undefined ? lowerClampedValue : Math.min(maximum, lowerClampedValue);
 
     return clampedValue;
   };
