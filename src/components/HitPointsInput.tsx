@@ -22,7 +22,9 @@ export default withAutoRehydration(function HitPointsInput({ hitPointMaximum, hi
 
   return (
     <span style={{ display: "flex", alignItems: "center" }}>
-      <span className="mono" style={{ flex: 2 }}>
+      <span className=" short-input" style={{ flex: 1 }}>
+        <PointsCountInput current={temporaryHitPoints} defaultValue={0} onChange={$temporaryHitPoints.set} data-testid="temp-hp-input" />
+        &nbsp;(temp)&nbsp;
         <PointsCountInput
           current={hitPoints}
           defaultValue={hitPointMaximum}
@@ -31,11 +33,8 @@ export default withAutoRehydration(function HitPointsInput({ hitPointMaximum, hi
           data-testid="hp-input"
         />
         &nbsp;/&nbsp;
-        {hitPointMaximum}
-      </span>
-      <span style={{ flex: 1 }} className="short-input">
-        T&nbsp;
-        <PointsCountInput current={temporaryHitPoints} defaultValue={0} onChange={$temporaryHitPoints.set} data-testid="temp-hp-input" />
+        <span className="mono">{hitPointMaximum}</span>
+        &nbsp;
       </span>
       <span style={{ justifyContent: "flex-end" }}>
         <button onClick={finishShortRest}>Short Rest</button>
