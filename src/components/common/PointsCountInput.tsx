@@ -7,9 +7,10 @@ interface Props {
   maximum: number;
   current: number | undefined;
   onChange: (current: number | undefined) => void;
+  allowAboveMaximum?: boolean;
 }
 
-export default function PointsCountInput({ maximum, current, onChange }: Props) {
+export default function PointsCountInput({ maximum, current, onChange, allowAboveMaximum }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const isServerSideRender = useIsServerSideRender();
@@ -33,7 +34,14 @@ export default function PointsCountInput({ maximum, current, onChange }: Props) 
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      const newValue = calculateNewPoints(inputValue, currentValue, maximum, onChange);
+      const newValue = calculateNewPoints(inputValue, currentValue, { maximum, allowAboveMaximum });
+
+      if (newValue === maximum && !allowAboveMaximum) {
+        onChange(undefined);
+      } else {
+        onChange(newValue);
+      }
+
       // Keep focus after Enter, update inputValue to show new value
       setInputValue(newValue.toString());
     } else if (e.key === "Escape") {
@@ -43,7 +51,14 @@ export default function PointsCountInput({ maximum, current, onChange }: Props) 
   };
 
   const handleBlur = () => {
-    calculateNewPoints(inputValue, currentValue, maximum, onChange);
+    const newValue = calculateNewPoints(inputValue, currentValue, { maximum, allowAboveMaximum });
+
+    if (newValue === maximum && !allowAboveMaximum) {
+      onChange(undefined);
+    } else {
+      onChange(newValue);
+    }
+
     setIsEditing(false);
   };
 

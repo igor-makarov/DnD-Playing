@@ -1,24 +1,26 @@
-type OnChange = (current: number | undefined) => void;
+interface CalculateNewPointsOptions {
+  maximum: number;
+  allowAboveMaximum?: boolean;
+}
 
-export function calculateNewPoints(inputValue: string, currentValue: number, maximum: number, onChange: OnChange): number {
+export function calculateNewPoints(inputValue: string, currentValue: number, options: CalculateNewPointsOptions): number {
+  const { maximum, allowAboveMaximum } = options;
+
   const updateValue = (value: number): number => {
-    // Clamp between 0 and max
-    const clampedValue = Math.max(0, Math.min(maximum, value));
-
-    if (clampedValue === maximum) {
-      onChange(undefined);
-    } else {
-      onChange(clampedValue);
-    }
+    // Clamp between 0 and max, or just 0 if allowAboveMaximum is true
+    const lowerClampedValue = Math.max(0, value);
+    const clampedValue = allowAboveMaximum ? lowerClampedValue : Math.min(maximum, lowerClampedValue);
 
     return clampedValue;
   };
 
   const trimmed = inputValue.replace(/\s+/g, ""); // Remove all spaces
 
-  // Empty input resets to maximum
+  // Empty input resets to maximum (or 0 if allowAboveMaximum is true and current value is 0)
   if (trimmed === "") {
-    onChange(undefined);
+    if (allowAboveMaximum && currentValue === 0) {
+      return 0; // If allowing above max and currently 0, keep 0
+    }
     return maximum;
   }
 
