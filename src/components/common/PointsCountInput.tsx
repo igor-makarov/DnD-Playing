@@ -8,9 +8,11 @@ interface Props {
   defaultValue: number;
   maximum?: number;
   onChange: (current: number | undefined) => void;
+  "data-testid"?: string;
+  className?: string; // Add className prop
 }
 
-export default function PointsCountInput({ current, defaultValue, maximum, onChange }: Props) {
+export default function PointsCountInput({ current, defaultValue, maximum, onChange, "data-testid": testId, className }: Props) {
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const isServerSideRender = useIsServerSideRender();
@@ -62,5 +64,16 @@ export default function PointsCountInput({ current, defaultValue, maximum, onCha
     setIsEditing(false);
   };
 
-  return <input type="text" value={displayValue} onFocus={handleFocus} onChange={handleChange} onKeyDown={handleKeyDown} onBlur={handleBlur} />;
+  return (
+    <input
+      type="text"
+      value={displayValue}
+      onFocus={handleFocus}
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
+      onBlur={handleBlur}
+      data-testid={testId}
+      className={className} // Pass className here
+    />
+  );
 }

@@ -136,3 +136,7 @@ input[type="text"] {
   vertical-align: middle;
   margin-top: -2.7px;
 }
+
+.short-input input[type="text"] {
+  width: 3em;
+}

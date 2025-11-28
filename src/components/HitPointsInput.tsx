@@ -1,6 +1,6 @@
 import React from "react";
 
-import { $hitPoints } from "@/js/character/dynamic-state/stores";
+import { $hitPoints, $temporaryHitPoints } from "@/js/character/dynamic-state/stores";
 import type { DiceString } from "@/js/common/DiceString";
 import { useLongRest } from "@/js/hooks/useLongRest";
 import { useShortRest } from "@/js/hooks/useShortRest";
@@ -16,15 +16,26 @@ interface Props {
 
 export default withAutoRehydration(function HitPointsInput({ hitPointMaximum, hitDiceByType }: Props) {
   const hitPoints = useStore($hitPoints);
+  const temporaryHitPoints = useStore($temporaryHitPoints);
   const { finishShortRest } = useShortRest();
   const { finishLongRest } = useLongRest(hitDiceByType);
 
   return (
     <span style={{ display: "flex", alignItems: "center" }}>
-      <span className="mono" style={{ flex: 1 }}>
-        <PointsCountInput current={hitPoints} defaultValue={hitPointMaximum} maximum={hitPointMaximum} onChange={$hitPoints.set} />
+      <span className="mono" style={{ flex: 2 }}>
+        <PointsCountInput
+          current={hitPoints}
+          defaultValue={hitPointMaximum}
+          maximum={hitPointMaximum}
+          onChange={$hitPoints.set}
+          data-testid="hp-input"
+        />
         &nbsp;/&nbsp;
         {hitPointMaximum}
+      </span>
+      <span style={{ flex: 1 }} className="short-input">
+        T&nbsp;
+        <PointsCountInput current={temporaryHitPoints} defaultValue={0} onChange={$temporaryHitPoints.set} data-testid="temp-hp-input" />
       </span>
       <span style={{ justifyContent: "flex-end" }}>
         <button onClick={finishShortRest}>Short Rest</button>

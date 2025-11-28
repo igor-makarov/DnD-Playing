@@ -6,8 +6,9 @@ import { kebabNumberArrayCodec, numberCodec } from "@/js/stores/primitives/query
 // Create shared base store for all character state
 const searchParamsStore = createURLSearchParamsStore();
 
-// Query atoms for character dynamic state
 export const $hitPoints = createSearchParamStore<number | undefined>(searchParamsStore, "hit-points", undefined, numberCodec);
+
+export const $temporaryHitPoints = createSearchParamStore<number | undefined>(searchParamsStore, "temp-hit-points", undefined, numberCodec);
 
 export const $spellSlotsSpent = createSearchParamStore<number[] | undefined>(
   searchParamsStore,
@@ -16,7 +17,6 @@ export const $spellSlotsSpent = createSearchParamStore<number[] | undefined>(
   kebabNumberArrayCodec,
 );
 
-// export const $channelDivinityUsed = queryAtom<number | undefined>("channel-divinity-used", 0, numberCodec);
 export const $channelDivinityUsed = createSearchParamStore<number | undefined>(searchParamsStore, "channel-divinity-used", undefined, numberCodec);
 
 export const $layOnHands = createSearchParamStore<number | undefined>(searchParamsStore, "lay-on-hands", undefined, numberCodec);
