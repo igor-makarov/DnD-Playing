@@ -16,7 +16,13 @@ import type {
   SpellSlotsForLevel,
   Weapon,
 } from "./CharacterTypes";
-import { PROFICIENCY_BONUS_BY_LEVEL, SKILL_TO_DEFAULT_ABILITIY, SPELL_SLOTS_BY_LEVEL } from "./CharacterTypes";
+import {
+  PROFICIENCY_BONUS_BY_LEVEL,
+  SKILL_TO_DEFAULT_ABILITIY,
+  SPELL_SLOTS_BY_LEVEL,
+  WARLOCK_SLOT_LEVEL_BY_LEVEL,
+  WARLOCK_SPELL_SLOTS_BY_LEVEL,
+} from "./CharacterTypes";
 import type { DamageLevel, OptionalDamage } from "./DamageTypes";
 import type { DamageAddonData, WeaponAttackData } from "./WeaponAttackTypes";
 
@@ -147,9 +153,33 @@ export class Character {
     }));
   }
 
+  getWarlockSpellSlots(): SpellSlotsForLevel | undefined {
+    let warlockLevel = 0;
+    for (const classLevel of this.classLevels) {
+      const { className, level } = classLevel;
+      if (className === "Warlock") {
+        warlockLevel += level;
+      }
+    }
+
+    if (warlockLevel === 0) return undefined;
+    if (warlockLevel > 20) warlockLevel = 20;
+
+    const slots = WARLOCK_SPELL_SLOTS_BY_LEVEL[warlockLevel - 1];
+    const level = WARLOCK_SLOT_LEVEL_BY_LEVEL[warlockLevel - 1];
+
+    return { level, slots };
+  }
+
   // Get list of spell levels that have slots available
   getSpellLevels(): number[] {
-    return this.getSpellSlots().map((slot) => slot.level);
+    const levels = this.getSpellSlots().map((slot) => slot.level);
+    const warlockSlots = this.getWarlockSpellSlots();
+    if (warlockSlots) {
+      levels.push(warlockSlots.level);
+    }
+
+    return [...new Set(levels)].sort((a, b) => a - b);
   }
 
   // Get damage progression list for available spell levels

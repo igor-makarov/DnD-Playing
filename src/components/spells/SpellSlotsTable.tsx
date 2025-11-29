@@ -2,18 +2,21 @@ import React from "react";
 
 import CheckboxUsesRow from "@/components/common/CheckboxUsesRow";
 import type { SpellSlotsForLevel } from "@/js/character/CharacterTypes";
-import { $spellSlotsSpent } from "@/js/character/dynamic-state/stores";
+import { $spellSlotsSpent, $warlockSpellSlotsUsed } from "@/js/character/dynamic-state/stores";
 import { useStore } from "@/js/hooks/useStore";
 
 interface Props {
   spellSlots: SpellSlotsForLevel[];
+  warlockSpellSlots?: SpellSlotsForLevel;
   characterName?: string;
 }
 
-export default function SpellSlotsTable({ spellSlots }: Props) {
+export default function SpellSlotsTable({ spellSlots, warlockSpellSlots }: Props) {
   const spellSlotsSpent = useStore($spellSlotsSpent);
+  const warlockSlotsUsed = useStore($warlockSpellSlotsUsed);
 
   const currentSpellSlotsSpent = spellSlotsSpent ?? [];
+  const currentWarlockSlotsUsed = warlockSlotsUsed ?? 0;
 
   const handleChange = (levelIndex: number, newCount: number) => {
     // Update array with new counts
@@ -25,7 +28,7 @@ export default function SpellSlotsTable({ spellSlots }: Props) {
     $spellSlotsSpent.set(newSpellSlotsSpent);
   };
 
-  if (spellSlots.length === 0) {
+  if (spellSlots.length === 0 && !warlockSpellSlots) {
     return null;
   }
 
@@ -59,6 +62,20 @@ export default function SpellSlotsTable({ spellSlots }: Props) {
             </tr>
           );
         })}
+        {warlockSpellSlots && (
+          <tr key="warlock">
+            <td>[Warlock] Level {warlockSpellSlots.level}</td>
+            <td className="checkCell">
+              <span style={{ display: "flex", gap: "4px", justifyContent: "end", paddingInlineEnd: "5px" }}>
+                <CheckboxUsesRow
+                  maxUses={warlockSpellSlots.slots}
+                  currentUsed={currentWarlockSlotsUsed}
+                  onChange={(newCount) => $warlockSpellSlotsUsed.set(newCount)}
+                />
+              </span>
+            </td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

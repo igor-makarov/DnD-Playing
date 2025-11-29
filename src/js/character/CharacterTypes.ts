@@ -93,6 +93,16 @@ export const SPELL_SLOTS_BY_LEVEL: number[][] = [
   [4, 3, 3, 3, 3, 2, 2, 1, 1], // 20
 ];
 
+// prettier-ignore
+export const WARLOCK_SPELL_SLOTS_BY_LEVEL: number[] = [
+  1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4,
+];
+
+// prettier-ignore
+export const WARLOCK_SLOT_LEVEL_BY_LEVEL: number[] = [
+  1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+];
+
 export type Proficiency = {
   symbol: ProficiencySymbol;
   bonus: number;

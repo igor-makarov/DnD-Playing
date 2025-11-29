@@ -17,6 +17,8 @@ export const $spellSlotsSpent = createSearchParamStore<number[] | undefined>(
   kebabNumberArrayCodec,
 );
 
+export const $warlockSpellSlotsUsed = createSearchParamStore<number | undefined>(searchParamsStore, "warlock-slots-used", undefined, numberCodec);
+
 export const $channelDivinityUsed = createSearchParamStore<number | undefined>(searchParamsStore, "channel-divinity-used", undefined, numberCodec);
 
 export const $layOnHands = createSearchParamStore<number | undefined>(searchParamsStore, "lay-on-hands", undefined, numberCodec);
