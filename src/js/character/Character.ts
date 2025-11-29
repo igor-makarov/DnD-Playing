@@ -5,6 +5,7 @@ import type {
   AbilityCheck,
   AbilityScores,
   AttackAddon,
+  ClassLevel,
   HitPointRoll,
   Proficiency,
   SavingThrow,
@@ -21,7 +22,7 @@ import type { DamageAddonData, WeaponAttackData } from "./WeaponAttackTypes";
 
 export class Character {
   abilityScores: AbilityScores;
-  characterLevel: number;
+  classLevels: ClassLevel[];
   proficiencyBonus: number;
   skillProficiencies: SkillProficiency[];
   saveProficiencies: SavingThrowProficiency[];
@@ -31,7 +32,7 @@ export class Character {
 
   constructor({
     abilityScores,
-    characterLevel,
+    classLevels = [],
     proficiencyBonus,
     skillProficiencies,
     saveProficiencies,
@@ -40,7 +41,7 @@ export class Character {
     hitPointRolls = [],
   }: {
     abilityScores: AbilityScores;
-    characterLevel: number;
+    classLevels?: ClassLevel[];
     proficiencyBonus: number;
     skillProficiencies: SkillProficiency[];
     saveProficiencies: SavingThrowProficiency[];
@@ -49,13 +50,17 @@ export class Character {
     hitPointRolls?: HitPointRoll[];
   }) {
     this.abilityScores = abilityScores;
-    this.characterLevel = characterLevel;
+    this.classLevels = classLevels;
     this.proficiencyBonus = proficiencyBonus;
     this.skillProficiencies = skillProficiencies;
     this.saveProficiencies = saveProficiencies;
     this.weapons = weapons;
     this.attackAddons = attackAddons;
     this.hitPointRolls = hitPointRolls;
+  }
+
+  get characterLevel(): number {
+    return this.classLevels.reduce((total, classLevel) => total + classLevel.level, 0);
   }
 
   getAbilities(): Ability[] {

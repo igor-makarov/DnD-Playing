@@ -102,3 +102,8 @@ export type HitPointRoll = {
   die: DiceString;
   roll: number; // HP rolled/taken at this level (before any modifiers)
 };
+
+export type ClassLevel = {
+  className: string;
+  level: number;
+};

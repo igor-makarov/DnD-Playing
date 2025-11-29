@@ -14,7 +14,7 @@ export default class AzamatCharacter extends Character {
         Wis: 10,
         Cha: 15 + 1 /* Warforged */,
       },
-      characterLevel: 14,
+      classLevels: [{ className: "Paladin", level: 14 }],
       proficiencyBonus: 5,
       skillProficiencies: [
         { skill: "Athletics" },

@@ -12,7 +12,10 @@ export default class AdrikCharacter extends Character {
         Wis: 16 + 1 /* Hill Dwarf bonus */,
         Cha: 12,
       },
-      characterLevel: 12,
+      classLevels: [
+        { className: "Ranger", level: 5 },
+        { className: "Cleric", level: 7 },
+      ],
       proficiencyBonus: 4,
       // prettier-ignore
       skillProficiencies: [
