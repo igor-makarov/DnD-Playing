@@ -1,0 +1,15 @@
+---
+import SpellSlotsTableReact from "./spells/SpellSlotsTable.tsx";
+import type { Character } from "@/js/character/Character.ts";
+
+interface Props {
+  character: Character;
+}
+
+const { character } = Astro.props;
+
+const spellSlots = character.getSpellSlots();
+const warlockSpellSlots = character.getWarlockSpellSlots();
+---
+
+<SpellSlotsTableReact client:load spellSlots={spellSlots} warlockSpellSlots={warlockSpellSlots} />

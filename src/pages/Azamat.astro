@@ -6,7 +6,7 @@ import SavesTable from "@/components/SavesTable.astro";
 import WeaponAttackTable from "@/components/WeaponAttackTable.astro";
 import D20TestCell from "@/components/common/D20TestCell.tsx";
 import HitPointsInput from "@/components/HitPointsInput.tsx";
-import SpellSlotsTable from "@/components/spells/SpellSlotsTable.tsx";
+import SpellSlotsTables from "@/components/SpellSlotsTables.astro";
 import ChannelDivinityCheckboxes from "@/components/ChannelDivinityCheckboxes.tsx";
 import LayOnHandsInput from "@/components/LayOnHandsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
@@ -128,11 +128,7 @@ const character = new AzamatCharacter();
         </table>
       </div>
       <div class="column features">
-        <SpellSlotsTable
-          client:load
-          spellSlots={character.getSpellSlots()}
-          warlockSpellSlots={character.getWarlockSpellSlots()}
-        />
+        <SpellSlotsTables character={character} />
         <HitDiceTable client:load hitDice={character.getHitDice()} conModifier={character.getAbilityModifier("Con")} />
         <table>
           <tr>
