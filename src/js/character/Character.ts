@@ -16,14 +16,13 @@ import type {
   SpellSlotsForLevel,
   Weapon,
 } from "./CharacterTypes";
-import { SKILL_TO_DEFAULT_ABILITIY } from "./CharacterTypes";
+import { PROFICIENCY_BONUS_BY_LEVEL, SKILL_TO_DEFAULT_ABILITIY } from "./CharacterTypes";
 import type { DamageLevel, OptionalDamage } from "./DamageTypes";
 import type { DamageAddonData, WeaponAttackData } from "./WeaponAttackTypes";
 
 export class Character {
   abilityScores: AbilityScores;
   classLevels: ClassLevel[];
-  proficiencyBonus: number;
   skillProficiencies: SkillProficiency[];
   saveProficiencies: SavingThrowProficiency[];
   weapons: Weapon[];
@@ -33,7 +32,6 @@ export class Character {
   constructor({
     abilityScores,
     classLevels = [],
-    proficiencyBonus,
     skillProficiencies,
     saveProficiencies,
     weapons = [],
@@ -42,7 +40,6 @@ export class Character {
   }: {
     abilityScores: AbilityScores;
     classLevels?: ClassLevel[];
-    proficiencyBonus: number;
     skillProficiencies: SkillProficiency[];
     saveProficiencies: SavingThrowProficiency[];
     weapons?: Weapon[];
@@ -51,7 +48,6 @@ export class Character {
   }) {
     this.abilityScores = abilityScores;
     this.classLevels = classLevels;
-    this.proficiencyBonus = proficiencyBonus;
     this.skillProficiencies = skillProficiencies;
     this.saveProficiencies = saveProficiencies;
     this.weapons = weapons;
@@ -61,6 +57,13 @@ export class Character {
 
   get characterLevel(): number {
     return this.classLevels.reduce((total, classLevel) => total + classLevel.level, 0);
+  }
+
+  get proficiencyBonus(): number {
+    if (this.characterLevel < 1 || this.characterLevel > PROFICIENCY_BONUS_BY_LEVEL.length) {
+      return 0; // Or handle error/edge case as appropriate
+    }
+    return PROFICIENCY_BONUS_BY_LEVEL[this.characterLevel - 1];
   }
 
   getAbilities(): Ability[] {

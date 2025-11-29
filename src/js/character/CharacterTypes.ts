@@ -60,6 +60,8 @@ export type SavingThrowProficiency = {
 
 export type ProficiencySymbol = " " | "P" | "E";
 
+export const PROFICIENCY_BONUS_BY_LEVEL: number[] = [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6];
+
 export type Proficiency = {
   symbol: ProficiencySymbol;
   bonus: number;

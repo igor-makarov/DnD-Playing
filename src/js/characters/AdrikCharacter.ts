@@ -16,7 +16,6 @@ export default class AdrikCharacter extends Character {
         { className: "Ranger", level: 5 },
         { className: "Cleric", level: 7 },
       ],
-      proficiencyBonus: 4,
       // prettier-ignore
       skillProficiencies: [
         { skill: "Arcana" },
