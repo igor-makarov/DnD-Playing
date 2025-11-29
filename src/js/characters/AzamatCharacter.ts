@@ -1,5 +1,5 @@
 import { Character } from "@/js/character/Character";
-import type { SavingThrow, SpellSlotsForLevel } from "@/js/character/CharacterTypes";
+import type { SavingThrow } from "@/js/character/CharacterTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 
@@ -92,34 +92,5 @@ export default class AzamatCharacter extends Character {
 
   getLayOnHandsMaximum(): number {
     return 5 * this.characterLevel;
-  }
-
-  // Override: Paladin spell slots based on character level
-  getSpellSlots(): SpellSlotsForLevel[] {
-    // prettier-ignore
-    const paladinSpellSlots: Record<number, SpellSlotsForLevel[]> = {
-      1: [{level: 1, slots: 2}],
-      2: [{level: 1, slots: 2}],
-      3: [{level: 1, slots: 3}],
-      4: [{level: 1, slots: 3}],
-      5: [{level: 1, slots: 4}, {level: 2, slots: 2}],
-      6: [{level: 1, slots: 4}, {level: 2, slots: 2}],
-      7: [{level: 1, slots: 4}, {level: 2, slots: 3}],
-      8: [{level: 1, slots: 4}, {level: 2, slots: 3}],
-      9: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 2}],
-      10: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 2}],
-      11: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}],
-      12: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}],
-      13: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 1}],
-      14: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 1}],
-      15: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 2}],
-      16: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 2}],
-      17: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 3}, {level: 5, slots: 1}],
-      18: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 3}, {level: 5, slots: 1}],
-      19: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 3}, {level: 5, slots: 2}],
-      20: [{level: 1, slots: 4}, {level: 2, slots: 3}, {level: 3, slots: 3}, {level: 4, slots: 3}, {level: 5, slots: 2}],
-    };
-
-    return paladinSpellSlots[this.characterLevel] || [];
   }
 }

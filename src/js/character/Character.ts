@@ -16,7 +16,7 @@ import type {
   SpellSlotsForLevel,
   Weapon,
 } from "./CharacterTypes";
-import { PROFICIENCY_BONUS_BY_LEVEL, SKILL_TO_DEFAULT_ABILITIY } from "./CharacterTypes";
+import { PROFICIENCY_BONUS_BY_LEVEL, SKILL_TO_DEFAULT_ABILITIY, SPELL_SLOTS_BY_LEVEL } from "./CharacterTypes";
 import type { DamageLevel, OptionalDamage } from "./DamageTypes";
 import type { DamageAddonData, WeaponAttackData } from "./WeaponAttackTypes";
 
@@ -124,9 +124,27 @@ export class Character {
     return { symbol: proficient ? symbol : " ", bonus: (proficient ? 1 : 0) * this.proficiencyBonus * multiplier };
   }
 
-  // Abstract method stub - override in subclasses to provide spell slots
   getSpellSlots(): SpellSlotsForLevel[] {
-    return [];
+    let effectiveLevel = 0;
+    for (const classLevel of this.classLevels) {
+      const { className, level } = classLevel;
+      if (["Bard", "Cleric", "Druid", "Sorcerer", "Wizard"].includes(className)) {
+        effectiveLevel += level;
+      } else if (["Paladin", "Ranger"].includes(className)) {
+        effectiveLevel += Math.ceil(level / 2);
+      }
+    }
+
+    if (effectiveLevel === 0) return [];
+    if (effectiveLevel > 20) effectiveLevel = 20;
+
+    const slots = SPELL_SLOTS_BY_LEVEL[effectiveLevel - 1];
+    if (!slots) return [];
+
+    return slots.map((count, index) => ({
+      level: index + 1,
+      slots: count,
+    }));
   }
 
   // Get list of spell levels that have slots available

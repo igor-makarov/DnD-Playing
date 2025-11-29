@@ -60,7 +60,38 @@ export type SavingThrowProficiency = {
 
 export type ProficiencySymbol = " " | "P" | "E";
 
-export const PROFICIENCY_BONUS_BY_LEVEL: number[] = [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6];
+// prettier-ignore
+export const PROFICIENCY_BONUS_BY_LEVEL: number[] = [
+  2, 2, 2, 2, // Levels 1-4
+  3, 3, 3, 3, // Levels 5-8
+  4, 4, 4, 4, // Levels 9-12
+  5, 5, 5, 5, // Levels 13-16
+  6, 6, 6, 6, // Levels 17-20
+];
+
+// prettier-ignore
+export const SPELL_SLOTS_BY_LEVEL: number[][] = [
+  [2],                         // 1
+  [3],                         // 2
+  [4, 2],                      // 3
+  [4, 3],                      // 4
+  [4, 3, 2],                   // 5
+  [4, 3, 3],                   // 6
+  [4, 3, 3, 1],                // 7
+  [4, 3, 3, 2],                // 8
+  [4, 3, 3, 3, 1],             // 9
+  [4, 3, 3, 3, 2],             // 10
+  [4, 3, 3, 3, 2, 1],          // 11
+  [4, 3, 3, 3, 2, 1],          // 12
+  [4, 3, 3, 3, 2, 1, 1],       // 13
+  [4, 3, 3, 3, 2, 1, 1],       // 14
+  [4, 3, 3, 3, 2, 1, 1, 1],    // 15
+  [4, 3, 3, 3, 2, 1, 1, 1],    // 16
+  [4, 3, 3, 3, 2, 1, 1, 1, 1], // 17
+  [4, 3, 3, 3, 3, 1, 1, 1, 1], // 18
+  [4, 3, 3, 3, 3, 2, 1, 1, 1], // 19
+  [4, 3, 3, 3, 3, 2, 2, 1, 1], // 20
+];
 
 export type Proficiency = {
   symbol: ProficiencySymbol;

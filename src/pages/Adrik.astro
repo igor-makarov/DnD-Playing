@@ -8,6 +8,7 @@ import SavesTable from "@/components/SavesTable.astro";
 import D20TestCell from "@/components/common/D20TestCell.tsx";
 import HitPointsInput from "@/components/HitPointsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
+import SpellSlotsTable from "@/components/spells/SpellSlotsTable.tsx";
 const character = new AdrikCharacter();
 ---
 
@@ -75,7 +76,7 @@ const character = new AdrikCharacter();
       </div>
     </div>
 
-    <div class="row four-across">
+    <div class="row three-and-large">
       <div class="column">
         <SkillsTable
           title={'Skills<br><a href="https://www.dungeonmastersvault.com/pages/dnd/5e/characters/17592319397230">character sheet</a>'}
@@ -83,8 +84,13 @@ const character = new AdrikCharacter();
         />
       </div>
       <div class="column">
-        <SkillsTable title="Int skills" skills={character.getSkillAbilityChecks().filter((s) => s.ability == "Int")} character={character} />
-        <SkillsTable title="Wis skills" skills={character.getSkillAbilityChecks().filter((s) => s.ability == "Wis")} character={character} />
+        <SavesTable title="Saves" character={character} />
+        <SavesTable
+          title={'<a href="http://dnd5e.wikidot.com/lineage:dwarf#:~:text=Dwarven%20Resilience">Dwarven Resilience</a><br>ADV against poison<br>also half damage'}
+          savingThrows={character.getSavingThrows().filter((s) => s.ability == "Con")}
+          advantage={true}
+          character={character}
+        />
       </div>
       <div class="column">
         <SkillsTable
@@ -130,14 +136,8 @@ const character = new AdrikCharacter();
           character={character}
         />
       </div>
-      <div class="column">
-        <SavesTable title="Saves" character={character} />
-        <SavesTable
-          title={'<a href="http://dnd5e.wikidot.com/lineage:dwarf#:~:text=Dwarven%20Resilience">Dwarven Resilience</a><br>ADV against poison<br>also half damage'}
-          savingThrows={character.getSavingThrows().filter((s) => s.ability == "Con")}
-          advantage={true}
-          character={character}
-        />
+      <div class="column features">
+        <SpellSlotsTable client:load spellSlots={character.getSpellSlots()} />
         <HitDiceTable client:load hitDice={character.getHitDice()} conModifier={character.getAbilityModifier("Con")} />
       </div>
     </div>
