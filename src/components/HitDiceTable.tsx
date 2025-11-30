@@ -23,8 +23,8 @@ export default withAutoRehydration(function HitDiceTable({ hitDice, conModifier 
           </th>
         </tr>
         <tr>
-          <th>Die</th>
-          <th className="modifier">Used</th>
+          <th>Used</th>
+          <th className="modifier">Die</th>
         </tr>
       </thead>
       <tbody>
