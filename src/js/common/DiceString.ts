@@ -222,6 +222,23 @@ export class DiceString {
   }
 
   /**
+   * Multiply all dice (but not modifiers) by a scalar value
+   *
+   * Example: "2d6+5".multiply(3) => "6d6+5"
+   *
+   * @param multiplier The value to multiply dice counts by
+   * @returns A new DiceString with multiplied dice
+   */
+  multiply(multiplier: number): DiceString {
+    const multipliedDice = this.dice.map((die) => ({
+      count: die.count * multiplier,
+      sides: die.sides,
+    }));
+
+    return new DiceString(multipliedDice, this.modifier);
+  }
+
+  /**
    * Calculate the average value of the dice expression
    * Average of a die is (sides + 1) / 2
    *

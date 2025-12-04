@@ -207,6 +207,34 @@ export class Character {
     });
   }
 
+  /**
+   * Get scaled cantrip damage based on character level.
+   * Cantrips scale at levels 5, 11, and 17.
+   *
+   * @param base - Base damage (e.g., new DiceString('d8'))
+   * @param increment - Damage to add per tier (e.g., new DiceString('d8'))
+   * @returns Scaled DiceString for current character level
+   *
+   * @example
+   * // Toll the Dead - healthy target
+   * const damage = character.getCantripDamage(new DiceString('d8'), new DiceString('d8'));
+   * // Returns: 1d8 at level 1-4, 2d8 at 5-10, 3d8 at 11-16, 4d8 at 17+
+   */
+  getCantripDamage(base: DiceString, increment: DiceString): DiceString {
+    let tier: number;
+    if (this.characterLevel < 5) {
+      tier = 0;
+    } else if (this.characterLevel < 11) {
+      tier = 1;
+    } else if (this.characterLevel < 17) {
+      tier = 2;
+    } else {
+      tier = 3;
+    }
+
+    return DiceString.sum([base, increment.multiply(tier)]);
+  }
+
   getWeaponAttacks(): WeaponAttackData[] {
     return this.weapons.map((w) => {
       const damageWithAbility = new DiceString(w.damage, this.getAbilityModifier(w.ability));
