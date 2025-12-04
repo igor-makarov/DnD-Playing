@@ -18,6 +18,7 @@ export interface Reference {
   entries: Array<Entry>;
   category?: string;
   byline?: string; // Optional byline text displayed before the main content
+  properties?: Record<string, string>; // Optional key-value properties (e.g., "Casting Time": "Action")
 }
 
 /**

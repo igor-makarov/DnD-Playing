@@ -18,12 +18,14 @@ function renderTags(text: string): string {
 
   // Then: add our own safe HTML tags
   return safeText
-    .replace(/{@variantrule ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>")
+    .replace(/{@variantrule ([^}|]+)\|([^}|]+)\|([^}]+)}/g, "<em>$3</em>") // Use third part when available
+    .replace(/{@variantrule ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>") // Fallback to first part
     .replace(/{@condition ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>")
     .replace(/{@dice ([^}]+)}/g, "$1")
     .replace(/{@damage ([^}]+)}/g, "$1")
     .replace(/{@spell ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>")
-    .replace(/{@item ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>");
+    .replace(/{@item ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>")
+    .replace(/{@hazard ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>");
 }
 
 /**
@@ -71,6 +73,14 @@ export default function renderReference(reference: Reference): ReferenceRendered
   // Add byline if present
   if (reference.byline) {
     html += `<p><em>${reference.byline}</em></p>`;
+  }
+
+  // Add properties if present (e.g., spell casting time, range, components, duration)
+  if (reference.properties) {
+    const propertyLines = Object.entries(reference.properties)
+      .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+      .join("<br/>");
+    html += `<p>${propertyLines}</p>`;
   }
 
   // Render entries
