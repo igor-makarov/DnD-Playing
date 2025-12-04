@@ -88,18 +88,7 @@ const character = new JacobCharacter();
       </div>
       <div class="column">
         <SavesTable title="Saves" character={character} />
-        <table>
-          <tr>
-            <th colspan="2" style="text-align: center;">Languages & Tools</th>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <strong>Languages:</strong> Common, Deep Speech, Thieves' Cant
-              <br />
-              <strong>Tools:</strong> Thieves' Tools, Alchemist's Supplies
-            </td>
-          </tr>
-        </table>
+        <HitDiceTable client:load hitDice={character.getHitDice()} conModifier={character.getAbilityModifier("Con")} />
       </div>
       <div class="column">
         <WeaponAttackTable character={character} />
@@ -147,7 +136,6 @@ const character = new JacobCharacter();
         </table>
       </div>
       <div class="column features">
-        <HitDiceTable client:load hitDice={character.getHitDice()} conModifier={character.getAbilityModifier("Con")} />
         <table>
           <tr>
             <th colspan="2" style="text-align: center;">Features</th>
@@ -160,6 +148,18 @@ const character = new JacobCharacter();
             <td>Resourceful (free Inspiration)</td>
             <td class="modifier">
               <HeroicInspirationCheckboxes client:load />
+            </td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <th colspan="2" style="text-align: center;">Languages & Tools</th>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Languages:</strong> Common, Deep Speech, Thieves' Cant
+              <br />
+              <strong>Tools:</strong> Thieves' Tools, Alchemist's Supplies
             </td>
           </tr>
         </table>

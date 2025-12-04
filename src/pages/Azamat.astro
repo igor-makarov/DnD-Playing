@@ -96,6 +96,7 @@ const character = new AzamatCharacter();
           advantage={true}
           character={character}
         />
+        <HitDiceTable client:load hitDice={character.getHitDice()} conModifier={character.getAbilityModifier("Con")} />
       </div>
       <div class="column">
         <WeaponAttackTable character={character} />
@@ -129,7 +130,6 @@ const character = new AzamatCharacter();
       </div>
       <div class="column features">
         <SpellSlotsTables character={character} />
-        <HitDiceTable client:load hitDice={character.getHitDice()} conModifier={character.getAbilityModifier("Con")} />
         <table>
           <tr>
             <th colspan="2" style="text-align: center;">Features</th>
