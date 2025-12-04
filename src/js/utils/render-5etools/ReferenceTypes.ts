@@ -16,7 +16,8 @@ export interface Reference {
   name: string;
   source: string;
   entries: Array<Entry>;
-  category?: string; // See `FEAT_CATEGORIES`
+  category?: string;
+  byline?: string; // Optional byline text displayed before the main content
 }
 
 /**
@@ -32,18 +33,6 @@ export interface ReferenceRendered {
   source: string;
   html: ReferenceHTML;
 }
-
-/**
- * Feat category mappings
- */
-export const FEAT_CATEGORIES: Record<string, string> = {
-  O: "Origin Feat",
-  G: "General Feat",
-  FS: "Fighting Style Feat",
-  "FS:P": "Fighting Style Feat (Paladin)",
-  "FS:R": "Fighting Style Feat (Ranger)",
-  EB: "Epic Boon Feat",
-};
 
 /**
  * Source book abbreviation to readable name mappings

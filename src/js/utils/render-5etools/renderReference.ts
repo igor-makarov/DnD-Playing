@@ -2,7 +2,7 @@ import DOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
 
 import type { Entry, Reference, ReferenceHTML, ReferenceRendered } from "./ReferenceTypes";
-import { FEAT_CATEGORIES, getSourceName } from "./ReferenceTypes";
+import { getSourceName } from "./ReferenceTypes";
 
 // Singleton DOMPurify instance for Node.js (reused for performance)
 const window = new JSDOM("").window;
@@ -68,9 +68,9 @@ function renderEntry(entry: Entry): string {
 export default function renderReference(reference: Reference): ReferenceRendered {
   let html = "";
 
-  // Add category byline for feats
-  if (reference.category && FEAT_CATEGORIES[reference.category]) {
-    html += `<p><em>${FEAT_CATEGORIES[reference.category]}</em></p>`;
+  // Add byline if present
+  if (reference.byline) {
+    html += `<p><em>${reference.byline}</em></p>`;
   }
 
   // Render entries
