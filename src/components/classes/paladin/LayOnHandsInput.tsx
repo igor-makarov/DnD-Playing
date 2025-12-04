@@ -1,9 +1,8 @@
 import React from "react";
 
+import PointsCountInput from "@/components/common/PointsCountInput";
 import { $layOnHands } from "@/js/character/dynamic-state/stores";
 import { useStore } from "@/js/hooks/useStore";
-
-import PointsCountInput from "./common/PointsCountInput";
 
 interface Props {
   layOnHandsMaximum: number;

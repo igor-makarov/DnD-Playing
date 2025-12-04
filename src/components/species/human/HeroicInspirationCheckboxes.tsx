@@ -1,9 +1,8 @@
 import React from "react";
 
+import CheckboxUsesRow from "@/components/common/CheckboxUsesRow";
 import { $heroicInspirationUsed } from "@/js/character/dynamic-state/stores";
 import { useStore } from "@/js/hooks/useStore";
-
-import CheckboxUsesRow from "./common/CheckboxUsesRow";
 
 export default function HeroicInspirationCheckboxes() {
   const used = useStore($heroicInspirationUsed);
