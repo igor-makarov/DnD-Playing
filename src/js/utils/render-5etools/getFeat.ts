@@ -3,6 +3,16 @@ import featsData from "@5etools/data/feats.json";
 import type { Reference, ReferenceRendered } from "./ReferenceTypes";
 import renderReference from "./renderReference";
 
+// Feat-specific interface extending Reference
+interface FeatReference extends Reference {
+  category?: string; // See FEAT_CATEGORIES
+}
+
+// Structure of feat data from 5etools JSON files
+interface FeatData {
+  feat: Array<FeatReference>;
+}
+
 // Feat category mappings
 const FEAT_CATEGORIES: Record<string, string> = {
   O: "Origin Feat",
@@ -28,15 +38,18 @@ function getCategoryByline(category: string | undefined): string | undefined {
  * @throws Error if feat is not found
  */
 export function getFeat(name: string, source: string = "XPHB"): ReferenceRendered {
-  const feat = featsData.feat.find((f: any) => f.name === name && f.source === source);
+  const typedFeatsData = featsData as FeatData;
+  const feat = typedFeatsData.feat.find((f) => f.name === name && f.source === source);
 
   if (!feat) {
     throw new Error(`Feat "${name}" from source "${source}" not found in 5etools data`);
   }
 
-  const featData: Reference = {
+  const byline = getCategoryByline(feat.category);
+
+  const featData: FeatReference = {
     ...feat,
-    byline: getCategoryByline(feat.category),
+    byline,
   };
 
   return renderReference(featData);

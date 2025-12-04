@@ -3,17 +3,13 @@ import spellsXPHB from "@5etools/data/spells/spells-xphb.json";
 import type { Reference, ReferenceRendered } from "./ReferenceTypes";
 import renderReference from "./renderReference";
 
-/**
- * Spell-specific interface extending Reference
- */
+// Spell-specific interface extending Reference
 interface SpellReference extends Reference {
   level: number; // 0 for cantrips, 1-9 for leveled spells
   school: string; // See SCHOOL_NAMES
 }
 
-/**
- * Structure of spell data from 5etools JSON files
- */
+// Structure of spell data from 5etools JSON files
 interface SpellData {
   spell: Array<SpellReference>;
 }
