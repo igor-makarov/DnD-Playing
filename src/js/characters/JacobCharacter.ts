@@ -1,4 +1,5 @@
 import { Character } from "@/js/character/Character";
+import type { AttackAddon, Weapon } from "@/js/character/CharacterTypes";
 import type { WeaponAttackData } from "@/js/character/WeaponAttackTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
@@ -29,14 +30,31 @@ export default class JacobCharacter extends Character {
         { save: "Dex" }, // Rogue
         { save: "Int" }, // Rogue
       ],
-      weapons: [
-        { weapon: "Handaxe (Vex)", ability: "Dex", damage: new DiceString("d6") },
-        { weapon: "Dagger (Nick)", ability: "Dex", damage: new DiceString("d4") },
-        { weapon: "Shortbow", ability: "Dex", damage: new DiceString("d6") },
-      ],
-      attackAddons: [{ name: "Sneak Attack", damage: { optional: true, damage: new DiceString("d6") } }],
       hitPointRolls: [{ level: 1, die: new DiceString("d8"), roll: 8 }],
     });
+  }
+
+  protected getWeapons(): Weapon[] {
+    return [
+      { weapon: "Handaxe (Vex)", ability: "Dex", damage: new DiceString("d6") },
+      { weapon: "Dagger (Nick)", ability: "Dex", damage: new DiceString("d4") },
+      { weapon: "Shortbow", ability: "Dex", damage: new DiceString("d6") },
+    ];
+  }
+
+  protected getAttackAddons(): AttackAddon[] {
+    const rogueLevel = this.getClassLevel("Rogue");
+    const sneakAttackDice = Math.ceil(rogueLevel / 2);
+
+    return [
+      {
+        name: "Sneak Attack",
+        damage: {
+          optional: true,
+          damage: new DiceString(`${sneakAttackDice}d6`),
+        },
+      },
+    ];
   }
 
   // Spell Attack Modifier: Charisma modifier + Proficiency bonus (Magic Initiate)
@@ -65,7 +83,7 @@ export default class JacobCharacter extends Character {
     const trueStrikeWeapons: WeaponAttackData[] = [];
 
     // Create True Strike variant for each weapon
-    for (const weapon of this.weapons) {
+    for (const weapon of this.getWeapons()) {
       const weaponDamageWithCha = DiceString.sum([weapon.damage, new DiceString(this.getAbilityModifier("Cha"))]);
 
       // Add extra radiant damage based on character level

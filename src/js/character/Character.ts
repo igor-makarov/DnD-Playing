@@ -31,8 +31,6 @@ export class Character {
   classLevels: ClassLevel[];
   skillProficiencies: SkillProficiency[];
   saveProficiencies: SavingThrowProficiency[];
-  weapons: Weapon[];
-  attackAddons: AttackAddon[];
   hitPointRolls: HitPointRoll[];
 
   constructor({
@@ -40,29 +38,28 @@ export class Character {
     classLevels = [],
     skillProficiencies,
     saveProficiencies,
-    weapons = [],
-    attackAddons = [],
     hitPointRolls = [],
   }: {
     abilityScores: AbilityScores;
     classLevels?: ClassLevel[];
     skillProficiencies: SkillProficiency[];
     saveProficiencies: SavingThrowProficiency[];
-    weapons?: Weapon[];
-    attackAddons?: AttackAddon[];
     hitPointRolls?: HitPointRoll[];
   }) {
     this.abilityScores = abilityScores;
     this.classLevels = classLevels;
     this.skillProficiencies = skillProficiencies;
     this.saveProficiencies = saveProficiencies;
-    this.weapons = weapons;
-    this.attackAddons = attackAddons;
     this.hitPointRolls = hitPointRolls;
   }
 
   get characterLevel(): number {
     return this.classLevels.reduce((total, classLevel) => total + classLevel.level, 0);
+  }
+
+  getClassLevel(className: string): number {
+    const classLevel = this.classLevels.find((cl) => cl.className === className);
+    return classLevel ? classLevel.level : 0;
   }
 
   get proficiencyBonus(): number {
@@ -235,8 +232,16 @@ export class Character {
     return DiceString.sum([base, increment.multiply(tier)]);
   }
 
+  protected getWeapons(): Weapon[] {
+    return [];
+  }
+
+  protected getAttackAddons(): AttackAddon[] {
+    return [];
+  }
+
   getWeaponAttacks(): WeaponAttackData[] {
-    return this.weapons.map((w) => {
+    return this.getWeapons().map((w) => {
       const damageWithAbility = new DiceString(w.damage, this.getAbilityModifier(w.ability));
       const weaponBonus = w.damage.getModifier();
 
@@ -249,7 +254,7 @@ export class Character {
   }
 
   getWeaponAttackAddons(): DamageAddonData[] {
-    return this.attackAddons.map((addon) => {
+    return this.getAttackAddons().map((addon) => {
       const { name, damage } = addon;
       if (damage instanceof DiceString) {
         return { name, damage: damage as DiceString };

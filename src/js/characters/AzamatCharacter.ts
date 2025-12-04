@@ -1,5 +1,5 @@
 import { Character } from "@/js/character/Character";
-import type { SavingThrow } from "@/js/character/CharacterTypes";
+import type { AttackAddon, SavingThrow, Weapon } from "@/js/character/CharacterTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 
@@ -27,25 +27,6 @@ export default class AzamatCharacter extends Character {
         { save: "Wis" }, // Paladin
         { save: "Cha" }, // Paladin
       ],
-      weapons: [
-        { weapon: "Warhammer +1 (2h)", ability: "Str", damage: new DiceString("d10+1") },
-        { weapon: "Unarmed", ability: "Str", damage: new DiceString(0) },
-        { weapon: "Laser Axe", ability: "Str", damage: new DiceString("d10+d6") },
-        { weapon: "Warhammer +1 (1h)", ability: "Str", damage: new DiceString("d8+1") },
-        { weapon: "Javelin", ability: "Str", damage: new DiceString("d6") },
-        { weapon: "Club", ability: "Str", damage: new DiceString("d4") },
-        { weapon: "Warhammer", ability: "Str", damage: new DiceString("d8") },
-      ],
-      attackAddons: [
-        { name: "Radiant Strike", damage: new DiceString("d8") },
-        { name: "Divine Smite", damage: { base: { level: 1, damage: new DiceString("2d8") }, increment: new DiceString("d8") } },
-        { name: "Divine Smite (undead)", damage: { optional: true, damage: new DiceString("d8") } },
-        { name: "Searing Smite", damage: { base: { level: 1, damage: new DiceString("d6") }, increment: new DiceString("d6") } },
-        { name: "Thunderous Smite", damage: { base: { level: 1, damage: new DiceString("2d6") }, increment: new DiceString("d6") } },
-        { name: "Wrathful Smite", damage: { base: { level: 1, damage: new DiceString("d6") }, increment: new DiceString("d6") } },
-        { name: "Shining Smite", damage: { base: { level: 2, damage: new DiceString("2d6") }, increment: new DiceString("d6") } },
-        { name: "Blinding Smite", damage: { base: { level: 3, damage: new DiceString("3d8") }, increment: new DiceString("d8") } },
-      ],
       hitPointRolls: [
         { level: 1, die: new DiceString("d10"), roll: 10 },
         { level: 2, die: new DiceString("d10"), roll: 6 },
@@ -63,6 +44,31 @@ export default class AzamatCharacter extends Character {
         { level: 14, die: new DiceString("d10"), roll: 5 },
       ],
     });
+  }
+
+  protected getWeapons(): Weapon[] {
+    return [
+      { weapon: "Warhammer +1 (2h)", ability: "Str", damage: new DiceString("d10+1") },
+      { weapon: "Unarmed", ability: "Str", damage: new DiceString(0) },
+      { weapon: "Laser Axe", ability: "Str", damage: new DiceString("d10+d6") },
+      { weapon: "Warhammer +1 (1h)", ability: "Str", damage: new DiceString("d8+1") },
+      { weapon: "Javelin", ability: "Str", damage: new DiceString("d6") },
+      { weapon: "Club", ability: "Str", damage: new DiceString("d4") },
+      { weapon: "Warhammer", ability: "Str", damage: new DiceString("d8") },
+    ];
+  }
+
+  protected getAttackAddons(): AttackAddon[] {
+    return [
+      { name: "Radiant Strike", damage: new DiceString("d8") },
+      { name: "Divine Smite", damage: { base: { level: 1, damage: new DiceString("2d8") }, increment: new DiceString("d8") } },
+      { name: "Divine Smite (undead)", damage: { optional: true, damage: new DiceString("d8") } },
+      { name: "Searing Smite", damage: { base: { level: 1, damage: new DiceString("d6") }, increment: new DiceString("d6") } },
+      { name: "Thunderous Smite", damage: { base: { level: 1, damage: new DiceString("2d6") }, increment: new DiceString("d6") } },
+      { name: "Wrathful Smite", damage: { base: { level: 1, damage: new DiceString("d6") }, increment: new DiceString("d6") } },
+      { name: "Shining Smite", damage: { base: { level: 2, damage: new DiceString("2d6") }, increment: new DiceString("d6") } },
+      { name: "Blinding Smite", damage: { base: { level: 3, damage: new DiceString("3d8") }, increment: new DiceString("d8") } },
+    ];
   }
 
   // Override to add Charisma modifier (Aura of Protection)
