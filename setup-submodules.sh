@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/bash -e
 # Setup script for submodules with sparse checkout
 
 echo "Setting up 5etools submodule with sparse checkout..."
 
 # Initialize submodule without checkout
-git submodule update --init --no-checkout 5etools
+git submodule update --init --depth 1 -N -- 5etools
 
 # Configure sparse checkout for data directory only
 git -C 5etools sparse-checkout init --no-cone
