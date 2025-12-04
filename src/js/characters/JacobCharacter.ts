@@ -33,7 +33,7 @@ export default class JacobCharacter extends Character {
     });
   }
 
-  protected getWeapons(): Weapon[] {
+  getWeapons(): Weapon[] {
     const baseWeapons: Weapon[] = [
       { weapon: "Shortsword (Vex)", ability: "Dex", damage: new DiceString("d6") },
       { weapon: "Dagger (Nick)", ability: "Dex", damage: new DiceString("d4") },
@@ -56,13 +56,13 @@ export default class JacobCharacter extends Character {
     return [...baseWeapons, ...trueStrikeWeapons];
   }
 
-  private getSneakAttackDice(): DiceString {
+  getSneakAttackDice(): DiceString {
     const rogueLevel = this.getClassLevel("Rogue");
     const sneakAttackDice = Math.ceil(rogueLevel / 2);
     return new DiceString("d6").multiply(sneakAttackDice);
   }
 
-  protected getAttackAddons(): AttackAddon[] {
+  getAttackAddons(): AttackAddon[] {
     return [{ name: "Sneak Attack", damage: { optional: true, damage: this.getSneakAttackDice() } }];
   }
 

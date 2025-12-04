@@ -46,7 +46,7 @@ export default class AzamatCharacter extends Character {
     });
   }
 
-  protected getWeapons(): Weapon[] {
+  getWeapons(): Weapon[] {
     return [
       { weapon: "Warhammer +1 (2h)", ability: "Str", damage: new DiceString("d10+1") },
       { weapon: "Unarmed", ability: "Str", damage: new DiceString(0) },
@@ -58,7 +58,7 @@ export default class AzamatCharacter extends Character {
     ];
   }
 
-  protected getAttackAddons(): AttackAddon[] {
+  getAttackAddons(): AttackAddon[] {
     return [
       { name: "Radiant Strike", damage: new DiceString("d8") },
       { name: "Divine Smite", damage: { base: { level: 1, damage: new DiceString("2d8") }, increment: new DiceString("d8") } },

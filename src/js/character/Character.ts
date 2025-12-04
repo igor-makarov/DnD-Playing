@@ -232,11 +232,11 @@ export class Character {
     return DiceString.sum([base, increment.multiply(tier)]);
   }
 
-  protected getWeapons(): Weapon[] {
+  getWeapons(): Weapon[] {
     return [];
   }
 
-  protected getAttackAddons(): AttackAddon[] {
+  getAttackAddons(): AttackAddon[] {
     return [];
   }
 
