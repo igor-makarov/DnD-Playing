@@ -1,73 +1,21 @@
 import React, { useRef } from "react";
 
-import type { Feat } from "@/js/utils/getFeat";
-
-type EntryString = string;
-type EntryObject = {
-  type: string;
-  name?: string;
-  entries?: Array<EntryString | EntryObject>;
-  items?: Array<EntryString | EntryObject>;
-};
-type Entry = EntryString | EntryObject;
+import type { FeatRendered } from "@/js/utils/getFeat";
 
 interface Props {
-  featName: string;
-  featData: Feat;
+  feat: FeatRendered;
   children: React.ReactNode;
 }
 
 /**
- * Renders 5etools tagged text (e.g., {@variantrule Initiative|XPHB})
- */
-function renderTags(text: string): string {
-  return text
-    .replace(/{@variantrule ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>")
-    .replace(/{@condition ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>")
-    .replace(/{@dice ([^}]+)}/g, "$1")
-    .replace(/{@spell ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>")
-    .replace(/{@item ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>");
-}
-
-/**
- * Recursively renders 5etools entry objects
- */
-function renderEntry(entry: Entry): string {
-  if (typeof entry === "string") {
-    return renderTags(entry);
-  }
-
-  if (entry.type === "entries" && entry.name) {
-    const inner = entry.entries?.map(renderEntry).join(" ") || "";
-    return `<strong>${entry.name}:</strong> ${inner}`;
-  }
-
-  if (entry.type === "list" && entry.items) {
-    const items = entry.items.map((item) => `<li>${renderEntry(item)}</li>`).join("");
-    return `<ul>${items}</ul>`;
-  }
-
-  // Fallback for other types
-  if (entry.entries) {
-    return entry.entries.map(renderEntry).join(" ");
-  }
-
-  return "";
-}
-
-/**
- * Hybrid SSR/client component that renders a feat name as a clickable button.
- * - Build time: Feat data is passed as a prop and description is rendered to HTML
+ * Hybrid SSR/client component that renders an info tooltip as a clickable button.
+ * - Build time: HTML content is passed as a prop
  * - Runtime: Click opens a dialog with the pre-rendered content
  *
  * Use with client:load in Astro to enable click interaction.
- * Feat data should be extracted in Astro frontmatter to avoid bundling entire feats.json.
  */
-export default function FeatTooltip({ featName, featData, children }: Props) {
+export default function FeatTooltip({ feat, children }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
-
-  // Render entries at build time
-  const descriptionHtml = featData.entries.map(renderEntry).join("<br/><br/>");
 
   // Runtime handlers
   const handleClick = () => {
@@ -91,8 +39,8 @@ export default function FeatTooltip({ featName, featData, children }: Props) {
         {children}
       </button>
       <dialog ref={dialogRef} onClick={handleBackdropClick} className="info-tooltip-dialog">
-        <h2>{featName}</h2>
-        <div dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
+        <h2>{feat.name}</h2>
+        <div dangerouslySetInnerHTML={{ __html: feat.html }} />
         <button onClick={handleClose} className="close-button">
           Close
         </button>

@@ -15,21 +15,81 @@ export interface Feat {
   entries: Array<Entry>;
 }
 
+export interface FeatRendered {
+  name: string;
+  source: string;
+  html: string;
+}
+
 /**
- * Get a feat from the 5etools data by name and source.
+ * Get a feat from the 5etools data by name and source, with rendered HTML.
  * This function should be called at build time in Astro frontmatter.
  *
  * @param name - The feat name (e.g., "Alert")
  * @param source - The source book (default: "XPHB" for 2024 PHB)
- * @returns The feat data
+ * @returns The feat data with rendered HTML
  * @throws Error if feat is not found
  */
-export function getFeat(name: string, source: string = "XPHB"): Feat {
+export function getFeat(name: string, source: string = "XPHB"): FeatRendered {
   const feat = featsData.feat.find((f: any) => f.name === name && f.source === source);
 
   if (!feat) {
     throw new Error(`Feat "${name}" from source "${source}" not found in 5etools data`);
   }
 
-  return feat as Feat;
+  const featData = feat as Feat;
+
+  return {
+    name: featData.name,
+    source: featData.source,
+    html: renderFeatHtml(featData)
+  };
+}
+
+/**
+ * Renders 5etools tagged text (e.g., {@variantrule Initiative|XPHB})
+ */
+function renderTags(text: string): string {
+  return text
+    .replace(/{@variantrule ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>")
+    .replace(/{@condition ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>")
+    .replace(/{@dice ([^}]+)}/g, "$1")
+    .replace(/{@spell ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>")
+    .replace(/{@item ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>");
+}
+
+/**
+ * Recursively renders 5etools entry objects to HTML
+ */
+function renderEntry(entry: Entry): string {
+  if (typeof entry === "string") {
+    return renderTags(entry);
+  }
+
+  if (entry.type === "entries" && entry.name) {
+    const inner = entry.entries?.map(renderEntry).join(" ") || "";
+    return `<strong>${entry.name}:</strong> ${inner}`;
+  }
+
+  if (entry.type === "list" && entry.items) {
+    const items = entry.items.map((item) => `<li>${renderEntry(item)}</li>`).join("");
+    return `<ul>${items}</ul>`;
+  }
+
+  // Fallback for other types
+  if (entry.entries) {
+    return entry.entries.map(renderEntry).join(" ");
+  }
+
+  return "";
+}
+
+/**
+ * Renders feat entries to HTML string
+ *
+ * @param feat - The feat data
+ * @returns HTML string of the feat description
+ */
+export function renderFeatHtml(feat: Feat): string {
+  return feat.entries.map(renderEntry).join("<br/><br/>");
 }
