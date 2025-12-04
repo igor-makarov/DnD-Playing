@@ -27,3 +27,8 @@ export default function ComponentName({ ... }: Props) {
 
 - `useEffect` should not be the first go-to - YOU MUST look for other, better structured alternatives
 - `useStore` to interact with nanostores - custom impl in `@/js/hooks/useStore`
+
+# 5etools reference
+This project has a clone of the 5etools data in `5etools/`
+YOU MUST use prefer the local data when question related to D&D 5e arise
+@.agents/using-5etools.md
