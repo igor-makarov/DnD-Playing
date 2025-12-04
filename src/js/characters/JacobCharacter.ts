@@ -1,6 +1,5 @@
 import { Character } from "@/js/character/Character";
 import type { AttackAddon, Weapon } from "@/js/character/CharacterTypes";
-import type { WeaponAttackData } from "@/js/character/WeaponAttackTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 
@@ -35,26 +34,36 @@ export default class JacobCharacter extends Character {
   }
 
   protected getWeapons(): Weapon[] {
-    return [
-      { weapon: "Handaxe (Vex)", ability: "Dex", damage: new DiceString("d6") },
+    const baseWeapons: Weapon[] = [
+      { weapon: "Shortsword (Vex)", ability: "Dex", damage: new DiceString("d6") },
       { weapon: "Dagger (Nick)", ability: "Dex", damage: new DiceString("d4") },
-      { weapon: "Shortbow", ability: "Dex", damage: new DiceString("d6") },
+      { weapon: "Dart (Vex)", ability: "Dex", damage: new DiceString("d4") },
+      { weapon: "Shortbow (Vex)", ability: "Dex", damage: new DiceString("d6") },
     ];
+
+    const trueStrikeWeapons = baseWeapons.map((weapon) => {
+      // Add extra radiant damage based on character level
+      const extraRadiant = this.getCantripDamage(new DiceString("0"), new DiceString("d6"));
+      const totalDamage = DiceString.sum([weapon.damage, extraRadiant]);
+
+      return {
+        weapon: `True Strike + ${weapon.weapon}`,
+        ability: "Cha" as const,
+        damage: totalDamage,
+      };
+    });
+
+    return [...baseWeapons, ...trueStrikeWeapons];
+  }
+
+  private getSneakAttackDice(): DiceString {
+    const rogueLevel = this.getClassLevel("Rogue");
+    const sneakAttackDice = Math.ceil(rogueLevel / 2);
+    return new DiceString("d6").multiply(sneakAttackDice);
   }
 
   protected getAttackAddons(): AttackAddon[] {
-    const rogueLevel = this.getClassLevel("Rogue");
-    const sneakAttackDice = Math.ceil(rogueLevel / 2);
-
-    return [
-      {
-        name: "Sneak Attack",
-        damage: {
-          optional: true,
-          damage: new DiceString(`${sneakAttackDice}d6`),
-        },
-      },
-    ];
+    return [{ name: "Sneak Attack", damage: { optional: true, damage: this.getSneakAttackDice() } }];
   }
 
   // Spell Attack Modifier: Charisma modifier + Proficiency bonus (Magic Initiate)
@@ -75,28 +84,5 @@ export default class JacobCharacter extends Character {
   // Initiative with Alert feat: DEX modifier + Proficiency bonus
   getInitiative(): D20Test {
     return new D20Test("Ability Check", "Dex", this.getAbilityModifier("Dex"), this.createProficiency(true));
-  }
-
-  // Override to add True Strike variants of all weapons
-  getWeaponAttacks(): WeaponAttackData[] {
-    const baseWeapons = super.getWeaponAttacks();
-    const trueStrikeWeapons: WeaponAttackData[] = [];
-
-    // Create True Strike variant for each weapon
-    for (const weapon of this.getWeapons()) {
-      const weaponDamageWithCha = DiceString.sum([weapon.damage, new DiceString(this.getAbilityModifier("Cha"))]);
-
-      // Add extra radiant damage based on character level
-      const extraRadiant = this.getCantripDamage(new DiceString("0"), new DiceString("d6"));
-      const totalDamage = DiceString.sum([weaponDamageWithCha, extraRadiant]);
-
-      trueStrikeWeapons.push({
-        weapon: `True Strike + ${weapon.weapon}`,
-        attackRoll: new D20Test("Attack Roll", "Cha", this.getAbilityModifier("Cha"), this.createProficiency(true)),
-        damage: totalDamage.normalize(),
-      });
-    }
-
-    return [...baseWeapons, ...trueStrikeWeapons];
   }
 }

@@ -85,13 +85,15 @@
 #### Weapon Mastery
 - Use mastery properties of 2 Simple or Martial weapons you're proficient with
 - Can change choices after Long Rest
-- **Chosen:** Handaxe (Vex), Dagger (Nick)
+- **Chosen:** Shortsword (Vex), Dagger (Nick)
 
 ## Weapons & Combat
 
 ### Primary Weapons
-- **Main hand:** Hand Axe (1d6 slashing, Light property)
-- **Off-hand:** Dagger (1d4 piercing, Finesse, Light property)
+- **Melee:** Shortsword (1d6 piercing, Finesse, Light, Vex mastery)
+- **Melee/Off-hand:** Dagger (1d4 piercing, Finesse, Light, Nick mastery)
+- **Ranged:** Dart (1d4 piercing, Finesse, Thrown, Vex mastery)
+- **Ranged:** Shortbow (1d6 piercing, Vex mastery)
 
 ### Combat Stats
 - **AC:** 13 (studded leather: 12 + 3 DEX)
@@ -100,7 +102,7 @@
 - **Sneak Attack:** +1d6 damage (once per turn)
 
 ### Weapon Mastery
-- **Handaxe:** Vex (Advantage on next attack vs same target)
+- **Shortsword:** Vex (Advantage on next attack vs same target)
 - **Dagger:** Nick (Light weapon off-hand attack as part of Attack action)
 
 ## Skills & Proficiencies Summary
@@ -157,10 +159,11 @@
 
 ## Equipment (150 GP total: 100 GP Rogue + 50 GP Background)
 
-### Weapons (46 GP)
-- Handaxe x3 (15 GP) - main throwing/melee weapons
-- Dagger x3 (6 GP) - backup throwing weapons, Nick mastery
-- Shortbow (25 GP) - ranged weapon with arrows
+### Weapons (42 GP)
+- Shortsword (10 GP) - main melee weapon with Vex mastery
+- Dagger x3 (6 GP) - backup weapons, Nick mastery
+- Dart x20 (1 GP) - cheap throwables with Vex mastery
+- Shortbow (25 GP) - ranged weapon with Vex mastery
 
 ### Tools (75 GP)
 - Thieves' Tools (25 GP)
@@ -183,7 +186,7 @@
 - Torches x4 (0.04 GP)
 - Pouch (0.5 GP)
 
-### Total: 149.6 GP (0.4 GP / 4 SP remaining)
+### Total: 145.6 GP (4.4 GP / 44 SP remaining)
 
 ## Build Complete!
 
