@@ -8,29 +8,34 @@ import { getSourceName } from "./ReferenceTypes";
 const window = new JSDOM("").window;
 const purify = DOMPurify(window);
 
-// Strips all HTML tags from input text
-function sanitize(text: string): string {
+// Strips all HTML tags from external input text
+function sanitizeExternal(text: string): string {
   return purify.sanitize(text, { ALLOWED_TAGS: [] });
+}
+
+// Final sanitization that allows our custom elements
+function sanitizeFinal(html: string): string {
+  return purify.sanitize(html, { ADD_TAGS: ["highlight-5e"] });
 }
 
 // Renders 5etools tagged text (e.g., {@variantrule Initiative|XPHB}) - sanitizes input before processing
 function renderTags(text: string): string {
   // First: sanitize input to strip any existing HTML from 5etools data
-  const safeText = sanitize(text);
+  const safeText = sanitizeExternal(text);
 
   // Then: add our own safe HTML tags
   return safeText
-    .replace(/{@variantrule ([^}|]+)\|([^}|]+)\|([^}]+)}/g, '<span class="highlight">$3</span>') // Use third part when available
-    .replace(/{@variantrule ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>') // Fallback to first part
-    .replace(/{@condition ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>')
-    .replace(/{@action ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>')
-    .replace(/{@scaledamage [^}|]+\|[^}|]+\|([^}]+)}/g, '<span class="highlight">$1</span>') // Show increment only
-    .replace(/{@dice ([^}]+)}/g, '<span class="highlight">$1</span>')
-    .replace(/{@damage ([^}]+)}/g, '<span class="highlight">$1</span>')
-    .replace(/{@spell ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>')
-    .replace(/{@item ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>')
-    .replace(/{@hazard ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>')
-    .replace(/{@filter ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>');
+    .replace(/{@variantrule ([^}|]+)\|([^}|]+)\|([^}]+)}/g, "<highlight-5e>$3</highlight-5e>") // Use third part when available
+    .replace(/{@variantrule ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>") // Fallback to first part
+    .replace(/{@condition ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
+    .replace(/{@action ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
+    .replace(/{@scaledamage [^}|]+\|[^}|]+\|([^}]+)}/g, "<highlight-5e>$1</highlight-5e>") // Show increment only
+    .replace(/{@dice ([^}]+)}/g, "<highlight-5e>$1</highlight-5e>")
+    .replace(/{@damage ([^}]+)}/g, "<highlight-5e>$1</highlight-5e>")
+    .replace(/{@spell ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
+    .replace(/{@item ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
+    .replace(/{@hazard ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
+    .replace(/{@filter ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>");
 }
 
 // Recursively renders 5etools entry objects to HTML - sanitizes entry names before processing
@@ -41,7 +46,7 @@ function renderEntry(entry: Entry): string {
 
   if (entry.type === "entries" && entry.name) {
     // Sanitize entry name to strip any HTML
-    const safeName = sanitize(entry.name);
+    const safeName = sanitizeExternal(entry.name);
     const inner = entry.entries?.map(renderEntry).join(" ") || "";
     return `<strong>${safeName}.</strong> ${inner}`;
   }
@@ -74,14 +79,14 @@ export default function renderReference(reference: Reference): ReferenceRendered
 
   // Add byline if present
   if (reference.byline) {
-    const safeByline = sanitize(reference.byline);
+    const safeByline = sanitizeExternal(reference.byline);
     html += `<p><em>${safeByline}</em></p>`;
   }
 
   // Add properties if present (e.g., spell casting time, range, components, duration)
   if (reference.properties) {
     const propertyLines = Object.entries(reference.properties)
-      .map(([key, value]) => `<strong>${sanitize(key)}:</strong> ${sanitize(value)}`)
+      .map(([key, value]) => `<strong>${sanitizeExternal(key)}:</strong> ${sanitizeExternal(value)}`)
       .join("<br/>");
     html += `<p>${propertyLines}</p>`;
   }
@@ -90,7 +95,7 @@ export default function renderReference(reference: Reference): ReferenceRendered
   html += reference.entries.map(renderEntry).join("<br/><br/>");
 
   // Final sanitization as safety net (reuses singleton purify instance)
-  const sanitizedHtml = purify.sanitize(html) as ReferenceHTML;
+  const sanitizedHtml = sanitizeFinal(html) as ReferenceHTML;
 
   return {
     name: reference.name,
