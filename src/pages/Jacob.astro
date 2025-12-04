@@ -8,6 +8,7 @@ import D20TestCell from "@/components/common/D20TestCell.tsx";
 import HitPointsInput from "@/components/HitPointsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
 import RollLink from "@/components/common/RollLink.tsx";
+import HeroicInspirationCheckboxes from "@/components/HeroicInspirationCheckboxes.tsx";
 
 import { DiceString } from "@/js/common/DiceString";
 import JacobCharacter from "@/js/characters/JacobCharacter";
@@ -156,8 +157,10 @@ const character = new JacobCharacter();
             <th class="modifier">Effect</th>
           </tr>
           <tr>
-            <td>Resourceful (Human)</td>
-            <td class="modifier">Heroic Inspiration on long rest</td>
+            <td>Resourceful (free Inspiration)</td>
+            <td class="modifier">
+              <HeroicInspirationCheckboxes client:load />
+            </td>
           </tr>
         </table>
       </div>

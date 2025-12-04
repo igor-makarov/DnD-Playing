@@ -23,5 +23,12 @@ export const $channelDivinityUsed = createSearchParamStore<number | undefined>(s
 
 export const $layOnHands = createSearchParamStore<number | undefined>(searchParamsStore, "lay-on-hands", undefined, numberCodec);
 
+export const $heroicInspirationUsed = createSearchParamStore<number | undefined>(
+  searchParamsStore,
+  "heroic-inspiration-used",
+  undefined,
+  numberCodec,
+);
+
 // Map from die type (e.g., "d10", "d8") to number of dice available (undefined means maximum)
 export const $hitDice = createSearchParamMapStore<number | undefined>(searchParamsStore, "hit-dice-", {}, numberCodec);
