@@ -79,7 +79,7 @@ const character = new JacobCharacter();
               <span class="checkCell">
                 <D20TestCell client:load roll={character.getInitiative()} />
               </span>
-              <span>(<InfoTooltip client:load reference={getFeat("Alert")}>Alert</InfoTooltip>, can swap)</span>
+              <span>(Alert, can swap)</span>
             </td>
           </tr>
         </table>
@@ -149,7 +149,7 @@ const character = new JacobCharacter();
             <th class="modifier">Effect</th>
           </tr>
           <tr>
-            <td><InfoTooltip client:load reference={getSpecies("Human")}>Human</InfoTooltip> (PHB'24)</td>
+            <td><InfoTooltip client:load reference={getSpecies("Human")}>Human</InfoTooltip></td>
             <td></td>
           </tr>
           <tr>
@@ -157,6 +157,14 @@ const character = new JacobCharacter();
             <td class="modifier">
               <HeroicInspirationCheckboxes client:load />
             </td>
+          </tr>
+          <tr>
+            <td>[Feat] <InfoTooltip client:load reference={getFeat("Alert")}>Alert</InfoTooltip> (from background)</td>
+            <td class="modifier">+PB to Initiative, can swap</td>
+          </tr>
+          <tr>
+            <td>[Feat] <InfoTooltip client:load reference={getFeat("Magic Initiate")}>Magic Initiate</InfoTooltip> (from Human)</td>
+            <td class="modifier">2 cantrips, 1 1st-level spell</td>
           </tr>
         </table>
         <table>
