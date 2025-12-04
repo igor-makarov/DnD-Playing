@@ -16,7 +16,7 @@ export interface Reference {
   name: string;
   source: string;
   entries: Array<Entry>;
-  category?: string; // For feats: "O" (Origin), "G" (General), "FS" (Fighting Style), "EB" (Epic Boon)
+  category?: string; // See `FEAT_CATEGORIES`
 }
 
 /**
@@ -34,7 +34,7 @@ export interface ReferenceRendered {
 }
 
 /**
- * Feat category mappings (XPHB 2024)
+ * Feat category mappings
  */
 export const FEAT_CATEGORIES: Record<string, string> = {
   O: "Origin Feat",
@@ -44,3 +44,25 @@ export const FEAT_CATEGORIES: Record<string, string> = {
   "FS:R": "Fighting Style Feat (Ranger)",
   EB: "Epic Boon Feat",
 };
+
+/**
+ * Source book abbreviation to readable name mappings
+ * Only includes sources where the display name differs from the ID
+ */
+export const SOURCE_NAMES: Record<string, string> = {
+  PHB: "PHB'14",
+  DMG: "DMG'14",
+  MM: "MM'14",
+  XPHB: "PHB'24",
+  XDMG: "DMG'24",
+  XMM: "MM'25",
+};
+
+/**
+ * Gets the readable name for a source book abbreviation
+ * @param source - The source abbreviation (e.g., "XPHB")
+ * @returns The readable name (e.g., "PHB'24") or the original if not found
+ */
+export function getSourceName(source: string): string {
+  return SOURCE_NAMES[source] || source;
+}

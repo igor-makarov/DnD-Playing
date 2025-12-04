@@ -32,9 +32,5 @@ export function getSpell(name: string, source: string = "XPHB"): ReferenceRender
 
   const spellData = spell as Reference;
 
-  return {
-    name: spellData.name,
-    source: spellData.source,
-    html: renderReference(spellData),
-  };
+  return renderReference(spellData);
 }

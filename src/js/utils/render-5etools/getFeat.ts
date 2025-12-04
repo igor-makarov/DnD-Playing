@@ -21,9 +21,5 @@ export function getFeat(name: string, source: string = "XPHB"): ReferenceRendere
 
   const featData = feat as Reference;
 
-  return {
-    name: featData.name,
-    source: featData.source,
-    html: renderReference(featData),
-  };
+  return renderReference(featData);
 }

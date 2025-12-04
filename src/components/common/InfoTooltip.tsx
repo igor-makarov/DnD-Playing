@@ -40,7 +40,10 @@ export default function InfoTooltip({ reference, children }: Props) {
         {children}
       </button>
       <dialog ref={dialogRef} onClick={handleBackdropClick} className="info-tooltip-dialog">
-        <h2>{reference.name}</h2>
+        <h2>
+          <span>{reference.name} </span>
+          <span style={{ fontSize: "0.5em", fontWeight: "normal" }}>{reference.source}</span>
+        </h2>
         <div dangerouslySetInnerHTML={{ __html: reference.html }} />
         <button onClick={handleClose} className="close-button">
           Close

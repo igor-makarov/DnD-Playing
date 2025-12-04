@@ -1,8 +1,8 @@
 import DOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
 
-import type { Entry, Reference, ReferenceHTML } from "./ReferenceTypes";
-import { FEAT_CATEGORIES } from "./ReferenceTypes";
+import type { Entry, Reference, ReferenceHTML, ReferenceRendered } from "./ReferenceTypes";
+import { FEAT_CATEGORIES, getSourceName } from "./ReferenceTypes";
 
 // Singleton DOMPurify instance for Node.js (reused for performance)
 const window = new JSDOM("").window;
@@ -56,16 +56,16 @@ function renderEntry(entry: Entry): string {
 }
 
 /**
- * Renders 5etools entries to HTML string with sanitization
+ * Renders 5etools reference data to a complete ReferenceRendered object
  *
  * Defense-in-depth approach:
  * 1. Input sanitization in renderTags() and renderEntry() strips malicious HTML from source
  * 2. Final output sanitization here as a safety net
  *
  * @param reference - The reference data (feat, spell, item, etc.)
- * @returns Sanitized HTML string of the description
+ * @returns Complete rendered reference with name, readable source, and sanitized HTML
  */
-export default function renderReference(reference: Reference): ReferenceHTML {
+export default function renderReference(reference: Reference): ReferenceRendered {
   let html = "";
 
   // Add category byline for feats
@@ -77,5 +77,11 @@ export default function renderReference(reference: Reference): ReferenceHTML {
   html += reference.entries.map(renderEntry).join("<br/><br/>");
 
   // Final sanitization as safety net (reuses singleton purify instance)
-  return purify.sanitize(html) as ReferenceHTML;
+  const sanitizedHtml = purify.sanitize(html) as ReferenceHTML;
+
+  return {
+    name: reference.name,
+    source: getSourceName(reference.source),
+    html: sanitizedHtml,
+  };
 }
