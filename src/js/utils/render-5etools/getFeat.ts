@@ -3,9 +3,7 @@ import featsData from "@5etools/data/feats.json";
 import type { Reference, ReferenceRendered } from "./ReferenceTypes";
 import renderReference from "./renderReference";
 
-/**
- * Feat category mappings
- */
+// Feat category mappings
 const FEAT_CATEGORIES: Record<string, string> = {
   O: "Origin Feat",
   G: "General Feat",
@@ -15,11 +13,6 @@ const FEAT_CATEGORIES: Record<string, string> = {
   EB: "Epic Boon Feat",
 };
 
-/**
- * Converts a feat category code to a human-readable byline
- * @param category - The category code (e.g., "O", "G", "FS")
- * @returns The readable category name, or the original category if not found, or undefined if no category
- */
 function getCategoryByline(category: string | undefined): string | undefined {
   if (!category) return undefined;
   return FEAT_CATEGORIES[category] || category;
