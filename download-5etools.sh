@@ -1,5 +1,4 @@
-#!/bin/bash
-set -e
+#!/bin/bash -e
 
 # Download 5etools data
 VERSION="v2.19.1"
@@ -11,7 +10,7 @@ curl -L -o 5etools.zip "$URL"
 
 echo "Extracting..."
 rm -rf "$OUTPUT_DIR"
-unzip -q 5etools.zip -d "$OUTPUT_DIR"
+unzip -q 5etools.zip "data/*" -d "$OUTPUT_DIR"
 
 echo "Cleaning up..."
 rm 5etools.zip
