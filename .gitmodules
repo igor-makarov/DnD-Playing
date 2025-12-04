@@ -1,4 +1,0 @@
-[submodule "5etools"]
-	path = 5etools
-	url = https://github.com/5etools-mirror-3/5etools-src
-	sparse = true
