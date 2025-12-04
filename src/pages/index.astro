@@ -1,5 +1,15 @@
 ---
 import "../../public/styles/style.css";
+
+// Get all pages except index using import.meta.glob
+const pageModules = import.meta.glob("./*.astro", { eager: true });
+const characterPages = Object.keys(pageModules)
+  .filter((path) => !path.includes("index.astro"))
+  .map((path) => {
+    const name = path.replace("./", "").replace(".astro", "");
+    return { name, url: `/${name}` };
+  })
+  .sort((a, b) => a.name.localeCompare(b.name));
 ---
 
 <html lang="en">
@@ -15,12 +25,15 @@ import "../../public/styles/style.css";
           <tr>
             <th>Characters</th>
           </tr>
-          <tr>
-            <td><a href="/Azamat">Azamat</a></td>
-          </tr>
-          <tr>
-            <td><a href="/Adrik">Adrik</a></td>
-          </tr>
+          {
+            characterPages.map(({ name, url }) => (
+              <tr>
+                <td>
+                  <a href={url}>{name}</a>
+                </td>
+              </tr>
+            ))
+          }
         </table>
       </div>
     </div>

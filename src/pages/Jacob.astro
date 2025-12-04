@@ -1,0 +1,160 @@
+---
+import "../../public/styles/style.css";
+import AbilitiesTable from "@/components/AbilitiesTable.astro";
+import SkillsTable from "@/components/SkillsTable.astro";
+import SavesTable from "@/components/SavesTable.astro";
+import WeaponAttackTable from "@/components/WeaponAttackTable.astro";
+import D20TestCell from "@/components/common/D20TestCell.tsx";
+import HitPointsInput from "@/components/HitPointsInput.tsx";
+import HitDiceTable from "@/components/HitDiceTable.tsx";
+
+import JacobCharacter from "@/js/characters/JacobCharacter";
+const character = new JacobCharacter();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sir Jacob Lancaster{import.meta.env.DEV ? " [dev]" : ""}</title>
+    <base target="_blank" />
+  </head>
+  <body>
+    <div class="row six-across">
+      <AbilitiesTable character={character} />
+    </div>
+    <div class="row four-across">
+      <div class="column">
+        <table>
+          <tr>
+            <th style="text-align: center;">Proficiency Bonus</th>
+          </tr>
+          <tr>
+            <td class="modifier" style="text-align: center;">
+              <span class="mono">+{character.proficiencyBonus}&nbsp;</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="column">
+        <table>
+          <tr>
+            <th style="text-align: center;">AC</th>
+          </tr>
+          <tr>
+            <td style="text-align: center;">
+              <span class="mono">{character.getArmorClass()}</span>
+              <span>(Mage Armor)</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="column">
+        <table>
+          <tr>
+            <th style="text-align: center;">HP</th>
+          </tr>
+          <tr>
+            <td style="text-align: center;">
+              <HitPointsInput client:load hitPointMaximum={character.getHitPoints()} hitDiceByType={character.getHitDice()} />
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="column">
+        <table>
+          <tr>
+            <th style="text-align: center;">Initiative</th>
+          </tr>
+          <tr>
+            <td class="modifier" style="text-align: center;">
+              <span class="checkCell">
+                <D20TestCell client:load roll={character.getInitiative()} />
+              </span>
+              <span>(Alert, can swap)</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="row three-and-large">
+      <div class="column">
+        <SkillsTable title="Skills" character={character} />
+      </div>
+      <div class="column">
+        <SavesTable title="Saves" character={character} />
+        <table>
+          <tr>
+            <th colspan="2" style="text-align: center;">Languages & Tools</th>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <strong>Languages:</strong> Common, Deep Speech, Thieves' Cant
+              <br />
+              <strong>Tools:</strong> Thieves' Tools, Alchemist's Supplies
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="column">
+        <WeaponAttackTable character={character} />
+        <table>
+          <tbody>
+            <tr>
+              <th colspan="2" style="text-align: center;">Magic Initiate (Wizard)</th>
+            </tr>
+            <tr>
+              <td>Spell Attack Modifier</td>
+              <td class="checkCell mono">
+                <D20TestCell client:load roll={character.getSpellAttack()} />
+              </td>
+            </tr>
+            <tr>
+              <td>Spell Save DC</td>
+              <td class="checkCell mono">
+                <span class="mono">{character.getSpellSaveDC()}</span>
+              </td>
+            </tr>
+            <tr>
+              <th>Cantrips (at will)</th>
+              <th class="modifier">Effect</th>
+            </tr>
+            <tr>
+              <td>True Strike</td>
+              <td class="modifier">Adv on next attack</td>
+            </tr>
+            <tr>
+              <td>Toll the Dead</td>
+              <td class="modifier">1d8/1d12 necrotic</td>
+            </tr>
+            <tr>
+              <th>1st Level (1/day)</th>
+              <th class="modifier">Effect</th>
+            </tr>
+            <tr>
+              <td>Mage Armor</td>
+              <td class="modifier">AC 13 + DEX (8h)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="column features">
+        <HitDiceTable client:load hitDice={character.getHitDice()} conModifier={character.getAbilityModifier("Con")} />
+        <table>
+          <tr>
+            <th colspan="2" style="text-align: center;">Features</th>
+          </tr>
+          <tr>
+            <th>Feature</th>
+            <th class="modifier">Effect</th>
+          </tr>
+          <tr>
+            <td>Resourceful (Human)</td>
+            <td class="modifier">Heroic Inspiration on long rest</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
