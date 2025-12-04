@@ -29,7 +29,8 @@ function renderTags(text: string): string {
     .replace(/{@damage ([^}]+)}/g, '<span class="highlight">$1</span>')
     .replace(/{@spell ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>')
     .replace(/{@item ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>')
-    .replace(/{@hazard ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>');
+    .replace(/{@hazard ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>')
+    .replace(/{@filter ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>');
 }
 
 // Recursively renders 5etools entry objects to HTML - sanitizes entry names before processing

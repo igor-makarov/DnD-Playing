@@ -1,0 +1,101 @@
+import racesData from "@5etools/data/races.json";
+
+import type { Reference, ReferenceRendered } from "./ReferenceTypes";
+import renderReference from "./renderReference";
+
+// Species-specific interface extending Reference
+interface SpeciesReference extends Reference {
+  size?: string[];
+  speed?: number | { walk?: number; fly?: number; swim?: number };
+  creatureTypes?: string[];
+  sizeEntry?: {
+    type: string;
+    name?: string;
+    entries?: string[];
+  };
+}
+
+// Structure of race/species data from 5etools JSON files
+interface RacesData {
+  race: Array<SpeciesReference>;
+}
+
+// Map of size codes to full names
+const SIZE_NAMES: Record<string, string> = {
+  T: "Tiny",
+  S: "Small",
+  M: "Medium",
+  L: "Large",
+  H: "Huge",
+  G: "Gargantuan",
+};
+
+function formatCreatureType(creatureTypes?: string[]): string {
+  if (!creatureTypes || creatureTypes.length === 0) return "Humanoid";
+  // Capitalize first letter
+  return creatureTypes[0].charAt(0).toUpperCase() + creatureTypes[0].slice(1);
+}
+
+function formatSize(species: SpeciesReference): string {
+  // If there's a sizeEntry with detailed description, use that
+  if (species.sizeEntry?.entries?.[0]) {
+    return species.sizeEntry.entries[0];
+  }
+
+  // Otherwise, format from size array
+  if (!species.size || species.size.length === 0) return "Medium";
+
+  const sizeNames = species.size.map((s) => SIZE_NAMES[s] || s);
+
+  if (sizeNames.length === 1) {
+    return sizeNames[0];
+  }
+
+  return sizeNames.join(" or ");
+}
+
+function formatSpeed(speed?: number | { walk?: number; fly?: number; swim?: number }): string {
+  if (typeof speed === "number") {
+    return `${speed} feet`;
+  }
+
+  if (!speed) return "30 feet";
+
+  const parts: string[] = [];
+  if (speed.walk) parts.push(`${speed.walk} feet`);
+  if (speed.fly) parts.push(`fly ${speed.fly} feet`);
+  if (speed.swim) parts.push(`swim ${speed.swim} feet`);
+
+  return parts.join(", ") || "30 feet";
+}
+
+/**
+ * Get a species/race from the 5etools data by name and source, with rendered HTML.
+ * This function should be called at build time in Astro frontmatter.
+ *
+ * @param name - The species name (e.g., "Human", "Elf")
+ * @param source - The source book (default: "XPHB" for 2024 PHB)
+ * @returns The species data with rendered HTML
+ * @throws Error if species is not found
+ */
+export function getSpecies(name: string, source: string = "XPHB"): ReferenceRendered {
+  const typedRacesData = racesData as RacesData;
+  const species = typedRacesData.race.find((r) => r.name === name && r.source === source);
+
+  if (!species) {
+    throw new Error(`Species "${name}" from source "${source}" not found in 5etools data`);
+  }
+
+  const properties: Record<string, string> = {
+    "Creature Type": formatCreatureType(species.creatureTypes),
+    Size: formatSize(species),
+    Speed: formatSpeed(species.speed),
+  };
+
+  const speciesData: SpeciesReference = {
+    ...species,
+    properties,
+  };
+
+  return renderReference(speciesData);
+}

@@ -15,6 +15,7 @@ import { DiceString } from "@/js/common/DiceString";
 import JacobCharacter from "@/js/characters/JacobCharacter";
 import { getFeat } from "@/js/utils/render-5etools/getFeat";
 import { getSpell } from "@/js/utils/render-5etools/getSpell";
+import { getSpecies } from "@/js/utils/render-5etools/getSpecies";
 
 const character = new JacobCharacter();
 ---
@@ -148,7 +149,11 @@ const character = new JacobCharacter();
             <th class="modifier">Effect</th>
           </tr>
           <tr>
-            <td>Resourceful (free Inspiration)</td>
+            <td><InfoTooltip client:load reference={getSpecies("Human")}>Human</InfoTooltip> (PHB'24)</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>[Human] Resourceful (free Inspiration)</td>
             <td class="modifier">
               <HeroicInspirationCheckboxes client:load />
             </td>
