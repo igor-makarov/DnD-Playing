@@ -20,14 +20,16 @@ function renderTags(text: string): string {
 
   // Then: add our own safe HTML tags
   return safeText
-    .replace(/{@variantrule ([^}|]+)\|([^}|]+)\|([^}]+)}/g, "<em>$3</em>") // Use third part when available
-    .replace(/{@variantrule ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>") // Fallback to first part
-    .replace(/{@condition ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>")
-    .replace(/{@dice ([^}]+)}/g, "$1")
-    .replace(/{@damage ([^}]+)}/g, "$1")
-    .replace(/{@spell ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>")
-    .replace(/{@item ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>")
-    .replace(/{@hazard ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>");
+    .replace(/{@variantrule ([^}|]+)\|([^}|]+)\|([^}]+)}/g, '<span class="highlight">$3</span>') // Use third part when available
+    .replace(/{@variantrule ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>') // Fallback to first part
+    .replace(/{@condition ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>')
+    .replace(/{@action ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>')
+    .replace(/{@scaledamage [^}|]+\|[^}|]+\|([^}]+)}/g, '<span class="highlight">$1</span>') // Show increment only
+    .replace(/{@dice ([^}]+)}/g, '<span class="highlight">$1</span>')
+    .replace(/{@damage ([^}]+)}/g, '<span class="highlight">$1</span>')
+    .replace(/{@spell ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>')
+    .replace(/{@item ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>')
+    .replace(/{@hazard ([^}|]+)(\|[^}]+)?}/g, '<span class="highlight">$1</span>');
 }
 
 // Recursively renders 5etools entry objects to HTML - sanitizes entry names before processing

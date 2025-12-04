@@ -1,6 +1,6 @@
 import spellsXPHB from "@5etools/data/spells/spells-xphb.json";
 
-import type { Reference, ReferenceRendered } from "./ReferenceTypes";
+import type { Entry, Reference, ReferenceRendered } from "./ReferenceTypes";
 import renderReference from "./renderReference";
 
 // 5etools spell time structure
@@ -50,6 +50,7 @@ interface SpellReference extends Reference {
   range: SpellRange;
   components: SpellComponents;
   duration: SpellDuration[];
+  entriesHigherLevel?: Entry[]; // Optional higher-level casting info
 }
 
 // Structure of spell data from 5etools JSON files
@@ -184,6 +185,7 @@ export function getSpell(name: string, source: string = "XPHB"): ReferenceRender
 
   const spellData: SpellReference = {
     ...spell,
+    entries: [...spell.entries, ...(spell.entriesHigherLevel || [])],
     byline,
     properties,
   };
