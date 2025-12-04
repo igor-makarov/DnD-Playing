@@ -1,4 +1,5 @@
 import { Character } from "@/js/character/Character";
+import type { WeaponAttackData } from "@/js/character/WeaponAttackTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 
@@ -56,5 +57,28 @@ export default class JacobCharacter extends Character {
   // Initiative with Alert feat: DEX modifier + Proficiency bonus
   getInitiative(): D20Test {
     return new D20Test("Ability Check", "Dex", this.getAbilityModifier("Dex"), this.createProficiency(true));
+  }
+
+  // Override to add True Strike variants of all weapons
+  getWeaponAttacks(): WeaponAttackData[] {
+    const baseWeapons = super.getWeaponAttacks();
+    const trueStrikeWeapons: WeaponAttackData[] = [];
+
+    // Create True Strike variant for each weapon
+    for (const weapon of this.weapons) {
+      const weaponDamageWithCha = DiceString.sum([weapon.damage, new DiceString(this.getAbilityModifier("Cha"))]);
+
+      // Add extra radiant damage based on character level
+      const extraRadiant = this.getCantripDamage(new DiceString("0"), new DiceString("d6"));
+      const totalDamage = DiceString.sum([weaponDamageWithCha, extraRadiant]);
+
+      trueStrikeWeapons.push({
+        weapon: `True Strike + ${weapon.weapon}`,
+        attackRoll: new D20Test("Attack Roll", "Cha", this.getAbilityModifier("Cha"), this.createProficiency(true)),
+        damage: totalDamage.normalize(),
+      });
+    }
+
+    return [...baseWeapons, ...trueStrikeWeapons];
   }
 }
