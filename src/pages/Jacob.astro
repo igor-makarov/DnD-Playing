@@ -9,11 +9,12 @@ import HitPointsInput from "@/components/HitPointsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
 import RollLink from "@/components/common/RollLink.tsx";
 import HeroicInspirationCheckboxes from "@/components/species/human/HeroicInspirationCheckboxes.tsx";
-import FeatTooltip from "@/components/FeatTooltip.tsx";
+import InfoTooltip from "@/components/common/InfoTooltip.tsx";
 
 import { DiceString } from "@/js/common/DiceString";
 import JacobCharacter from "@/js/characters/JacobCharacter";
 import { getFeat } from "@/js/utils/getFeat";
+import { getSpell } from "@/js/utils/getSpell";
 
 const character = new JacobCharacter();
 ---
@@ -77,7 +78,7 @@ const character = new JacobCharacter();
               <span class="checkCell">
                 <D20TestCell client:load roll={character.getInitiative()} />
               </span>
-              <span>(<FeatTooltip client:load feat={getFeat("Alert")}>Alert</FeatTooltip>, can swap)</span>
+              <span>(<InfoTooltip client:load reference={getFeat("Alert")}>Alert</InfoTooltip>, can swap)</span>
             </td>
           </tr>
         </table>
@@ -120,7 +121,7 @@ const character = new JacobCharacter();
               <td class="modifier">attack w/CHA</td>
             </tr>
             <tr>
-              <td>Toll the Dead</td>
+              <td><InfoTooltip client:load reference={getSpell("Toll the Dead")}>Toll the Dead</InfoTooltip></td>
               <td class="checkCell mono">
                 <RollLink client:load dice={character.getCantripDamage(new DiceString("d8"), new DiceString("d8"))} />
                 <RollLink client:load dice={character.getCantripDamage(new DiceString("d12"), new DiceString("d12"))} />

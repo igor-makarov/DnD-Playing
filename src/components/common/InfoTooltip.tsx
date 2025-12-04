@@ -1,20 +1,21 @@
 import React, { useRef } from "react";
 
-import type { FeatRendered } from "@/js/utils/getFeat";
+import type { ReferenceRendered } from "@/js/utils/render5eTools";
 
 interface Props {
-  feat: FeatRendered;
+  reference: ReferenceRendered;
   children: React.ReactNode;
 }
 
 /**
  * Hybrid SSR/client component that renders an info tooltip as a clickable button.
+ * Works with any 5etools reference data (feats, spells, items, etc.)
  * - Build time: HTML content is passed as a prop
  * - Runtime: Click opens a dialog with the pre-rendered content
  *
  * Use with client:load in Astro to enable click interaction.
  */
-export default function FeatTooltip({ feat, children }: Props) {
+export default function InfoTooltip({ reference, children }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   // Runtime handlers
@@ -39,8 +40,8 @@ export default function FeatTooltip({ feat, children }: Props) {
         {children}
       </button>
       <dialog ref={dialogRef} onClick={handleBackdropClick} className="info-tooltip-dialog">
-        <h2>{feat.name}</h2>
-        <div dangerouslySetInnerHTML={{ __html: feat.html }} />
+        <h2>{reference.name}</h2>
+        <div dangerouslySetInnerHTML={{ __html: reference.html }} />
         <button onClick={handleClose} className="close-button">
           Close
         </button>
