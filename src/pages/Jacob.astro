@@ -9,9 +9,11 @@ import HitPointsInput from "@/components/HitPointsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
 import RollLink from "@/components/common/RollLink.tsx";
 import HeroicInspirationCheckboxes from "@/components/species/human/HeroicInspirationCheckboxes.tsx";
+import FeatTooltip from "@/components/FeatTooltip.tsx";
 
 import { DiceString } from "@/js/common/DiceString";
 import JacobCharacter from "@/js/characters/JacobCharacter";
+import { getFeat } from "@/js/utils/getFeat";
 
 const character = new JacobCharacter();
 ---
@@ -75,7 +77,7 @@ const character = new JacobCharacter();
               <span class="checkCell">
                 <D20TestCell client:load roll={character.getInitiative()} />
               </span>
-              <span>(Alert, can swap)</span>
+              <span>(<FeatTooltip client:load featName="Alert" featData={getFeat("Alert")}>Alert</FeatTooltip>, can swap)</span>
             </td>
           </tr>
         </table>

@@ -140,3 +140,30 @@ input[type="text"] {
 .short-input input[type="text"] {
   width: 3em;
 }
+
+/* Info Tooltip styles */
+.info-tooltip-button {
+  cursor: pointer;
+  text-decoration: underline dotted;
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.info-tooltip-dialog {
+  max-width: 600px;
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: start;
+}
+
+.info-tooltip-dialog h2 {
+  margin-top: 0;
+}
+
+.info-tooltip-dialog .close-button {
+  margin-top: 1rem;
+}
