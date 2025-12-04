@@ -6,6 +6,7 @@ import type {
   AbilityScores,
   AttackAddon,
   ClassLevel,
+  ClassName,
   HitPointRoll,
   Proficiency,
   SavingThrow,
@@ -17,6 +18,8 @@ import type {
   Weapon,
 } from "./CharacterTypes";
 import {
+  FULL_CASTER_CLASSES,
+  HALF_CASTER_CLASSES,
   PROFICIENCY_BONUS_BY_LEVEL,
   SKILL_TO_DEFAULT_ABILITIY,
   SPELL_SLOTS_BY_LEVEL,
@@ -57,7 +60,7 @@ export class Character {
     return this.classLevels.reduce((total, classLevel) => total + classLevel.level, 0);
   }
 
-  getClassLevel(className: string): number {
+  getClassLevel(className: ClassName): number {
     const classLevel = this.classLevels.find((cl) => cl.className === className);
     return classLevel ? classLevel.level : 0;
   }
@@ -129,13 +132,15 @@ export class Character {
 
   getSpellSlots(): SpellSlotsForLevel[] {
     let effectiveLevel = 0;
-    for (const classLevel of this.classLevels) {
-      const { className, level } = classLevel;
-      if (["Bard", "Cleric", "Druid", "Sorcerer", "Wizard"].includes(className)) {
-        effectiveLevel += level;
-      } else if (["Paladin", "Ranger"].includes(className)) {
-        effectiveLevel += Math.ceil(level / 2);
-      }
+
+    // Full casters: count full level
+    for (const className of FULL_CASTER_CLASSES) {
+      effectiveLevel += this.getClassLevel(className);
+    }
+
+    // Half casters: count half level (rounded up)
+    for (const className of HALF_CASTER_CLASSES) {
+      effectiveLevel += Math.ceil(this.getClassLevel(className) / 2);
     }
 
     if (effectiveLevel === 0) return [];
@@ -151,13 +156,7 @@ export class Character {
   }
 
   getWarlockSpellSlots(): SpellSlotsForLevel | undefined {
-    let warlockLevel = 0;
-    for (const classLevel of this.classLevels) {
-      const { className, level } = classLevel;
-      if (className === "Warlock") {
-        warlockLevel += level;
-      }
-    }
+    let warlockLevel = this.getClassLevel("Warlock");
 
     if (warlockLevel === 0) return undefined;
     if (warlockLevel > 20) warlockLevel = 20;

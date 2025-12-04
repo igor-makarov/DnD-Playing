@@ -4,6 +4,21 @@ import type { LevelledDamageDefinition, OptionalDamage } from "./DamageTypes";
 
 export type Ability = "Str" | "Dex" | "Con" | "Int" | "Wis" | "Cha";
 
+export type ClassName =
+  | "Artificer"
+  | "Barbarian"
+  | "Bard"
+  | "Cleric"
+  | "Druid"
+  | "Fighter"
+  | "Monk"
+  | "Paladin"
+  | "Ranger"
+  | "Rogue"
+  | "Sorcerer"
+  | "Warlock"
+  | "Wizard";
+
 export type Skill =
   | "Acrobatics"
   | "Animal Handling"
@@ -68,6 +83,9 @@ export const PROFICIENCY_BONUS_BY_LEVEL: number[] = [
   5, 5, 5, 5, // Levels 13-16
   6, 6, 6, 6, // Levels 17-20
 ];
+
+export const FULL_CASTER_CLASSES: readonly ClassName[] = ["Bard", "Cleric", "Druid", "Sorcerer", "Wizard"] as const;
+export const HALF_CASTER_CLASSES: readonly ClassName[] = ["Paladin", "Ranger"] as const;
 
 // prettier-ignore
 export const SPELL_SLOTS_BY_LEVEL: number[][] = [
@@ -147,6 +165,6 @@ export type HitPointRoll = {
 };
 
 export type ClassLevel = {
-  className: string;
+  className: ClassName;
   level: number;
 };
