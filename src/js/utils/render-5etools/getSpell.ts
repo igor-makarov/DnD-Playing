@@ -1,6 +1,7 @@
-import type { Reference, ReferenceRendered } from "./render5eTools";
-import { renderReferenceHtml } from "./render5eTools";
 import spellsXPHB from "@5etools/data/spells/spells-xphb.json";
+
+import type { Reference, ReferenceRendered } from "./ReferenceTypes";
+import renderReference from "./renderReference";
 
 // Map of source codes to spell data
 const SPELL_DATA_BY_SOURCE: Record<string, any> = {
@@ -20,9 +21,7 @@ export function getSpell(name: string, source: string = "XPHB"): ReferenceRender
   const spellsData = SPELL_DATA_BY_SOURCE[source];
 
   if (!spellsData) {
-    throw new Error(
-      `Spell source "${source}" not supported. Available sources: ${Object.keys(SPELL_DATA_BY_SOURCE).join(", ")}`,
-    );
+    throw new Error(`Spell source "${source}" not supported. Available sources: ${Object.keys(SPELL_DATA_BY_SOURCE).join(", ")}`);
   }
 
   const spell = spellsData.spell.find((s: any) => s.name === name && s.source === source);
@@ -36,6 +35,6 @@ export function getSpell(name: string, source: string = "XPHB"): ReferenceRender
   return {
     name: spellData.name,
     source: spellData.source,
-    html: renderReferenceHtml(spellData),
+    html: renderReference(spellData),
   };
 }

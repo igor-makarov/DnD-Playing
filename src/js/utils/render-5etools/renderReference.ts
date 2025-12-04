@@ -1,43 +1,18 @@
 import DOMPurify from "dompurify";
 import { JSDOM } from "jsdom";
 
+import type { Entry, Reference, ReferenceHTML } from "./ReferenceTypes";
+import { FEAT_CATEGORIES } from "./ReferenceTypes";
+
 // Singleton DOMPurify instance for Node.js (reused for performance)
 const window = new JSDOM("").window;
 const purify = DOMPurify(window);
-
-// Generic 5etools entry types (used by feats, spells, items, etc.)
-export type EntryString = string;
-export type EntryObject = {
-  type: string;
-  name?: string;
-  entries?: Array<EntryString | EntryObject>;
-  items?: Array<EntryString | EntryObject>;
-};
-export type Entry = EntryString | EntryObject;
-
-/**
- * Generic interface for 5etools reference data (feat, spell, item, etc.)
- */
-export interface Reference {
-  name: string;
-  source: string;
-  entries: Array<Entry>;
-}
-
-/**
- * Generic interface for rendered 5etools reference data
- */
-export interface ReferenceRendered {
-  name: string;
-  source: string;
-  html: string;
-}
 
 /**
  * Renders 5etools tagged text (e.g., {@variantrule Initiative|XPHB})
  * Sanitizes input before processing to strip any malicious HTML from source data
  */
-export function renderTags(text: string): string {
+function renderTags(text: string): string {
   // First: sanitize input to strip any existing HTML from 5etools data
   const safeText = purify.sanitize(text, { ALLOWED_TAGS: [] });
 
@@ -55,7 +30,7 @@ export function renderTags(text: string): string {
  * Recursively renders 5etools entry objects to HTML
  * Sanitizes entry names before processing
  */
-export function renderEntry(entry: Entry): string {
+function renderEntry(entry: Entry): string {
   if (typeof entry === "string") {
     return renderTags(entry);
   }
@@ -90,9 +65,17 @@ export function renderEntry(entry: Entry): string {
  * @param reference - The reference data (feat, spell, item, etc.)
  * @returns Sanitized HTML string of the description
  */
-export function renderReferenceHtml(reference: Reference): string {
-  const html = reference.entries.map(renderEntry).join("<br/><br/>");
+export default function renderReference(reference: Reference): ReferenceHTML {
+  let html = "";
+
+  // Add category byline for feats
+  if (reference.category && FEAT_CATEGORIES[reference.category]) {
+    html += `<p><em>${FEAT_CATEGORIES[reference.category]}</em></p>`;
+  }
+
+  // Render entries
+  html += reference.entries.map(renderEntry).join("<br/><br/>");
 
   // Final sanitization as safety net (reuses singleton purify instance)
-  return purify.sanitize(html);
+  return purify.sanitize(html) as ReferenceHTML;
 }

@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 
-import type { ReferenceRendered } from "@/js/utils/render5eTools";
+import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
 
 interface Props {
   reference: ReferenceRendered;

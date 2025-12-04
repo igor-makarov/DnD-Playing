@@ -1,7 +1,7 @@
 import featsData from "@5etools/data/feats.json";
 
-import type { Reference, ReferenceRendered } from "./render5eTools";
-import { renderReferenceHtml } from "./render5eTools";
+import type { Reference, ReferenceRendered } from "./ReferenceTypes";
+import renderReference from "./renderReference";
 
 /**
  * Get a feat from the 5etools data by name and source, with rendered HTML.
@@ -24,6 +24,6 @@ export function getFeat(name: string, source: string = "XPHB"): ReferenceRendere
   return {
     name: featData.name,
     source: featData.source,
-    html: renderReferenceHtml(featData),
+    html: renderReference(featData),
   };
 }
