@@ -8,13 +8,15 @@ import { getSourceName } from "./ReferenceTypes";
 const window = new JSDOM("").window;
 const purify = DOMPurify(window);
 
-/**
- * Renders 5etools tagged text (e.g., {@variantrule Initiative|XPHB})
- * Sanitizes input before processing to strip any malicious HTML from source data
- */
+// Strips all HTML tags from input text
+function sanitize(text: string): string {
+  return purify.sanitize(text, { ALLOWED_TAGS: [] });
+}
+
+// Renders 5etools tagged text (e.g., {@variantrule Initiative|XPHB}) - sanitizes input before processing
 function renderTags(text: string): string {
   // First: sanitize input to strip any existing HTML from 5etools data
-  const safeText = purify.sanitize(text, { ALLOWED_TAGS: [] });
+  const safeText = sanitize(text);
 
   // Then: add our own safe HTML tags
   return safeText
@@ -28,10 +30,7 @@ function renderTags(text: string): string {
     .replace(/{@hazard ([^}|]+)(\|[^}]+)?}/g, "<em>$1</em>");
 }
 
-/**
- * Recursively renders 5etools entry objects to HTML
- * Sanitizes entry names before processing
- */
+// Recursively renders 5etools entry objects to HTML - sanitizes entry names before processing
 function renderEntry(entry: Entry): string {
   if (typeof entry === "string") {
     return renderTags(entry);
@@ -39,7 +38,7 @@ function renderEntry(entry: Entry): string {
 
   if (entry.type === "entries" && entry.name) {
     // Sanitize entry name to strip any HTML
-    const safeName = purify.sanitize(entry.name, { ALLOWED_TAGS: [] });
+    const safeName = sanitize(entry.name);
     const inner = entry.entries?.map(renderEntry).join(" ") || "";
     return `<strong>${safeName}.</strong> ${inner}`;
   }
@@ -72,13 +71,14 @@ export default function renderReference(reference: Reference): ReferenceRendered
 
   // Add byline if present
   if (reference.byline) {
-    html += `<p><em>${reference.byline}</em></p>`;
+    const safeByline = sanitize(reference.byline);
+    html += `<p><em>${safeByline}</em></p>`;
   }
 
   // Add properties if present (e.g., spell casting time, range, components, duration)
   if (reference.properties) {
     const propertyLines = Object.entries(reference.properties)
-      .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+      .map(([key, value]) => `<strong>${sanitize(key)}:</strong> ${sanitize(value)}`)
       .join("<br/>");
     html += `<p>${propertyLines}</p>`;
   }
