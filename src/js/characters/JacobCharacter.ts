@@ -34,26 +34,18 @@ export default class JacobCharacter extends Character {
   }
 
   getWeapons(): Weapon[] {
-    const baseWeapons: Weapon[] = [
+    const extraRadiant = this.getCantripDamage(new DiceString("0"), new DiceString("d6"));
+
+    return [
+      { weapon: "[True Strike] Shortsword (Vex)", ability: "Cha", damage: DiceString.sum([new DiceString("d6"), extraRadiant]) },
       { weapon: "Shortsword (Vex)", ability: "Dex", damage: new DiceString("d6") },
+      { weapon: "[True Strike] Dagger (Nick)", ability: "Cha", damage: DiceString.sum([new DiceString("d4"), extraRadiant]) },
       { weapon: "Dagger (Nick)", ability: "Dex", damage: new DiceString("d4") },
+      { weapon: "[True Strike] Dart (Vex)", ability: "Cha", damage: DiceString.sum([new DiceString("d4"), extraRadiant]) },
       { weapon: "Dart (Vex)", ability: "Dex", damage: new DiceString("d4") },
+      { weapon: "[True Strike] Shortbow (Vex)", ability: "Cha", damage: DiceString.sum([new DiceString("d6"), extraRadiant]) },
       { weapon: "Shortbow (Vex)", ability: "Dex", damage: new DiceString("d6") },
     ];
-
-    const trueStrikeWeapons = baseWeapons.map((weapon) => {
-      // Add extra radiant damage based on character level
-      const extraRadiant = this.getCantripDamage(new DiceString("0"), new DiceString("d6"));
-      const totalDamage = DiceString.sum([weapon.damage, extraRadiant]);
-
-      return {
-        weapon: `True Strike + ${weapon.weapon}`,
-        ability: "Cha" as const,
-        damage: totalDamage,
-      };
-    });
-
-    return [...baseWeapons, ...trueStrikeWeapons];
   }
 
   getSneakAttackDice(): DiceString {
