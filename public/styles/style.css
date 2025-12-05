@@ -158,39 +158,39 @@ input[type="text"] {
   border: 1px solid #ccc;
   border-radius: 8px;
   text-align: start;
-}
 
-.info-tooltip-dialog h2 {
-  margin-top: 0;
-  margin-bottom: 0;
-}
+  & h2 {
+    margin-top: 0;
+    margin-bottom: 0;
 
-.info-tooltip-dialog h2 .source {
-  font-size: 0.5em;
-  font-weight: normal;
-}
+    & .source {
+      font-size: 0.5em;
+      font-weight: normal;
+    }
+  }
 
-.info-tooltip-dialog p {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-}
+  & p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 
-.info-tooltip-dialog p.byline {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-}
+    &.byline {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
 
-.info-tooltip-dialog p.property {
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
-}
+    &.property {
+      margin-top: 0.25em;
+      margin-bottom: 0.25em;
+    }
+  }
 
-.info-tooltip-dialog .button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 2em;
-}
+  & .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+  }
 
-.info-tooltip-dialog highlight-5e {
-  color: #a16b08;
+  & highlight-5e {
+    color: #a16b08;
+  }
 }
