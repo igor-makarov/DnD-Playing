@@ -8,11 +8,11 @@ export default class JacobCharacter extends Character {
     super({
       abilityScores: {
         Str: 13,
-        Dex: 16,
-        Con: 15 + 1 /* Background +1 */,
-        Int: 11,
-        Wis: 9,
-        Cha: 18 + 2 /* Background +2 */,
+        Dex: 15,
+        Con: 14 + 1 /* Background +1 */,
+        Int: 10,
+        Wis: 8,
+        Cha: 16 + 2 /* Background +2 */,
       },
       classLevels: [{ className: "Rogue", level: 1 }],
 
