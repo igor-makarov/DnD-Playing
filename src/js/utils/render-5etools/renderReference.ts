@@ -80,19 +80,18 @@ export default function renderReference(reference: Reference): ReferenceRendered
   // Add byline if present
   if (reference.byline) {
     const safeByline = sanitizeExternal(reference.byline);
-    html += `<p><em>${safeByline}</em></p>`;
+    html += `<p class="byline"><em>${safeByline}</em></p>`;
   }
 
   // Add properties if present (e.g., spell casting time, range, components, duration)
   if (reference.properties) {
-    const propertyLines = Object.entries(reference.properties)
-      .map(([key, value]) => `<strong>${sanitizeExternal(key)}:</strong> ${sanitizeExternal(value)}`)
-      .join("<br/>");
-    html += `<p>${propertyLines}</p>`;
+    html += Object.entries(reference.properties)
+      .map(([key, value]) => `<p class="property"><strong>${sanitizeExternal(key)}:</strong> ${sanitizeExternal(value)}</p>`)
+      .join("");
   }
 
   // Render entries
-  html += reference.entries.map(renderEntry).join("<br/><br/>");
+  html += reference.entries.map(entry => `<p>${renderEntry(entry)}</p>`).join("");
 
   // Final sanitization as safety net (reuses singleton purify instance)
   const sanitizedHtml = sanitizeFinal(html) as ReferenceHTML;

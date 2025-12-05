@@ -42,11 +42,11 @@ export default function InfoTooltip({ reference, children }: Props) {
       <dialog ref={dialogRef} onClick={handleBackdropClick} className="info-tooltip-dialog">
         <h2>
           <span>{reference.name} </span>
-          <span style={{ fontSize: "0.5em", fontWeight: "normal" }}>{reference.source}</span>
+          <span className="source">{reference.source}</span>
         </h2>
         <div dangerouslySetInnerHTML={{ __html: reference.html }} />
-        <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
-          <button onClick={handleClose} className="close-button">
+        <div className="button-container">
+          <button onClick={handleClose}>
             Close
           </button>
         </div>
