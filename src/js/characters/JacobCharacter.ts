@@ -8,8 +8,8 @@ export default class JacobCharacter extends Character {
     super({
       abilityScores: {
         Str: 13,
-        Dex: 15,
-        Con: 14 + 1 /* Background +1 */,
+        Dex: 15 + 1 /* Background +1 */,
+        Con: 14,
         Int: 10,
         Wis: 8,
         Cha: 16 + 2 /* Background +2 */,

@@ -16,10 +16,10 @@
 - INT: 10
 - WIS: 8 (dump stat)
 
-### With Background ASIs (+2 CHA / +1 CON)
+### With Background ASIs (+2 CHA / +1 DEX)
 - **CHA: 18 (+4)** - Primary stat, spell DC 14, spell attack +6
-- **DEX: 15 (+2)** - AC, attacks, Stealth
-- **CON: 15 (+2)** - HP (10 at level 1: 8 + 2)
+- **DEX: 16 (+3)** - AC, attacks, Stealth
+- **CON: 14 (+2)** - HP (10 at level 1: 8 + 2)
 - **STR: 13 (+1)** - Athletics if needed
 - **INT: 10 (+0)** - Investigation
 - **WIS: 8 (-1)** - Perception/Insight weakness
@@ -28,7 +28,7 @@
 
 ### Background Components
 - **Abilities:** DEX, CON, CHA (player chooses +2/+1 or +1/+1/+1 distribution)
-  - **Chosen:** +2 CHA / +1 CON
+  - **Chosen:** +2 CHA / +1 DEX
 - **Origin Feat:** Magic Initiate (Wizard)
   - Cantrips: True Strike, Toll the Dead
   - 1st level spell: Mage Armor (1/day)
@@ -96,9 +96,9 @@
 - **Ranged:** Shortbow (1d6 piercing, Vex mastery)
 
 ### Combat Stats
-- **AC:** 14 (studded leather: 12 + 2 DEX)
-- **Initiative:** +2 DEX + 2 proficiency (Alert) = **+4**
-- **Attack Bonus:** +2 DEX + 2 proficiency = **+4 to hit**
+- **AC:** 16 (Mage Armor)
+- **Initiative:** +3 DEX + 2 proficiency (Alert) = **+5**
+- **Attack Bonus:** +3 DEX + 2 proficiency = **+5 to hit**
 - **Sneak Attack:** +1d6 damage (once per turn)
 
 ### Weapon Mastery
@@ -111,14 +111,14 @@
 1. **Deception (CHA)** - +6 (from Rogue)
 2. **Intimidation (CHA)** - +6 (from Rogue)
 3. **Persuasion (CHA)** - **+8** (from Rogue, with Expertise)
-4. **Stealth (DEX)** - **+6** (from Rogue, with Expertise)
+4. **Stealth (DEX)** - **+7** (from Rogue, with Expertise)
 5. **Performance (CHA)** - +6 (from Background)
 6. **Athletics (STR)** - +3 (from Background)
-7. **Acrobatics (DEX)** - +4 (from Human)
+7. **Acrobatics (DEX)** - +5 (from Human)
 
 ### Expertise
 - **Persuasion (CHA)** - +8 (CHA +4, expertise +4)
-- **Stealth (DEX)** - +6 (DEX +2, expertise +4)
+- **Stealth (DEX)** - +7 (DEX +3, expertise +4)
 
 ### Tool Proficiencies
 - Thieves' Tools (from Rogue)
@@ -136,7 +136,7 @@
 
 ### 1st Level Spell (1/day)
 - **Mage Armor:** AC = 13 + DEX modifier (8 hours)
-  - With DEX 15: AC becomes **15** (vs 14 with studded leather)
+  - With DEX 16: AC becomes **16**
 
 ### Spellcasting Ability
 - **CHA 18 (+4)**
@@ -200,7 +200,7 @@
 ## Notes
 
 - CHA 18 at level 1 is strong for social encounters
-- Mage Armor increases AC from 14 to 15
-- Alert feat gives excellent Initiative (+4 total)
+- Mage Armor increases AC from 15 to 16
+- Alert feat gives excellent Initiative (+5 total)
 - Dump WIS (-1) means Perception and Insight will be weak
 - True Strike synergizes well with Sneak Attack (guarantees Advantage)
