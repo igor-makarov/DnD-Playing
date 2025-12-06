@@ -22,7 +22,7 @@ export default class JacobCharacter extends Character {
         { skill: "Persuasion", multiplier: 2 }, // Rogue with Expertise
         { skill: "Stealth", multiplier: 2 }, // Rogue with Expertise
         { skill: "Performance" }, // Background
-        { skill: "Athletics" }, // Background
+        { skill: "Investigation" }, // Background
         { skill: "Acrobatics" }, // Human
       ],
       saveProficiencies: [

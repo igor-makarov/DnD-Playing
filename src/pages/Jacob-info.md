@@ -33,7 +33,7 @@
   - Cantrips: True Strike, Toll the Dead
   - 1st level spell: Mage Armor (1/day)
   - Spellcasting ability: CHA (INT or WIS also allowed, but CHA chosen)
-- **Skill Proficiencies (2):** Performance, Athletics
+- **Skill Proficiencies (2):** Performance, Investigation
 - **Tool Proficiency (1):** Alchemist's Supplies
 - **Equipment (50 GP):** Fine Clothes (15 GP), Traveler's Clothes (2 GP), portion of adventure gear and weapons below
 
@@ -113,7 +113,7 @@
 3. **Persuasion (CHA)** - **+8** (from Rogue, with Expertise)
 4. **Stealth (DEX)** - **+7** (from Rogue, with Expertise)
 5. **Performance (CHA)** - +6 (from Background)
-6. **Athletics (STR)** - +3 (from Background)
+6. **Investigation (INT)** - +2 (from Background)
 7. **Acrobatics (DEX)** - +5 (from Human)
 
 ### Expertise
