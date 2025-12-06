@@ -46,9 +46,7 @@ export default function InfoTooltip({ reference, children }: Props) {
         </h2>
         <div dangerouslySetInnerHTML={{ __html: reference.html }} />
         <div className="button-container">
-          <button onClick={handleClose}>
-            Close
-          </button>
+          <button onClick={handleClose}>Close</button>
         </div>
       </dialog>
     </>

@@ -91,7 +91,7 @@ export default function renderReference(reference: Reference): ReferenceRendered
   }
 
   // Render entries
-  html += reference.entries.map(entry => `<p>${renderEntry(entry)}</p>`).join("");
+  html += reference.entries.map((entry) => `<p>${renderEntry(entry)}</p>`).join("");
 
   // Final sanitization as safety net (reuses singleton purify instance)
   const sanitizedHtml = sanitizeFinal(html) as ReferenceHTML;
