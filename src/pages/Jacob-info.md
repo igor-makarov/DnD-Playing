@@ -8,21 +8,21 @@
 
 ## Ability Scores
 
-### Base Array (Epic Array)
-- CHA: 18
-- DEX: 16
-- CON: 15
+### Base Array (Standard Array Variant)
+- CHA: 16
+- DEX: 15
+- CON: 14
 - STR: 13
-- INT: 11
-- WIS: 9 (dump stat)
+- INT: 10
+- WIS: 8 (dump stat)
 
 ### With Background ASIs (+2 CHA / +1 CON)
-- **CHA: 20 (+5)** - Primary stat, spell DC 13, spell attack +5
-- **DEX: 16 (+3)** - AC, attacks, Stealth
-- **CON: 16 (+3)** - HP (11 at level 1: 8 + 3)
+- **CHA: 18 (+4)** - Primary stat, spell DC 14, spell attack +6
+- **DEX: 15 (+2)** - AC, attacks, Stealth
+- **CON: 15 (+2)** - HP (10 at level 1: 8 + 2)
 - **STR: 13 (+1)** - Athletics if needed
-- **INT: 11 (+0)** - Investigation
-- **WIS: 9 (-1)** - Perception/Insight weakness
+- **INT: 10 (+0)** - Investigation
+- **WIS: 8 (-1)** - Perception/Insight weakness
 
 ## Background: Custom
 
@@ -57,7 +57,7 @@
 
 ### Hit Points
 - **Hit Die:** 1d8
-- **HP at Level 1:** 8 + CON modifier = 8 + 3 = **11 HP**
+- **HP at Level 1:** 8 + CON modifier = 8 + 2 = **10 HP**
 
 ### Proficiencies
 - **Armor:** Light armor
@@ -96,9 +96,9 @@
 - **Ranged:** Shortbow (1d6 piercing, Vex mastery)
 
 ### Combat Stats
-- **AC:** 13 (studded leather: 12 + 3 DEX)
-- **Initiative:** +3 DEX + 2 proficiency (Alert) = **+5**
-- **Attack Bonus:** +3 DEX + 2 proficiency = **+5 to hit**
+- **AC:** 14 (studded leather: 12 + 2 DEX)
+- **Initiative:** +2 DEX + 2 proficiency (Alert) = **+4**
+- **Attack Bonus:** +2 DEX + 2 proficiency = **+4 to hit**
 - **Sneak Attack:** +1d6 damage (once per turn)
 
 ### Weapon Mastery
@@ -108,17 +108,17 @@
 ## Skills & Proficiencies Summary
 
 ### Total Skill Proficiencies (7)
-1. **Deception (CHA)** - +7 (from Rogue)
-2. **Intimidation (CHA)** - +7 (from Rogue)
-3. **Persuasion (CHA)** - **+9** (from Rogue, with Expertise)
-4. **Stealth (DEX)** - **+7** (from Rogue, with Expertise)
-5. **Performance (CHA)** - +7 (from Background)
+1. **Deception (CHA)** - +6 (from Rogue)
+2. **Intimidation (CHA)** - +6 (from Rogue)
+3. **Persuasion (CHA)** - **+8** (from Rogue, with Expertise)
+4. **Stealth (DEX)** - **+6** (from Rogue, with Expertise)
+5. **Performance (CHA)** - +6 (from Background)
 6. **Athletics (STR)** - +3 (from Background)
-7. **Acrobatics (DEX)** - +5 (from Human)
+7. **Acrobatics (DEX)** - +4 (from Human)
 
 ### Expertise
-- **Persuasion (CHA)** - +9 (CHA +5, expertise +4)
-- **Stealth (DEX)** - +7 (DEX +3, expertise +4)
+- **Persuasion (CHA)** - +8 (CHA +4, expertise +4)
+- **Stealth (DEX)** - +6 (DEX +2, expertise +4)
 
 ### Tool Proficiencies
 - Thieves' Tools (from Rogue)
@@ -136,12 +136,12 @@
 
 ### 1st Level Spell (1/day)
 - **Mage Armor:** AC = 13 + DEX modifier (8 hours)
-  - With DEX 16: AC becomes **16** (vs 13 with studded leather)
+  - With DEX 15: AC becomes **15** (vs 14 with studded leather)
 
 ### Spellcasting Ability
-- **CHA 20 (+5)**
-- **Spell Save DC:** 8 + 2 proficiency + 5 CHA = **15**
-- **Spell Attack Bonus:** 2 + 5 = **+7**
+- **CHA 18 (+4)**
+- **Spell Save DC:** 8 + 2 proficiency + 4 CHA = **14**
+- **Spell Attack Bonus:** 2 + 4 = **+6**
 
 ## Character Details
 
@@ -199,8 +199,8 @@
 
 ## Notes
 
-- CHA 20 at level 1 is extremely rare and powerful for social encounters
-- Mage Armor increases AC from 13 to 16 (significant defensive boost)
-- Alert feat gives excellent Initiative (+5 total)
+- CHA 18 at level 1 is strong for social encounters
+- Mage Armor increases AC from 14 to 15
+- Alert feat gives excellent Initiative (+4 total)
 - Dump WIS (-1) means Perception and Insight will be weak
 - True Strike synergizes well with Sneak Attack (guarantees Advantage)
