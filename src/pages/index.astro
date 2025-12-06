@@ -7,7 +7,7 @@ const characterPages = Object.keys(pageModules)
   .filter((path) => !path.includes("index.astro"))
   .map((path) => {
     const name = path.replace("./", "").replace(".astro", "");
-    return { name, url: `/${name}` };
+    return { name, url: new URL(name, Astro.url).pathname };
   })
   .sort((a, b) => a.name.localeCompare(b.name));
 ---
