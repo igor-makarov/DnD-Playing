@@ -13,6 +13,7 @@ import InfoTooltip from "@/components/common/InfoTooltip.tsx";
 
 import { DiceString } from "@/js/common/DiceString";
 import JacobCharacter from "@/js/characters/JacobCharacter";
+import { getClassFeature } from "@/js/utils/render-5etools/getClassFeature";
 import { getFeat } from "@/js/utils/render-5etools/getFeat";
 import { getSpell } from "@/js/utils/render-5etools/getSpell";
 import { getSpecies } from "@/js/utils/render-5etools/getSpecies";
@@ -166,6 +167,10 @@ const character = new JacobCharacter();
           <tr>
             <td>[Feat] <InfoTooltip client:load reference={renderHTML(getFeat("Magic Initiate"))}>Magic Initiate</InfoTooltip> (from Human)</td>
             <td class="modifier">2 cantrips, 1 1st-level spell</td>
+          </tr>
+          <tr>
+            <td>[Rogue] <InfoTooltip client:load reference={renderHTML(getClassFeature("Sneak Attack", "Rogue"))}>Sneak Attack</InfoTooltip></td>
+            <td class="modifier">+{character.getSneakAttackDice().toString()} damage (1/turn)</td>
           </tr>
         </table>
         <table>
