@@ -1,6 +1,6 @@
 import speciesJson from "@5etools/data/races.json";
 
-import type { Reference } from "./ReferenceTypes";
+import type { Entry, PropertyItem, Reference } from "./ReferenceTypes";
 
 // Species-specific interface extending Reference
 interface SpeciesReference extends Reference {
@@ -85,16 +85,19 @@ export function getSpecies(name: string, source: string = "XPHB"): Reference {
     throw new Error(`Species "${name}" from source "${source}" not found in 5etools data`);
   }
 
-  const properties: Record<string, string> = {
-    "Creature Type": formatCreatureType(species.creatureTypes),
-    Size: formatSize(species),
-    Speed: formatSpeed(species.speed),
-  };
+  // Build ordered properties
+  const propsData: PropertyItem[] = [
+    { key: "Creature Type", value: formatCreatureType(species.creatureTypes) },
+    { key: "Size", value: formatSize(species) },
+    { key: "Speed", value: formatSpeed(species.speed) },
+  ];
 
-  const speciesReference: SpeciesReference = {
-    ...species,
-    properties,
-  };
+  // Build entries array
+  const entries: Entry[] = [{ type: "properties", data: propsData }, ...species.entries];
 
-  return speciesReference;
+  return {
+    name: species.name,
+    source: species.source,
+    entries,
+  };
 }

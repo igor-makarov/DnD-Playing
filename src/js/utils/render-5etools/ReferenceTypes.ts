@@ -1,3 +1,9 @@
+// Property item for ordered key-value data
+export interface PropertyItem {
+  key: string;
+  value: string;
+}
+
 // Generic 5etools entry types (used by feats, spells, items, etc.)
 type EntryString = string;
 type EntryObject = {
@@ -5,6 +11,7 @@ type EntryObject = {
   name?: string;
   entries?: Array<EntryString | EntryObject>;
   items?: Array<EntryString | EntryObject>;
+  data?: PropertyItem[]; // For type: "properties"
 };
 export type Entry = EntryString | EntryObject;
 
@@ -18,7 +25,6 @@ export interface Reference {
   entries: Array<Entry>;
   category?: string;
   byline?: string; // Optional byline text displayed before the main content
-  properties?: Record<string, string>; // Optional key-value properties (e.g., "Casting Time": "Action")
 }
 
 /**

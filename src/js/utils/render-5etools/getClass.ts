@@ -11,7 +11,7 @@ import sorcererJson from "@5etools/data/class/class-sorcerer.json";
 import warlockJson from "@5etools/data/class/class-warlock.json";
 import wizardJson from "@5etools/data/class/class-wizard.json";
 
-import type { Entry, Reference } from "./ReferenceTypes";
+import type { Entry, PropertyItem, Reference } from "./ReferenceTypes";
 
 // Hit dice structure
 interface HitDice {
@@ -40,6 +40,13 @@ interface Multiclassing {
     armor?: Array<string | { proficiency: string; full: string }>;
     weapons?: string[];
     tools?: string[];
+    skills?: Array<{
+      choose?: {
+        from: string[];
+        count: number;
+      };
+      any?: number;
+    }>;
   };
 }
 
@@ -144,22 +151,22 @@ function formatSkillProficiencies(skills?: Array<{ choose?: { from: string[]; co
 }
 
 function formatMulticlassingRequirements(requirements?: Record<string, number> | { or: Record<string, number>[] }): string {
-  if (!requirements) return "None";
+  if (!requirements) return "";
 
-  // Handle "or" structure (e.g., Barbarian requires STR 13+ OR DEX 13+)
+  // Handle "or" structure (e.g., Fighter requires STR 13 OR DEX 13)
   if ("or" in requirements && Array.isArray(requirements.or)) {
     const orParts = requirements.or.map((req: Record<string, number>) =>
       Object.entries(req)
-        .map(([ability, score]) => `${ABILITY_NAMES[ability] || ability} ${score}+`)
+        .map(([ability, score]) => `${ABILITY_NAMES[ability] || ability} ${score}`)
         .join(" and "),
     );
     return orParts.join(" or ");
   }
 
   // Handle simple structure
-  if (Object.keys(requirements).length === 0) return "None";
+  if (Object.keys(requirements).length === 0) return "";
   return Object.entries(requirements)
-    .map(([ability, score]) => `${ABILITY_NAMES[ability] || ability} ${score}+`)
+    .map(([ability, score]) => `${ABILITY_NAMES[ability] || ability} ${score}`)
     .join(" and ");
 }
 
@@ -174,39 +181,70 @@ function formatCantripProgression(progression?: number[]): string {
   return `${level1} at 1st level, ${level4} at 4th level, ${level10} at 10th level`;
 }
 
-function formatProficienciesGained(proficienciesGained?: {
-  armor?: Array<string | { proficiency: string; full: string }>;
-  weapons?: string[];
-  tools?: string[];
-}): string {
-  if (!proficienciesGained) return "";
+function formatCasterProgression(progression: string): string {
+  switch (progression) {
+    case "full":
+      return "Full Caster";
+    case "1/2":
+    case "artificer":
+      return "Half Caster";
+    case "1/3":
+      return "Third Caster";
+    case "pact":
+      return "Pact Magic";
+    default:
+      return progression;
+  }
+}
 
-  const parts: string[] = [];
+function createMulticlassingEntries(multiclassing?: Multiclassing): Entry[] {
+  if (!multiclassing) return [];
 
-  if (proficienciesGained.armor && proficienciesGained.armor.length > 0) {
-    const armor = proficienciesGained.armor
-      .map((a) => {
-        if (typeof a === "string") {
-          return a.charAt(0).toUpperCase() + a.slice(1);
-        } else {
-          return a.proficiency.charAt(0).toUpperCase() + a.proficiency.slice(1);
-        }
-      })
-      .join(", ");
-    parts.push(`Armor: ${armor}`);
+  const entries: Entry[] = [];
+
+  // 1. Heading
+  entries.push({ type: "heading", name: "Multiclassing" });
+
+  // 2. Prerequisites text
+  const requirements = formatMulticlassingRequirements(multiclassing.requirements);
+  if (requirements) {
+    entries.push(`To qualify for multiclassing into or out of this class, you must have a score of at least ${requirements}.`);
+  } else {
+    entries.push(
+      "To qualify for a new class, you must have a score of at least 13 in the primary ability of the new class and your current classes.",
+    );
   }
 
-  if (proficienciesGained.weapons && proficienciesGained.weapons.length > 0) {
-    const weapons = proficienciesGained.weapons.map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(", ");
-    parts.push(`Weapons: ${weapons}`);
+  // 3. Proficiencies gained as properties
+  const propsData: PropertyItem[] = [];
+
+  if (multiclassing.proficienciesGained) {
+    if (multiclassing.proficienciesGained.skills && multiclassing.proficienciesGained.skills.length > 0) {
+      const skills = formatSkillProficiencies(multiclassing.proficienciesGained.skills);
+      propsData.push({ key: "Skill Proficiencies", value: skills });
+    }
+
+    if (multiclassing.proficienciesGained.tools && multiclassing.proficienciesGained.tools.length > 0) {
+      const tools = formatWeaponProficiencies(multiclassing.proficienciesGained.tools);
+      propsData.push({ key: "Tool Proficiencies", value: tools });
+    }
+
+    if (multiclassing.proficienciesGained.armor && multiclassing.proficienciesGained.armor.length > 0) {
+      const armor = formatArmorProficiencies(multiclassing.proficienciesGained.armor);
+      propsData.push({ key: "Armor Training", value: armor });
+    }
+
+    if (multiclassing.proficienciesGained.weapons && multiclassing.proficienciesGained.weapons.length > 0) {
+      const weapons = formatWeaponProficiencies(multiclassing.proficienciesGained.weapons);
+      propsData.push({ key: "Weapon Training", value: weapons });
+    }
   }
 
-  if (proficienciesGained.tools && proficienciesGained.tools.length > 0) {
-    const tools = proficienciesGained.tools.map((t) => t.charAt(0).toUpperCase() + t.slice(1)).join(", ");
-    parts.push(`Tools: ${tools}`);
+  if (propsData.length > 0) {
+    entries.push({ type: "properties", data: propsData });
   }
 
-  return parts.join("; ");
+  return entries;
 }
 
 /**
@@ -231,66 +269,67 @@ export function getClass(name: string, source: string = "XPHB"): Reference {
     throw new Error(`Class "${name}" from source "${source}" not found in 5etools data`);
   }
 
-  const properties: Record<string, string> = {};
+  // Build ordered properties
+  const propsData: PropertyItem[] = [];
 
   if (classInfo.hd) {
-    properties["Hit Die"] = `1d${classInfo.hd.faces}`;
+    propsData.push({ key: "Hit Die", value: `1d${classInfo.hd.faces}` });
   }
 
   if (classInfo.proficiency) {
-    properties["Saving Throws"] = formatProficiencies(classInfo.proficiency);
+    propsData.push({ key: "Saving Throws", value: formatProficiencies(classInfo.proficiency) });
   }
 
   // Starting proficiencies
   if (classInfo.startingProficiencies) {
     if (classInfo.startingProficiencies.armor) {
-      properties["Armor"] = formatArmorProficiencies(classInfo.startingProficiencies.armor);
+      propsData.push({ key: "Armor", value: formatArmorProficiencies(classInfo.startingProficiencies.armor) });
     }
     if (classInfo.startingProficiencies.weapons) {
-      properties["Weapons"] = formatWeaponProficiencies(classInfo.startingProficiencies.weapons);
+      propsData.push({ key: "Weapons", value: formatWeaponProficiencies(classInfo.startingProficiencies.weapons) });
     }
     if (classInfo.startingProficiencies.skills) {
-      properties["Skills"] = formatSkillProficiencies(classInfo.startingProficiencies.skills);
+      propsData.push({ key: "Skills", value: formatSkillProficiencies(classInfo.startingProficiencies.skills) });
     }
   }
 
   // Spellcasting information
   if (classInfo.spellcastingAbility) {
-    properties["Spellcasting Ability"] = ABILITY_NAMES[classInfo.spellcastingAbility] || classInfo.spellcastingAbility;
+    propsData.push({
+      key: "Spellcasting Ability",
+      value: ABILITY_NAMES[classInfo.spellcastingAbility] || classInfo.spellcastingAbility,
+    });
   }
 
   if (classInfo.casterProgression) {
-    const progressionType =
-      classInfo.casterProgression === "full"
-        ? "Full Caster"
-        : classInfo.casterProgression === "1/2" || classInfo.casterProgression === "artificer"
-          ? "Half Caster"
-          : classInfo.casterProgression === "1/3"
-            ? "Third Caster"
-            : classInfo.casterProgression;
-    properties["Caster Progression"] = progressionType;
+    propsData.push({ key: "Caster Progression", value: formatCasterProgression(classInfo.casterProgression) });
   }
 
   if (classInfo.cantripProgression) {
-    properties["Cantrips Known"] = formatCantripProgression(classInfo.cantripProgression);
+    propsData.push({ key: "Cantrips Known", value: formatCantripProgression(classInfo.cantripProgression) });
   }
 
-  // Multiclassing information
-  if (classInfo.multiclassing?.requirements) {
-    properties["Multiclassing Requirement"] = formatMulticlassingRequirements(classInfo.multiclassing.requirements);
+  // Build entries array
+  const entries: Entry[] = [];
+
+  // Add Core Traits heading and properties
+  entries.push({ type: "heading", name: "Core Traits" });
+  if (propsData.length > 0) {
+    entries.push({ type: "properties", data: propsData });
   }
 
-  if (classInfo.multiclassing?.proficienciesGained) {
-    const profGained = formatProficienciesGained(classInfo.multiclassing.proficienciesGained);
-    if (profGained) {
-      properties["Multiclass Proficiencies"] = profGained;
-    }
+  // Add any existing entries from the class data
+  if (classInfo.entries) {
+    entries.push(...classInfo.entries);
   }
+
+  // Add multiclassing entries last
+  entries.push(...createMulticlassingEntries(classInfo.multiclassing));
 
   const classReference: Reference = {
-    ...classInfo,
-    entries: classInfo.entries || [], // Provide empty array if no entries
-    properties,
+    name: classInfo.name,
+    source: classInfo.source,
+    entries,
   };
 
   return classReference;

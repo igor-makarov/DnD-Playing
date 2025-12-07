@@ -38,14 +38,34 @@ function renderTags(text: string): string {
     .replace(/{@filter ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>");
 }
 
+// Renders property data (key-value pairs) to HTML
+function renderData(data: Array<{ key: string; value: string }>): string {
+  return data.map(({ key, value }) => `<p class="property"><strong>${sanitizeExternal(key)}:</strong> ${sanitizeExternal(value)}</p>`).join("");
+}
+
 // Recursively renders 5etools entry objects to HTML - sanitizes entry names before processing
 function renderEntry(entry: Entry): string {
   if (typeof entry === "string") {
     return renderTags(entry);
   }
 
+  // Handle properties entry (just data, no content)
+  if (entry.type === "properties" && entry.data) {
+    return renderData(entry.data);
+  }
+
+  // Handle heading (standalone, no children)
+  if (entry.type === "heading" && entry.name) {
+    const safeName = sanitizeExternal(entry.name);
+    return `<h3>${safeName}</h3>`;
+  }
+
+  // Handle section as wrapper (no heading, just groups content)
+  if (entry.type === "section") {
+    return entry.entries?.map(renderEntry).join("") || "";
+  }
+
   if (entry.type === "entries" && entry.name) {
-    // Sanitize entry name to strip any HTML
     const safeName = sanitizeExternal(entry.name);
     const inner = entry.entries?.map(renderEntry).join(" ") || "";
     return `<strong>${safeName}.</strong> ${inner}`;
@@ -83,15 +103,17 @@ export default function renderHTML(reference: Reference): ReferenceRendered {
     html += `<p class="byline"><em>${safeByline}</em></p>`;
   }
 
-  // Add properties if present (e.g., spell casting time, range, components, duration)
-  if (reference.properties) {
-    html += Object.entries(reference.properties)
-      .map(([key, value]) => `<p class="property"><strong>${sanitizeExternal(key)}:</strong> ${sanitizeExternal(value)}</p>`)
-      .join("");
-  }
-
   // Render entries
-  html += reference.entries.map((entry) => `<p>${renderEntry(entry)}</p>`).join("");
+  html += reference.entries
+    .map((entry) => {
+      // Properties, sections, and lists handle their own wrapping
+      if (typeof entry !== "string" && (entry.type === "properties" || entry.type === "section" || entry.type === "list")) {
+        return renderEntry(entry);
+      }
+      // Everything else gets wrapped in a paragraph
+      return `<p>${renderEntry(entry)}</p>`;
+    })
+    .join("");
 
   // Final sanitization as safety net (reuses singleton purify instance)
   const sanitizedHtml = sanitizeFinal(html) as ReferenceHTML;

@@ -1,6 +1,6 @@
 import spellsXPHB from "@5etools/data/spells/spells-xphb.json";
 
-import type { Entry, Reference } from "./ReferenceTypes";
+import type { Entry, PropertyItem, Reference } from "./ReferenceTypes";
 
 // 5etools spell time structure
 interface SpellTime {
@@ -175,19 +175,21 @@ export function getSpell(name: string, source: string = "XPHB"): Reference {
 
   const byline = getSchoolNameAndLevelByline(spell.school, spell.level);
 
-  const properties: Record<string, string> = {
-    "Casting Time": formatCastingTime(spell.time),
-    Range: formatRange(spell.range),
-    Components: formatComponents(spell.components),
-    Duration: formatDuration(spell.duration),
-  };
+  // Build ordered properties
+  const propsData: PropertyItem[] = [
+    { key: "Casting Time", value: formatCastingTime(spell.time) },
+    { key: "Range", value: formatRange(spell.range) },
+    { key: "Components", value: formatComponents(spell.components) },
+    { key: "Duration", value: formatDuration(spell.duration) },
+  ];
 
-  const spellData: SpellReference = {
-    ...spell,
-    entries: [...spell.entries, ...(spell.entriesHigherLevel || [])],
+  // Build entries array
+  const entries: Entry[] = [{ type: "properties", data: propsData }, ...spell.entries, ...(spell.entriesHigherLevel || [])];
+
+  return {
+    name: spell.name,
+    source: spell.source,
     byline,
-    properties,
+    entries,
   };
-
-  return spellData;
 }

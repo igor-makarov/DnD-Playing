@@ -17,10 +17,30 @@ function renderTags(text: string): string {
     .replace(/{@filter ([^}|]+)(\|[^}]+)?}/g, "**$1**");
 }
 
+// Renders property data (key-value pairs) to markdown
+function renderData(data: Array<{ key: string; value: string }>): string {
+  return data.map(({ key, value }) => `**${key}:** ${value}`).join("\n");
+}
+
 // Recursively renders 5etools entry objects to markdown
 function renderEntry(entry: Entry, indent: number = 0): string {
   if (typeof entry === "string") {
     return renderTags(entry);
+  }
+
+  // Handle properties entry (just data, no content)
+  if (entry.type === "properties" && entry.data) {
+    return renderData(entry.data);
+  }
+
+  // Handle heading (standalone, no children)
+  if (entry.type === "heading" && entry.name) {
+    return `## ${entry.name}`;
+  }
+
+  // Handle section as wrapper (no heading, just groups content)
+  if (entry.type === "section") {
+    return entry.entries?.map((e) => renderEntry(e, indent)).join("\n\n") || "";
   }
 
   if (entry.type === "entries" && entry.name) {
@@ -62,25 +82,8 @@ export default function renderMarkdown(reference: Reference): string {
     markdown += `*${reference.byline}*\n\n`;
   }
 
-  // Add properties if present (e.g., spell casting time, range, components, duration)
-  if (reference.properties) {
-    for (const [key, value] of Object.entries(reference.properties)) {
-      markdown += `**${key}:** ${value}\n`;
-    }
-    markdown += "\n";
-  }
-
   // Render entries
-  const entryMarkdown = reference.entries
-    .map((entry) => {
-      const rendered = renderEntry(entry);
-      // If entry is a list, don't wrap in paragraph
-      if (typeof entry !== "string" && entry.type === "list") {
-        return rendered;
-      }
-      return rendered;
-    })
-    .join("\n\n");
+  const entryMarkdown = reference.entries.map((entry) => renderEntry(entry)).join("\n\n");
 
   markdown += entryMarkdown;
 
