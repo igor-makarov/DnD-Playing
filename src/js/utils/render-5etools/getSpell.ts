@@ -167,7 +167,7 @@ export function getSpell(name: string, source: string = "XPHB"): Reference {
     throw new Error(`Spell source "${source}" not supported. Available sources: ${Object.keys(SPELL_DATA_BY_SOURCE).join(", ")}`);
   }
 
-  const spell = spellsData.spell.find((s) => s.name === name && s.source === source);
+  const spell = spellsData.spell.find((s) => s.name.toLowerCase() === name.toLowerCase() && s.source === source);
 
   if (!spell) {
     throw new Error(`Spell "${name}" from source "${source}" not found in 5etools data`);

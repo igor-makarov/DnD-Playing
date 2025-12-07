@@ -79,7 +79,7 @@ function formatSpeed(speed?: number | { walk?: number; fly?: number; swim?: numb
  */
 export function getSpecies(name: string, source: string = "XPHB"): Reference {
   const speciesData = speciesJson as SpeciesData;
-  const species = speciesData.race.find((s) => s.name === name && s.source === source);
+  const species = speciesData.race.find((s) => s.name.toLowerCase() === name.toLowerCase() && s.source === source);
 
   if (!species) {
     throw new Error(`Species "${name}" from source "${source}" not found in 5etools data`);

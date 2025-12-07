@@ -38,7 +38,7 @@ function getCategoryByline(category: string | undefined): string | undefined {
  */
 export function getFeat(name: string, source: string = "XPHB"): Reference {
   const typedFeatsData = featsData as FeatData;
-  const feat = typedFeatsData.feat.find((f) => f.name === name && f.source === source);
+  const feat = typedFeatsData.feat.find((f) => f.name.toLowerCase() === name.toLowerCase() && f.source === source);
 
   if (!feat) {
     throw new Error(`Feat "${name}" from source "${source}" not found in 5etools data`);
