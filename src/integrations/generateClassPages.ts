@@ -105,7 +105,7 @@ title: ${className}
 ---
 
 `;
-      const outputFile = path.join(outputPath, `${className.toLowerCase()}.md`);
+      const outputFile = path.join(outputPath, `${className}.md`);
       fs.writeFileSync(outputFile, frontmatter + html);
       console.log(`[generateClassPages] Generated: ${outputFile}`);
     } catch (error) {

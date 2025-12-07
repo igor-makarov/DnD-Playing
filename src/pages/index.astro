@@ -10,6 +10,15 @@ const characterPages = Object.keys(pageModules)
     return { name, url: new URL(name, Astro.url).pathname };
   })
   .sort((a, b) => a.name.localeCompare(b.name));
+
+// Get all class pages
+const classModules = import.meta.glob("./classes/*.md", { eager: true });
+const classPages = Object.keys(classModules)
+  .map((path) => {
+    const name = path.replace("./classes/", "").replace(".md", "");
+    return { name, url: new URL(`classes/${name}`, Astro.url).pathname };
+  })
+  .sort((a, b) => a.name.localeCompare(b.name));
 ---
 
 <html lang="en">
@@ -27,6 +36,20 @@ const characterPages = Object.keys(pageModules)
           </tr>
           {
             characterPages.map(({ name, url }) => (
+              <tr>
+                <td>
+                  <a href={url}>{name}</a>
+                </td>
+              </tr>
+            ))
+          }
+        </table>
+        <table>
+          <tr>
+            <th>Classes</th>
+          </tr>
+          {
+            classPages.map(({ name, url }) => (
               <tr>
                 <td>
                   <a href={url}>{name}</a>
