@@ -13,10 +13,12 @@ import InfoTooltip from "@/components/common/InfoTooltip.tsx";
 
 import { DiceString } from "@/js/common/DiceString";
 import JacobCharacter from "@/js/characters/JacobCharacter";
+import { getClass } from "@/js/utils/render-5etools/getClass";
 import { getClassFeature } from "@/js/utils/render-5etools/getClassFeature";
 import { getFeat } from "@/js/utils/render-5etools/getFeat";
 import { getSpell } from "@/js/utils/render-5etools/getSpell";
 import { getSpecies } from "@/js/utils/render-5etools/getSpecies";
+import { getWeaponMastery } from "@/js/utils/render-5etools/getWeaponMastery";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 
 const character = new JacobCharacter();
@@ -151,8 +153,12 @@ const character = new JacobCharacter();
             <th class="modifier">Effect</th>
           </tr>
           <tr>
-            <td><InfoTooltip client:load reference={renderHTML(getSpecies("Human"))}>Human</InfoTooltip></td>
-            <td></td>
+            <td>Species</td>
+            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getSpecies("Human"))}>Human</InfoTooltip></td>
+          </tr>
+          <tr>
+            <td>Class</td>
+            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Rogue"))}>Rogue</InfoTooltip> 1</td>
           </tr>
           <tr>
             <td>[Human] Resourceful (free Inspiration)</td>
@@ -169,8 +175,14 @@ const character = new JacobCharacter();
             <td class="modifier">2 cantrips, 1 1st-level spell</td>
           </tr>
           <tr>
-            <td>[Rogue] <InfoTooltip client:load reference={renderHTML(getClassFeature("Sneak Attack", "Rogue"))}>Sneak Attack</InfoTooltip></td>
+            <td>[Rogue 1] <InfoTooltip client:load reference={renderHTML(getClassFeature("Sneak Attack", "Rogue"))}>Sneak Attack</InfoTooltip></td>
             <td class="modifier">+{character.getSneakAttackDice().toString()} damage (1/turn)</td>
+          </tr>
+          <tr>
+            <td>[Rogue 1] <InfoTooltip client:load reference={renderHTML(getClassFeature("Weapon Mastery", "Rogue"))}>Weapon Mastery</InfoTooltip></td>
+            <td class="modifier">
+              <InfoTooltip client:load reference={renderHTML(getWeaponMastery("Vex"))}>Vex</InfoTooltip>, <InfoTooltip client:load reference={renderHTML(getWeaponMastery("Nick"))}>Nick</InfoTooltip>
+            </td>
           </tr>
         </table>
         <table>

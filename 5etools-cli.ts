@@ -5,6 +5,7 @@ import { getClassFeature } from "./src/js/utils/render-5etools/getClassFeature";
 import { getFeat } from "./src/js/utils/render-5etools/getFeat";
 import { getSpecies } from "./src/js/utils/render-5etools/getSpecies";
 import { getSpell } from "./src/js/utils/render-5etools/getSpell";
+import { getWeaponMastery } from "./src/js/utils/render-5etools/getWeaponMastery";
 import renderMarkdown from "./src/js/utils/render-5etools/renderMarkdown";
 
 function printUsage(): void {
@@ -16,6 +17,7 @@ Commands:
   feat <name> [source]               Get feat information (default source: XPHB)
   class <name> [source]              Get class information (default source: XPHB)
   feature <name> <class> [source]    Get class feature information (default source: XPHB)
+  mastery <name> [source]            Get weapon mastery information (default source: XPHB)
 
 Examples:
   5etools spell Fireball
@@ -26,9 +28,14 @@ Examples:
   5etools class Wizard XPHB
   5etools feature "Second Wind" Fighter
   5etools feature "Action Surge" Fighter XPHB
+  5etools mastery Vex
+  5etools mastery Topple XPHB
 
 Available classes:
   Barbarian, Bard, Cleric, Druid, Fighter, Monk, Paladin, Ranger, Rogue, Sorcerer, Warlock, Wizard
+
+Available weapon masteries:
+  Cleave, Graze, Nick, Push, Sap, Slow, Topple, Vex
 
 Common sources:
   XPHB  - Player's Handbook 2024
@@ -93,6 +100,12 @@ async function main() {
             process.exit(1);
           }
           reference = getClassFeature(name, className, source);
+        }
+        break;
+      case "mastery":
+        {
+          const source = args[2] || "XPHB";
+          reference = getWeaponMastery(name, source);
         }
         break;
       default:
