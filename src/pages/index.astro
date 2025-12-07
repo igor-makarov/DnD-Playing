@@ -1,13 +1,12 @@
 ---
 import "../../public/styles/style.css";
 
-// Get all pages except index using import.meta.glob
-const pageModules = import.meta.glob("./*.astro", { eager: true });
+// Get all character pages
+const pageModules = import.meta.glob("./characters/*.astro", { eager: true });
 const characterPages = Object.keys(pageModules)
-  .filter((path) => !path.includes("index.astro"))
   .map((path) => {
-    const name = path.replace("./", "").replace(".astro", "");
-    return { name, url: new URL(name, Astro.url).pathname };
+    const name = path.replace("./characters/", "").replace(".astro", "");
+    return { name, url: new URL(`characters/${name}`, Astro.url).pathname };
   })
   .sort((a, b) => a.name.localeCompare(b.name));
 
