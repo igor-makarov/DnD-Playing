@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 
-import { getClass } from "./src/js/utils/render-5etools/getClass";
+import { getClass, getClassFeaturesFull } from "./src/js/utils/render-5etools/getClass";
 import { getClassFeature } from "./src/js/utils/render-5etools/getClassFeature";
 import { getFeat } from "./src/js/utils/render-5etools/getFeat";
 import { getSpecies } from "./src/js/utils/render-5etools/getSpecies";
@@ -26,6 +26,7 @@ Examples:
   5etools species Human
   5etools feat Alert
   5etools class Fighter
+  5etools class Fighter --features
   5etools class Wizard XPHB
   5etools feature "Second Wind" Fighter
   5etools feature "Action Surge" Fighter XPHB
@@ -45,14 +46,16 @@ Common sources:
   TCE   - Tasha's Cauldron of Everything
 
 Options:
-  --html  Output as HTML instead of Markdown
+  --html      Output as HTML instead of Markdown
+  --features  (class only) List class features by level
 `);
 }
 
 async function main() {
   const args = process.argv.slice(2);
   const useHtml = args.includes("--html");
-  const filteredArgs = args.filter((arg) => arg !== "--html");
+  const showFeatures = args.includes("--features");
+  const filteredArgs = args.filter((arg) => arg !== "--html" && arg !== "--features");
 
   if (filteredArgs.length === 0 || filteredArgs[0] === "--help" || filteredArgs[0] === "-h") {
     printUsage();
@@ -94,6 +97,26 @@ async function main() {
         {
           const source = filteredArgs[2] || "XPHB";
           reference = getClass(name, source);
+          if (showFeatures) {
+            const features = getClassFeaturesFull(name, source);
+            // Group features by level
+            const byLevel = new Map<number, typeof features>();
+            for (const f of features) {
+              if (!byLevel.has(f.level)) byLevel.set(f.level, []);
+              byLevel.get(f.level)!.push(f);
+            }
+            // Add features as entries
+            for (const [level, levelFeatures] of byLevel) {
+              reference.entries.push({ type: "heading", name: `Level ${level}` });
+              for (const feature of levelFeatures) {
+                reference.entries.push({
+                  type: "entries",
+                  name: feature.name,
+                  entries: feature.entries,
+                });
+              }
+            }
+          }
         }
         break;
       case "feature":

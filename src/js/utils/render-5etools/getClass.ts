@@ -53,10 +53,20 @@ interface ClassReference extends Omit<Reference, "entries"> {
   preparedSpells?: string | null;
 }
 
+// Class feature entry in the classFeature array
+interface ClassFeatureEntry {
+  name: string;
+  source: string;
+  className: string;
+  classSource: string;
+  level: number;
+  entries?: Entry[];
+}
+
 // Structure of class data from 5etools JSON files
 interface ClassData {
   class: Array<ClassReference>;
-  classFeature: Array<unknown>; // Not used here
+  classFeature: Array<ClassFeatureEntry>;
 }
 
 // Ability abbreviation to full name
@@ -228,6 +238,54 @@ function createMulticlassingEntries(multiclassing?: Multiclassing): Entry[] {
  * @returns The class reference data
  * @throws Error if class is not found
  */
+export interface ClassFeatureSummary {
+  name: string;
+  level: number;
+}
+
+/**
+ * Get list of class features with their levels.
+ *
+ * @param name - The class name (e.g., "Fighter", "Wizard")
+ * @param source - The source book (default: "XPHB" for 2024 PHB)
+ * @returns Array of feature names and levels, sorted by level
+ * @throws Error if class is not found
+ */
+export function getClassFeatures(name: string, source: string = "XPHB"): ClassFeatureSummary[] {
+  const classData = loadData<ClassData>(`class/class-${name.toLowerCase()}.json`);
+
+  const features = classData.classFeature.filter((f) => f.className === name && f.classSource === source);
+
+  if (features.length === 0) {
+    throw new Error(`No features found for class "${name}" from source "${source}"`);
+  }
+
+  return features.map((f) => ({ name: f.name, level: f.level })).sort((a, b) => a.level - b.level || a.name.localeCompare(b.name));
+}
+
+export interface ClassFeatureFull {
+  name: string;
+  level: number;
+  entries: Entry[];
+}
+
+/**
+ * Get full class features with entries.
+ */
+export function getClassFeaturesFull(name: string, source: string = "XPHB"): ClassFeatureFull[] {
+  const classData = loadData<ClassData>(`class/class-${name.toLowerCase()}.json`);
+
+  const features = classData.classFeature.filter((f) => f.className === name && f.classSource === source);
+
+  if (features.length === 0) {
+    throw new Error(`No features found for class "${name}" from source "${source}"`);
+  }
+
+  return features
+    .map((f) => ({ name: f.name, level: f.level, entries: f.entries || [] }))
+    .sort((a, b) => a.level - b.level || a.name.localeCompare(b.name));
+}
+
 export function getClass(name: string, source: string = "XPHB"): Reference {
   const classData = loadData<ClassData>(`class/class-${name.toLowerCase()}.json`);
 
