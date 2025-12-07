@@ -1,3 +1,8 @@
+---
+layout: "@/layouts/ReferenceLayout.astro"
+title: "Sir Jacob Lancaster - Character Build"
+---
+
 # Character Build Plan: CHA-First Rogue
 
 ## Overview
