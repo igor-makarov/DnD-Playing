@@ -19,6 +19,30 @@ interface HitDice {
   faces: number;
 }
 
+// Starting proficiencies structure
+interface StartingProficiencies {
+  armor?: Array<string | { proficiency: string; full: string }>;
+  weapons?: string[];
+  tools?: string[];
+  skills?: Array<{
+    choose?: {
+      from: string[];
+      count: number;
+    };
+    any?: number;
+  }>;
+}
+
+// Multiclassing structure
+interface Multiclassing {
+  requirements?: Record<string, number> | { or: Record<string, number>[] };
+  proficienciesGained?: {
+    armor?: Array<string | { proficiency: string; full: string }>;
+    weapons?: string[];
+    tools?: string[];
+  };
+}
+
 // Class-specific interface extending Reference
 interface ClassReference extends Omit<Reference, "entries"> {
   page?: number;
@@ -28,6 +52,10 @@ interface ClassReference extends Omit<Reference, "entries"> {
   spellcastingAbility?: string;
   casterProgression?: string;
   subclassTitle?: string;
+  startingProficiencies?: StartingProficiencies;
+  multiclassing?: Multiclassing;
+  cantripProgression?: number[];
+  preparedSpells?: string | null;
 }
 
 // Structure of class data from 5etools JSON files
@@ -67,6 +95,120 @@ function formatProficiencies(proficiencies?: string[]): string {
   return proficiencies.map((p) => ABILITY_NAMES[p] || p).join(", ");
 }
 
+function formatArmorProficiencies(armor?: Array<string | { proficiency: string; full: string }>): string {
+  if (!armor || armor.length === 0) return "None";
+  return armor
+    .map((a) => {
+      if (typeof a === "string") {
+        return a.charAt(0).toUpperCase() + a.slice(1);
+      } else {
+        return a.proficiency.charAt(0).toUpperCase() + a.proficiency.slice(1);
+      }
+    })
+    .join(", ");
+}
+
+function formatWeaponProficiencies(weapons?: string[]): string {
+  if (!weapons || weapons.length === 0) return "None";
+  return weapons
+    .map((w) => {
+      // Remove 5etools markup like {@filter ...} and {@item ...}
+      // Extract just the display text (first part before pipe)
+      const cleaned = w.replace(/\{@\w+\s+([^}|]+)(?:\|[^}]*)?\}/g, "$1");
+      return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+    })
+    .join(", ");
+}
+
+function formatSkillProficiencies(skills?: Array<{ choose?: { from: string[]; count: number }; any?: number }>): string {
+  if (!skills || skills.length === 0) return "None";
+
+  const parts: string[] = [];
+  for (const skill of skills) {
+    if (skill.choose) {
+      const skillList = skill.choose.from
+        .map((s) =>
+          s
+            .split(" ")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" "),
+        )
+        .join(", ");
+      parts.push(`Choose ${skill.choose.count} from: ${skillList}`);
+    } else if (skill.any) {
+      parts.push(`Choose any ${skill.any} skills`);
+    }
+  }
+
+  return parts.length > 0 ? parts.join("; ") : "None";
+}
+
+function formatMulticlassingRequirements(requirements?: Record<string, number> | { or: Record<string, number>[] }): string {
+  if (!requirements) return "None";
+
+  // Handle "or" structure (e.g., Barbarian requires STR 13+ OR DEX 13+)
+  if ("or" in requirements && Array.isArray(requirements.or)) {
+    const orParts = requirements.or.map((req: Record<string, number>) =>
+      Object.entries(req)
+        .map(([ability, score]) => `${ABILITY_NAMES[ability] || ability} ${score}+`)
+        .join(" and "),
+    );
+    return orParts.join(" or ");
+  }
+
+  // Handle simple structure
+  if (Object.keys(requirements).length === 0) return "None";
+  return Object.entries(requirements)
+    .map(([ability, score]) => `${ABILITY_NAMES[ability] || ability} ${score}+`)
+    .join(" and ");
+}
+
+function formatCantripProgression(progression?: number[]): string {
+  if (!progression || progression.length === 0) return "";
+
+  // Show key levels: 1, 4, 10
+  const level1 = progression[0];
+  const level4 = progression[3];
+  const level10 = progression[9];
+
+  return `${level1} at 1st level, ${level4} at 4th level, ${level10} at 10th level`;
+}
+
+function formatProficienciesGained(proficienciesGained?: {
+  armor?: Array<string | { proficiency: string; full: string }>;
+  weapons?: string[];
+  tools?: string[];
+}): string {
+  if (!proficienciesGained) return "";
+
+  const parts: string[] = [];
+
+  if (proficienciesGained.armor && proficienciesGained.armor.length > 0) {
+    const armor = proficienciesGained.armor
+      .map((a) => {
+        if (typeof a === "string") {
+          return a.charAt(0).toUpperCase() + a.slice(1);
+        } else {
+          return a.proficiency.charAt(0).toUpperCase() + a.proficiency.slice(1);
+        }
+      })
+      .join(", ");
+    parts.push(`Armor: ${armor}`);
+  }
+
+  if (proficienciesGained.weapons && proficienciesGained.weapons.length > 0) {
+    const weapons = proficienciesGained.weapons.map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(", ");
+    parts.push(`Weapons: ${weapons}`);
+  }
+
+  if (proficienciesGained.tools && proficienciesGained.tools.length > 0) {
+    const tools = proficienciesGained.tools.map((t) => t.charAt(0).toUpperCase() + t.slice(1)).join(", ");
+    parts.push(`Tools: ${tools}`);
+  }
+
+  return parts.join("; ");
+}
+
 /**
  * Get a class from the 5etools data by name and source.
  * This function should be called at build time in Astro frontmatter.
@@ -99,8 +241,50 @@ export function getClass(name: string, source: string = "XPHB"): Reference {
     properties["Saving Throws"] = formatProficiencies(classInfo.proficiency);
   }
 
+  // Starting proficiencies
+  if (classInfo.startingProficiencies) {
+    if (classInfo.startingProficiencies.armor) {
+      properties["Armor"] = formatArmorProficiencies(classInfo.startingProficiencies.armor);
+    }
+    if (classInfo.startingProficiencies.weapons) {
+      properties["Weapons"] = formatWeaponProficiencies(classInfo.startingProficiencies.weapons);
+    }
+    if (classInfo.startingProficiencies.skills) {
+      properties["Skills"] = formatSkillProficiencies(classInfo.startingProficiencies.skills);
+    }
+  }
+
+  // Spellcasting information
   if (classInfo.spellcastingAbility) {
     properties["Spellcasting Ability"] = ABILITY_NAMES[classInfo.spellcastingAbility] || classInfo.spellcastingAbility;
+  }
+
+  if (classInfo.casterProgression) {
+    const progressionType =
+      classInfo.casterProgression === "full"
+        ? "Full Caster"
+        : classInfo.casterProgression === "1/2" || classInfo.casterProgression === "artificer"
+          ? "Half Caster"
+          : classInfo.casterProgression === "1/3"
+            ? "Third Caster"
+            : classInfo.casterProgression;
+    properties["Caster Progression"] = progressionType;
+  }
+
+  if (classInfo.cantripProgression) {
+    properties["Cantrips Known"] = formatCantripProgression(classInfo.cantripProgression);
+  }
+
+  // Multiclassing information
+  if (classInfo.multiclassing?.requirements) {
+    properties["Multiclassing Requirement"] = formatMulticlassingRequirements(classInfo.multiclassing.requirements);
+  }
+
+  if (classInfo.multiclassing?.proficienciesGained) {
+    const profGained = formatProficienciesGained(classInfo.multiclassing.proficienciesGained);
+    if (profGained) {
+      properties["Multiclass Proficiencies"] = profGained;
+    }
   }
 
   const classReference: Reference = {
