@@ -8,23 +8,42 @@ import { getSourceName } from "./ReferenceTypes";
 const window = new JSDOM("").window;
 const purify = DOMPurify(window);
 
-// Strips all HTML tags from external input text
-function sanitizeExternal(text: string): string {
+// Strips all HTML tags from a string
+function sanitizeExternalString(text: string): string {
   return purify.sanitize(text, { ALLOWED_TAGS: [] });
 }
 
+// Recursively sanitizes all strings in a JSON value
+function sanitizeExternalObject<T>(value: T): T {
+  if (value === null) {
+    return value;
+  } else if (typeof value === "boolean") {
+    return value;
+  } else if (typeof value === "number") {
+    return value;
+  } else if (typeof value === "string") {
+    return sanitizeExternalString(value) as T;
+  } else if (Array.isArray(value)) {
+    return value.map(sanitizeExternalObject) as T;
+  } else if (typeof value === "object") {
+    const result: Record<string, unknown> = {};
+    for (const [key, val] of Object.entries(value)) {
+      result[key] = sanitizeExternalObject(val);
+    }
+    return result as T;
+  } else {
+    throw new Error(`Unexpected type in JSON data: ${typeof value}`);
+  }
+}
+
 // Final sanitization that allows our custom elements
-function sanitizeFinal(html: string): string {
+function sanitizeFinalHTML(html: string): string {
   return purify.sanitize(html, { ADD_TAGS: ["highlight-5e"] });
 }
 
-// Renders 5etools tagged text (e.g., {@variantrule Initiative|XPHB}) - sanitizes input before processing
+// Renders 5etools tagged text (e.g., {@variantrule Initiative|XPHB})
 function renderTags(text: string): string {
-  // First: sanitize input to strip any existing HTML from 5etools data
-  const safeText = sanitizeExternal(text);
-
-  // Then: add our own safe HTML tags
-  return safeText
+  return text
     .replace(/{@variantrule ([^}|]+)\|([^}|]+)\|([^}]+)}/g, "<highlight-5e>$3</highlight-5e>") // Use third part when available
     .replace(/{@variantrule ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>") // Fallback to first part
     .replace(/{@condition ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
@@ -38,12 +57,7 @@ function renderTags(text: string): string {
     .replace(/{@filter ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>");
 }
 
-// Renders property data (key-value pairs) to HTML
-function renderData(data: Array<{ key: string; value: string }>): string {
-  return data.map(({ key, value }) => `<p class="property"><strong>${sanitizeExternal(key)}:</strong> ${sanitizeExternal(value)}</p>`).join("");
-}
-
-// Recursively renders 5etools entry objects to HTML - sanitizes entry names before processing
+// Recursively renders 5etools entry objects to HTML
 function renderEntry(entry: Entry): string {
   if (typeof entry === "string") {
     return renderTags(entry);
@@ -51,13 +65,12 @@ function renderEntry(entry: Entry): string {
 
   // Handle properties entry (just data, no content)
   if (entry.type === "properties" && entry.data) {
-    return renderData(entry.data);
+    return entry.data.map(({ key, value }) => `<p class="property"><strong>${key}:</strong> ${value}</p>`).join("");
   }
 
   // Handle heading (standalone, no children)
   if (entry.type === "heading" && entry.name) {
-    const safeName = sanitizeExternal(entry.name);
-    return `<h3>${safeName}</h3>`;
+    return `<h3>${entry.name}</h3>`;
   }
 
   // Handle section as wrapper (no heading, just groups content)
@@ -66,9 +79,8 @@ function renderEntry(entry: Entry): string {
   }
 
   if (entry.type === "entries" && entry.name) {
-    const safeName = sanitizeExternal(entry.name);
     const inner = entry.entries?.map(renderEntry).join(" ") || "";
-    return `<strong>${safeName}.</strong> ${inner}`;
+    return `<strong>${entry.name}.</strong> ${inner}`;
   }
 
   if (entry.type === "list" && entry.items) {
@@ -88,23 +100,25 @@ function renderEntry(entry: Entry): string {
  * Renders 5etools reference data to a complete ReferenceRendered object with HTML
  *
  * Defense-in-depth approach:
- * 1. Input sanitization in renderTags() and renderEntry() strips malicious HTML from source
- * 2. Final output sanitization here as a safety net
+ * 1. Input sanitization via sanitizeExternalObject() strips all HTML from source data
+ * 2. Final output sanitization via sanitizeFinalHTML() as a safety net
  *
  * @param reference - The reference data (feat, spell, item, etc.)
  * @returns Complete rendered reference with name, readable source, and sanitized HTML
  */
 export default function renderHTML(reference: Reference): ReferenceRendered {
+  // Sanitize all strings in the input upfront
+  const safeReference = sanitizeExternalObject(reference);
+
   let html = "";
 
   // Add byline if present
-  if (reference.byline) {
-    const safeByline = sanitizeExternal(reference.byline);
-    html += `<p class="byline"><em>${safeByline}</em></p>`;
+  if (safeReference.byline) {
+    html += `<p class="byline"><em>${safeReference.byline}</em></p>`;
   }
 
   // Render entries
-  html += reference.entries
+  html += safeReference.entries
     .map((entry) => {
       // Properties, sections, and lists handle their own wrapping
       if (typeof entry !== "string" && (entry.type === "properties" || entry.type === "section" || entry.type === "list")) {
@@ -116,11 +130,11 @@ export default function renderHTML(reference: Reference): ReferenceRendered {
     .join("");
 
   // Final sanitization as safety net (reuses singleton purify instance)
-  const sanitizedHtml = sanitizeFinal(html) as ReferenceHTML;
+  const sanitizedHtml = sanitizeFinalHTML(html) as ReferenceHTML;
 
   return {
-    name: reference.name,
-    source: getSourceName(reference.source),
+    name: safeReference.name,
+    source: getSourceName(safeReference.source),
     html: sanitizedHtml,
   };
 }
