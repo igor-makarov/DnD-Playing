@@ -159,29 +159,25 @@ input[type="text"] {
   border-radius: 8px;
   text-align: start;
 
-  & h2 {
+  & h2,
+  & h3 {
     margin-top: 0;
     margin-bottom: 0;
-
-    & .source {
-      font-size: 0.5em;
-      font-weight: normal;
-    }
   }
 
   & p {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
+  }
 
-    &.byline {
-      margin-top: 0.5em;
-      margin-bottom: 0.5em;
-    }
+  & .property {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
 
-    &.property {
-      margin-top: 0.25em;
-      margin-bottom: 0.25em;
-    }
+  & .source {
+    font-size: 0.5em;
+    font-weight: normal;
   }
 
   & .button-container {
