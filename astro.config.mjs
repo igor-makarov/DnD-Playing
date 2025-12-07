@@ -3,6 +3,8 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 import react from "@astrojs/react";
 
+import generateClassPages from "./src/integrations/generateClassPages";
+
 export default defineConfig({
   site: "https://igor-makarov.github.io",
   base: process.env.BASE_URL || "/",
@@ -16,5 +18,6 @@ export default defineConfig({
         plugins: [["@babel/plugin-proposal-decorators", { version: "2023-05" }]],
       },
     }),
+    generateClassPages(),
   ],
 });

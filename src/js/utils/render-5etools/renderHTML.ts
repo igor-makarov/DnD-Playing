@@ -80,7 +80,12 @@ function renderEntry(entry: Entry): string {
 
   if (entry.type === "entries" && entry.name) {
     const inner = entry.entries?.map(renderEntry).join(" ") || "";
-    return `<strong>${entry.name}.</strong> ${inner}`;
+    return `<p><strong>${entry.name}.</strong> ${inner}</p>`;
+  }
+
+  // Handle anonymous entries wrapper (no name) - render children as block elements
+  if (entry.type === "entries" && !entry.name) {
+    return entry.entries?.map(renderEntry).join("") || "";
   }
 
   if (entry.type === "list" && entry.items) {
