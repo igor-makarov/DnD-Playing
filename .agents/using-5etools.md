@@ -1,7 +1,7 @@
 # 5etools Data Reference
 
 ## Location
-`5etools/data/` - 495 JSON files, 106MB, D&D 5e reference data (git submodule)
+`5etools/data/` - 495 JSON files, 106MB, D&D 5e reference data
 
 ## Structure
 - **Top-level JSON files**: Core game data (races.json, feats.json, items.json, etc.)

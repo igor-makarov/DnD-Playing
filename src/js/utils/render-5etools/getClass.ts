@@ -1,15 +1,5 @@
-import barbarianJson from "@5etools/data/class/class-barbarian.json";
-import bardJson from "@5etools/data/class/class-bard.json";
-import clericJson from "@5etools/data/class/class-cleric.json";
-import druidJson from "@5etools/data/class/class-druid.json";
-import fighterJson from "@5etools/data/class/class-fighter.json";
-import monkJson from "@5etools/data/class/class-monk.json";
-import paladinJson from "@5etools/data/class/class-paladin.json";
-import rangerJson from "@5etools/data/class/class-ranger.json";
-import rogueJson from "@5etools/data/class/class-rogue.json";
-import sorcererJson from "@5etools/data/class/class-sorcerer.json";
-import warlockJson from "@5etools/data/class/class-warlock.json";
-import wizardJson from "@5etools/data/class/class-wizard.json";
+import fs from "node:fs";
+import path from "node:path";
 
 import type { Entry, PropertyItem, Reference } from "./ReferenceTypes";
 
@@ -71,21 +61,20 @@ interface ClassData {
   classFeature: Array<unknown>; // Not used here
 }
 
-// Map of class names to class data
-const CLASS_DATA_BY_NAME: Record<string, ClassData> = {
-  Barbarian: barbarianJson,
-  Bard: bardJson,
-  Cleric: clericJson,
-  Druid: druidJson,
-  Fighter: fighterJson,
-  Monk: monkJson,
-  Paladin: paladinJson,
-  Ranger: rangerJson,
-  Rogue: rogueJson,
-  Sorcerer: sorcererJson,
-  Warlock: warlockJson,
-  Wizard: wizardJson,
-};
+// Base path to 5etools class data (resolved at build time)
+const CLASS_DATA_DIR = path.resolve("5etools/data/class");
+
+function loadClassData(className: string): ClassData {
+  const fileName = `class-${className.toLowerCase()}.json`;
+  const filePath = path.join(CLASS_DATA_DIR, fileName);
+
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Class "${className}" not found in 5etools data`);
+  }
+
+  const fileContent = fs.readFileSync(filePath, "utf-8");
+  return JSON.parse(fileContent) as ClassData;
+}
 
 // Ability abbreviation to full name
 const ABILITY_NAMES: Record<string, string> = {
@@ -257,11 +246,7 @@ function createMulticlassingEntries(multiclassing?: Multiclassing): Entry[] {
  * @throws Error if class is not found
  */
 export function getClass(name: string, source: string = "XPHB"): Reference {
-  const classData = CLASS_DATA_BY_NAME[name];
-
-  if (!classData) {
-    throw new Error(`Class "${name}" not supported. Available classes: ${Object.keys(CLASS_DATA_BY_NAME).join(", ")}`);
-  }
+  const classData = loadClassData(name);
 
   const classInfo = classData.class.find((c) => c.name === name && c.source === source);
 

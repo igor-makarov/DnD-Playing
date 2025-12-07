@@ -1,15 +1,5 @@
-import barbarianJson from "@5etools/data/class/class-barbarian.json";
-import bardJson from "@5etools/data/class/class-bard.json";
-import clericJson from "@5etools/data/class/class-cleric.json";
-import druidJson from "@5etools/data/class/class-druid.json";
-import fighterJson from "@5etools/data/class/class-fighter.json";
-import monkJson from "@5etools/data/class/class-monk.json";
-import paladinJson from "@5etools/data/class/class-paladin.json";
-import rangerJson from "@5etools/data/class/class-ranger.json";
-import rogueJson from "@5etools/data/class/class-rogue.json";
-import sorcererJson from "@5etools/data/class/class-sorcerer.json";
-import warlockJson from "@5etools/data/class/class-warlock.json";
-import wizardJson from "@5etools/data/class/class-wizard.json";
+import fs from "node:fs";
+import path from "node:path";
 
 import type { Reference } from "./ReferenceTypes";
 
@@ -27,21 +17,20 @@ interface ClassFeatureData {
   classFeature: Array<ClassFeatureReference>;
 }
 
-// Map of class names to class feature data
-const CLASS_FEATURE_DATA_BY_NAME: Record<string, ClassFeatureData> = {
-  Barbarian: barbarianJson,
-  Bard: bardJson,
-  Cleric: clericJson,
-  Druid: druidJson,
-  Fighter: fighterJson,
-  Monk: monkJson,
-  Paladin: paladinJson,
-  Ranger: rangerJson,
-  Rogue: rogueJson,
-  Sorcerer: sorcererJson,
-  Warlock: warlockJson,
-  Wizard: wizardJson,
-};
+// Base path to 5etools class data (resolved at build time)
+const CLASS_DATA_DIR = path.resolve("5etools/data/class");
+
+function loadClassFeatureData(className: string): ClassFeatureData {
+  const fileName = `class-${className.toLowerCase()}.json`;
+  const filePath = path.join(CLASS_DATA_DIR, fileName);
+
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Class "${className}" not found in 5etools data`);
+  }
+
+  const fileContent = fs.readFileSync(filePath, "utf-8");
+  return JSON.parse(fileContent) as ClassFeatureData;
+}
 
 /**
  * Get a class feature from the 5etools data by name, class, and source.
@@ -54,11 +43,7 @@ const CLASS_FEATURE_DATA_BY_NAME: Record<string, ClassFeatureData> = {
  * @throws Error if class or feature is not found
  */
 export function getClassFeature(featureName: string, className: string, source: string = "XPHB"): Reference {
-  const featureData = CLASS_FEATURE_DATA_BY_NAME[className];
-
-  if (!featureData) {
-    throw new Error(`Class "${className}" not supported. Available classes: ${Object.keys(CLASS_FEATURE_DATA_BY_NAME).join(", ")}`);
-  }
+  const featureData = loadClassFeatureData(className);
 
   const feature = featureData.classFeature.find(
     (f) => f.name.toLowerCase() === featureName.toLowerCase() && f.className === className && f.classSource === source && f.source === source,
