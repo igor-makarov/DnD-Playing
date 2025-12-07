@@ -1,7 +1,6 @@
 import spellsXPHB from "@5etools/data/spells/spells-xphb.json";
 
-import type { Entry, Reference, ReferenceRendered } from "./ReferenceTypes";
-import renderReference from "./renderReference";
+import type { Entry, Reference } from "./ReferenceTypes";
 
 // 5etools spell time structure
 interface SpellTime {
@@ -153,15 +152,15 @@ function formatDuration(duration: SpellDuration[]): string {
 }
 
 /**
- * Get a spell from the 5etools data by name and source, with rendered HTML.
+ * Get a spell from the 5etools data by name and source.
  * This function should be called at build time in Astro frontmatter.
  *
  * @param name - The spell name (e.g., "Fireball")
  * @param source - The source book (default: "XPHB" for 2024 PHB)
- * @returns The spell data with rendered HTML
+ * @returns The spell reference data
  * @throws Error if spell is not found
  */
-export function getSpell(name: string, source: string = "XPHB"): ReferenceRendered {
+export function getSpell(name: string, source: string = "XPHB"): Reference {
   const spellsData = SPELL_DATA_BY_SOURCE[source];
 
   if (!spellsData) {
@@ -190,5 +189,5 @@ export function getSpell(name: string, source: string = "XPHB"): ReferenceRender
     properties,
   };
 
-  return renderReference(spellData);
+  return spellData;
 }

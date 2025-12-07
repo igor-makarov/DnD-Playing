@@ -1,7 +1,6 @@
 import featsData from "@5etools/data/feats.json";
 
-import type { Reference, ReferenceRendered } from "./ReferenceTypes";
-import renderReference from "./renderReference";
+import type { Reference } from "./ReferenceTypes";
 
 // Feat-specific interface extending Reference
 interface FeatReference extends Reference {
@@ -29,15 +28,15 @@ function getCategoryByline(category: string | undefined): string | undefined {
 }
 
 /**
- * Get a feat from the 5etools data by name and source, with rendered HTML.
+ * Get a feat from the 5etools data by name and source.
  * This function should be called at build time in Astro frontmatter.
  *
  * @param name - The feat name (e.g., "Alert")
  * @param source - The source book (default: "XPHB" for 2024 PHB)
- * @returns The feat data with rendered HTML
+ * @returns The feat reference data
  * @throws Error if feat is not found
  */
-export function getFeat(name: string, source: string = "XPHB"): ReferenceRendered {
+export function getFeat(name: string, source: string = "XPHB"): Reference {
   const typedFeatsData = featsData as FeatData;
   const feat = typedFeatsData.feat.find((f) => f.name === name && f.source === source);
 
@@ -52,5 +51,5 @@ export function getFeat(name: string, source: string = "XPHB"): ReferenceRendere
     byline,
   };
 
-  return renderReference(featData);
+  return featData;
 }

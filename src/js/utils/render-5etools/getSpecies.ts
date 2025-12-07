@@ -1,7 +1,6 @@
-import racesData from "@5etools/data/races.json";
+import speciesJson from "@5etools/data/races.json";
 
-import type { Reference, ReferenceRendered } from "./ReferenceTypes";
-import renderReference from "./renderReference";
+import type { Reference } from "./ReferenceTypes";
 
 // Species-specific interface extending Reference
 interface SpeciesReference extends Reference {
@@ -15,8 +14,8 @@ interface SpeciesReference extends Reference {
   };
 }
 
-// Structure of race/species data from 5etools JSON files
-interface RacesData {
+// Structure of species data from 5etools JSON files
+interface SpeciesData {
   race: Array<SpeciesReference>;
 }
 
@@ -70,17 +69,17 @@ function formatSpeed(speed?: number | { walk?: number; fly?: number; swim?: numb
 }
 
 /**
- * Get a species/race from the 5etools data by name and source, with rendered HTML.
+ * Get a species from the 5etools data by name and source.
  * This function should be called at build time in Astro frontmatter.
  *
  * @param name - The species name (e.g., "Human", "Elf")
  * @param source - The source book (default: "XPHB" for 2024 PHB)
- * @returns The species data with rendered HTML
+ * @returns The species reference data
  * @throws Error if species is not found
  */
-export function getSpecies(name: string, source: string = "XPHB"): ReferenceRendered {
-  const typedRacesData = racesData as RacesData;
-  const species = typedRacesData.race.find((r) => r.name === name && r.source === source);
+export function getSpecies(name: string, source: string = "XPHB"): Reference {
+  const speciesData = speciesJson as SpeciesData;
+  const species = speciesData.race.find((s) => s.name === name && s.source === source);
 
   if (!species) {
     throw new Error(`Species "${name}" from source "${source}" not found in 5etools data`);
@@ -92,10 +91,10 @@ export function getSpecies(name: string, source: string = "XPHB"): ReferenceRend
     Speed: formatSpeed(species.speed),
   };
 
-  const speciesData: SpeciesReference = {
+  const speciesReference: SpeciesReference = {
     ...species,
     properties,
   };
 
-  return renderReference(speciesData);
+  return speciesReference;
 }

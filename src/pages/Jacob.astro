@@ -16,6 +16,7 @@ import JacobCharacter from "@/js/characters/JacobCharacter";
 import { getFeat } from "@/js/utils/render-5etools/getFeat";
 import { getSpell } from "@/js/utils/render-5etools/getSpell";
 import { getSpecies } from "@/js/utils/render-5etools/getSpecies";
+import renderHTML from "@/js/utils/render-5etools/renderHTML";
 
 const character = new JacobCharacter();
 ---
@@ -118,11 +119,11 @@ const character = new JacobCharacter();
               <th class="modifier">Effect</th>
             </tr>
             <tr>
-              <td><InfoTooltip client:load reference={getSpell("True Strike")}>True Strike</InfoTooltip></td>
+              <td><InfoTooltip client:load reference={renderHTML(getSpell("True Strike"))}>True Strike</InfoTooltip></td>
               <td class="modifier">attack w/CHA</td>
             </tr>
             <tr>
-              <td><InfoTooltip client:load reference={getSpell("Toll the Dead")}>Toll the Dead</InfoTooltip></td>
+              <td><InfoTooltip client:load reference={renderHTML(getSpell("Toll the Dead"))}>Toll the Dead</InfoTooltip></td>
               <td class="checkCell mono">
                 <RollLink client:load dice={character.getCantripDamage(new DiceString("d8"), new DiceString("d8"))} />
                 <RollLink client:load dice={character.getCantripDamage(new DiceString("d12"), new DiceString("d12"))} />
@@ -133,7 +134,7 @@ const character = new JacobCharacter();
               <th class="modifier">Effect</th>
             </tr>
             <tr>
-              <td><InfoTooltip client:load reference={getSpell("Mage Armor")}>Mage Armor</InfoTooltip></td>
+              <td><InfoTooltip client:load reference={renderHTML(getSpell("Mage Armor"))}>Mage Armor</InfoTooltip></td>
               <td class="modifier">AC 13 + DEX (8h)</td>
             </tr>
           </tbody>
@@ -149,7 +150,7 @@ const character = new JacobCharacter();
             <th class="modifier">Effect</th>
           </tr>
           <tr>
-            <td><InfoTooltip client:load reference={getSpecies("Human")}>Human</InfoTooltip></td>
+            <td><InfoTooltip client:load reference={renderHTML(getSpecies("Human"))}>Human</InfoTooltip></td>
             <td></td>
           </tr>
           <tr>
@@ -159,11 +160,11 @@ const character = new JacobCharacter();
             </td>
           </tr>
           <tr>
-            <td>[Feat] <InfoTooltip client:load reference={getFeat("Alert")}>Alert</InfoTooltip> (from background)</td>
+            <td>[Feat] <InfoTooltip client:load reference={renderHTML(getFeat("Alert"))}>Alert</InfoTooltip> (from background)</td>
             <td class="modifier">+PB to Initiative, can swap</td>
           </tr>
           <tr>
-            <td>[Feat] <InfoTooltip client:load reference={getFeat("Magic Initiate")}>Magic Initiate</InfoTooltip> (from Human)</td>
+            <td>[Feat] <InfoTooltip client:load reference={renderHTML(getFeat("Magic Initiate"))}>Magic Initiate</InfoTooltip> (from Human)</td>
             <td class="modifier">2 cantrips, 1 1st-level spell</td>
           </tr>
         </table>

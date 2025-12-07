@@ -65,7 +65,7 @@ function renderEntry(entry: Entry): string {
 }
 
 /**
- * Renders 5etools reference data to a complete ReferenceRendered object
+ * Renders 5etools reference data to a complete ReferenceRendered object with HTML
  *
  * Defense-in-depth approach:
  * 1. Input sanitization in renderTags() and renderEntry() strips malicious HTML from source
@@ -74,7 +74,7 @@ function renderEntry(entry: Entry): string {
  * @param reference - The reference data (feat, spell, item, etc.)
  * @returns Complete rendered reference with name, readable source, and sanitized HTML
  */
-export default function renderReference(reference: Reference): ReferenceRendered {
+export default function renderHTML(reference: Reference): ReferenceRendered {
   let html = "";
 
   // Add byline if present
