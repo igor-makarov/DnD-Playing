@@ -22,13 +22,14 @@ import { getWeaponMastery } from "@/js/utils/render-5etools/getWeaponMastery";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 
 const character = new JacobCharacter();
+const characterName = "Sir Jacob Lancaster";
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sir Jacob Lancaster{import.meta.env.DEV ? " [dev]" : ""}</title>
+    <title>{import.meta.env.DEV ? "[dev] " : ""}{characterName}</title>
     <base target="_blank" />
   </head>
   <body>

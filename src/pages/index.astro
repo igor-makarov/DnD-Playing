@@ -18,13 +18,15 @@ const classPages = Object.keys(classModules)
     return { name, url: new URL(`classes/${name}`, Astro.url).pathname };
   })
   .sort((a, b) => a.name.localeCompare(b.name));
+
+const pageTitle = "D&D Character Sheets";
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{import.meta.env.DEV ? "[dev] " : ""}D&D Character Sheets</title>
+    <title>{import.meta.env.DEV ? "[dev] " : ""}{pageTitle}</title>
   </head>
   <body>
     <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">

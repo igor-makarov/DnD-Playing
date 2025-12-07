@@ -9,14 +9,16 @@ import D20TestCell from "@/components/common/D20TestCell.tsx";
 import HitPointsInput from "@/components/HitPointsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
 import SpellSlotsTables from "@/components/SpellSlotsTables.astro";
+
 const character = new AdrikCharacter();
+const characterName = "Adrik";
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Adrik JS{import.meta.env.DEV ? " [dev]" : ""}</title>
+    <title>{import.meta.env.DEV ? "[dev] " : ""}{characterName}</title>
     <base target="_blank" />
   </head>
   <body>
