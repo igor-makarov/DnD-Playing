@@ -4,8 +4,7 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@5etools/*": ["5etools/*"]
+      "@/*": ["src/*"]
     }
   },
   "exclude": ["dist", "coverage", "5etools"]

@@ -1,6 +1,5 @@
-import spellsXPHB from "@5etools/data/spells/spells-xphb.json";
-
 import type { Entry, PropertyItem, Reference } from "./ReferenceTypes";
+import { loadData } from "./loadData";
 
 // 5etools spell time structure
 interface SpellTime {
@@ -56,11 +55,6 @@ interface SpellReference extends Reference {
 interface SpellData {
   spell: Array<SpellReference>;
 }
-
-// Map of source codes to spell data
-const SPELL_DATA_BY_SOURCE: Record<string, SpellData> = {
-  XPHB: spellsXPHB,
-};
 
 // Map of school codes to full names
 const SCHOOL_NAMES: Record<string, string> = {
@@ -161,11 +155,7 @@ function formatDuration(duration: SpellDuration[]): string {
  * @throws Error if spell is not found
  */
 export function getSpell(name: string, source: string = "XPHB"): Reference {
-  const spellsData = SPELL_DATA_BY_SOURCE[source];
-
-  if (!spellsData) {
-    throw new Error(`Spell source "${source}" not supported. Available sources: ${Object.keys(SPELL_DATA_BY_SOURCE).join(", ")}`);
-  }
+  const spellsData = loadData<SpellData>(`spells/spells-${source.toLowerCase()}.json`);
 
   const spell = spellsData.spell.find((s) => s.name.toLowerCase() === name.toLowerCase() && s.source === source);
 

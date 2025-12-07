@@ -1,7 +1,5 @@
-import fs from "node:fs";
-import path from "node:path";
-
 import type { Entry, PropertyItem, Reference } from "./ReferenceTypes";
+import { loadData } from "./loadData";
 
 // Hit dice structure
 interface HitDice {
@@ -59,21 +57,6 @@ interface ClassReference extends Omit<Reference, "entries"> {
 interface ClassData {
   class: Array<ClassReference>;
   classFeature: Array<unknown>; // Not used here
-}
-
-// Base path to 5etools class data (resolved at build time)
-const CLASS_DATA_DIR = path.resolve("5etools/data/class");
-
-function loadClassData(className: string): ClassData {
-  const fileName = `class-${className.toLowerCase()}.json`;
-  const filePath = path.join(CLASS_DATA_DIR, fileName);
-
-  if (!fs.existsSync(filePath)) {
-    throw new Error(`Class "${className}" not found in 5etools data`);
-  }
-
-  const fileContent = fs.readFileSync(filePath, "utf-8");
-  return JSON.parse(fileContent) as ClassData;
 }
 
 // Ability abbreviation to full name
@@ -246,7 +229,7 @@ function createMulticlassingEntries(multiclassing?: Multiclassing): Entry[] {
  * @throws Error if class is not found
  */
 export function getClass(name: string, source: string = "XPHB"): Reference {
-  const classData = loadClassData(name);
+  const classData = loadData<ClassData>(`class/class-${name.toLowerCase()}.json`);
 
   const classInfo = classData.class.find((c) => c.name === name && c.source === source);
 

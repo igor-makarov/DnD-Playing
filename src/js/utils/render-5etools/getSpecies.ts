@@ -1,6 +1,5 @@
-import speciesJson from "@5etools/data/races.json";
-
 import type { Entry, PropertyItem, Reference } from "./ReferenceTypes";
+import { loadData } from "./loadData";
 
 // Species-specific interface extending Reference
 interface SpeciesReference extends Reference {
@@ -78,7 +77,7 @@ function formatSpeed(speed?: number | { walk?: number; fly?: number; swim?: numb
  * @throws Error if species is not found
  */
 export function getSpecies(name: string, source: string = "XPHB"): Reference {
-  const speciesData = speciesJson as SpeciesData;
+  const speciesData = loadData<SpeciesData>("races.json");
   const species = speciesData.race.find((s) => s.name.toLowerCase() === name.toLowerCase() && s.source === source);
 
   if (!species) {

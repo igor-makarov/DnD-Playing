@@ -1,6 +1,5 @@
-import itemsBaseJson from "@5etools/data/items-base.json";
-
 import type { Reference } from "./ReferenceTypes";
+import { loadData } from "./loadData";
 
 // Weapon mastery-specific interface extending Reference
 interface WeaponMasteryReference extends Reference {
@@ -24,7 +23,7 @@ interface ItemsBaseData {
  * @throws Error if mastery property is not found
  */
 export function getWeaponMastery(name: string, source: string = "XPHB"): Reference {
-  const data = itemsBaseJson as ItemsBaseData;
+  const data = loadData<ItemsBaseData>("items-base.json");
 
   const mastery = data.itemMastery.find((m) => m.name.toLowerCase() === name.toLowerCase() && m.source === source);
 
