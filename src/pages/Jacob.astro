@@ -179,9 +179,13 @@ const character = new JacobCharacter();
             <td class="modifier">+{character.getSneakAttackDice().toString()} damage (1/turn)</td>
           </tr>
           <tr>
-            <td>[Rogue 1] <InfoTooltip client:load reference={renderHTML(getClassFeature("Weapon Mastery", "Rogue"))}>Weapon Mastery</InfoTooltip></td>
+            <td>
+              [Rogue 1]
+              <InfoTooltip client:load reference={renderHTML(getClassFeature("Weapon Mastery", "Rogue"))}>Weapon Mastery</InfoTooltip>
+            </td>
             <td class="modifier">
-              <InfoTooltip client:load reference={renderHTML(getWeaponMastery("Vex"))}>Vex</InfoTooltip>, <InfoTooltip client:load reference={renderHTML(getWeaponMastery("Nick"))}>Nick</InfoTooltip>
+              <InfoTooltip client:load reference={renderHTML(getWeaponMastery("Vex"))}>Vex</InfoTooltip>,
+              <InfoTooltip client:load reference={renderHTML(getWeaponMastery("Nick"))}>Nick</InfoTooltip>
             </td>
           </tr>
         </table>
