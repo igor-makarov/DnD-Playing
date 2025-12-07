@@ -1,9 +1,12 @@
 import { expect, test } from "@playwright/test";
 
+const azamatPath = "/characters/Azamat";
+const adrikPath = "/characters/Adrik";
+
 test.describe("Rest Buttons Browser History", () => {
   test("Azamat - Short Rest should create only one history entry", async ({ page }) => {
     // Navigate to Azamat page with channel divinity already used
-    await page.goto("/Azamat?channel-divinity-used=1");
+    await page.goto(`${azamatPath}?channel-divinity-used=1`);
     await page.waitForLoadState("networkidle");
 
     // Wait for hydration
@@ -41,7 +44,7 @@ test.describe("Rest Buttons Browser History", () => {
 
   test("Azamat - Long Rest should create only one history entry with multiple resources", async ({ page }) => {
     // Navigate to Azamat page with multiple resources already used
-    await page.goto("/Azamat?channel-divinity-used=1&hit-dice-d10=10&hit-points=100");
+    await page.goto(`${azamatPath}?channel-divinity-used=1&hit-dice-d10=10&hit-points=100`);
     await page.waitForLoadState("networkidle");
 
     // Wait for hydration
@@ -87,7 +90,7 @@ test.describe("Rest Buttons Browser History", () => {
 
   test("Adrik - Long Rest should create only one history entry with multiple hit dice types", async ({ page }) => {
     // Navigate to Adrik page with multiple resources already used
-    await page.goto("/Adrik?hit-dice-d10=2&hit-dice-d8=3&channel-divinity-used=1");
+    await page.goto(`${adrikPath}?hit-dice-d10=2&hit-dice-d8=3&channel-divinity-used=1`);
     await page.waitForLoadState("networkidle");
 
     // Wait for hydration

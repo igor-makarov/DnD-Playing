@@ -1,9 +1,11 @@
 import { expect, test } from "@playwright/test";
 
+const azamatPath = "/characters/Azamat";
+
 test.describe("Channel Divinity Query String", () => {
   test("should update query string when checking channel divinity checkboxes", async ({ page }) => {
     // Navigate to Azamat page
-    await page.goto("/Azamat");
+    await page.goto(azamatPath);
 
     // Wait for the page to be loaded
     await page.waitForLoadState("networkidle");
@@ -73,7 +75,7 @@ test.describe("Channel Divinity Query String", () => {
 
   test("should preserve query string on page load", async ({ page }) => {
     // Navigate with initial channel divinity value
-    await page.goto("/Azamat?channel-divinity-used=2");
+    await page.goto(`${azamatPath}?channel-divinity-used=2`);
     await page.waitForLoadState("networkidle");
 
     // Wait for hydration

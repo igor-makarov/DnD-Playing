@@ -1,12 +1,14 @@
 import { expect, test } from "@playwright/test";
 
+const azamatPath = "/characters/Azamat";
+
 const APP_MODE_URL_REGEX = /^dice:\/\/roll\//;
 const SITE_MODE_URL_REGEX = /^https:\/\/dice\.run\/#\/d\//;
 
 test.describe("Roll Mode Browser History", () => {
   test("should not create new history entry when toggling roll mode (replace mode)", async ({ page }) => {
     // Navigate to Azamat page
-    await page.goto("/Azamat");
+    await page.goto(azamatPath);
     await page.waitForLoadState("networkidle");
 
     // Wait for hydration
@@ -79,7 +81,7 @@ test.describe("Roll Mode Browser History", () => {
 
   test("should preserve roll mode query parameter on page load", async ({ page }) => {
     // Navigate with initial roll mode value
-    await page.goto("/Azamat?roll=site");
+    await page.goto(`${azamatPath}?roll=site`);
     await page.waitForLoadState("networkidle");
 
     // Wait for hydration
@@ -102,7 +104,7 @@ test.describe("Roll Mode Browser History", () => {
 
   test("should toggle from site mode back to app mode", async ({ page }) => {
     // Navigate with roll=site
-    await page.goto("/Azamat?roll=site");
+    await page.goto(`${azamatPath}?roll=site`);
     await page.waitForLoadState("networkidle");
 
     // Wait for hydration
@@ -154,7 +156,7 @@ test.describe("Roll Mode Browser History", () => {
 
   test("should not toggle roll mode when typing in input field", async ({ page }) => {
     // Navigate to Azamat page
-    await page.goto("/Azamat");
+    await page.goto(azamatPath);
     await page.waitForLoadState("networkidle");
 
     // Wait for hydration

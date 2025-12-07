@@ -1,9 +1,11 @@
 import { expect, test } from "@playwright/test";
 
+const azamatPath = "/characters/Azamat";
+
 test.describe("Hit Points Browser History", () => {
   test("Azamat - should add one history entry after editing hit points once", async ({ page }) => {
     // Navigate to Azamat page
-    await page.goto("/Azamat");
+    await page.goto(azamatPath);
 
     // Wait for the page to be loaded
     await page.waitForLoadState("networkidle");
@@ -44,7 +46,7 @@ test.describe("Hit Points Browser History", () => {
 
   test("Azamat - should add one history entry after editing temporary hit points once", async ({ page }) => {
     // Navigate to Azamat page
-    await page.goto("/Azamat");
+    await page.goto(azamatPath);
 
     // Wait for the page to be loaded
     await page.waitForLoadState("networkidle");

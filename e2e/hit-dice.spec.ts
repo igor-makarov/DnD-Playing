@@ -1,9 +1,12 @@
 import { expect, test } from "@playwright/test";
 
+const azamatPath = "/characters/Azamat";
+const adrikPath = "/characters/Adrik";
+
 test.describe("Hit Dice Query String", () => {
   test("Azamat - should update query string when editing one hit dice cell", async ({ page }) => {
     // Navigate to Azamat page
-    await page.goto("/Azamat");
+    await page.goto(azamatPath);
 
     // Wait for the page to be loaded
     await page.waitForLoadState("networkidle");
@@ -75,7 +78,7 @@ test.describe("Hit Dice Query String", () => {
 
   test("Azamat - should update query string when clicking damage roll cell", async ({ page }) => {
     // Navigate to Azamat page
-    await page.goto("/Azamat");
+    await page.goto(azamatPath);
     await page.waitForLoadState("networkidle");
 
     // Find the hit dice table
@@ -113,7 +116,7 @@ test.describe("Hit Dice Query String", () => {
 
   test("Adrik - should update query string when editing each hit dice cell", async ({ page }) => {
     // Navigate to Adrik page
-    await page.goto("/Adrik");
+    await page.goto(adrikPath);
     await page.waitForLoadState("networkidle");
 
     // Find the hit dice table - Adrik has 5d10 (Ranger) + 7d8 (Cleric)
@@ -201,7 +204,7 @@ test.describe("Hit Dice Query String", () => {
 
   test("should preserve query string on page load - Azamat", async ({ page }) => {
     // Navigate with initial hit dice value
-    await page.goto("/Azamat?hit-dice-d10=8");
+    await page.goto(`${azamatPath}?hit-dice-d10=8`);
     await page.waitForLoadState("networkidle");
 
     // Wait for hydration
@@ -231,7 +234,7 @@ test.describe("Hit Dice Query String", () => {
 
   test("should preserve query string on page load - Adrik", async ({ page }) => {
     // Navigate with initial hit dice values for both die types
-    await page.goto("/Adrik?hit-dice-d10=2&hit-dice-d8=5");
+    await page.goto(`${adrikPath}?hit-dice-d10=2&hit-dice-d8=5`);
     await page.waitForLoadState("networkidle");
 
     // Wait for hydration
@@ -270,7 +273,7 @@ test.describe("Hit Dice Query String", () => {
 
   test("Adrik - should create only one history entry when using Long Rest button (bulk set)", async ({ page }) => {
     // Navigate to Adrik page
-    await page.goto("/Adrik");
+    await page.goto(adrikPath);
     await page.waitForLoadState("networkidle");
 
     // First, spend some hit dice to create state
