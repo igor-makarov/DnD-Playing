@@ -33,3 +33,4 @@ This project has a copy of the 5etools data in `5etools/`
 - YOU MUST use prefer the local data when question related to D&D 5e arise
   @.agents/using-5etools.md
 - CLI to use for quick reference: `npm run 5etools`
+- CLI can output Markdown (default) or HTML 

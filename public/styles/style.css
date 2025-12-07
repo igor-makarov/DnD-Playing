@@ -159,6 +159,7 @@ input[type="text"] {
   border-radius: 8px;
   text-align: start;
 
+  & h1,
   & h2,
   & h3 {
     margin-top: 0;

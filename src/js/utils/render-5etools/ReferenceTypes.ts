@@ -36,9 +36,7 @@ export type ReferenceHTML = string & { readonly __brand: "ReferenceHTML" };
  * Generic interface for rendered 5etools reference data
  */
 export interface ReferenceRendered {
-  name: string;
-  source: string;
-  html: ReferenceHTML;
+  sanitizedHtml: ReferenceHTML;
 }
 
 /**

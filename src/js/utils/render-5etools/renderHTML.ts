@@ -110,7 +110,8 @@ export default function renderHTML(reference: Reference): ReferenceRendered {
   // Sanitize all strings in the input upfront
   const safeReference = sanitizeExternalObject(reference);
 
-  let html = "";
+  // Start with heading and source
+  let html = `<h1>${safeReference.name} <span class="source">${getSourceName(safeReference.source)}</span></h1>`;
 
   // Add byline if present
   if (safeReference.byline) {
@@ -132,9 +133,5 @@ export default function renderHTML(reference: Reference): ReferenceRendered {
   // Final sanitization as safety net (reuses singleton purify instance)
   const sanitizedHtml = sanitizeFinalHTML(html) as ReferenceHTML;
 
-  return {
-    name: safeReference.name,
-    source: getSourceName(safeReference.source),
-    html: sanitizedHtml,
-  };
+  return { sanitizedHtml };
 }

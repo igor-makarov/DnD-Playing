@@ -6,10 +6,11 @@ import { getFeat } from "./src/js/utils/render-5etools/getFeat";
 import { getSpecies } from "./src/js/utils/render-5etools/getSpecies";
 import { getSpell } from "./src/js/utils/render-5etools/getSpell";
 import { getWeaponMastery } from "./src/js/utils/render-5etools/getWeaponMastery";
+import renderHTML from "./src/js/utils/render-5etools/renderHTML";
 import renderMarkdown from "./src/js/utils/render-5etools/renderMarkdown";
 
 function printUsage(): void {
-  console.log(`Usage: 5etools <command> <name> [class] [source]
+  console.log(`Usage: 5etools <command> <name> [class] [source] [--html]
 
 Commands:
   spell <name> [source]              Get spell information (default source: XPHB)
@@ -42,19 +43,24 @@ Common sources:
   PHB   - Player's Handbook 2014
   XGE   - Xanathar's Guide to Everything
   TCE   - Tasha's Cauldron of Everything
+
+Options:
+  --html  Output as HTML instead of Markdown
 `);
 }
 
 async function main() {
   const args = process.argv.slice(2);
+  const useHtml = args.includes("--html");
+  const filteredArgs = args.filter((arg) => arg !== "--html");
 
-  if (args.length === 0 || args[0] === "--help" || args[0] === "-h") {
+  if (filteredArgs.length === 0 || filteredArgs[0] === "--help" || filteredArgs[0] === "-h") {
     printUsage();
     process.exit(0);
   }
 
-  const command = args[0];
-  const name = args[1];
+  const command = filteredArgs[0];
+  const name = filteredArgs[1];
 
   if (!name) {
     console.error(`Error: Missing name argument\n`);
@@ -68,32 +74,32 @@ async function main() {
     switch (command) {
       case "spell":
         {
-          const source = args[2] || "XPHB";
+          const source = filteredArgs[2] || "XPHB";
           reference = getSpell(name, source);
         }
         break;
       case "species":
         {
-          const source = args[2] || "XPHB";
+          const source = filteredArgs[2] || "XPHB";
           reference = getSpecies(name, source);
         }
         break;
       case "feat":
         {
-          const source = args[2] || "XPHB";
+          const source = filteredArgs[2] || "XPHB";
           reference = getFeat(name, source);
         }
         break;
       case "class":
         {
-          const source = args[2] || "XPHB";
+          const source = filteredArgs[2] || "XPHB";
           reference = getClass(name, source);
         }
         break;
       case "feature":
         {
-          const className = args[2];
-          const source = args[3] || "XPHB";
+          const className = filteredArgs[2];
+          const source = filteredArgs[3] || "XPHB";
           if (!className) {
             console.error(`Error: Missing class name for feature command\n`);
             printUsage();
@@ -104,7 +110,7 @@ async function main() {
         break;
       case "mastery":
         {
-          const source = args[2] || "XPHB";
+          const source = filteredArgs[2] || "XPHB";
           reference = getWeaponMastery(name, source);
         }
         break;
@@ -114,8 +120,13 @@ async function main() {
         process.exit(1);
     }
 
-    const markdown = renderMarkdown(reference);
-    console.log(markdown);
+    if (useHtml) {
+      const { sanitizedHtml } = renderHTML(reference);
+      console.log(sanitizedHtml);
+    } else {
+      const markdown = renderMarkdown(reference);
+      console.log(markdown);
+    }
   } catch (error) {
     if (error instanceof Error) {
       console.error(`Error: ${error.message}`);
