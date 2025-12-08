@@ -8,63 +8,56 @@ import HitPointsInput from "@/components/HitPointsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
 import SpellSlotsTables from "@/components/SpellSlotsTables.astro";
 import InfoTooltip from "@/components/common/InfoTooltip.tsx";
-import LevelledSpellDamageRow from "@/components/spells/LevelledSpellDamageRow.astro";
 
 import { Character } from "@/js/character/Character";
 import type { Weapon } from "@/js/character/CharacterTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import { getClass } from "@/js/utils/render-5etools/getClass";
-import { getSpell } from "@/js/utils/render-5etools/getSpell";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 
-class BolaireCharacter extends Character {
+class OcctisCharacter extends Character {
   constructor() {
     super({
       abilityScores: {
-        Str: 12,
-        Dex: 14,
+        Str: 10,
+        Dex: 16,
         Con: 16,
-        Int: 18,
-        Wis: 14,
-        Cha: 18,
+        Int: 19,
+        Wis: 10,
+        Cha: 15,
       },
-      classLevels: [{ className: "Warlock", level: 3 }],
-      skillProficiencies: [],
+      classLevels: [{ className: "Wizard", level: 3 }],
+      skillProficiencies: [{ skill: "Arcana" }, { skill: "Investigation" }, { skill: "History" }],
       saveProficiencies: [
-        { save: "Wis" }, // Warlock
-        { save: "Cha" }, // Warlock
+        { save: "Int" }, // Wizard
+        { save: "Wis" }, // Wizard
       ],
       hitPointRolls: [
-        { level: 1, die: new DiceString("d8"), roll: 8 },
-        { level: 2, die: new DiceString("d8"), roll: 5 },
-        { level: 3, die: new DiceString("d8"), roll: 4 },
+        { level: 1, die: new DiceString("d6"), roll: 6 },
+        { level: 2, die: new DiceString("d6"), roll: 4 },
+        { level: 3, die: new DiceString("d6"), roll: 4 },
       ],
     });
   }
 
   getWeapons(): Weapon[] {
-    return [{ weapon: "Pact Blade", ability: "Cha", damage: new DiceString("d8") }];
+    return [{ weapon: "Dagger", ability: "Dex", damage: new DiceString("d4") }];
   }
 
-  // Spell Attack Modifier: Charisma modifier + Proficiency bonus
+  // Spell Attack Modifier: Intelligence modifier + Proficiency bonus
   getSpellAttack(): D20Test {
-    return new D20Test("Attack Roll", "Cha", this.getAbilityModifier("Cha"), this.createProficiency(true));
+    return new D20Test("Attack Roll", "Int", this.getAbilityModifier("Int"), this.createProficiency(true));
   }
 
-  // Spell Save DC: 8 + Proficiency bonus + Charisma modifier
+  // Spell Save DC: 8 + Proficiency bonus + Intelligence modifier
   getSpellSaveDC(): number {
     return 8 + this.getSpellAttack().getBonus();
   }
-
-  // Dark One's Blessing: Gain temporary HP when reducing hostile creature to 0 HP
-  getDarkOnesBlessingTempHP(): number {
-    return this.getAbilityModifier("Cha") + this.getClassLevel("Warlock");
-  }
 }
 
-const character = new BolaireCharacter();
-const characterName = "Bolaire Lathalia";
+const character = new OcctisCharacter();
+const characterName = "Occtis Tachonis";
 ---
 
 <html lang="en">
@@ -99,7 +92,8 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td style="text-align: center;">
-              <span class="mono">14</span>
+              <span class="mono">16</span>
+              <span style="font-size: 0.8em;"> (13 w/o Mage Armor)</span>
             </td>
           </tr>
         </table>
@@ -159,26 +153,6 @@ const characterName = "Bolaire Lathalia";
                 <span class="mono">{character.getSpellSaveDC()}</span>
               </td>
             </tr>
-            <tr>
-              <th>Fiend Spells</th>
-              <th class="modifier">Damage</th>
-            </tr>
-            <LevelledSpellDamageRow
-              name="Burning Hands"
-              damageOptions={character.getDamageProgression({ level: 1, damage: new DiceString("3d6") }, new DiceString("d6"))}
-            />
-            <LevelledSpellDamageRow
-              name="Scorching Ray"
-              damageOptions={character.getDamageProgression({ level: 2, damage: new DiceString("2d6") }, new DiceString("d6"))}
-            />
-            <tr>
-              <td><InfoTooltip client:load reference={renderHTML(getSpell("Command"))}>Command</InfoTooltip></td>
-              <td class="modifier">WIS save</td>
-            </tr>
-            <tr>
-              <td><InfoTooltip client:load reference={renderHTML(getSpell("Suggestion"))}>Suggestion</InfoTooltip></td>
-              <td class="modifier">WIS save</td>
-            </tr>
           </tbody>
         </table>
       </div>
@@ -194,39 +168,71 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td>Species</td>
-            <td class="modifier">Panto Mask (sentient mask)</td>
+            <td class="modifier">Human (Hollow One)</td>
           </tr>
           <tr>
             <td>Class</td>
-            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Warlock"))}>Warlock</InfoTooltip> 3 (Fiend)</td>
+            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Wizard"))}>Wizard</InfoTooltip> 3 (Necromancer)</td>
           </tr>
           <tr>
-            <td>[Warlock] Magical Cunning</td>
+            <td>[Human] Resourceful</td>
+            <td class="modifier">Heroic Inspiration on long rest</td>
+          </tr>
+          <tr>
+            <td>[Human] Skillful</td>
+            <td class="modifier">+1 skill proficiency</td>
+          </tr>
+          <tr>
+            <td>[Human] Versatile</td>
+            <td class="modifier">Origin feat</td>
+          </tr>
+          <tr>
+            <td>[Hollow One] Ageless</td>
+            <td class="modifier">no aging</td>
+          </tr>
+          <tr>
+            <td>[Hollow One] Cling to Life</td>
+            <td class="modifier">adv. on death saves</td>
+          </tr>
+          <tr>
+            <td>[Hollow One] Revenance</td>
+            <td class="modifier">undead ignore you</td>
+          </tr>
+          <tr>
+            <td>[Hollow One] Unsettling Presence</td>
+            <td class="modifier">frighten a creature</td>
+          </tr>
+          <tr>
+            <td>[Wizard] Ritual Adept</td>
+            <td class="modifier">cast ritual spells</td>
+          </tr>
+          <tr>
+            <td>[Wizard] Arcane Recovery</td>
             <td class="modifier">recover spell slots</td>
           </tr>
           <tr>
-            <td>[Invocation] Pact of the Blade</td>
-            <td class="modifier">summon weapon, use CHA</td>
+            <td>[Wizard] Scholar</td>
+            <td class="modifier">expertise in one skill</td>
           </tr>
           <tr>
-            <td>[Invocation] Devil's Sight</td>
-            <td class="modifier">darkvision 120ft (magical)</td>
-          </tr>
-          <tr>
-            <td>[Fiend] Dark One's Blessing</td>
-            <td class="modifier">
-              temp HP on kill: <span class="mono">{character.getDarkOnesBlessingTempHP()}</span>
-            </td>
+            <td>[Necromancer] Necromancy Savant</td>
+            <td class="modifier">cheaper necromancy spells</td>
           </tr>
         </table>
         <table>
           <tr>
-            <th colspan="2" style="text-align: center;">Proficiencies</th>
+            <th colspan="2" style="text-align: center;">Familiar</th>
           </tr>
           <tr>
-            <td colspan="2">
-              <strong>Tools:</strong> Alchemist's Supplies
-            </td>
+            <td colspan="2"> Pincushion (fox familiar) </td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <th colspan="2" style="text-align: center;">Connections</th>
+          </tr>
+          <tr>
+            <td colspan="2"> House Tachonis, Penteveral (student) </td>
           </tr>
         </table>
       </div>

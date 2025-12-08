@@ -8,63 +8,56 @@ import HitPointsInput from "@/components/HitPointsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
 import SpellSlotsTables from "@/components/SpellSlotsTables.astro";
 import InfoTooltip from "@/components/common/InfoTooltip.tsx";
-import LevelledSpellDamageRow from "@/components/spells/LevelledSpellDamageRow.astro";
 
 import { Character } from "@/js/character/Character";
 import type { Weapon } from "@/js/character/CharacterTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import { getClass } from "@/js/utils/render-5etools/getClass";
-import { getSpell } from "@/js/utils/render-5etools/getSpell";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 
-class BolaireCharacter extends Character {
+class ThaishaCharacter extends Character {
   constructor() {
     super({
       abilityScores: {
-        Str: 12,
-        Dex: 14,
+        Str: 13,
+        Dex: 13,
         Con: 16,
-        Int: 18,
-        Wis: 14,
-        Cha: 18,
+        Int: 13,
+        Wis: 20,
+        Cha: 16,
       },
-      classLevels: [{ className: "Warlock", level: 3 }],
-      skillProficiencies: [],
+      classLevels: [{ className: "Druid", level: 3 }],
+      skillProficiencies: [{ skill: "Nature" }, { skill: "Perception" }],
       saveProficiencies: [
-        { save: "Wis" }, // Warlock
-        { save: "Cha" }, // Warlock
+        { save: "Int" }, // Druid
+        { save: "Wis" }, // Druid
       ],
       hitPointRolls: [
         { level: 1, die: new DiceString("d8"), roll: 8 },
         { level: 2, die: new DiceString("d8"), roll: 5 },
-        { level: 3, die: new DiceString("d8"), roll: 4 },
+        { level: 3, die: new DiceString("d8"), roll: 6 },
       ],
     });
   }
 
   getWeapons(): Weapon[] {
-    return [{ weapon: "Pact Blade", ability: "Cha", damage: new DiceString("d8") }];
+    return [{ weapon: "Lloy Staff", ability: "Wis", damage: new DiceString("d6") }];
   }
 
-  // Spell Attack Modifier: Charisma modifier + Proficiency bonus
+  // Spell Attack Modifier: Wisdom modifier + Proficiency bonus
   getSpellAttack(): D20Test {
-    return new D20Test("Attack Roll", "Cha", this.getAbilityModifier("Cha"), this.createProficiency(true));
+    return new D20Test("Attack Roll", "Wis", this.getAbilityModifier("Wis"), this.createProficiency(true));
   }
 
-  // Spell Save DC: 8 + Proficiency bonus + Charisma modifier
+  // Spell Save DC: 8 + Proficiency bonus + Wisdom modifier
   getSpellSaveDC(): number {
     return 8 + this.getSpellAttack().getBonus();
   }
-
-  // Dark One's Blessing: Gain temporary HP when reducing hostile creature to 0 HP
-  getDarkOnesBlessingTempHP(): number {
-    return this.getAbilityModifier("Cha") + this.getClassLevel("Warlock");
-  }
 }
 
-const character = new BolaireCharacter();
-const characterName = "Bolaire Lathalia";
+const character = new ThaishaCharacter();
+const characterName = "Thaisha Lloy";
 ---
 
 <html lang="en">
@@ -159,26 +152,6 @@ const characterName = "Bolaire Lathalia";
                 <span class="mono">{character.getSpellSaveDC()}</span>
               </td>
             </tr>
-            <tr>
-              <th>Fiend Spells</th>
-              <th class="modifier">Damage</th>
-            </tr>
-            <LevelledSpellDamageRow
-              name="Burning Hands"
-              damageOptions={character.getDamageProgression({ level: 1, damage: new DiceString("3d6") }, new DiceString("d6"))}
-            />
-            <LevelledSpellDamageRow
-              name="Scorching Ray"
-              damageOptions={character.getDamageProgression({ level: 2, damage: new DiceString("2d6") }, new DiceString("d6"))}
-            />
-            <tr>
-              <td><InfoTooltip client:load reference={renderHTML(getSpell("Command"))}>Command</InfoTooltip></td>
-              <td class="modifier">WIS save</td>
-            </tr>
-            <tr>
-              <td><InfoTooltip client:load reference={renderHTML(getSpell("Suggestion"))}>Suggestion</InfoTooltip></td>
-              <td class="modifier">WIS save</td>
-            </tr>
           </tbody>
         </table>
       </div>
@@ -194,39 +167,51 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td>Species</td>
-            <td class="modifier">Panto Mask (sentient mask)</td>
+            <td class="modifier">Orc</td>
           </tr>
           <tr>
             <td>Class</td>
-            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Warlock"))}>Warlock</InfoTooltip> 3 (Fiend)</td>
+            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Druid"))}>Druid</InfoTooltip> 3 (Circle of the Land)</td>
           </tr>
           <tr>
-            <td>[Warlock] Magical Cunning</td>
-            <td class="modifier">recover spell slots</td>
+            <td>[Orc] Adrenaline Rush</td>
+            <td class="modifier">Dash as BA, temp HP</td>
           </tr>
           <tr>
-            <td>[Invocation] Pact of the Blade</td>
-            <td class="modifier">summon weapon, use CHA</td>
+            <td>[Orc] Darkvision</td>
+            <td class="modifier">120 ft.</td>
           </tr>
           <tr>
-            <td>[Invocation] Devil's Sight</td>
-            <td class="modifier">darkvision 120ft (magical)</td>
+            <td>[Orc] Relentless Endurance</td>
+            <td class="modifier">drop to 1 HP instead of 0</td>
           </tr>
           <tr>
-            <td>[Fiend] Dark One's Blessing</td>
-            <td class="modifier">
-              temp HP on kill: <span class="mono">{character.getDarkOnesBlessingTempHP()}</span>
-            </td>
+            <td>[Druid] Druidic</td>
+            <td class="modifier">secret language</td>
+          </tr>
+          <tr>
+            <td>[Druid] Primal Order</td>
+            <td class="modifier">bonus cantrip</td>
+          </tr>
+          <tr>
+            <td>[Druid] Wild Shape</td>
+            <td class="modifier">transform into beasts</td>
+          </tr>
+          <tr>
+            <td>[Druid] Wild Companion</td>
+            <td class="modifier">summon familiar</td>
+          </tr>
+          <tr>
+            <td>[Circle of Land] Land's Aid</td>
+            <td class="modifier">bonus healing</td>
           </tr>
         </table>
         <table>
           <tr>
-            <th colspan="2" style="text-align: center;">Proficiencies</th>
+            <th colspan="2" style="text-align: center;">Connections</th>
           </tr>
           <tr>
-            <td colspan="2">
-              <strong>Tools:</strong> Alchemist's Supplies
-            </td>
+            <td colspan="2"> Old Path (member), Lloy family, Fang family </td>
           </tr>
         </table>
       </div>

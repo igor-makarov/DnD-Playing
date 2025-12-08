@@ -6,65 +6,58 @@ import WeaponAttackTable from "@/components/WeaponAttackTable.astro";
 import D20TestCell from "@/components/common/D20TestCell.tsx";
 import HitPointsInput from "@/components/HitPointsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
-import SpellSlotsTables from "@/components/SpellSlotsTables.astro";
 import InfoTooltip from "@/components/common/InfoTooltip.tsx";
-import LevelledSpellDamageRow from "@/components/spells/LevelledSpellDamageRow.astro";
 
 import { Character } from "@/js/character/Character";
 import type { Weapon } from "@/js/character/CharacterTypes";
-import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import { getClass } from "@/js/utils/render-5etools/getClass";
-import { getSpell } from "@/js/utils/render-5etools/getSpell";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 
-class BolaireCharacter extends Character {
+class JulienCharacter extends Character {
   constructor() {
     super({
       abilityScores: {
-        Str: 12,
-        Dex: 14,
-        Con: 16,
-        Int: 18,
-        Wis: 14,
-        Cha: 18,
+        Str: 15,
+        Dex: 18,
+        Con: 18,
+        Int: 11,
+        Wis: 8,
+        Cha: 16,
       },
-      classLevels: [{ className: "Warlock", level: 3 }],
-      skillProficiencies: [],
+      // Fighter 2 / Rogue 1
+      classLevels: [
+        { className: "Fighter", level: 2 },
+        { className: "Rogue", level: 1 },
+      ],
+      skillProficiencies: [{ skill: "Athletics" }, { skill: "Intimidation" }, { skill: "Acrobatics" }],
       saveProficiencies: [
-        { save: "Wis" }, // Warlock
-        { save: "Cha" }, // Warlock
+        { save: "Str" }, // Fighter
+        { save: "Con" }, // Fighter
       ],
       hitPointRolls: [
-        { level: 1, die: new DiceString("d8"), roll: 8 },
-        { level: 2, die: new DiceString("d8"), roll: 5 },
-        { level: 3, die: new DiceString("d8"), roll: 4 },
+        { level: 1, die: new DiceString("d10"), roll: 10 },
+        { level: 2, die: new DiceString("d10"), roll: 9 },
+        { level: 3, die: new DiceString("d8"), roll: 8 },
       ],
     });
   }
 
   getWeapons(): Weapon[] {
-    return [{ weapon: "Pact Blade", ability: "Cha", damage: new DiceString("d8") }];
+    return [
+      { weapon: "Rapier", ability: "Dex", damage: new DiceString("d8") },
+      { weapon: "Demi-Gauntlet", ability: "Dex", damage: new DiceString("d4") },
+    ];
   }
 
-  // Spell Attack Modifier: Charisma modifier + Proficiency bonus
-  getSpellAttack(): D20Test {
-    return new D20Test("Attack Roll", "Cha", this.getAbilityModifier("Cha"), this.createProficiency(true));
-  }
-
-  // Spell Save DC: 8 + Proficiency bonus + Charisma modifier
-  getSpellSaveDC(): number {
-    return 8 + this.getSpellAttack().getBonus();
-  }
-
-  // Dark One's Blessing: Gain temporary HP when reducing hostile creature to 0 HP
-  getDarkOnesBlessingTempHP(): number {
-    return this.getAbilityModifier("Cha") + this.getClassLevel("Warlock");
+  // Sneak Attack damage at level 1 Rogue
+  getSneakAttackDamage(): DiceString {
+    return new DiceString("1d6");
   }
 }
 
-const character = new BolaireCharacter();
-const characterName = "Bolaire Lathalia";
+const character = new JulienCharacter();
+const characterName = "Julien Davinos";
 ---
 
 <html lang="en">
@@ -99,7 +92,7 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td style="text-align: center;">
-              <span class="mono">14</span>
+              <span class="mono">16</span>
             </td>
           </tr>
         </table>
@@ -145,45 +138,24 @@ const characterName = "Bolaire Lathalia";
         <table>
           <tbody>
             <tr>
-              <th colspan="2" style="text-align: center;">Spells</th>
+              <th colspan="2" style="text-align: center;">Combat</th>
             </tr>
             <tr>
-              <td>Spell Attack Modifier</td>
-              <td class="checkCell mono">
-                <D20TestCell client:load roll={character.getSpellAttack()} />
-              </td>
+              <td>Sneak Attack</td>
+              <td class="modifier mono">{character.getSneakAttackDamage().toString()}</td>
             </tr>
             <tr>
-              <td>Spell Save DC</td>
-              <td class="checkCell mono">
-                <span class="mono">{character.getSpellSaveDC()}</span>
-              </td>
+              <td>Second Wind</td>
+              <td class="modifier mono">1d10+2 HP</td>
             </tr>
             <tr>
-              <th>Fiend Spells</th>
-              <th class="modifier">Damage</th>
-            </tr>
-            <LevelledSpellDamageRow
-              name="Burning Hands"
-              damageOptions={character.getDamageProgression({ level: 1, damage: new DiceString("3d6") }, new DiceString("d6"))}
-            />
-            <LevelledSpellDamageRow
-              name="Scorching Ray"
-              damageOptions={character.getDamageProgression({ level: 2, damage: new DiceString("2d6") }, new DiceString("d6"))}
-            />
-            <tr>
-              <td><InfoTooltip client:load reference={renderHTML(getSpell("Command"))}>Command</InfoTooltip></td>
-              <td class="modifier">WIS save</td>
-            </tr>
-            <tr>
-              <td><InfoTooltip client:load reference={renderHTML(getSpell("Suggestion"))}>Suggestion</InfoTooltip></td>
-              <td class="modifier">WIS save</td>
+              <td>Action Surge</td>
+              <td class="modifier">extra action (1/rest)</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="column features">
-        <SpellSlotsTables character={character} />
         <table>
           <tr>
             <th colspan="2" style="text-align: center;">Features</th>
@@ -194,39 +166,74 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td>Species</td>
-            <td class="modifier">Panto Mask (sentient mask)</td>
+            <td class="modifier">Human</td>
           </tr>
           <tr>
             <td>Class</td>
-            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Warlock"))}>Warlock</InfoTooltip> 3 (Fiend)</td>
-          </tr>
-          <tr>
-            <td>[Warlock] Magical Cunning</td>
-            <td class="modifier">recover spell slots</td>
-          </tr>
-          <tr>
-            <td>[Invocation] Pact of the Blade</td>
-            <td class="modifier">summon weapon, use CHA</td>
-          </tr>
-          <tr>
-            <td>[Invocation] Devil's Sight</td>
-            <td class="modifier">darkvision 120ft (magical)</td>
-          </tr>
-          <tr>
-            <td>[Fiend] Dark One's Blessing</td>
             <td class="modifier">
-              temp HP on kill: <span class="mono">{character.getDarkOnesBlessingTempHP()}</span>
+              <InfoTooltip client:load reference={renderHTML(getClass("Fighter"))}>Fighter</InfoTooltip> 2 /
+              <InfoTooltip client:load reference={renderHTML(getClass("Rogue"))}>Rogue</InfoTooltip> 1
             </td>
+          </tr>
+          <tr>
+            <td>[Human] Resourceful</td>
+            <td class="modifier">Heroic Inspiration on long rest</td>
+          </tr>
+          <tr>
+            <td>[Human] Skillful</td>
+            <td class="modifier">+1 skill proficiency</td>
+          </tr>
+          <tr>
+            <td>[Human] Versatile</td>
+            <td class="modifier">Origin feat</td>
+          </tr>
+          <tr>
+            <td>[Fighter] Fighting Style</td>
+            <td class="modifier">Two-Weapon Fighting</td>
+          </tr>
+          <tr>
+            <td>[Fighter] Second Wind</td>
+            <td class="modifier">heal as BA (2/rest)</td>
+          </tr>
+          <tr>
+            <td>[Fighter] Weapon Mastery</td>
+            <td class="modifier">3 weapons</td>
+          </tr>
+          <tr>
+            <td>[Fighter] Action Surge</td>
+            <td class="modifier">extra action</td>
+          </tr>
+          <tr>
+            <td>[Fighter] Tactical Mind</td>
+            <td class="modifier">+d10 to ability check</td>
+          </tr>
+          <tr>
+            <td>[Rogue] Expertise</td>
+            <td class="modifier">2 skills doubled</td>
+          </tr>
+          <tr>
+            <td>[Rogue] Sneak Attack</td>
+            <td class="modifier">1d6 extra damage</td>
+          </tr>
+          <tr>
+            <td>[Rogue] Thieves' Cant</td>
+            <td class="modifier">secret language</td>
+          </tr>
+          <tr>
+            <td>[Rogue] Weapon Mastery</td>
+            <td class="modifier">2 weapons</td>
+          </tr>
+          <tr>
+            <td>Bloodied Advantage</td>
+            <td class="modifier">adv. vs Primus when bloodied</td>
           </tr>
         </table>
         <table>
           <tr>
-            <th colspan="2" style="text-align: center;">Proficiencies</th>
+            <th colspan="2" style="text-align: center;">Connections</th>
           </tr>
           <tr>
-            <td colspan="2">
-              <strong>Tools:</strong> Alchemist's Supplies
-            </td>
+            <td colspan="2"> House Davinos, House Royce (vassal) </td>
           </tr>
         </table>
       </div>

@@ -8,43 +8,46 @@ import HitPointsInput from "@/components/HitPointsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
 import SpellSlotsTables from "@/components/SpellSlotsTables.astro";
 import InfoTooltip from "@/components/common/InfoTooltip.tsx";
-import LevelledSpellDamageRow from "@/components/spells/LevelledSpellDamageRow.astro";
 
 import { Character } from "@/js/character/Character";
 import type { Weapon } from "@/js/character/CharacterTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import { getClass } from "@/js/utils/render-5etools/getClass";
-import { getSpell } from "@/js/utils/render-5etools/getSpell";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 
-class BolaireCharacter extends Character {
+class HalandilCharacter extends Character {
   constructor() {
     super({
       abilityScores: {
-        Str: 12,
+        Str: 10,
         Dex: 14,
-        Con: 16,
-        Int: 18,
-        Wis: 14,
+        Con: 13,
+        Int: 16,
+        Wis: 16,
         Cha: 18,
       },
-      classLevels: [{ className: "Warlock", level: 3 }],
-      skillProficiencies: [],
+      classLevels: [{ className: "Bard", level: 3 }],
+      skillProficiencies: [
+        { skill: "Performance", multiplier: 2 }, // Expertise
+        { skill: "Persuasion" },
+        { skill: "History" },
+        { skill: "Insight" },
+      ],
       saveProficiencies: [
-        { save: "Wis" }, // Warlock
-        { save: "Cha" }, // Warlock
+        { save: "Dex" }, // Bard
+        { save: "Cha" }, // Bard
       ],
       hitPointRolls: [
         { level: 1, die: new DiceString("d8"), roll: 8 },
-        { level: 2, die: new DiceString("d8"), roll: 5 },
-        { level: 3, die: new DiceString("d8"), roll: 4 },
+        { level: 2, die: new DiceString("d8"), roll: 6 },
+        { level: 3, die: new DiceString("d8"), roll: 6 },
       ],
     });
   }
 
   getWeapons(): Weapon[] {
-    return [{ weapon: "Pact Blade", ability: "Cha", damage: new DiceString("d8") }];
+    return [{ weapon: "Liar's Blade", ability: "Dex", damage: new DiceString("d6") }];
   }
 
   // Spell Attack Modifier: Charisma modifier + Proficiency bonus
@@ -57,14 +60,19 @@ class BolaireCharacter extends Character {
     return 8 + this.getSpellAttack().getBonus();
   }
 
-  // Dark One's Blessing: Gain temporary HP when reducing hostile creature to 0 HP
-  getDarkOnesBlessingTempHP(): number {
-    return this.getAbilityModifier("Cha") + this.getClassLevel("Warlock");
+  // Bardic Inspiration die
+  getBardicInspirationDie(): string {
+    return "d6";
+  }
+
+  // Number of Bardic Inspiration uses (= CHA mod, min 1)
+  getBardicInspirationUses(): number {
+    return Math.max(1, this.getAbilityModifier("Cha"));
   }
 }
 
-const character = new BolaireCharacter();
-const characterName = "Bolaire Lathalia";
+const character = new HalandilCharacter();
+const characterName = "Halandil Fang";
 ---
 
 <html lang="en">
@@ -99,7 +107,7 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td style="text-align: center;">
-              <span class="mono">14</span>
+              <span class="mono">13</span>
             </td>
           </tr>
         </table>
@@ -159,25 +167,20 @@ const characterName = "Bolaire Lathalia";
                 <span class="mono">{character.getSpellSaveDC()}</span>
               </td>
             </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
             <tr>
-              <th>Fiend Spells</th>
-              <th class="modifier">Damage</th>
-            </tr>
-            <LevelledSpellDamageRow
-              name="Burning Hands"
-              damageOptions={character.getDamageProgression({ level: 1, damage: new DiceString("3d6") }, new DiceString("d6"))}
-            />
-            <LevelledSpellDamageRow
-              name="Scorching Ray"
-              damageOptions={character.getDamageProgression({ level: 2, damage: new DiceString("2d6") }, new DiceString("d6"))}
-            />
-            <tr>
-              <td><InfoTooltip client:load reference={renderHTML(getSpell("Command"))}>Command</InfoTooltip></td>
-              <td class="modifier">WIS save</td>
+              <th colspan="2" style="text-align: center;">Bardic Inspiration</th>
             </tr>
             <tr>
-              <td><InfoTooltip client:load reference={renderHTML(getSpell("Suggestion"))}>Suggestion</InfoTooltip></td>
-              <td class="modifier">WIS save</td>
+              <td>Die</td>
+              <td class="modifier mono">{character.getBardicInspirationDie()}</td>
+            </tr>
+            <tr>
+              <td>Uses</td>
+              <td class="modifier mono">{character.getBardicInspirationUses()}/long rest</td>
             </tr>
           </tbody>
         </table>
@@ -194,39 +197,43 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td>Species</td>
-            <td class="modifier">Panto Mask (sentient mask)</td>
+            <td class="modifier">Orc</td>
           </tr>
           <tr>
             <td>Class</td>
-            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Warlock"))}>Warlock</InfoTooltip> 3 (Fiend)</td>
+            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Bard"))}>Bard</InfoTooltip> 3</td>
           </tr>
           <tr>
-            <td>[Warlock] Magical Cunning</td>
-            <td class="modifier">recover spell slots</td>
+            <td>[Orc] Adrenaline Rush</td>
+            <td class="modifier">Dash as BA, temp HP</td>
           </tr>
           <tr>
-            <td>[Invocation] Pact of the Blade</td>
-            <td class="modifier">summon weapon, use CHA</td>
+            <td>[Orc] Darkvision</td>
+            <td class="modifier">120 ft.</td>
           </tr>
           <tr>
-            <td>[Invocation] Devil's Sight</td>
-            <td class="modifier">darkvision 120ft (magical)</td>
+            <td>[Orc] Relentless Endurance</td>
+            <td class="modifier">drop to 1 HP instead of 0</td>
           </tr>
           <tr>
-            <td>[Fiend] Dark One's Blessing</td>
-            <td class="modifier">
-              temp HP on kill: <span class="mono">{character.getDarkOnesBlessingTempHP()}</span>
-            </td>
+            <td>[Bard] Bardic Inspiration</td>
+            <td class="modifier">{character.getBardicInspirationDie()} to ally</td>
+          </tr>
+          <tr>
+            <td>[Bard] Expertise</td>
+            <td class="modifier">2 skills doubled</td>
+          </tr>
+          <tr>
+            <td>[Bard] Jack of All Trades</td>
+            <td class="modifier">+1 to non-prof checks</td>
           </tr>
         </table>
         <table>
           <tr>
-            <th colspan="2" style="text-align: center;">Proficiencies</th>
+            <th colspan="2" style="text-align: center;">Connections</th>
           </tr>
           <tr>
-            <td colspan="2">
-              <strong>Tools:</strong> Alchemist's Supplies
-            </td>
+            <td colspan="2"> Fang family, Hallowed Round (owner) </td>
           </tr>
         </table>
       </div>

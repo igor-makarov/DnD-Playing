@@ -8,43 +8,45 @@ import HitPointsInput from "@/components/HitPointsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
 import SpellSlotsTables from "@/components/SpellSlotsTables.astro";
 import InfoTooltip from "@/components/common/InfoTooltip.tsx";
-import LevelledSpellDamageRow from "@/components/spells/LevelledSpellDamageRow.astro";
 
 import { Character } from "@/js/character/Character";
 import type { Weapon } from "@/js/character/CharacterTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import { getClass } from "@/js/utils/render-5etools/getClass";
-import { getSpell } from "@/js/utils/render-5etools/getSpell";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 
-class BolaireCharacter extends Character {
+class AzuneCharacter extends Character {
   constructor() {
     super({
       abilityScores: {
-        Str: 12,
+        Str: 18,
         Dex: 14,
         Con: 16,
-        Int: 18,
+        Int: 12,
         Wis: 14,
         Cha: 18,
       },
-      classLevels: [{ className: "Warlock", level: 3 }],
+      // Paladin 2 / Sorcerer 1 at level 3
+      classLevels: [
+        { className: "Paladin", level: 2 },
+        { className: "Sorcerer", level: 1 },
+      ],
       skillProficiencies: [],
       saveProficiencies: [
-        { save: "Wis" }, // Warlock
-        { save: "Cha" }, // Warlock
+        { save: "Wis" }, // Paladin
+        { save: "Cha" }, // Paladin
       ],
       hitPointRolls: [
-        { level: 1, die: new DiceString("d8"), roll: 8 },
-        { level: 2, die: new DiceString("d8"), roll: 5 },
-        { level: 3, die: new DiceString("d8"), roll: 4 },
+        { level: 1, die: new DiceString("d10"), roll: 10 },
+        { level: 2, die: new DiceString("d10"), roll: 6 },
+        { level: 3, die: new DiceString("d6"), roll: 5 },
       ],
     });
   }
 
   getWeapons(): Weapon[] {
-    return [{ weapon: "Pact Blade", ability: "Cha", damage: new DiceString("d8") }];
+    return [{ weapon: "Longsword", ability: "Str", damage: new DiceString("d8") }];
   }
 
   // Spell Attack Modifier: Charisma modifier + Proficiency bonus
@@ -57,14 +59,14 @@ class BolaireCharacter extends Character {
     return 8 + this.getSpellAttack().getBonus();
   }
 
-  // Dark One's Blessing: Gain temporary HP when reducing hostile creature to 0 HP
-  getDarkOnesBlessingTempHP(): number {
-    return this.getAbilityModifier("Cha") + this.getClassLevel("Warlock");
+  // Lay on Hands pool (5 HP per Paladin level)
+  getLayOnHandsPool(): number {
+    return this.getClassLevel("Paladin") * 5;
   }
 }
 
-const character = new BolaireCharacter();
-const characterName = "Bolaire Lathalia";
+const character = new AzuneCharacter();
+const characterName = "Azune Nayar";
 ---
 
 <html lang="en">
@@ -99,7 +101,7 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td style="text-align: center;">
-              <span class="mono">14</span>
+              <span class="mono">20</span>
             </td>
           </tr>
         </table>
@@ -159,26 +161,6 @@ const characterName = "Bolaire Lathalia";
                 <span class="mono">{character.getSpellSaveDC()}</span>
               </td>
             </tr>
-            <tr>
-              <th>Fiend Spells</th>
-              <th class="modifier">Damage</th>
-            </tr>
-            <LevelledSpellDamageRow
-              name="Burning Hands"
-              damageOptions={character.getDamageProgression({ level: 1, damage: new DiceString("3d6") }, new DiceString("d6"))}
-            />
-            <LevelledSpellDamageRow
-              name="Scorching Ray"
-              damageOptions={character.getDamageProgression({ level: 2, damage: new DiceString("2d6") }, new DiceString("d6"))}
-            />
-            <tr>
-              <td><InfoTooltip client:load reference={renderHTML(getSpell("Command"))}>Command</InfoTooltip></td>
-              <td class="modifier">WIS save</td>
-            </tr>
-            <tr>
-              <td><InfoTooltip client:load reference={renderHTML(getSpell("Suggestion"))}>Suggestion</InfoTooltip></td>
-              <td class="modifier">WIS save</td>
-            </tr>
           </tbody>
         </table>
       </div>
@@ -194,39 +176,46 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td>Species</td>
-            <td class="modifier">Panto Mask (sentient mask)</td>
+            <td class="modifier">Human</td>
           </tr>
           <tr>
             <td>Class</td>
-            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Warlock"))}>Warlock</InfoTooltip> 3 (Fiend)</td>
-          </tr>
-          <tr>
-            <td>[Warlock] Magical Cunning</td>
-            <td class="modifier">recover spell slots</td>
-          </tr>
-          <tr>
-            <td>[Invocation] Pact of the Blade</td>
-            <td class="modifier">summon weapon, use CHA</td>
-          </tr>
-          <tr>
-            <td>[Invocation] Devil's Sight</td>
-            <td class="modifier">darkvision 120ft (magical)</td>
-          </tr>
-          <tr>
-            <td>[Fiend] Dark One's Blessing</td>
             <td class="modifier">
-              temp HP on kill: <span class="mono">{character.getDarkOnesBlessingTempHP()}</span>
+              <InfoTooltip client:load reference={renderHTML(getClass("Paladin"))}>Paladin</InfoTooltip> 2 /
+              <InfoTooltip client:load reference={renderHTML(getClass("Sorcerer"))}>Sorcerer</InfoTooltip> 1
             </td>
           </tr>
-        </table>
-        <table>
           <tr>
-            <th colspan="2" style="text-align: center;">Proficiencies</th>
+            <td>[Human] Resourceful</td>
+            <td class="modifier">Heroic Inspiration on long rest</td>
           </tr>
           <tr>
-            <td colspan="2">
-              <strong>Tools:</strong> Alchemist's Supplies
-            </td>
+            <td>[Human] Skillful</td>
+            <td class="modifier">+1 skill proficiency</td>
+          </tr>
+          <tr>
+            <td>[Human] Versatile</td>
+            <td class="modifier">Origin feat</td>
+          </tr>
+          <tr>
+            <td>[Feat] Lucky</td>
+            <td class="modifier">reroll d20s</td>
+          </tr>
+          <tr>
+            <td>[Paladin] Lay on Hands</td>
+            <td class="modifier">pool: <span class="mono">{character.getLayOnHandsPool()}</span> HP</td>
+          </tr>
+          <tr>
+            <td>[Paladin] Divine Smite</td>
+            <td class="modifier">2d8+ radiant on hit</td>
+          </tr>
+          <tr>
+            <td>[Paladin] Fighting Style</td>
+            <td class="modifier">Defense (+1 AC)</td>
+          </tr>
+          <tr>
+            <td>[Sorcerer] Innate Sorcery</td>
+            <td class="modifier">bonus action, adv on spell attacks</td>
           </tr>
         </table>
       </div>

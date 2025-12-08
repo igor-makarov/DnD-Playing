@@ -8,43 +8,41 @@ import HitPointsInput from "@/components/HitPointsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
 import SpellSlotsTables from "@/components/SpellSlotsTables.astro";
 import InfoTooltip from "@/components/common/InfoTooltip.tsx";
-import LevelledSpellDamageRow from "@/components/spells/LevelledSpellDamageRow.astro";
 
 import { Character } from "@/js/character/Character";
 import type { Weapon } from "@/js/character/CharacterTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import { getClass } from "@/js/utils/render-5etools/getClass";
-import { getSpell } from "@/js/utils/render-5etools/getSpell";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 
-class BolaireCharacter extends Character {
+class WicanderCharacter extends Character {
   constructor() {
     super({
       abilityScores: {
-        Str: 12,
-        Dex: 14,
-        Con: 16,
-        Int: 18,
-        Wis: 14,
+        Str: 10,
+        Dex: 15,
+        Con: 15,
+        Int: 12,
+        Wis: 10,
         Cha: 18,
       },
-      classLevels: [{ className: "Warlock", level: 3 }],
-      skillProficiencies: [],
+      classLevels: [{ className: "Sorcerer", level: 3 }],
+      skillProficiencies: [{ skill: "Persuasion" }, { skill: "Religion" }],
       saveProficiencies: [
-        { save: "Wis" }, // Warlock
-        { save: "Cha" }, // Warlock
+        { save: "Con" }, // Sorcerer
+        { save: "Cha" }, // Sorcerer
       ],
       hitPointRolls: [
-        { level: 1, die: new DiceString("d8"), roll: 8 },
-        { level: 2, die: new DiceString("d8"), roll: 5 },
-        { level: 3, die: new DiceString("d8"), roll: 4 },
+        { level: 1, die: new DiceString("d6"), roll: 6 },
+        { level: 2, die: new DiceString("d6"), roll: 4 },
+        { level: 3, die: new DiceString("d6"), roll: 4 },
       ],
     });
   }
 
   getWeapons(): Weapon[] {
-    return [{ weapon: "Pact Blade", ability: "Cha", damage: new DiceString("d8") }];
+    return [{ weapon: "Cane", ability: "Dex", damage: new DiceString("d4") }];
   }
 
   // Spell Attack Modifier: Charisma modifier + Proficiency bonus
@@ -57,14 +55,14 @@ class BolaireCharacter extends Character {
     return 8 + this.getSpellAttack().getBonus();
   }
 
-  // Dark One's Blessing: Gain temporary HP when reducing hostile creature to 0 HP
-  getDarkOnesBlessingTempHP(): number {
-    return this.getAbilityModifier("Cha") + this.getClassLevel("Warlock");
+  // Sorcery Points
+  getSorceryPoints(): number {
+    return this.getClassLevel("Sorcerer");
   }
 }
 
-const character = new BolaireCharacter();
-const characterName = "Bolaire Lathalia";
+const character = new WicanderCharacter();
+const characterName = "Wicander Halovar";
 ---
 
 <html lang="en">
@@ -99,7 +97,7 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td style="text-align: center;">
-              <span class="mono">14</span>
+              <span class="mono">12</span>
             </td>
           </tr>
         </table>
@@ -159,25 +157,16 @@ const characterName = "Bolaire Lathalia";
                 <span class="mono">{character.getSpellSaveDC()}</span>
               </td>
             </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
             <tr>
-              <th>Fiend Spells</th>
-              <th class="modifier">Damage</th>
-            </tr>
-            <LevelledSpellDamageRow
-              name="Burning Hands"
-              damageOptions={character.getDamageProgression({ level: 1, damage: new DiceString("3d6") }, new DiceString("d6"))}
-            />
-            <LevelledSpellDamageRow
-              name="Scorching Ray"
-              damageOptions={character.getDamageProgression({ level: 2, damage: new DiceString("2d6") }, new DiceString("d6"))}
-            />
-            <tr>
-              <td><InfoTooltip client:load reference={renderHTML(getSpell("Command"))}>Command</InfoTooltip></td>
-              <td class="modifier">WIS save</td>
+              <th colspan="2" style="text-align: center;">Sorcery Points</th>
             </tr>
             <tr>
-              <td><InfoTooltip client:load reference={renderHTML(getSpell("Suggestion"))}>Suggestion</InfoTooltip></td>
-              <td class="modifier">WIS save</td>
+              <td>Points</td>
+              <td class="modifier mono">{character.getSorceryPoints()}</td>
             </tr>
           </tbody>
         </table>
@@ -194,39 +183,55 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td>Species</td>
-            <td class="modifier">Panto Mask (sentient mask)</td>
+            <td class="modifier">Aasimar</td>
           </tr>
           <tr>
             <td>Class</td>
-            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Warlock"))}>Warlock</InfoTooltip> 3 (Fiend)</td>
+            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Sorcerer"))}>Sorcerer</InfoTooltip> 3 (Clockwork)</td>
           </tr>
           <tr>
-            <td>[Warlock] Magical Cunning</td>
-            <td class="modifier">recover spell slots</td>
+            <td>[Aasimar] Celestial Resistance</td>
+            <td class="modifier">resist radiant & necrotic</td>
           </tr>
           <tr>
-            <td>[Invocation] Pact of the Blade</td>
-            <td class="modifier">summon weapon, use CHA</td>
+            <td>[Aasimar] Darkvision</td>
+            <td class="modifier">60 ft.</td>
           </tr>
           <tr>
-            <td>[Invocation] Devil's Sight</td>
-            <td class="modifier">darkvision 120ft (magical)</td>
+            <td>[Aasimar] Healing Hands</td>
+            <td class="modifier">heal = level once/LR</td>
           </tr>
           <tr>
-            <td>[Fiend] Dark One's Blessing</td>
-            <td class="modifier">
-              temp HP on kill: <span class="mono">{character.getDarkOnesBlessingTempHP()}</span>
-            </td>
+            <td>[Aasimar] Light Bearer</td>
+            <td class="modifier">Light cantrip</td>
+          </tr>
+          <tr>
+            <td>[Aasimar] Celestial Revelation</td>
+            <td class="modifier">transformation</td>
+          </tr>
+          <tr>
+            <td>[Sorcerer] Innate Sorcery</td>
+            <td class="modifier">bonus action, adv on spell attacks</td>
+          </tr>
+          <tr>
+            <td>[Sorcerer] Sorcery Points</td>
+            <td class="modifier">{character.getSorceryPoints()} points</td>
+          </tr>
+          <tr>
+            <td>[Sorcerer] Metamagic</td>
+            <td class="modifier">2 options known</td>
+          </tr>
+          <tr>
+            <td>[Clockwork] Restore Balance</td>
+            <td class="modifier">negate adv/disadv</td>
           </tr>
         </table>
         <table>
           <tr>
-            <th colspan="2" style="text-align: center;">Proficiencies</th>
+            <th colspan="2" style="text-align: center;">Connections</th>
           </tr>
           <tr>
-            <td colspan="2">
-              <strong>Tools:</strong> Alchemist's Supplies
-            </td>
+            <td colspan="2"> House Halovar, Candescent Creed (Light Priest) </td>
           </tr>
         </table>
       </div>

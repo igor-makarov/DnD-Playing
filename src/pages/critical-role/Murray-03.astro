@@ -8,63 +8,61 @@ import HitPointsInput from "@/components/HitPointsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
 import SpellSlotsTables from "@/components/SpellSlotsTables.astro";
 import InfoTooltip from "@/components/common/InfoTooltip.tsx";
-import LevelledSpellDamageRow from "@/components/spells/LevelledSpellDamageRow.astro";
 
 import { Character } from "@/js/character/Character";
 import type { Weapon } from "@/js/character/CharacterTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import { getClass } from "@/js/utils/render-5etools/getClass";
-import { getSpell } from "@/js/utils/render-5etools/getSpell";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 
-class BolaireCharacter extends Character {
+class MurrayCharacter extends Character {
   constructor() {
     super({
       abilityScores: {
-        Str: 12,
-        Dex: 14,
+        Str: 11,
+        Dex: 8,
         Con: 16,
-        Int: 18,
-        Wis: 14,
-        Cha: 18,
+        Int: 19,
+        Wis: 12,
+        Cha: 12,
       },
-      classLevels: [{ className: "Warlock", level: 3 }],
-      skillProficiencies: [],
+      classLevels: [{ className: "Wizard", level: 3 }],
+      skillProficiencies: [{ skill: "Arcana" }, { skill: "History" }, { skill: "Investigation" }],
       saveProficiencies: [
-        { save: "Wis" }, // Warlock
-        { save: "Cha" }, // Warlock
+        { save: "Int" }, // Wizard
+        { save: "Wis" }, // Wizard
       ],
       hitPointRolls: [
-        { level: 1, die: new DiceString("d8"), roll: 8 },
-        { level: 2, die: new DiceString("d8"), roll: 5 },
-        { level: 3, die: new DiceString("d8"), roll: 4 },
+        { level: 1, die: new DiceString("d6"), roll: 6 },
+        { level: 2, die: new DiceString("d6"), roll: 6 },
+        { level: 3, die: new DiceString("d6"), roll: 6 },
       ],
     });
   }
 
   getWeapons(): Weapon[] {
-    return [{ weapon: "Pact Blade", ability: "Cha", damage: new DiceString("d8") }];
+    return [];
   }
 
-  // Spell Attack Modifier: Charisma modifier + Proficiency bonus
+  // Spell Attack Modifier: Intelligence modifier + Proficiency bonus
   getSpellAttack(): D20Test {
-    return new D20Test("Attack Roll", "Cha", this.getAbilityModifier("Cha"), this.createProficiency(true));
+    return new D20Test("Attack Roll", "Int", this.getAbilityModifier("Int"), this.createProficiency(true));
   }
 
-  // Spell Save DC: 8 + Proficiency bonus + Charisma modifier
+  // Spell Save DC: 8 + Proficiency bonus + Intelligence modifier
   getSpellSaveDC(): number {
     return 8 + this.getSpellAttack().getBonus();
   }
 
-  // Dark One's Blessing: Gain temporary HP when reducing hostile creature to 0 HP
-  getDarkOnesBlessingTempHP(): number {
-    return this.getAbilityModifier("Cha") + this.getClassLevel("Warlock");
+  // Portent dice for Divination wizard
+  getPortentDice(): number {
+    return 2;
   }
 }
 
-const character = new BolaireCharacter();
-const characterName = "Bolaire Lathalia";
+const character = new MurrayCharacter();
+const characterName = "Murray Mag'Nesson";
 ---
 
 <html lang="en">
@@ -99,7 +97,8 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td style="text-align: center;">
-              <span class="mono">14</span>
+              <span class="mono">12</span>
+              <span style="font-size: 0.8em;"> (9 w/o Mage Armor)</span>
             </td>
           </tr>
         </table>
@@ -159,25 +158,19 @@ const characterName = "Bolaire Lathalia";
                 <span class="mono">{character.getSpellSaveDC()}</span>
               </td>
             </tr>
+          </tbody>
+        </table>
+        <table>
+          <tbody>
             <tr>
-              <th>Fiend Spells</th>
-              <th class="modifier">Damage</th>
-            </tr>
-            <LevelledSpellDamageRow
-              name="Burning Hands"
-              damageOptions={character.getDamageProgression({ level: 1, damage: new DiceString("3d6") }, new DiceString("d6"))}
-            />
-            <LevelledSpellDamageRow
-              name="Scorching Ray"
-              damageOptions={character.getDamageProgression({ level: 2, damage: new DiceString("2d6") }, new DiceString("d6"))}
-            />
-            <tr>
-              <td><InfoTooltip client:load reference={renderHTML(getSpell("Command"))}>Command</InfoTooltip></td>
-              <td class="modifier">WIS save</td>
+              <th colspan="2" style="text-align: center;">Portent</th>
             </tr>
             <tr>
-              <td><InfoTooltip client:load reference={renderHTML(getSpell("Suggestion"))}>Suggestion</InfoTooltip></td>
-              <td class="modifier">WIS save</td>
+              <td>Dice per long rest</td>
+              <td class="modifier mono">{character.getPortentDice()}</td>
+            </tr>
+            <tr>
+              <td colspan="2" style="font-size: 0.9em;"> Replace any d20 roll before outcome </td>
             </tr>
           </tbody>
         </table>
@@ -194,39 +187,55 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td>Species</td>
-            <td class="modifier">Panto Mask (sentient mask)</td>
+            <td class="modifier">Dwarf</td>
           </tr>
           <tr>
             <td>Class</td>
-            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Warlock"))}>Warlock</InfoTooltip> 3 (Fiend)</td>
+            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Wizard"))}>Wizard</InfoTooltip> 3 (Diviner)</td>
           </tr>
           <tr>
-            <td>[Warlock] Magical Cunning</td>
+            <td>[Dwarf] Darkvision</td>
+            <td class="modifier">120 ft.</td>
+          </tr>
+          <tr>
+            <td>[Dwarf] Dwarven Resilience</td>
+            <td class="modifier">resist poison, adv. vs poison</td>
+          </tr>
+          <tr>
+            <td>[Dwarf] Dwarven Toughness</td>
+            <td class="modifier">+1 HP per level</td>
+          </tr>
+          <tr>
+            <td>[Dwarf] Stonecunning</td>
+            <td class="modifier">tremorsense 60 ft. (2/day)</td>
+          </tr>
+          <tr>
+            <td>[Wizard] Ritual Adept</td>
+            <td class="modifier">cast ritual spells</td>
+          </tr>
+          <tr>
+            <td>[Wizard] Arcane Recovery</td>
             <td class="modifier">recover spell slots</td>
           </tr>
           <tr>
-            <td>[Invocation] Pact of the Blade</td>
-            <td class="modifier">summon weapon, use CHA</td>
+            <td>[Wizard] Scholar</td>
+            <td class="modifier">expertise in one skill</td>
           </tr>
           <tr>
-            <td>[Invocation] Devil's Sight</td>
-            <td class="modifier">darkvision 120ft (magical)</td>
+            <td>[Diviner] Divination Savant</td>
+            <td class="modifier">cheaper divination spells</td>
           </tr>
           <tr>
-            <td>[Fiend] Dark One's Blessing</td>
-            <td class="modifier">
-              temp HP on kill: <span class="mono">{character.getDarkOnesBlessingTempHP()}</span>
-            </td>
+            <td>[Diviner] Portent</td>
+            <td class="modifier">2 pre-rolled d20s</td>
           </tr>
         </table>
         <table>
           <tr>
-            <th colspan="2" style="text-align: center;">Proficiencies</th>
+            <th colspan="2" style="text-align: center;">Connections</th>
           </tr>
           <tr>
-            <td colspan="2">
-              <strong>Tools:</strong> Alchemist's Supplies
-            </td>
+            <td colspan="2"> Penteveral (Bursar) </td>
           </tr>
         </table>
       </div>

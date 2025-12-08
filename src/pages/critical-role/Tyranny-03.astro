@@ -18,19 +18,19 @@ import { getClass } from "@/js/utils/render-5etools/getClass";
 import { getSpell } from "@/js/utils/render-5etools/getSpell";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 
-class BolaireCharacter extends Character {
+class TyrannyCharacter extends Character {
   constructor() {
     super({
       abilityScores: {
         Str: 12,
-        Dex: 14,
-        Con: 16,
-        Int: 18,
-        Wis: 14,
-        Cha: 18,
+        Dex: 15,
+        Con: 18,
+        Int: 12,
+        Wis: 8,
+        Cha: 20,
       },
       classLevels: [{ className: "Warlock", level: 3 }],
-      skillProficiencies: [],
+      skillProficiencies: [{ skill: "Deception" }, { skill: "Persuasion" }],
       saveProficiencies: [
         { save: "Wis" }, // Warlock
         { save: "Cha" }, // Warlock
@@ -38,13 +38,13 @@ class BolaireCharacter extends Character {
       hitPointRolls: [
         { level: 1, die: new DiceString("d8"), roll: 8 },
         { level: 2, die: new DiceString("d8"), roll: 5 },
-        { level: 3, die: new DiceString("d8"), roll: 4 },
+        { level: 3, die: new DiceString("d8"), roll: 5 },
       ],
     });
   }
 
   getWeapons(): Weapon[] {
-    return [{ weapon: "Pact Blade", ability: "Cha", damage: new DiceString("d8") }];
+    return [];
   }
 
   // Spell Attack Modifier: Charisma modifier + Proficiency bonus
@@ -63,8 +63,8 @@ class BolaireCharacter extends Character {
   }
 }
 
-const character = new BolaireCharacter();
-const characterName = "Bolaire Lathalia";
+const character = new TyrannyCharacter();
+const characterName = "Tyranny";
 ---
 
 <html lang="en">
@@ -99,7 +99,8 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td style="text-align: center;">
-              <span class="mono">14</span>
+              <span class="mono">15</span>
+              <span style="font-size: 0.8em;"> (12 w/o Mage Armor)</span>
             </td>
           </tr>
         </table>
@@ -194,23 +195,39 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td>Species</td>
-            <td class="modifier">Panto Mask (sentient mask)</td>
+            <td class="modifier">Demon (Tiefling/Fiend)</td>
           </tr>
           <tr>
             <td>Class</td>
             <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Warlock"))}>Warlock</InfoTooltip> 3 (Fiend)</td>
           </tr>
           <tr>
+            <td>[Demon] Darkvision</td>
+            <td class="modifier">60 ft.</td>
+          </tr>
+          <tr>
+            <td>[Demon] Fiendish Legacy</td>
+            <td class="modifier">Abyssal (poison resist)</td>
+          </tr>
+          <tr>
+            <td>[Demon] Otherworldly Presence</td>
+            <td class="modifier">Thaumaturgy cantrip</td>
+          </tr>
+          <tr>
             <td>[Warlock] Magical Cunning</td>
             <td class="modifier">recover spell slots</td>
           </tr>
           <tr>
-            <td>[Invocation] Pact of the Blade</td>
-            <td class="modifier">summon weapon, use CHA</td>
+            <td>[Invocation] Armor of Shadows</td>
+            <td class="modifier">Mage Armor at will</td>
           </tr>
           <tr>
-            <td>[Invocation] Devil's Sight</td>
-            <td class="modifier">darkvision 120ft (magical)</td>
+            <td>[Invocation] Pact of the Blade</td>
+            <td class="modifier">demon claws</td>
+          </tr>
+          <tr>
+            <td>[Invocation] Mask of Many Faces</td>
+            <td class="modifier">Disguise Self at will</td>
           </tr>
           <tr>
             <td>[Fiend] Dark One's Blessing</td>
@@ -221,12 +238,18 @@ const characterName = "Bolaire Lathalia";
         </table>
         <table>
           <tr>
-            <th colspan="2" style="text-align: center;">Proficiencies</th>
+            <th colspan="2" style="text-align: center;">Languages</th>
           </tr>
           <tr>
-            <td colspan="2">
-              <strong>Tools:</strong> Alchemist's Supplies
-            </td>
+            <td colspan="2"> Common, Demonic </td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <th colspan="2" style="text-align: center;">Connections</th>
+          </tr>
+          <tr>
+            <td colspan="2"> Candescent Creed (Aspirant), Wicander Halovar (ward) </td>
           </tr>
         </table>
       </div>
