@@ -1,0 +1,65 @@
+---
+// Get all character pages in critical-role
+const pageModules = import.meta.glob("./*.astro", { eager: true });
+const characterPages = Object.keys(pageModules)
+  .filter((path) => path !== "./index.astro")
+  .map((path) => {
+    const filename = path.replace("./", "").replace(".astro", "");
+    // Parse "Name-Level" format (e.g., "Bolaire-03" -> { character: "Bolaire", level: 3 })
+    const match = filename.match(/^(.+)-(\d+)$/);
+    const character = match ? match[1] : filename;
+    const level = match ? parseInt(match[2], 10) : 0;
+    return {
+      character,
+      level,
+      label: `Level ${level}`,
+      url: new URL(`critical-role/${filename}`, Astro.url).pathname,
+    };
+  })
+  .sort((a, b) => a.character.localeCompare(b.character) || a.level - b.level);
+
+// Group by character
+const groupedCharacters = characterPages.reduce(
+  (acc, page) => {
+    if (!acc[page.character]) {
+      acc[page.character] = [];
+    }
+    acc[page.character].push(page);
+    return acc;
+  },
+  {} as Record<string, typeof characterPages>,
+);
+
+const pageTitle = "Critical Role Characters";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <title>{import.meta.env.DEV ? "[dev] " : ""}{pageTitle}</title>
+  </head>
+  <body>
+    <div class="row six-across">
+      {
+        Object.entries(groupedCharacters).map(([character, pages]) => (
+          <div class="column">
+            <table>
+              <tr>
+                <th>{character}</th>
+              </tr>
+              {pages.map(({ label, url }) => (
+                <tr>
+                  <td>
+                    <a href={url}>{label}</a>
+                  </td>
+                </tr>
+              ))}
+            </table>
+          </div>
+        ))
+      }
+    </div>
+  </body>
+</html>
