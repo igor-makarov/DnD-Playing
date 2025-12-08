@@ -1,5 +1,4 @@
 ---
-import "../../../public/styles/style.css";
 import AdrikCharacter from "@/js/characters/AdrikCharacter.js";
 import { D20Test } from "@/js/common/D20Test.ts";
 import AbilitiesTable from "@/components/AbilitiesTable.astro";
@@ -18,6 +17,7 @@ const characterName = "Adrik";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/style.css" />
     <title>{import.meta.env.DEV ? "[dev] " : ""}{characterName}</title>
     <base target="_blank" />
   </head>
