@@ -13,7 +13,7 @@ const characterPages = Object.keys(pageModules)
       character,
       level,
       label: `Level ${level}`,
-      url: new URL(`critical-role/${filename}`, Astro.url).pathname,
+      url: new URL(filename, Astro.url.href.replace(/\/?$/, "/")).pathname,
     };
   })
   .sort((a, b) => a.character.localeCompare(b.character) || a.level - b.level);
