@@ -33,4 +33,10 @@ This project has a copy of the 5etools data in `5etools/`
 - YOU MUST use prefer the local data when question related to D&D 5e arise
   @.agents/using-5etools.md
 - CLI to use for quick reference: `npm run 5etools`
-- CLI can output Markdown (default) or HTML 
+- CLI can output Markdown (default) or HTML
+
+# Critical Role data
+- XML sources: `critical-role/`
+- Extract main character data from MediaWiki XML: `npm run cr-extract`
+- Get names: `npm run cr-extract -- <xml-file> [--names]`
+- Get character info: `npm run cr-extract -- <xml-file> [--name <name>]`
