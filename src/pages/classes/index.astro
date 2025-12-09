@@ -1,0 +1,59 @@
+---
+import "@/styles/style.css";
+import { collectAllClassReferences } from "@/js/utils/collectClassNames";
+import { getSourceName } from "@/js/utils/render-5etools/ReferenceTypes";
+
+const classPages = collectAllClassReferences()
+  .map((ref) => ({
+    name: ref.name,
+    source: ref.source,
+    url: new URL(`${ref.name}-${ref.source}`, Astro.url).pathname,
+  }))
+  .sort((a, b) => a.name.localeCompare(b.name) || a.source.localeCompare(b.source));
+
+// Group by source
+const classesBySource = classPages.reduce(
+  (acc, cls) => {
+    if (!acc[cls.source]) {
+      acc[cls.source] = [];
+    }
+    acc[cls.source].push(cls);
+    return acc;
+  },
+  {} as Record<string, typeof classPages>,
+);
+
+const sources = Object.keys(classesBySource).sort();
+
+const pageTitle = "D&D Classes";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{import.meta.env.DEV ? "[dev] " : ""}{pageTitle}</title>
+  </head>
+  <body>
+    <div style="display: flex; justify-content: center; align-items: center; min-height: 100vh;">
+      <div style="width: 300px;">
+        {
+          sources.map((source) => (
+            <table>
+              <tr>
+                <th>{getSourceName(source)}</th>
+              </tr>
+              {classesBySource[source].map(({ name, url }) => (
+                <tr>
+                  <td>
+                    <a href={url}>{name}</a>
+                  </td>
+                </tr>
+              ))}
+            </table>
+          ))
+        }
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,7 +1,5 @@
 ---
 import "@/styles/style.css";
-import { collectAllClassReferences } from "@/js/utils/collectClassNames";
-import { getSourceName } from "@/js/utils/render-5etools/ReferenceTypes";
 
 // Get all character pages
 const pageModules = import.meta.glob("./characters/*.astro", { eager: true });
@@ -11,16 +9,6 @@ const characterPages = Object.keys(pageModules)
     return { name, url: new URL(`characters/${name}`, Astro.url).pathname };
   })
   .sort((a, b) => a.name.localeCompare(b.name));
-
-// Get all class pages from character files
-const classPages = collectAllClassReferences()
-  .map((ref) => ({
-    name: ref.name,
-    source: ref.source,
-    displayName: ref.source === "XPHB" ? ref.name : `${ref.name} (${getSourceName(ref.source)})`,
-    url: new URL(`classes/${ref.name}-${ref.source}`, Astro.url).pathname,
-  }))
-  .sort((a, b) => a.name.localeCompare(b.name) || a.source.localeCompare(b.source));
 
 const pageTitle = "D&D Character Sheets";
 ---
@@ -62,15 +50,11 @@ const pageTitle = "D&D Character Sheets";
           <tr>
             <th>Classes</th>
           </tr>
-          {
-            classPages.map(({ displayName, url }) => (
-              <tr>
-                <td>
-                  <a href={url}>{displayName}</a>
-                </td>
-              </tr>
-            ))
-          }
+          <tr>
+            <td>
+              <a href={new URL("classes", Astro.url).pathname}>All Classes</a>
+            </td>
+          </tr>
         </table>
       </div>
     </div>
