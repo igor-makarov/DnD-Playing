@@ -2,7 +2,6 @@
 import AbilitiesTable from "@/components/AbilitiesTable.astro";
 import SkillsTable from "@/components/SkillsTable.astro";
 import SavesTable from "@/components/SavesTable.astro";
-import WeaponAttackTable from "@/components/WeaponAttackTable.astro";
 import D20TestCell from "@/components/common/D20TestCell.tsx";
 import HitPointsInput from "@/components/HitPointsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
@@ -10,7 +9,6 @@ import SpellSlotsTables from "@/components/SpellSlotsTables.astro";
 import InfoTooltip from "@/components/common/InfoTooltip.tsx";
 
 import { Character } from "@/js/character/Character";
-import type { Weapon } from "@/js/character/CharacterTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import { getClass } from "@/js/utils/render-5etools/getClass";
@@ -48,10 +46,6 @@ class AzuneCharacter extends Character {
         { level: 3, die: new DiceString("d6"), roll: 5 },
       ],
     });
-  }
-
-  getWeapons(): Weapon[] {
-    return [{ weapon: "Longsword", ability: "Str", damage: new DiceString("d8") }];
   }
 
   // Spell Attack Modifier: Charisma modifier + Proficiency bonus
@@ -147,7 +141,6 @@ const characterName = "Azune Nayar";
         <HitDiceTable client:load hitDice={character.getHitDice()} conModifier={character.getAbilityModifier("Con")} />
       </div>
       <div class="column">
-        <WeaponAttackTable character={character} />
         <table>
           <tbody>
             <tr>
