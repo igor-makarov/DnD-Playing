@@ -15,7 +15,10 @@ import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import { getCharacterCreationOption } from "@/js/utils/render-5etools/getCharacterCreationOption";
 import { getClass } from "@/js/utils/render-5etools/getClass";
+import { getClassFeature } from "@/js/utils/render-5etools/getClassFeature";
 import { getSpecies } from "@/js/utils/render-5etools/getSpecies";
+import { getSubclass } from "@/js/utils/render-5etools/getSubclass";
+import { getSubclassFeature } from "@/js/utils/render-5etools/getSubclassFeature";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 import "@/styles/style.css";
 
@@ -179,7 +182,12 @@ const characterName = "Occtis Tachonis";
           </tr>
           <tr>
             <td>Class</td>
-            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getClass("Wizard"))}>Wizard</InfoTooltip> 3 (Necromancer)</td>
+            <td class="modifier"
+              ><InfoTooltip client:load reference={renderHTML(getClass("Wizard"))}>Wizard</InfoTooltip> 3 (<InfoTooltip
+                client:load
+                reference={renderHTML(getSubclass("Wizard", "Necromancy"))}>Necromancer</InfoTooltip
+              >)</td
+            >
           </tr>
           <tr>
             <td>[Human] Resourceful</td>
@@ -210,20 +218,31 @@ const characterName = "Occtis Tachonis";
             <td class="modifier">frighten a creature</td>
           </tr>
           <tr>
-            <td>[Wizard] Ritual Adept</td>
+            <td>[Wizard 1] <InfoTooltip client:load reference={renderHTML(getClassFeature("Ritual Adept", "Wizard"))}>Ritual Adept</InfoTooltip></td>
             <td class="modifier">cast ritual spells</td>
           </tr>
           <tr>
-            <td>[Wizard] Arcane Recovery</td>
+            <td
+              >[Wizard 1] <InfoTooltip client:load reference={renderHTML(getClassFeature("Arcane Recovery", "Wizard"))}>Arcane Recovery</InfoTooltip
+              ></td
+            >
             <td class="modifier">recover spell slots</td>
           </tr>
           <tr>
-            <td>[Wizard] Scholar</td>
+            <td>[Wizard 2] <InfoTooltip client:load reference={renderHTML(getClassFeature("Scholar", "Wizard"))}>Scholar</InfoTooltip></td>
             <td class="modifier">expertise in one skill</td>
           </tr>
           <tr>
-            <td>[Necromancer] Necromancy Savant</td>
+            <td
+              >[Necromancer 3] <InfoTooltip client:load reference={renderHTML(getSubclassFeature("Necromancy Savant", "Wizard", "Necromancy", "PHB"))}
+                >Necromancy Savant</InfoTooltip
+              ></td
+            >
             <td class="modifier">cheaper necromancy spells</td>
+          </tr>
+          <tr>
+            <td>[Necromancer 3] Necromancy Spellbook</td>
+            <td class="modifier">+2 necromancy spells</td>
           </tr>
         </table>
         <table>
