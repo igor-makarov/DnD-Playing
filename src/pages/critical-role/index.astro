@@ -1,4 +1,6 @@
 ---
+import "@/styles/style.css";
+
 // Get all character pages in critical-role
 const pageModules = import.meta.glob("./*.astro", { eager: true });
 const characterPages = Object.keys(pageModules)
@@ -37,7 +39,6 @@ const pageTitle = "Critical Role Characters";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styles/style.css" />
     <title>{import.meta.env.DEV ? "[dev] " : ""}{pageTitle}</title>
   </head>
   <body>

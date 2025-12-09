@@ -15,6 +15,7 @@ import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import { getClass } from "@/js/utils/render-5etools/getClass";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
+import "@/styles/style.css";
 
 class VaelusCharacter extends Character {
   constructor() {
@@ -69,7 +70,6 @@ const characterName = "Vaelus";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styles/style.css" />
     <title>{import.meta.env.DEV ? "[dev] " : ""}{characterName}</title>
     <base target="_blank" />
   </head>

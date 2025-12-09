@@ -13,6 +13,7 @@ import HitDiceTable from "@/components/HitDiceTable.tsx";
 import { DiceString } from "@/js/common/DiceString.ts";
 import AzamatCharacter from "@/js/characters/AzamatCharacter";
 import LevelledSpellDamageRow from "@/components/spells/LevelledSpellDamageRow.astro";
+import "@/styles/style.css";
 
 const character = new AzamatCharacter();
 const characterName = "Azamat";
@@ -22,7 +23,6 @@ const characterName = "Azamat";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styles/style.css" />
     <title>{import.meta.env.DEV ? "[dev] " : ""}{characterName}</title>
     <base target="_blank" />
   </head>

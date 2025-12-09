@@ -19,6 +19,7 @@ import { getSpell } from "@/js/utils/render-5etools/getSpell";
 import { getSpecies } from "@/js/utils/render-5etools/getSpecies";
 import { getWeaponMastery } from "@/js/utils/render-5etools/getWeaponMastery";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
+import "@/styles/style.css";
 
 const character = new JacobCharacter();
 const characterName = "Sir Jacob Lancaster";
@@ -28,7 +29,6 @@ const characterName = "Sir Jacob Lancaster";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styles/style.css" />
     <title>{import.meta.env.DEV ? "[dev] " : ""}{characterName}</title>
     <base target="_blank" />
   </head>
