@@ -9,8 +9,12 @@ import SpellSlotsTables from "@/components/SpellSlotsTables.astro";
 import ChannelDivinityCheckboxes from "@/components/classes/paladin/ChannelDivinityCheckboxes.tsx";
 import LayOnHandsInput from "@/components/classes/paladin/LayOnHandsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
+import InfoTooltip from "@/components/common/InfoTooltip.tsx";
 
 import { DiceString } from "@/js/common/DiceString.ts";
+import { getClass } from "@/js/utils/render-5etools/getClass";
+import { getSpecies } from "@/js/utils/render-5etools/getSpecies";
+import renderHTML from "@/js/utils/render-5etools/renderHTML";
 import AzamatCharacter from "@/js/characters/AzamatCharacter";
 import LevelledSpellDamageRow from "@/components/spells/LevelledSpellDamageRow.astro";
 import "@/styles/style.css";
@@ -139,6 +143,16 @@ const characterName = "Azamat";
           <tr>
             <th>Feature</th>
             <th class="modifier">Effect</th>
+          </tr>
+          <tr>
+            <td>Species</td>
+            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getSpecies("Warforged", "ERLW"))}>Warforged</InfoTooltip></td>
+          </tr>
+          <tr>
+            <td>Class</td>
+            <td class="modifier"
+              ><InfoTooltip client:load reference={renderHTML(getClass("Paladin"))}>Paladin</InfoTooltip> {character.characterLevel}</td
+            >
           </tr>
           <tr>
             <td>Lay on Hands</td>
