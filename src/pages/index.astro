@@ -1,5 +1,6 @@
 ---
 import "@/styles/style.css";
+import { collectAllClassNames } from "@/js/utils/collectClassNames";
 
 // Get all character pages
 const pageModules = import.meta.glob("./characters/*.astro", { eager: true });
@@ -10,13 +11,9 @@ const characterPages = Object.keys(pageModules)
   })
   .sort((a, b) => a.name.localeCompare(b.name));
 
-// Get all class pages
-const classModules = import.meta.glob("./classes/*.md", { eager: true });
-const classPages = Object.keys(classModules)
-  .map((path) => {
-    const name = path.replace("./classes/", "").replace(".md", "");
-    return { name, url: new URL(`classes/${name}`, Astro.url).pathname };
-  })
+// Get all class pages from character files
+const classPages = [...collectAllClassNames()]
+  .map((name) => ({ name, url: new URL(`classes/${name}`, Astro.url).pathname }))
   .sort((a, b) => a.name.localeCompare(b.name));
 
 const pageTitle = "D&D Character Sheets";

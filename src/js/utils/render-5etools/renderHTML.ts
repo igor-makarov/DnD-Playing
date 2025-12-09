@@ -135,6 +135,11 @@ export default function renderHTML(reference: Reference): ReferenceRendered {
     })
     .join("");
 
+  // Add full link at the end if present
+  if (safeReference.fullLink) {
+    html += `<p><a href="${safeReference.fullLink}" target="_blank" rel="noopener noreferrer">Full reference</a></p>`;
+  }
+
   // Final sanitization as safety net (reuses singleton purify instance)
   const sanitizedHtml = sanitizeFinalHTML(html) as ReferenceHTML;
 

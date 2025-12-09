@@ -1,0 +1,39 @@
+---
+import ReferenceLayout from "@/layouts/ReferenceLayout.astro";
+import { getClass, getClassFeaturesFull } from "@/js/utils/render-5etools/getClass";
+import renderHTML from "@/js/utils/render-5etools/renderHTML";
+import { collectAllClassNames } from "@/js/utils/collectClassNames";
+
+export function getStaticPaths() {
+  const classNames = collectAllClassNames();
+  return [...classNames].map((className) => ({
+    params: { class: className },
+  }));
+}
+
+const { class: className } = Astro.params;
+
+// Fetch class data from 5etools
+const classData = getClass(className, "XPHB");
+
+// Add class features grouped by level
+const features = getClassFeaturesFull(className, "XPHB");
+const byLevel = new Map<number, typeof features>();
+for (const f of features) {
+  if (!byLevel.has(f.level)) byLevel.set(f.level, []);
+  byLevel.get(f.level)!.push(f);
+}
+
+for (const [level, levelFeatures] of byLevel) {
+  for (const feature of levelFeatures) {
+    classData.entries.push({ type: "heading", name: `Level ${level}: ${feature.name}` });
+    classData.entries = [...classData.entries, ...feature.entries];
+  }
+}
+
+const { sanitizedHtml } = renderHTML(classData);
+---
+
+<ReferenceLayout frontmatter={{ title: className }}>
+  <Fragment set:html={sanitizedHtml} />
+</ReferenceLayout>

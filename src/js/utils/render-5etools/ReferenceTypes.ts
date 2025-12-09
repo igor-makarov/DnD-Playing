@@ -25,6 +25,7 @@ export interface Reference {
   entries: Array<Entry>;
   category?: string;
   byline?: string; // Optional byline text displayed before the main content
+  fullLink?: string; // Optional link to full reference, when the info is summarized
 }
 
 /**

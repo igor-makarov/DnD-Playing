@@ -190,4 +190,9 @@ input[type="text"] {
   & highlight-5e {
     color: #a16b08;
   }
+
+  & a,
+  & a:visited {
+    color: #a16b08;
+  }
 }
