@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const azamatPath = "/characters/Azamat";
+const azamatPath = "/characters/Azamat/";
 
 test.describe("InfoTooltip", () => {
   test("opening Warforged tooltip should not focus close button and should not scroll", async ({ page }) => {

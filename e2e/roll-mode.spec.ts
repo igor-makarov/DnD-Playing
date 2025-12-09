@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const azamatPath = "/characters/Azamat";
+const azamatPath = "/characters/Azamat/";
 
 const APP_MODE_URL_REGEX = /^dice:\/\/roll\//;
 const SITE_MODE_URL_REGEX = /^https:\/\/dice\.run\/#\/d\//;

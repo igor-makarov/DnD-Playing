@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const azamatPath = "/characters/Azamat";
+const azamatPath = "/characters/Azamat/";
 
 test.describe("Channel Divinity Query String", () => {
   test("should update query string when checking channel divinity checkboxes", async ({ page }) => {

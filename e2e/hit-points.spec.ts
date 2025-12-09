@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const azamatPath = "/characters/Azamat";
+const azamatPath = "/characters/Azamat/";
 
 test.describe("Hit Points Browser History", () => {
   test("Azamat - should add one history entry after editing hit points once", async ({ page }) => {

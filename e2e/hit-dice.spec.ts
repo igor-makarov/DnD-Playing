@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
-const azamatPath = "/characters/Azamat";
-const adrikPath = "/characters/Adrik";
+const azamatPath = "/characters/Azamat/";
+const adrikPath = "/characters/Adrik/";
 
 test.describe("Hit Dice Query String", () => {
   test("Azamat - should update query string when editing one hit dice cell", async ({ page }) => {

@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
-const azamatPath = "/characters/Azamat";
-const adrikPath = "/characters/Adrik";
+const azamatPath = "/characters/Azamat/";
+const adrikPath = "/characters/Adrik/";
 
 test.describe("Rest Buttons Browser History", () => {
   test("Azamat - Short Rest should create only one history entry", async ({ page }) => {
