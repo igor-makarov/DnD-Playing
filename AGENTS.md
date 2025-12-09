@@ -2,6 +2,7 @@
 
 - This is a D&D Character sheet project using Astro.js with React components
 - Each character is an Astro **page**
+- Prefer running local `./jq` wrapper, example: `./jq 5etools/data/races.json '.race[] | select(.name == "Dwarf")'`
 
 # Verification
 
