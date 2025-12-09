@@ -10,14 +10,27 @@
  * Parses pages tagged with [[Category:Main player characters]] and outputs raw wikitext.
  */
 import * as fs from "fs";
+import { parseString } from "xml2js";
 
 interface Character {
   name: string;
   rawWikitext: string;
 }
 
+interface MediaWikiPage {
+  title?: string[];
+  revision?: Array<{
+    text?: Array<{ _: string } | string>;
+  }>;
+}
+
+interface MediaWikiExport {
+  mediawiki?: {
+    page?: MediaWikiPage[];
+  };
+}
+
 function parseCharacter(title: string, wikitext: string): Character | null {
-  // Check if it's a main player character
   if (!wikitext.includes("[[Category:Main player characters]]")) {
     return null;
   }
@@ -31,28 +44,21 @@ function parseCharacter(title: string, wikitext: string): Character | null {
 function parseXML(xmlContent: string): Character[] {
   const characters: Character[] = [];
 
-  // Simple XML parsing - find all <page> elements
-  const pageRegex = /<page>([\s\S]*?)<\/page>/g;
-  let match;
+  let result: MediaWikiExport = {};
+  parseString(xmlContent, { async: false }, (err, parsed) => {
+    if (err) throw err;
+    result = parsed;
+  });
 
-  while ((match = pageRegex.exec(xmlContent)) !== null) {
-    const pageContent = match[1];
+  const pages = result.mediawiki?.page ?? [];
 
-    // Extract title
-    const titleMatch = pageContent.match(/<title>([^<]+)<\/title>/);
-    if (!titleMatch) continue;
-    const title = titleMatch[1];
+  for (const page of pages) {
+    const title = page.title?.[0];
+    if (!title) continue;
 
-    // Extract wikitext content
-    const textMatch = pageContent.match(/<text[^>]*>([\s\S]*?)<\/text>/);
-    if (!textMatch) continue;
-
-    // Decode XML entities
-    let wikitext = textMatch[1];
-    wikitext = wikitext.replace(/&lt;/g, "<");
-    wikitext = wikitext.replace(/&gt;/g, ">");
-    wikitext = wikitext.replace(/&amp;/g, "&");
-    wikitext = wikitext.replace(/&quot;/g, '"');
+    const textNode = page.revision?.[0]?.text?.[0];
+    const wikitext = typeof textNode === "string" ? textNode : textNode?._ ?? "";
+    if (!wikitext) continue;
 
     const character = parseCharacter(title, wikitext);
     if (character) {
