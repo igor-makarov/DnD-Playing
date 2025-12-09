@@ -13,9 +13,16 @@ interface SpeciesReference extends Reference {
   };
 }
 
+// Structure of subspecies data from 5etools JSON files
+interface SubspeciesReference extends Reference {
+  raceName: string;
+  raceSource: string;
+}
+
 // Structure of species data from 5etools JSON files
 interface SpeciesData {
   race: Array<SpeciesReference>;
+  subrace: Array<SubspeciesReference>;
 }
 
 // Map of size codes to full names
@@ -98,5 +105,32 @@ export function getSpecies(name: string, source: string = "XPHB"): Reference {
     name: species.name,
     source: species.source,
     entries,
+  };
+}
+
+/**
+ * Get a subspecies from the 5etools data by name, species name, and source.
+ * This function should be called at build time in Astro frontmatter.
+ *
+ * @param name - The subspecies name (e.g., "Hill", "Mountain")
+ * @param speciesName - The parent species name (e.g., "Dwarf", "Elf")
+ * @param source - The source book (default: "PHB")
+ * @returns The subspecies reference data
+ * @throws Error if subspecies is not found
+ */
+export function getSubspecies(name: string, speciesName: string, source: string = "PHB"): Reference {
+  const speciesData = loadData<SpeciesData>("races.json");
+  const subspecies = speciesData.subrace.find(
+    (s) => s.name?.toLowerCase() === name.toLowerCase() && s.raceName?.toLowerCase() === speciesName.toLowerCase() && s.raceSource === source,
+  );
+
+  if (!subspecies) {
+    throw new Error(`Subspecies "${name}" of "${speciesName}" from source "${source}" not found in 5etools data`);
+  }
+
+  return {
+    name: `${subspecies.raceName} (${subspecies.name})`,
+    source: subspecies.source,
+    entries: subspecies.entries,
   };
 }
