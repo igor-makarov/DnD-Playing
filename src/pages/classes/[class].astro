@@ -2,22 +2,23 @@
 import ReferenceLayout from "@/layouts/ReferenceLayout.astro";
 import { getClass, getClassFeaturesFull } from "@/js/utils/render-5etools/getClass";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
-import { collectAllClassNames } from "@/js/utils/collectClassNames";
+import { collectAllClassReferences } from "@/js/utils/collectClassNames";
 
 export function getStaticPaths() {
-  const classNames = collectAllClassNames();
-  return [...classNames].map((className) => ({
-    params: { class: className },
+  const classRefs = collectAllClassReferences();
+  return classRefs.map((ref) => ({
+    params: { class: `${ref.name}-${ref.source}` },
+    props: { className: ref.name, source: ref.source },
   }));
 }
 
-const { class: className } = Astro.params;
+const { className, source } = Astro.props;
 
 // Fetch class data from 5etools
-const classData = getClass(className, "XPHB");
+const classData = getClass(className, source);
 
 // Add class features grouped by level
-const features = getClassFeaturesFull(className, "XPHB");
+const features = getClassFeaturesFull(className, source);
 const byLevel = new Map<number, typeof features>();
 for (const f of features) {
   if (!byLevel.has(f.level)) byLevel.set(f.level, []);

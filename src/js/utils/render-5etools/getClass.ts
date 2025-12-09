@@ -356,7 +356,7 @@ export function getClass(name: string, source: string = "XPHB"): Reference {
     name: classInfo.name,
     source: classInfo.source,
     entries,
-    fullLink: `/classes/${name}`,
+    fullLink: `/classes/${name}-${source}`,
   };
 
   return classReference;

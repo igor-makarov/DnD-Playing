@@ -3,21 +3,29 @@ import * as path from "node:path";
 
 const PAGES_DIR = "src/pages";
 
-/**
- * Extract class names from a file by searching for getClass("ClassName") patterns.
- */
-function extractClassNamesFromFile(filePath: string): string[] {
-  const content = fs.readFileSync(filePath, "utf-8");
-  const classNames: string[] = [];
+export interface ClassReference {
+  name: string;
+  source: string;
+}
 
-  // Match getClass("ClassName") calls
-  const getClassRegex = /getClass\(["'](\w+)["']\)/g;
+/**
+ * Extract class references from a file by searching for getClass("ClassName", "Source") patterns.
+ */
+function extractClassReferencesFromFile(filePath: string): ClassReference[] {
+  const content = fs.readFileSync(filePath, "utf-8");
+  const classRefs: ClassReference[] = [];
+
+  // Match getClass("ClassName") or getClass("ClassName", "Source") calls
+  const getClassRegex = /getClass\(["'](\w+)["'](?:\s*,\s*["'](\w+)["'])?\)/g;
   let match;
   while ((match = getClassRegex.exec(content)) !== null) {
-    classNames.push(match[1]);
+    classRefs.push({
+      name: match[1],
+      source: match[2] || "XPHB", // Default to XPHB if no source specified
+    });
   }
 
-  return classNames;
+  return classRefs;
 }
 
 /**
@@ -39,25 +47,38 @@ function findAstroFiles(dir: string): string[] {
 }
 
 /**
- * Collect all unique class names from all page files by searching for getClass() calls.
+ * Collect all unique class references from all page files by searching for getClass() calls.
+ * Returns a Map keyed by "ClassName|Source" for uniqueness.
  */
-export function collectAllClassNames(): Set<string> {
-  const classNames = new Set<string>();
+export function collectAllClassReferences(): ClassReference[] {
+  const classMap = new Map<string, ClassReference>();
   const pagesPath = path.resolve(PAGES_DIR);
 
   if (!fs.existsSync(pagesPath)) {
     console.warn(`[classes] Pages directory not found: ${pagesPath}`);
-    return classNames;
+    return [];
   }
 
   const files = findAstroFiles(pagesPath);
 
   for (const filePath of files) {
-    const names = extractClassNamesFromFile(filePath);
-    for (const name of names) {
-      classNames.add(name);
+    const refs = extractClassReferencesFromFile(filePath);
+    for (const ref of refs) {
+      const key = `${ref.name}|${ref.source}`;
+      if (!classMap.has(key)) {
+        classMap.set(key, ref);
+      }
     }
   }
 
-  return classNames;
+  return [...classMap.values()];
+}
+
+/**
+ * @deprecated Use collectAllClassReferences() instead
+ * Collect all unique class names from all page files by searching for getClass() calls.
+ */
+export function collectAllClassNames(): Set<string> {
+  const refs = collectAllClassReferences();
+  return new Set(refs.map((r) => r.name));
 }

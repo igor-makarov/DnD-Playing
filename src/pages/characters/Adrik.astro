@@ -8,6 +8,10 @@ import D20TestCell from "@/components/common/D20TestCell.tsx";
 import HitPointsInput from "@/components/HitPointsInput.tsx";
 import HitDiceTable from "@/components/HitDiceTable.tsx";
 import SpellSlotsTables from "@/components/SpellSlotsTables.astro";
+import InfoTooltip from "@/components/common/InfoTooltip.tsx";
+import { getClass } from "@/js/utils/render-5etools/getClass";
+import { getSpecies } from "@/js/utils/render-5etools/getSpecies";
+import renderHTML from "@/js/utils/render-5etools/renderHTML";
 import "@/styles/style.css";
 
 const character = new AdrikCharacter();
@@ -141,6 +145,26 @@ const characterName = "Adrik";
       </div>
       <div class="column features">
         <SpellSlotsTables character={character} />
+        <table>
+          <tr>
+            <th colspan="2" style="text-align: center;">Features</th>
+          </tr>
+          <tr>
+            <th>Feature</th>
+            <th class="modifier">Effect</th>
+          </tr>
+          <tr>
+            <td>Species</td>
+            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getSpecies("Dwarf", "PHB"))}>Dwarf</InfoTooltip> (Hill)</td>
+          </tr>
+          <tr>
+            <td>Class</td>
+            <td class="modifier">
+              <InfoTooltip client:load reference={renderHTML(getClass("Ranger", "PHB"))}>Ranger</InfoTooltip> 5 /
+              <InfoTooltip client:load reference={renderHTML(getClass("Cleric", "PHB"))}>Cleric</InfoTooltip> 7
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </body>

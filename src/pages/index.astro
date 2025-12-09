@@ -1,6 +1,7 @@
 ---
 import "@/styles/style.css";
-import { collectAllClassNames } from "@/js/utils/collectClassNames";
+import { collectAllClassReferences } from "@/js/utils/collectClassNames";
+import { getSourceName } from "@/js/utils/render-5etools/ReferenceTypes";
 
 // Get all character pages
 const pageModules = import.meta.glob("./characters/*.astro", { eager: true });
@@ -12,9 +13,14 @@ const characterPages = Object.keys(pageModules)
   .sort((a, b) => a.name.localeCompare(b.name));
 
 // Get all class pages from character files
-const classPages = [...collectAllClassNames()]
-  .map((name) => ({ name, url: new URL(`classes/${name}`, Astro.url).pathname }))
-  .sort((a, b) => a.name.localeCompare(b.name));
+const classPages = collectAllClassReferences()
+  .map((ref) => ({
+    name: ref.name,
+    source: ref.source,
+    displayName: ref.source === "XPHB" ? ref.name : `${ref.name} (${getSourceName(ref.source)})`,
+    url: new URL(`classes/${ref.name}-${ref.source}`, Astro.url).pathname,
+  }))
+  .sort((a, b) => a.name.localeCompare(b.name) || a.source.localeCompare(b.source));
 
 const pageTitle = "D&D Character Sheets";
 ---
@@ -57,10 +63,10 @@ const pageTitle = "D&D Character Sheets";
             <th>Classes</th>
           </tr>
           {
-            classPages.map(({ name, url }) => (
+            classPages.map(({ displayName, url }) => (
               <tr>
                 <td>
-                  <a href={url}>{name}</a>
+                  <a href={url}>{displayName}</a>
                 </td>
               </tr>
             ))
