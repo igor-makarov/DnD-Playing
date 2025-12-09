@@ -13,6 +13,7 @@ import { Character } from "@/js/character/Character";
 import type { Weapon } from "@/js/character/CharacterTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
+import { getCharacterCreationOption } from "@/js/utils/render-5etools/getCharacterCreationOption";
 import { getClass } from "@/js/utils/render-5etools/getClass";
 import { getSpecies } from "@/js/utils/render-5etools/getSpecies";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
@@ -169,7 +170,12 @@ const characterName = "Occtis Tachonis";
           </tr>
           <tr>
             <td>Species</td>
-            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getSpecies("Human"))}>Human</InfoTooltip> (Hollow One)</td>
+            <td class="modifier"
+              ><InfoTooltip client:load reference={renderHTML(getSpecies("Human"))}>Human</InfoTooltip> (<InfoTooltip
+                client:load
+                reference={renderHTML(getCharacterCreationOption("Hollow One"))}>Hollow One</InfoTooltip
+              >)</td
+            >
           </tr>
           <tr>
             <td>Class</td>
