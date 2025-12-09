@@ -1,0 +1,2317 @@
+<mediawiki xmlns="http://www.mediawiki.org/xml/export-0.11/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.11/ http://www.mediawiki.org/xml/export-0.11.xsd" version="0.11" xml:lang="en">
+  <siteinfo>
+    <sitename>Critical Role wiki</sitename>
+    <dbname>criticalrolewiki</dbname>
+    <base>https://criticalrole.miraheze.org/wiki/Main_Page</base>
+    <generator>MediaWiki 1.44.2</generator>
+    <case>first-letter</case>
+    <namespaces>
+      <namespace key="-2" case="first-letter">Media</namespace>
+      <namespace key="-1" case="first-letter">Special</namespace>
+      <namespace key="0" case="first-letter" />
+      <namespace key="1" case="first-letter">Talk</namespace>
+      <namespace key="2" case="first-letter">User</namespace>
+      <namespace key="3" case="first-letter">User talk</namespace>
+      <namespace key="4" case="first-letter">Critical Role wiki</namespace>
+      <namespace key="5" case="first-letter">Critical Role wiki talk</namespace>
+      <namespace key="6" case="first-letter">File</namespace>
+      <namespace key="7" case="first-letter">File talk</namespace>
+      <namespace key="8" case="first-letter">MediaWiki</namespace>
+      <namespace key="9" case="first-letter">MediaWiki talk</namespace>
+      <namespace key="10" case="first-letter">Template</namespace>
+      <namespace key="11" case="first-letter">Template talk</namespace>
+      <namespace key="12" case="first-letter">Help</namespace>
+      <namespace key="13" case="first-letter">Help talk</namespace>
+      <namespace key="14" case="first-letter">Category</namespace>
+      <namespace key="15" case="first-letter">Category talk</namespace>
+      <namespace key="106" case="first-letter">Form</namespace>
+      <namespace key="107" case="first-letter">Form talk</namespace>
+      <namespace key="460" case="first-letter">Campaign</namespace>
+      <namespace key="461" case="first-letter">Campaign talk</namespace>
+      <namespace key="502" case="first-letter">User blog</namespace>
+      <namespace key="503" case="first-letter">User blog talk</namespace>
+      <namespace key="710" case="first-letter">TimedText</namespace>
+      <namespace key="711" case="first-letter">TimedText talk</namespace>
+      <namespace key="828" case="first-letter">Module</namespace>
+      <namespace key="829" case="first-letter">Module talk</namespace>
+      <namespace key="3000" case="first-letter">Archive</namespace>
+      <namespace key="3001" case="first-letter">Archive talk</namespace>
+      <namespace key="3002" case="first-letter">Transcript</namespace>
+      <namespace key="3003" case="first-letter">Transcripts talk</namespace>
+    </namespaces>
+  </siteinfo>
+  <page>
+    <title>Azune Nayar</title>
+    <ns>0</ns>
+    <id>45168</id>
+    <revision>
+      <id>327187</id>
+      <parentid>325733</parentid>
+      <timestamp>2025-11-18T19:27:48Z</timestamp>
+      <contributor>
+        <username>CaptainOfTheTidesBreath</username>
+        <id>5</id>
+      </contributor>
+      <comment>/* top */ add pronunciation audio</comment>
+      <origin>327187</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="8345" sha1="trwutdlyq5ankpvg4xe8t7ewgnhv6dw" xml:space="preserve">{{Short description|Human paladin/sorcerer played by Luis Carazo}}
+{{Infobox Character
+| title = &lt;!-- If different from article title --&gt;
+| image = File:Azune Nayar headshot - Solelle.jpg
+| image_size = 300px
+| caption = {{caption|subject=Azune Nayar|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679672629727295}}
+&lt;!-- Basic information --&gt;
+| type = PC
+| setting = [[Aramán]]
+| actor = [[Luis Carazo]]
+| class = {{plainlist|
+* [[Paladin]]
+* [[Sorcerer]]}}
+| species = [[Human]]
+&lt;!-- Biographical information --&gt;
+| name = &lt;!-- If different from article title --&gt;
+| pronouns = he/him
+| characterTitles = Arcane Marshal
+| AKA = 
+| age = {{character age|27-28|C4}}{{ep ref|ep=4x02|2:05|more=Azune is 15 years old during the flashback, which is 12-13 years pre-campaign}}
+| languages = &lt;!-- Avoid using if the only entry is "Common" --&gt;
+| place = 
+| family = 
+| partner = 
+| children = 
+| profession = [[Revolutionary Guard]]
+| connections = [[Torn Banner]] (former member)
+&lt;!-- Status --&gt;
+| status = 
+| deathReason = &lt;!-- Both cause and episode/date go here. Keep this *brief* --&gt;
+&lt;!-- Mechanical information --&gt;
+| statsArray1 = {{Infobox Character/stats|
+| system = d&amp;d
+| creatureType = Humanoid
+| background = &lt;!-- Mechanical background, i.e. "Haunted One" --&gt;
+| alignment = 
+| level = 3
+| HP = 30
+| AC = 20
+| DC = 14
+| str = 18
+| dex = 14
+| con = 16
+| int = 12
+| wis = 14
+| cha = 18
+| statsRef = {{ep ref|ep=4x01|}}
+}}
+&lt;!-- Appearances --&gt;
+| first = {{ep|4x01}}
+| last = {{ep|4x04}}
+| stream = [[Campaign 4]] (4 episodes)
+}}
+'''Azune Nayar''' ({{Audio|Azune Nayar pronunciation - 4x01.ogg|pronunciation}}) is a [[human]] [[paladin]]/[[sorcerer]] and Arcane Marshal of the [[Revolutionary Guard]]. As a player character in [[Campaign 4]], he is played by [[Luis Carazo]].
+
+== Description ==
+[[File:Azune Nayar - Solelle.jpg|300px|thumb|left|{{caption|subject=Azune Nayar|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679672629727295}}]]
+
+Azune appears human. He is over 5'10" tall and had medium brown skin, coppery auburn hair tied back into a braid, and a birthmark on the right side of his neck. His eyes are described as "a sunset on the ocean": sun-yellow pupils "that burst" into orange, teal, then light gray with irises that are deep blue on the bottom half. He is strong, lean, and muscular. His right bicep is tattooed with the words "Have mercy on those I send you".{{ep ref|ep=4x01|6:17}}
+
+He wears the armor of the Revolutionary Guard with his arms exposed.{{ep ref|ep=4x01|6:17}}
+
+=== Personality ===
+[[Luis Carazo]] stated that Azune is interested in exploring the nature of the afterlife after the death of the [[Shapers]].{{ep ref|vod=https://www.youtube.com/watch?v=94mCyd_2Q_Y|ep=Critical Role Cast Interview with Brennan Lee Mulligan Campaign 4|6:49}} When describing Azune in one word, Luis chose "observant".{{ep ref|ep=CRITICAL ROLE CAMPAIGN 4 INTERVIEW! MULTIPLE TABLES! NO ONE TRUSTS MATT MERCER! Brennan Lee Mulligan|vod=https://www.youtube.com/watch?v=vUHrc_fXzZo&amp;t=1s|11:54}}
+{{clr|left}}
+
+== Biography ==
+=== Before Campaign 4 ===
+Azune was left by his father when he was a teenager. At 15 years old, he fought as a rebel in the [[Falconer's Rebellion]] as part of the [[Torn Banner]] under the command of [[Loza Blade]] alongside [[Thjazi Fang]], [[Thimble]], [[Kattigan Vale]], [[Teor Pridesire]], and [[Casimir Gavendale]].{{ep ref|ep=4x02|1:58}} At some point, Azune joined the [[Revolutionary Guard]] in [[Dol-Makjar]] and became an Arcane Marshal.
+
+In the two weeks following Thjazi's arrest, Azune, Thimble, Casimir, [[Thaisha Lloy]], [[Occtis Tachonis]], and [[Cyd Pridesire]] formulated a plan to rescue him, involving Thimble creating a glyph of ''Misty Step'' and planting it on Thjazi. Azune would be part of the proceedings to scan Thjazi for errant magic and falsely claim to find nothing.{{ep ref|ep=4x01|2h36m16s}}
+
+=== [[Campaign 4]] ===
+Azune checked Thjazi for magic as he was led to the gallows. Over ''Message'', Azune informed Thjazi that someone placed a glyph on him earlier, then relayed a message from Thjazi's brother [[Halandil Fang]]: Thjazi was always a hero in Hal's eyes. Assuring Thjazi that the work he started in the city continues, Azune cast ''Detect Magic'' to find what he believed was the glyph. He cleared Thjazi to be taken forward and indicated to him the glyph's location. However, Thjazi was still hanged and killed.{{ep ref|ep=4x01}}
+
+Afterward, Azune brought Thjazi's body to Hal's home for the [[Farramh]], and he smoothed out Thjazi's features to hide his fear in his last moments. He watched Hal closely throughout the event to help him host the many guests. After an initial wariness, he and Teor reunited warmly, and Azune assured him that many in Dol-Makjar felt Thjazi's execution was an injustice. Growing concerned that Teor also had not seen Cyd, his brother, he, Occtis, and Teor went to Thjazi's safe house, where Thimble created the glyph. They found the place ransacked, Thimble severely injured, and the glyph still in her possession. Azune realized that something else was planted on Thjazi, and the group found that the [[Stone of Nightsong]] was stolen from the safe house, apparently by the [[Crow Keepers]].{{ep ref|ep=4x01}}
+
+The group returned to Hal's house, where Azune discovered the item he detected on Thjazi was made to appear genuine using ''Magic Aura''. The following day, at work, Azune encountered [[Harondus Einfasen]] and learned that the [[Sundered Houses]] were taking over management of the [[Revolutionary Guard]], though not the Arcane Marshals such as himself. He then headed to Caravan Hill,{{ep ref|ep=4x02}} where [[Murray]] found him, and the two discussed the power grabs the Sundered Houses were taking in their respective workplaces. From there they went back to Hal's, having learned about a fracas at the [[Guard Tower]], and Azune was updated on Casimir's betrayal by Thimble. After Teor arrived with [[Wick]] and [[Tyranny]], Azune realized that group as well as Thimble and Kattigan, having fought the [[Crow Keepers]], needed to leave the city quickly, and most were also interested in tracking down Casimir. He helped them get horses and escape, and remained behind, reciting the names of the Falcon's Rest.{{ep ref|ep=4x03}}
+
+== Character information ==
+=== Notable items ===
+* Child's bracelet hanging from a necklace (arcane focus){{ep ref|ep=4x01|2:04:26}}
+
+=== Abilities ===
+Azune uses mechanics as defined in the 2024 ''Player's Handbook'' except where otherwise noted.
+
+====Human abilities====
+* Resourceful{{print ref|phb2024|194}}
+* Skillful{{print ref|phb2024|194}}
+* Versatile{{print ref|phb2024|194}}
+
+====Feats====
+* Lucky{{ep ref|ep=4x02|9:40}}
+
+====Paladin abilities====
+* Lay on Hands (5 or 10 points)
+* Spellcasting
+* Weapon Mastery (2 weapons)
+
+====Sorcerer abilities====
+* Spellcasting
+* Innate Sorcery
+
+====Proficiencies====
+{{slim table}}
+{| class="slim-table sortable" style="line-height:100%"
+|-
+! Proficiency !! Source !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| SKILL OR TOOL || SOURCE || 
+|}
+
+====Spells====
+{{slim table}}
+{| class="article-table sortable" style="line-height:100%;"
+! Spell !! Level !! Class !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| ''Guidance'' || data-sort-value="0" | Cantrip ||  || {{ep ref|ep=4x01|2:34:11}}
+|-
+| ''Mending'' || data-sort-value="0" | Cantrip || Sorcerer || {{ep ref|ep=4x04|4:11:49}}
+|-
+| ''Message'' || data-sort-value="0" | Cantrip || Sorcerer || {{ep ref|ep=4x01|0:07:54}}
+|-
+| ''Detect Magic'' || 1st || Paladin or Sorcerer || {{ep ref|ep=4x01|0:07:48}}
+|-
+| ''False Life'' || 1st || Sorcerer || {{ep ref|ep=4x01|2:04:52}}
+|}
+
+== Appearances and mentions ==
+* [[Campaign 4]]
+** {{appearance|4x01|appear|{{1st}}}}
+** {{appearance|4x02|appear}}
+** {{appearance|4x03|appear}}
+** {{appearance|4x04|appear}}
+
+== Quotations ==
+&lt;!-- Insert quotations here. --&gt;
+
+== Trivia ==
+* Azune shares his first name with a non-player character in ''Tales Unrolled'', an actual play series in which Luis is the Dungeon Master.
+
+== References ==
+{{Reflist}}
+{{Art reflist}}
+
+{{Nav-C4PCs}}
+[[Category:Main player characters]]
+[[Category:Characters in Campaign 4| ]][[Category:Aramán player characters]]
+[[Category:Multiclass characters]]</text>
+      <sha1>trwutdlyq5ankpvg4xe8t7ewgnhv6dw</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Bolaire Lathalia</title>
+    <ns>0</ns>
+    <id>45171</id>
+    <revision>
+      <id>326519</id>
+      <parentid>326085</parentid>
+      <timestamp>2025-11-11T19:43:34Z</timestamp>
+      <contributor>
+        <username>Patopq</username>
+        <id>2450</id>
+      </contributor>
+      <minor/>
+      <comment>cite</comment>
+      <origin>326519</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="7602" sha1="hhjbolu4if1jfeeekkdvv5axtcxka2s" xml:space="preserve">{{Short description|Warlock played by Taliesin Jaffe}}
+{{Infobox Character
+| image = File:Bolaire Lathalia headshot - Solelle.jpg
+| image_size = 300px
+| caption = {{caption|subject=Bolaire Lathalia|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679660105535936}}
+&lt;!-- Basic information --&gt;
+| type = PC
+| setting = [[Aramán]]
+| actor = [[Taliesin Jaffe]]
+| species = [[Panto mask]]
+| pronouns = he/him
+| characterTitles = 
+| AKA = 
+| class=[[Warlock]] (Fiend Patron){{ep ref|ep=4x04|more=Bolaire knows the spells ''Command'' and ''Suggestion'', both of which are granted by the Fiend subclass. This is presumed to be his subclass as it is the simplest way to have both spells. Note however that ''Suggestion'' is available to all warlocks, and ''Command'' may have been learned from the Magic Initiate feat.}}{{presumed}}
+| age = {{character age|About 70|C4}}{{ep ref|ep=4x04|03:57:49|more=Bolaire was created during the Shapers' War, which ended seventy years before the campaign.}}
+| languages = &lt;!-- Avoid using if the only entry is "Common" --&gt;
+| place = [[Dol-Makjar]]
+| family =  
+| profession = Museum curator
+| connections = 
+&lt;!-- Status --&gt;
+| status = Alive 
+| deathReason = &lt;!-- Both cause and episode/date go here. Keep this *brief* --&gt;
+&lt;!-- Mechanical information --&gt;
+| statsArray1 = {{Infobox Character/stats|
+| system = d&amp;d
+| creatureType = Humanoid
+| background = &lt;!-- Mechanical background, i.e. "Haunted One" --&gt;
+| alignment = 
+| level = 3
+| HP = 26
+| AC = 14
+| DC = 14
+| str = 12
+| dex = 14
+| con = 16
+| int = 18
+| wis = 14
+| cha = 18
+| statsRef = {{ep ref|ep=4x01|3:02:56}}
+}}
+&lt;!-- Appearances --&gt;
+| first = {{ep|4x01}}
+| last = {{ep|4x04}}
+| stream = [[Campaign 4]] (4 episodes)
+}}
+'''Bolaire Lathalia''' is a warlock and curator of the Lloy Wing at the [[Archanade]] museum. As a player character in [[Campaign 4]], he is played by [[Taliesin Jaffe]].
+
+== Description ==
+[[File:Bolaire Lathalia - Solelle.jpg|300px|thumb|left|{{caption|subject=Bolaire Lathalia|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679660105535936}}]]
+
+Bolaire is a gray clay mask with black lips and two dark pools where the eyes should be; behind those are reflected tiny blue lights. The mask can move, though not much.{{ep ref|vod=https://www.youtube.com/watch?v=94mCyd_2Q_Y|ep=Critical Role Cast Interview with Brennan Lee Mulligan Campaign 4|10:15}} 
+
+His body is a host that the mask possesses and is clothed from head to toe, with only a long, curly red wig being visible. Bolaire typically wears a cloak to keep a low profile.
+
+=== Personality ===
+Taliesin describes Bolaire as socially between [[Percy]] and [[Molly]],{{ep ref|vod=https://www.youtube.com/watch?v=94mCyd_2Q_Y|ep=Critical Role Cast Interview with Brennan Lee Mulligan Campaign 4|9:57}} and as a "truthful" person.{{ep ref|ep=CRITICAL ROLE CAMPAIGN 4 INTERVIEW! MULTIPLE TABLES! NO ONE TRUSTS MATT MERCER! Brennan Lee Mulligan|vod=https://www.youtube.com/watch?v=vUHrc_fXzZo&amp;t=1s|11:12}}
+{{clr|left}}
+
+== Biography ==
+=== Before Campaign 4 ===
+Bolaire claims to be one of the [[panto mask]]s, a set of sentient magical masks created by [[halfling]]s during the [[Shapers' War]] to perform a play that would kill their goddess [[Rauwyn]]. Bolaire would become dormant whenever not worn, and would be donned again many times in the next decades during wars that followed. During the [[Falconer's Rebellion]], Bolaire became dissatisfied with being used as a tool and absconded (abducting his current holder), becoming the curator of the [[Archanade]], a museum of magical artifacts.{{ep ref|ep=The Cast of Critical Role Discusses Campaign 4|vod=https://www.youtube.com/watch?v=J9Mtkh1FUPA|7:22}}{{ep ref|ep=4x04|04:05:05|name=Bolaire Backstory}}
+
+Bolaire became re-enamoured with theater after watching a play put on by [[Halandil Fang]], and befriended the bard and [[Fang family|his family]]. [[Thjazi Fang]] somehow discovered the truth of Bolaire's nature, and blackmailed him into stealing artifacts from the Archanade's archive.{{ep ref|ep=4x04|03:52:44}}
+
+Shortly before Thjazi Fang's execution, Bolaire let [[Vaelus]] into [[Dol-Makjar]].{{ep ref|ep=4x01|4:19:35}}
+
+=== [[Campaign 4]] ===
+In the moment before he died, Thjazi told his brother [[Halandil Fang]] that Bolaire had paint for him. [[Thimble]] additionally found that one of the only items left at her and Thjazi's hideout after she was attacked was a letter addressed to Bolaire. After Thjazi's execution, Bolaire arrived at Hal's home for the funeral. He made small talk with [[Tyranny]] and [[Murray]], and offered to help [[Thaisha]] with the guests. When Vaelus arrived, he pulled her aside and asked her what she was doing, and she pointed out that he had let her into the city.{{ep ref|ep=4x01}} Not long after, upstairs, Thaisha opened the box she and [[Occtis]] had retrieved for Thjazi from [[Venatus]] and fell unconscious as the area swirled with mist. Bolaire was among the guests who ran upstairs to see what had happened, and when he found out, chastised Thaisha for touching magical items without checking. He and Murray took the box, which they realized was a coffin for [[Olbalad]], back to the Archanade for study, and stayed up the remainder of the night, discovering that it seemed to be extremely deep. Murray left for work and Bolaire went back to his office for further study. He found a crate of paint for Hal on his way.{{ep ref|ep=4x02}} Later that day he brought the paint to Hal at the [[Hallowed Round]], having checked it and found it vaguely magical but with no clear spell effects.{{ep ref|ep=4x03}}
+
+== Character information ==
+=== Notable items ===
+* Signet ring of [[Occtis Tachonis]]{{ep ref|ep=4x05|1:20:34}}
+
+=== Abilities ===
+Bolaire uses mechanics as defined in the 2024 ''Player's Handbook'' except where otherwise noted.
+
+====Feats====
+
+====Warlock abilities====
+* Eldritch Invocations (3)
+** Devil's Sight{{ep ref|ep=4x01|4:00:06}}
+** Pact of the Blade{{ep ref|ep=4x04|05:03:53}}
+* Pact Magic
+* Magical Cunning
+* Warlock Subclass: Fiend Patron
+** Fiend Spells
+** Dark One's Blessing
+
+====Proficiencies====
+{{slim table}}
+{| class="slim-table sortable" style="line-height:100%"
+|-
+! Proficiency !! Source !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| Alchemist's supplies || Background or Feat || {{ep ref|ep=4x02|2:44:10}}
+|}
+
+====Spells====
+{{slim table}}
+{| class="article-table sortable" style="line-height:100%;"
+! Spell !! Level !! class="unsortable" | Notes !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| ''Burning Hands'' || 1st || Fiend spell || {{print ref|phb2024|161}}
+|-
+| ''Command'' || 1st || Fiend spell || {{print ref|phb2024|161}}{{ep ref|ep=4x04|03:48:41}}
+|-
+| ''Scorching Ray'' || 2nd || Fiend spell || {{print ref|phb2024|161}}
+|-
+| ''Suggestion'' || 2nd || Fiend spell || {{print ref|phb2024|161}}{{ep ref|ep=4x04|04:16:41}}
+&lt;!--|-
+| ''Note on Cantrips'' || data-sort-value="0" | Cantrip || You need to include that data-sort-value for specifically cantrips so the table correctly sorts by level || --&gt;
+|}
+
+== Appearances and mentions ==
+* [[Campaign 4]]
+** {{appearance|4x01|appear|{{1st}}}}
+** {{appearance|4x02|appear}}
+** {{appearance|4x03|appear}}
+** {{appearance|4x04|appear}}
+
+== Quotations ==
+&lt;!-- Insert quotations here. --&gt;
+
+== Trivia ==
+&lt;!-- Insert trivia here. --&gt;
+
+== References ==
+{{Reflist}}
+{{Art reflist}}
+
+{{Nav-C4PCs}}
+[[Category:Main player characters]]
+[[Category:Characters in Campaign 4| ]]
+[[Category:Sentient items]][[Category:Aramán player characters]]</text>
+      <sha1>hhjbolu4if1jfeeekkdvv5axtcxka2s</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Halandil Fang</title>
+    <ns>0</ns>
+    <id>45175</id>
+    <revision>
+      <id>327384</id>
+      <parentid>325881</parentid>
+      <timestamp>2025-11-24T00:40:57Z</timestamp>
+      <contributor>
+        <username>Jaflbe</username>
+        <id>1399</id>
+      </contributor>
+      <minor/>
+      <comment>Fixed Occtis typo and broken link</comment>
+      <origin>327384</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="7676" sha1="azvr8koty49wslgdarhq0qpexycenki" xml:space="preserve">{{Short description|Orc Bard played by Liam O'Brien}}
+{{redirect|Hal|the Exandria character|Haldur Lorelei}}
+{{Infobox Character
+| title = &lt;!-- If different from article title --&gt;
+| image = File:Halandil Fang headshot - Solelle.jpg
+| image_size = 300px
+| caption = {{caption|subject=Halandil Fang|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679670117355613}}
+&lt;!-- Basic information --&gt;
+| type = PC
+| setting = [[Aramán]]
+| actor = [[Liam O'Brien]]
+| class = [[Bard]]
+| species = [[Orc]]
+&lt;!-- Biographical information --&gt;
+| name = &lt;!-- If different from article title --&gt;
+| pronouns = he/him
+| characterTitles = 
+| AKA = Hal
+| age = &lt;!-- Use {{character age}} --&gt;
+| languages = &lt;!-- Avoid using if the only entry is "Common" --&gt;
+| place = [[Hallowed Round]], [[Dol-Makjar]]
+| family = {{tree list}}
+* [[Fang family]]
+** [[Thjazi Fang]] (brother)
+{{tree list/end}}
+| partner ={{Plainlist|
+*[[Thaisha Lloy]] (ex-partner)
+*[[Elodie]] (presumed partner)}} 
+| children = {{Plainlist|
+*[[Shadia Fang]] (daughter)
+*[[Alogar Fang]] (son)
+*[[Hero Fang]] (daughter)}}
+| profession = Poet and playwright
+| connections = 
+&lt;!-- Status --&gt;
+| status = 
+| deathReason = &lt;!-- Both cause and episode/date go here. Keep this *brief* --&gt;
+&lt;!-- Mechanical information --&gt;
+| statsArray1 = {{Infobox Character/stats|
+| system = d&amp;d
+| creatureType = Humanoid
+| background = &lt;!-- Mechanical background, i.e. "Haunted One" --&gt;
+| alignment = 
+| level = 3
+| HP = 23
+| AC = 13
+| DC = 14
+| str = 10
+| dex = 14
+| con = 13
+| int = 16
+| wis = 16
+| cha = 18
+| statsRef = {{ep ref|ep=4x01|31:28}}
+}}
+&lt;!-- Appearances --&gt;
+| first = {{ep|4x01}}
+| last = {{ep|4x04}}
+| stream = [[Campaign 4]] (4 episodes)
+| television = &lt;!-- ''[[The Legend of Vox Machina]]'' (X episodes) --&gt;
+| comic = &lt;!-- Wikilinked comic series title, i.e. the italicized part like "Vox Machina Origins Series II" or "The Tales of Exandria: The Bright Queen" --&gt;
+| other = &lt;!-- Any works that are not a streamed episode or a comic, including "Pre-stream" and "Kith &amp; Kin" --&gt; 
+}}
+'''Halandil''' "'''Hal'''" '''Fang''' is an [[orc]] [[bard]], the brother of [[Thjazi Fang]], and the owner of the [[Hallowed Round]]. As a player character in [[Campaign 4]], he is played by [[Liam O'Brien]].
+
+== Description ==
+[[File:Halandil Fang - Solelle.jpg|300px|thumb|left|{{caption|subject=Halandil Fang|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679670117355613}}]]
+Halandil is an older orc with dark hair with streaks of white and smile lines at the eyes from a life well lived. He dresses in fine but not ostentatious clothing. {{ep ref|ep=4x01|0:14}}
+=== Personality ===
+&lt;!-- Insert character personality here. If there is not a lot of information to dedicate sections for them, consider deleting the header and merging the section upwards.--&gt;
+
+{{clr|left}}
+== Biography ==
+=== Before Campaign 4 ===
+Halandil fought in part of the [[War of Axe and Vine]].{{ep ref|ep=4x1|1:05:17}} He and Thaisha were romantically involved and had [[Alogar]] and [[Shadia]], their children, together, when they were younger, and after Thaisha left to adventure, he raised the children. He and Thaisha are still close.{{ep ref|ep=4x01|40:40}} After Thjazi was captured, Hal had tried to stay the execution peacefully through political channels with [[Wicander Halovar]].{{ep ref|ep=4x01|1:49:40}} He also, earlier the day of Thjazi's execution, received the deed to the [[Dithyramb of Azgra]], an amphitheater he had long wanted.{{ep ref|ep=4x01|1:48:09}}
+
+=== [[Campaign 4]] ===
+[[Azune]] helped Hal be able to speak with Thjazi shortly before his execution, and when Thjazi realized he was indeed about to die he frantically told him to help [[Murray]], that [[Bolaire]] has paint, and to tell [[Thimble]] not to be afraid. Hal then hosted the wake for Thjazi, sharing moments with his family and friends. When Wick arrived, the two went upstairs and Hal asked him what had happened, regarding [[House Halovar]]'s choice to go through with the execution. Wick told him he did not know, but gave Hal Thjazi's sword.{{ep ref|ep=4x01}} After [[Vaelus]] arrived, Thaisha opened the box she had brought for Thjazi from [[Venatus]], and fell unconscious, at which Hal healed her. Later, after most of the guests left, he and his daughter Hero, from his other partner [[Elodie]], played "Broken Wing", an anthem of the [[Falconer's Rebellion]] for the remaining guests. He asked Vaelus to leave as everyone went to bed, as they did not have the [[Stone of Nightsong]] she was searching for, and she did; Thaisha, [[Occtis Tachonis|Occtis]], and Thimble slept at the house. The following morning, he told Thimble she was always welcome at his home, and made breakfast with Thaisha.{{ep ref|ep=4x02}}
+
+Later that day, Hal visited the theater, renamed the [[Hallowed Round]], with Thaisha and various members of his troupe. Bolaire came by with the paints, and Hal asked about them as he had only heard of them shortly before Thjazi died. He later returned home to find Thimble and [[Kattigan]], who had discovered that [[Casimir Gavendale]] had betrayed Thjazi and likely been the person who attacked Thimble. Hal, realizing [[Teor]] had not returned, sent out messengers, but Teor soon after arrived with Wick and [[Tyranny]], having been rescued by them from the [[Mercanaud Couturier]]. After some discussion, Kattigan, Thimble, Teor, Tyranny, and Wick realized they needed to leave the city for their own safety and could use the opportunity to track Casimir. As they left, Hal pulled aside Thimble and told her to find Casimir, Inspiring her.{{ep ref|ep=4x03}}
+
+== Character information ==
+=== Notable items ===
+* [[Liar's Blade]]{{ep ref|ep=4x03|04:15:01}}
+* Lyre{{ep ref|ep=4x02|48:32}}
+
+=== Abilities ===
+====Orc abilities====
+* Adrenaline Rush{{print ref|phb2024|195}}
+* Darkvision (120 ft.){{print ref|phb2024|195}}
+* Relentless Endurance{{print ref|phb2024|195}}
+
+====Feats====
+
+====Bard abilities====
+Hal uses the Bard mechanics as defined in the 2024 ''Player's Handbook''.
+* Bardic Inspiration
+* Spellcasting
+* Expertise
+* Jack of All Trades
+* Bard Subclass
+
+====Proficiencies====
+{{slim table}}
+{| class="slim-table sortable" style="line-height:100%"
+|-
+! Proficiency !! Source !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| SKILL OR TOOL || SOURCE || 
+|}
+
+====Spells====
+{{slim table}}
+{| class="article-table sortable" style="line-height:100%;"
+! Spell !! Level !! class="unsortable" | Notes !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| ''Thaumaturgy'' || data-sort-value="0" | Cantrip ||  || {{ep ref|ep=4x02|50:50}}
+|-
+| ''Comprehend Languages'' || 1st || || {{ep ref|ep=4x04|03:46:52}}
+|-
+| ''Healing Word'' || 1st || || {{ep ref|ep=4x02|24:36}}
+|-
+| ''Aid'' || 2nd || || {{ep ref|ep=4x04|04:20:35}}
+|}
+
+== Appearances and mentions ==
+&lt;!-- See "Template:Appearance" for more information about using the template. --&gt;
+* [[Campaign 4]]
+** {{appearance|4x01|appear|{{1st}}}}
+** {{appearance|4x02|appear}}
+** {{appearance|4x03|appear}}
+** {{appearance|4x04|appear}}
+
+== Quotations ==
+* "My life is a work in progress."{{ep ref|ep=4x01}}
+
+== Trivia ==
+* When asked to describe Halandil in one word, Liam said "history".{{ep ref|ep=CRITICAL ROLE CAMPAIGN 4 INTERVIEW! MULTIPLE TABLES! NO ONE TRUSTS MATT MERCER! Brennan Lee Mulligan|vod=https://www.youtube.com/watch?v=vUHrc_fXzZo&amp;t=1s|11:32}}
+
+== References ==
+{{Reflist}}
+{{Art reflist}}
+
+{{Nav-C4PCs}}
+[[Category:Main player characters]]
+[[Category:Characters in Campaign 4| ]]
+[[Category:Aramán player characters]]
+[[Category:Aramán orcs]]
+[[Category:Orcs in Dungeons &amp; Dragons]]</text>
+      <sha1>azvr8koty49wslgdarhq0qpexycenki</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Julien Davinos</title>
+    <ns>0</ns>
+    <id>45173</id>
+    <revision>
+      <id>325751</id>
+      <parentid>325722</parentid>
+      <timestamp>2025-10-28T04:04:24Z</timestamp>
+      <contributor>
+        <username>Thes</username>
+        <id>1409</id>
+      </contributor>
+      <comment>/* Character information */Cite</comment>
+      <origin>325751</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="7511" sha1="0n1c5ob5304anzh1vq3uz3shc63u718" xml:space="preserve">{{Short description|Human fighter/rogue played by Matthew Mercer}}
+{{Infobox Character
+| title = &lt;!-- If different from article title --&gt;
+| image = File:Julien Davinos headshot - Solelle.jpg
+| image_size = 300px
+| caption = {{caption|subject=Julien Davinos|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679657740013744}}
+&lt;!-- Basic information --&gt;
+| type = PC
+| setting = [[Aramán]]
+| actor = [[Matthew Mercer]]
+| class = {{plainlist|
+*[[Fighter]]
+*[[Rogue]]}}
+| species = [[Human]]
+&lt;!-- Biographical information --&gt;
+| name = Sir Julien Davinos
+| pronouns = he/him
+| characterTitles = 
+| AKA = 
+| age = {{character age|around 30|C4}}
+| languages = &lt;!-- Avoid using if the only entry is "Common" --&gt;
+| place = 
+| family = [[Raimond Davinos]] (father)
+| partner = 
+| children = 
+| profession = 
+| connections = 
+&lt;!-- Status --&gt;
+| status = 
+| deathReason = &lt;!-- Both cause and episode/date go here. Keep this *brief* --&gt;
+&lt;!-- Mechanical information --&gt;
+| statsArray1 = {{Infobox Character/stats|
+| system = d&amp;d
+| creatureType = Humanoid
+| background = &lt;!-- Mechanical background, i.e. "Haunted One" --&gt;
+| alignment = 
+| level = 3 (Fighter 2 / Rogue 1){{ep ref|ep=4x03|3:28:48|more=Julien uses Tactical Mind, a level 2 fighter ability}}
+| HP = 39
+| AC = 16
+| DC = 
+| str = 15
+| dex = 18
+| con = 18
+| int = 11
+| wis = 8
+| cha = 16
+| statsRef = {{ep ref|ep=4x01|3:18:08}}
+}}
+&lt;!-- Appearances --&gt;
+| first = {{ep|4x01}}
+| last = {{ep|4x04}}
+| stream = [[Campaign 4]] (4 episodes)
+| television = &lt;!-- ''[[The Legend of Vox Machina]]'' (X episodes) --&gt;
+| comic = &lt;!-- Wikilinked comic series title, i.e. the italicized part like "Vox Machina Origins Series II" or "The Tales of Exandria: The Bright Queen" --&gt;
+| other = &lt;!-- Any works that are not a streamed episode or a comic, including "Pre-stream" and "Kith &amp; Kin" --&gt; 
+}}
+'''Sir Julien Davinos''' is a [[human]] [[fighter]]/[[rogue]]. As a player character in [[Campaign 4]], he is played by [[Matthew Mercer]].
+
+== Description ==
+[[File:Julien Davinos - Solelle.jpg|300px|thumb|left|{{caption|subject=Julien Davinos|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679657740013744}}]]
+Julien is a human man in his thirties, with a lanky build. He has long, curly black hair.{{ep ref|ep=4x1|3:17:09}} He wears the reinforced leather military uniform of House Davinos, with a short green cape featuring vine and flower embroidery. His left hand is covered by a large and ornate silver gauntlet.
+
+=== Personality ===
+&lt;!-- Insert character personality here. If there is not a lot of information to dedicate sections for them, consider deleting the header and merging the section upwards.--&gt;
+{{clr|left}}
+== Biography ==
+Julien is a member of [[House Davinos]], a vassal house to the [[Sundered House]] of [[House Royce]]. [[Aranessa Royce]] is an old childhood friend of his.{{ep ref|ep=4x1|3:16:45}}
+
+He is considered the "hero of the Battle of Maharlian Falls" in the [[Falconer's Rebellion]] for knocking [[Thjazi Fang]] off his horse and bringing him to justice.{{ep ref|ep=4x1|3:20:22}}
+
+=== [[Campaign 4]] ===
+After the execution of Thjazi Fang, Sir Julian accompanied Lady Aranessa to Thjazi's wake in [[Halandil Fang]]'s home. When he approached the threshold, [[Thaisha]] let the plants she had ''Druidcrafted'' wither around him. She then met him outside and the two had a heated discussion about his attitude and his tutelage of Thaisha's son [[Alogar]], but were interrupted by the arrival of [[Vaelus]].{{ep ref|ep=4x01}} He and Aranessa left sometime later, and she told him [[Raimond Davinos|his father]] was waiting to see him the next day, at which he looked angry. He instead went to a brothel, and was woken up by his father tracking him down and yelling his name the following morning. He dressed and left with his father, who berated him for his behavior, indicating this was a pattern, as they rode to the [[Palazzo Davinos]]. There, Raimond and Aranessa spoke about their supply caravans having been stopped on the far side of the [[Dvalmar Pass]] and expressed concern about [[House Tachonis]]. They tasked Julien to find [[Occtis]], who the Tachonis family was searching for on suspected connection to a plan to free Thjazi, and Julien left to do so after his father threw water in his face to sober him up.{{ep ref|ep=4x02}} On his way, he encountered [[Teor Pridesire]] in the marketplace and realized he was likely being sent to be killed by the [[House Halovar]] fixers, but did not tell him this and continued on to Hal's to find Occtis. When [[Thimble]], [[Kattigan]], Occtis, and Vaelus returned to the house, Occtis in disguise, he grabbed Thimble by the wings and dismissed her value and let her go before telling the group that Occtis was in danger. Occtis believed him and decided to follow him, and Vaelus joined him. He brought them to the Palazzo Davinos, where his father and Aranessa received the guests. He then, instead of drinking with several friends, went to speak to Vaelus, who was in the garden, about how he felt uneasy about what was happening. Their conversation was interrupted when members of house Tachonis assassinated Raimond.{{ep ref|ep=4x03}}
+
+== Character information ==
+=== Notable items ===
+* Rapier
+* Demi-gauntlet (homebrew light and sap weapon){{ep ref|ep=4x04|0:38:02|more=Julien attacks with his gauntlet as a bonus action.}}{{ep ref|ep=4x04|01:56:23|more=Julien applies the Sap Weapon Mastery property on a hit.}}
+
+=== Abilities ===
+====Human abilities====
+*Resourceful{{print ref|phb2024|194}}
+*Skillful{{print ref|phb2024|194}}
+*Versatile{{print ref|phb2024|194}}
+
+====Feats and other boons====
+* Bloodied advantage: While Julien is [[Bloodied]], he has advantage on attacks against [[Primus Tachonis]].{{ep ref|ep=4x04|1:17:52}}
+
+====Fighter abilities====
+Julien uses the Fighter mechanics as defined in the 2024 ''Player's Handbook''.
+* Fighting Style: Two-Weapon Fighting{{ep ref|ep=4x04|1:55:45|more=Julien rolled 7 damage on a d6.}}
+* Second Wind (2 uses)
+* Weapon Mastery (3 weapons)
+* Action Surge
+* Tactical Mind{{ep ref|ep=4x03|3:28:48}}
+
+====Rogue abilities====
+Julien uses the Rogue mechanics as defined in the 2024 ''Player's Handbook''.
+* Expertise
+* Sneak Attack
+* Thieves' Cant
+* Weapon Mastery (2 weapons)
+
+====Proficiencies====
+{{slim table}}
+{| class="slim-table sortable" style="line-height:100%"
+|-
+! Proficiency !! Source !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| SKILL OR TOOL || SOURCE || 
+|}
+&lt;!--====Class spells====
+{{slim table}}
+{| class="article-table sortable" style="line-height:100%;"
+! Spell !! Level !! class="unsortable" | Notes !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| ''Spell name'' || level (Cantrip, 1st, 2nd, etc.) || any relevant info, eg: Oath/Domain/Circle spell. Delete this column if entirely empty. || 
+|-
+| ''Note on Cantrips'' || data-sort-value="0" | Cantrip || You need to include that data-sort-value for specifically cantrips so the table correctly sorts by level || 
+|}--&gt;
+
+== Appearances and mentions ==
+* [[Campaign 4]]
+** {{appearance|4x01|appear|{{1st}}}}
+** {{appearance|4x02|appear}}
+** {{appearance|4x03|appear}}
+** {{appearance|4x04|appear}}
+
+== Quotations ==
+&lt;!-- Insert quotations here. --&gt;
+
+== Trivia ==
+&lt;!-- Insert trivia here. --&gt;
+
+== References ==
+{{Reflist}}
+{{Art reflist}}
+
+{{Nav-C4PCs}}
+[[Category:Main player characters]]
+[[Category:Characters in Campaign 4| ]][[Category:Aramán player characters]]</text>
+      <sha1>0n1c5ob5304anzh1vq3uz3shc63u718</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Kattigan Vale</title>
+    <ns>0</ns>
+    <id>45169</id>
+    <revision>
+      <id>327756</id>
+      <parentid>327708</parentid>
+      <timestamp>2025-12-06T21:13:20Z</timestamp>
+      <contributor>
+        <username>CaptainOfTheTidesBreath</username>
+        <id>5</id>
+      </contributor>
+      <comment>add in background options, apparent intimidation prof</comment>
+      <origin>327756</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="7065" sha1="p314ka5g64hb8jwiu14c0m0grx56h32" xml:space="preserve">{{Short description|Human Ranger played by Robbie Daymond}}
+{{Infobox Character
+| title = &lt;!-- If different from article title --&gt;
+| image = File:Kattigan Vale headshot - Solelle.jpg
+|image_size = 300px
+| caption = {{caption|subject=Kattigan Vale|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679667756060750}}
+&lt;!-- Basic information --&gt;
+| type = PC
+| setting = [[Aramán]]
+| actor = [[Robbie Daymond]]
+| class = [[Ranger]] (Beast Master)
+| species = [[Human]]
+&lt;!-- Biographical information --&gt;
+| name = &lt;!-- If different from article title --&gt;
+| pronouns = he/him
+| characterTitles = 
+| AKA = 
+| age = {{character age|40s|C4}}
+| languages = Thieves' Cant{{ep ref|ep=4x02|3:15:56}}
+| place = 
+| family = 
+| partner = 
+| children = 
+| profession = 
+| connections = [[Torn Banner]] (former member)
+&lt;!-- Status --&gt;
+| status = 
+| deathReason = &lt;!-- Both cause and episode/date go here. Keep this *brief* --&gt;
+&lt;!-- Mechanical information --&gt;
+| statsArray1 = {{Infobox Character/stats|
+| system = d&amp;d
+| creatureType = Humanoid
+| background = Soldier or Guide&lt;ref&gt;In 2024 rules, backgrounds grant a feat. Kattigan has both the Savage Attacker and Magic Initiate (Druid) feats, which are granted by Soldier ({{ep time|ep=4x06|4:13:27}}) and Guide ({{ep time|ep=4x08|cite=needed}}) respectively. The other feat is granted by the mechanics for humans.&lt;/ref&gt;
+| alignment = 
+| level = 3
+| HP = 31
+| AC = 16
+| DC = 
+| str = 18
+| dex = 18
+| con = 16
+| int = 13
+| wis = 15
+| cha = 15
+| statsRef = {{ep ref|ep=4x1|2:41:03}}
+}}
+&lt;!-- Appearances --&gt;
+| first = {{ep|4x01}}
+| last = {{ep|4x03}}
+| stream = [[Campaign 4]] (3 episodes)
+| television = &lt;!-- ''[[The Legend of Vox Machina]]'' (X episodes) --&gt;
+| comic = &lt;!-- Wikilinked comic series title, i.e. the italicized part like "Vox Machina Origins Series II" or "The Tales of Exandria: The Bright Queen" --&gt;
+| other = &lt;!-- Any works that are not a streamed episode or a comic, including "Pre-stream" and "Kith &amp; Kin" --&gt; 
+}}
+'''Kattigan Vale''' is a [[human]] [[ranger]]. As a player character in [[Campaign 4]], he is played by [[Robbie Daymond]].
+
+== Description ==
+[[File:Kattigan Vale - Solelle.jpg|300px|thumb|left|{{caption|subject=Kattigan Vale|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679667756060750}}]]
+Kattigan is 6'4", muscular, and appears in his mid-40s. His clothes appear scavenged but high-quality, and are mostly monochrome.{{ep ref|ep=4x1|2:39:50}}
+
+=== Personality ===
+&lt;!-- Insert character personality here. If there is not a lot of information to dedicate sections for them, consider deleting the header and merging the section upwards.--&gt;
+{{clr|left}}
+== Biography ==
+=== Before Campaign 4 ===
+Kattigan was a member of the [[Torn Banner]] and served during the [[Falconer's Rebellion]].{{ep ref|ep=4x02|1:32}} A few days prior to Thjazi's execution, he was in [[Timmony]] on unspecified business.{{ep ref|ep=4x03|4:25:17}}
+
+=== [[Campaign 4]] ===
+Kattigan followed [[Teor]], [[Azune]], and [[Occtis]] to [[Thjazi]]'s hideout where they found [[Thimble]], and came in after they did, having been drinking since the execution. He was able to determine Thimble had likely been attacked by [[Crow Keepers]].{{ep ref|ep=4x01}} He joined them in going to the wake, and spoke with [[Loza Blade]] while he was there before leaving to continue to drink and eventually fall asleep in the woods. The following morning, he woke up and had [[Wulferic]] track Thimble, which led him back to [[Hal]]'s house. There, he paid his respects to Thjazi and, upon learning about the plan to save Thjazi that had failed, joined Thimble and Occtis in tracking down [[Casimir Gavendale]], a Crow Keeper and one of the two people from the plan who had not yet shown. When they arrived at the [[Guard Tower]] tavern, and Thimble asked about Casimir, they were immediately attacked.{{ep ref|ep=4x02}} The fight initially went poorly for them until [[Vaelus]] entered and killed two of the Crow Keepers, and after most of them fled, Thimble, Occtis, Kattigan, and Vaelus learned that Casimir had been the traitor and sold them out, then fled to [[Gormalay]], in Timmony, pursued by [[Cyd Pridesire]]. They returned to Hal's to provide him with an updated, and Occtis and Vaelus left with [[Julien]]. After [[Teor]], [[Tyranny]], and [[Wick]] arrived at Hal's, needing to leave town, they, along with Thimble and Kattigan, decided to go follow Casimir and Cyd's trail. Kattigan warned the others that the wilderness would be dangerous.{{ep ref|ep=4x03}}
+
+== Character information ==
+=== Notable items ===
+* Atlatl club (20/40ft range, Vex){{ep ref|ep=4x06|3:47:30}}
+
+=== Abilities ===
+====Human abilities====
+*Resourceful{{print ref|phb2024|194}}
+*Skillful{{print ref|phb2024|194}}
+*Versatile{{print ref|phb2024|194}}
+
+====Feats====
+* Savage Attacker{{ep ref|ep=4x06|4:13:27}}
+* Magic Initiate: Druid{{ep ref|ep=4x08|cite=needed}}
+
+====Ranger abilities====
+Kattigan uses the Ranger mechanics as defined in the 2024 ''Player's Handbook''.
+* Spellcasting
+* Favored Enemy
+* Weapon Mastery (2 weapons)
+* Deft Explorer
+** Expertise
+** Languages: Thieves' Cant{{ep ref|ep=4x06|3:22:33}}
+* Fighting Style
+* Ranger Subclass: Beast Master
+** Primal Companion
+
+====Proficiencies====
+{{slim table}}
+{| class="slim-table sortable" style="line-height:100%"
+|-
+! Proficiency !! Source !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| Athletics (expertise) || Ranger, Skillful, or background. Expertise from ranger. || {{ep ref|ep=4x08|12:18}}
+|-
+| Intimidation || Skillful or background || {{ep ref|ep=4x06|3:18:57|more=Robbie notes that his Intimidation is better than his Persuasion.}}
+|-
+| Survival || Ranger, Skillful, or background || {{ep ref|ep=4x05|12:18}}
+|}
+
+====Spells====
+{{slim table}}
+{| class="article-table sortable" style="line-height:100%;"
+! Spell !! Level !! class="unsortable" | Notes !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| ''Guidance'' || data-sort-value="0" | Cantrip || Magic Initiate || {{ep ref|ep=4x05|15:06}}
+|-
+| ''Spare the Dying'' || data-sort-value="0" | Cantrip || Magic Initiate || {{ep ref|ep=4x02|4:04:36}}
+|-
+| ''Clue'' || 1st ||  || {{ep ref|ep=4x01|2:48:11}}
+|-
+| ''Cure Wounds'' || 1st ||  || {{ep ref|ep=4x06|2:14:18}}
+|-
+| ''Fog Cloud'' || 1st ||  || {{ep ref|ep=4x08|cite=needed}}
+|-
+| ''Hail of Thorns'' || 1st ||  || {{ep ref|ep=4x08|cite=needed}}
+|-
+| ''Speak With Animals'' || 1st ||  || {{ep ref|ep=4x07|2:45:19}}
+|}
+
+== Appearances and mentions ==
+&lt;!-- See "Template:Appearance" for more information about using the template. --&gt;
+* [[Campaign 4]]
+** {{appearance|4x01|appear|{{1st}}}}
+** {{appearance|4x02|appear}}
+** {{appearance|4x03|appear}}
+** {{appearance|4x05|appear}}
+** {{appearance|4x06|appear}}
+
+== Quotations ==
+&lt;!-- Insert quotations here. --&gt;
+
+== Trivia ==
+&lt;!-- Insert trivia here. --&gt;
+
+== References ==
+{{Reflist}}
+{{Art reflist}}
+
+{{Nav-C4PCs}}
+[[Category:Main player characters]]
+[[Category:Characters in Campaign 4| ]][[Category:Aramán player characters]]</text>
+      <sha1>p314ka5g64hb8jwiu14c0m0grx56h32</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Murray Mag'Nesson</title>
+    <ns>0</ns>
+    <id>45176</id>
+    <revision>
+      <id>326058</id>
+      <parentid>326030</parentid>
+      <timestamp>2025-11-07T07:41:47Z</timestamp>
+      <contributor>
+        <username>Thes</username>
+        <id>1409</id>
+      </contributor>
+      <comment>/* Proficiencies */Cite</comment>
+      <origin>326058</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="6695" sha1="b433rw6vlmtjp12hkb0blbb7kak4qet" xml:space="preserve">{{Short description|Dwarf Wizard played by Marisha Ray}}
+{{Infobox Character
+| title = &lt;!-- If different from article title --&gt;
+| image = File:Murray Mag'nesson headshot - Solelle.jpg
+| image_size = 300px
+| caption = {{caption|subject=Murray Mag'Nesson|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679650626408744}}
+&lt;!-- Basic information --&gt;
+| type = PC
+| setting = [[Aramán]]
+| actor = [[Marisha Ray]]
+| class = [[Wizard]] (Diviner)
+| species = [[Dwarf]]
+&lt;!-- Biographical information --&gt;
+| name = &lt;!-- If different from article title --&gt;
+| pronouns = she/her
+| characterTitles = 
+| AKA = 
+| age = &lt;!-- Use {{character age}} --&gt;
+| languages = &lt;!-- Avoid using if the only entry is "Common" --&gt;
+| place = 
+| family = 
+| partner = 
+| children = 
+| profession = Bursar at the [[Penteveral]]
+| connections = 
+&lt;!-- Status --&gt;
+| status = 
+| deathReason = &lt;!-- Both cause and episode/date go here. Keep this *brief* --&gt;
+&lt;!-- Mechanical information --&gt;
+| statsArray1 = {{Infobox Character/stats|
+| system = d&amp;d
+| creatureType = Humanoid
+| background = &lt;!-- Mechanical background, i.e. "Haunted One" --&gt;
+| alignment = 
+| level = 3
+| HP = 30
+| AC = 12 / 9{{an|With and without ''Mage Armor''.}}
+| DC = 14
+| str = 11
+| dex =  8
+| con = 16
+| int = 19
+| wis = 12
+| cha = 12
+| statsRef = {{ep ref|ep=4x01|3:46:04}}
+}}
+&lt;!-- Appearances --&gt;
+| first = {{ep|4x01}}
+| last = {{ep|4x04}}
+| stream = [[Campaign 4]] (4 episodes)
+| television = &lt;!-- ''[[The Legend of Vox Machina]]'' (X episodes) --&gt;
+| comic = &lt;!-- Wikilinked comic series title, i.e. the italicized part like "Vox Machina Origins Series II" or "The Tales of Exandria: The Bright Queen" --&gt;
+| other = &lt;!-- Any works that are not a streamed episode or a comic, including "Pre-stream" and "Kith &amp; Kin" --&gt; 
+}}
+'''Murray Mag'Nesson''' is a [[dwarf]] [[wizard]] and bursar at the [[Penteveral]]. As a player character in [[Campaign 4]], she is played by [[Marisha Ray]].
+
+== Description ==
+[[File:Murray Mag'nesson - Solelle.jpg|300px|thumb|left|{{caption|subject=Murray Mag'Nesson|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679650626408744}}]]
+Murray has long auburn hair and a braided chinstrap beard. She wears a big flat-brim hat and a sleeveless duster jacket. The tip of her right index finger is like an inky quill.{{ep ref|ep=4x1|3:46:15}} Her front three right teeth have been replaced with gemstones.{{ep ref|ep=4x1|3:47:53}}
+
+=== Personality ===
+Murray is a down to earth woman who confidentially wears her lower class background on her shoulder. She is highly intelligent, with an interest in education and teaching. She is well aware how some may take her mannerisms, and at times uses them to go underestimated.
+&lt;!-- Insert character personality here. If there is not a lot of information to dedicate sections for them, consider deleting the header and merging the section upwards.--&gt;
+{{clr|left}}
+
+== Biography ==
+Murray works at the [[Penteveral]].{{ep ref|ep=4x1|3:49:00}} She was taken in there having been a "squatter".{{ep ref|ep=4x02|3:41:02}}
+
+=== [[Campaign 4]] ===
+Murray arrived at the funeral late, and networked with a number of the other arcanists there as well as made small talk with [[Bolaire]].{{ep ref|ep=4x01}} After [[Thaisha]] touched the coffin of [[Olbalad]], Murray used her ''Mage Hand'' to close it without touching it and helped Bolaire bring it to the [[Archanade]], where the two investigated it until morning. They found it was much deeper than it looked. Murray then left to go to the Penteveral, where she was stopped by a student who told her [[Ellipides Tallbarrel]] had been forced to resign. Upset, she went to his office, and learned that he had chosen to do so to prevent the [[Sundered Houses]] from prohibiting students from practicing arcane magic. They were interrupted by the arrival of [[Primus Tachonis]], who was looking for his son [[Occtis]].{{ep ref|ep=4x02}} During the conversation with Primus, Murray repeatedly angered him by refusing to be intimidated, to the point that he attempted to curse her and threatened to kill her. Ellipides interceded and Murray left to find [[Azune]]. The two met in Caravan Hill and discussed the Sundered Houses recent political takeovers of their respective workplaces, and decided to go to [[Hal]]'s. On the way, they learned of the fight with the [[Crow Keepers]]. At the house, they learned of [[Casimir Gavendale]]'s betrayal as well. She flirted with [[Kattigan]], and demanded an apology for [[Wick]] on behalf of his family, which he gave and she accepted.{{ep ref|ep=4x03}}
+
+== Character information ==
+=== Notable items ===
+
+=== Abilities ===
+====Dwarf abilities====
+* Darkvision (120 ft.){{print ref|phb2024|188}}
+* Dwarven Resilience{{print ref|phb2024|188}}
+* Dwarven Toughness{{print ref|phb2024|188}}
+* Stonecunning (2/day){{print ref|phb2024|188}}
+
+====Feats====
+
+====Wizard abilities====
+Murray uses the Wizard mechanics as defined in the 2024 ''Player's Handbook''.
+* Spellcasting
+* Ritual Adept
+* Arcane Recovery
+* Scholar
+* Wizard Subclass: Diviner{{ep ref|ep=4x04|03:22:22}}
+** Divination Savant
+** Portent
+
+====Proficiencies====
+{{slim table}}
+{| class="slim-table sortable" style="line-height:100%"
+|-
+! Proficiency !! Source !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| Arcana (expertise)|| Wizard or background. Expertise from Scholar|| {{ep ref|ep=4x05|0:40:08|more=Murray adds +8 to Arcana.}}
+|}
+
+====Spells====
+{{slim table}}
+{| class="article-table sortable" style="line-height:100%;"
+! Spell !! Level !! class="unsortable" | Notes !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| ''Mage Hand'' || data-sort-value="0" | Cantrip || || {{ep ref|ep=4x02|35:39}}
+|-
+| ''Message'' || data-sort-value="0" | Cantrip || || {{ep ref|ep=4x04|03:36:11}}
+|-
+| ''Detect Magic'' || 1st ||  || {{ep ref|ep=4x03|58:40}}
+|-
+| ''Identify'' || 1st ||  || {{ep ref|ep=4x02|2:40:03}}
+|-
+| ''Mage Armor'' || 1st ||  || {{ep ref|ep=4x04|04:22:40}}
+|}
+
+== Appearances and mentions ==
+&lt;!-- See "Template:Appearance" for more information about using the template. --&gt;
+* [[Campaign 4]]
+** {{appearance|4x01|appear|{{1st}}}}
+** {{appearance|4x02|appear}}
+** {{appearance|4x03|appear}}
+** {{appearance|4x04|appear}}
+
+== Quotations ==
+&lt;!-- Insert quotations here. --&gt;
+
+== Trivia ==
+* She has the lowest dexterity score of the player characters of Campaign 4.
+* She also has the lowest AC of the player characters of Campaign 4.
+
+== References ==
+{{Reflist}}
+{{Fn reflist|group=alpha}}
+{{Art reflist}}
+
+{{Nav-C4PCs}}
+[[Category:Main player characters]]
+[[Category:Characters in Campaign 4| ]][[Category:Aramán player characters]]</text>
+      <sha1>b433rw6vlmtjp12hkb0blbb7kak4qet</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Occtis Tachonis</title>
+    <ns>0</ns>
+    <id>45178</id>
+    <revision>
+      <id>327637</id>
+      <parentid>327636</parentid>
+      <timestamp>2025-12-03T11:04:44Z</timestamp>
+      <contributor>
+        <username>Heks</username>
+        <id>2241</id>
+      </contributor>
+      <minor/>
+      <origin>327637</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="8504" sha1="sqq8fuxwbwcocmh3c6dizrpoa2361jl" xml:space="preserve">{{Short description|Hollow One Wizard played by Alex Ward}}
+{{Infobox Character
+| title = &lt;!-- If different from article title --&gt;
+| image_size = 300px
+| image1_tab = Human
+| image1 = File:Occtis Tachonis headshot - Solelle.jpg
+| image1_caption = {{caption|subject=Occtis Tachonis|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679664455143798}}
+| image2_tab = Hollow One
+| image2 = HollowOneOcctisHeadshot-cropped.jpg
+| image2_caption = {{caption|subject=Occtis Tachonis|artist=Solelle|artist2=Hannah Friederichs|source=https://beacon.tv/content/occtis-tachonis}}
+&lt;!-- Basic information --&gt;
+| type = PC
+| setting = [[Aramán]]
+| actor = [[Alexander Ward]]
+| class = [[Wizard]] (Necromancer)
+| species = [[Human]] ([[Hollow One]]){{Beacon ref|title=CR Cooldown C4 E004|URL=content/cr-cooldown-c4-e004|1:28}}
+&lt;!-- Biographical information --&gt;
+| name = &lt;!-- If different from article title --&gt;
+| pronouns = he/him
+| characterTitles = 
+| AKA = 
+| age = {{character age|20|C4}}{{Beacon ref|title=Fireside Chat LIVE With Alexander Ward!|URL=content/fireside-chat-live-with-alexander-ward|00:54:07|more='''Alex:''' Just to clear anything up, Occtis is twenty years old.}}
+| languages = &lt;!-- Avoid using if the only entry is "Common" --&gt;
+| place = 
+| family = {{tree list}}
+*[[House Tachonis]]
+**[[Primus Tachonis]] (father)
+***[[Ethrand Tachonis]] (brother){{ep ref|ep=4x03|4:58:52}}
+***6 other siblings{{ep ref|ep=4x03|4:36:35|more=Occtis is the youngest of 8 siblings.}}
+{{Tree list/end}}
+| partner = 
+| children = 
+| profession = 
+| connections = [[Penteveral]] (student)
+&lt;!-- Status --&gt;
+| status = Undead
+| deathReason = Vivisected by [[Ethrand Tachonis]] ({{ep|4x04}}){{ep ref|ep=4x04|49:43|51:24}}
+&lt;!-- Mechanical information --&gt;
+| statsArray1 = {{Infobox Character/stats|
+| system = d&amp;d
+| creatureType = Humanoid
+| background = &lt;!-- Mechanical background, i.e. "Haunted One" --&gt;
+| alignment = 
+| level = 3
+| HP =23
+| AC = 16
+| DC = 14
+| str = 10
+| dex = 16
+| con = 16
+| int = 19
+| wis = 10
+| cha = 15
+| statsRef = {{ep ref|ep=4x01|40:20}}
+}}
+&lt;!-- Appearances --&gt;
+| first = {{ep|4x01}}
+| last = {{ep|4x04}}
+| stream = [[Campaign 4]] (4 episodes)
+| television = &lt;!-- ''[[The Legend of Vox Machina]]'' (X episodes) --&gt;
+| comic = &lt;!-- Wikilinked comic series title, i.e. the italicized part like "Vox Machina Origins Series II" or "The Tales of Exandria: The Bright Queen" --&gt;
+| other = &lt;!-- Any works that are not a streamed episode or a comic, including "Pre-stream" and "Kith &amp; Kin" --&gt; 
+}}
+'''Occtis Tachonis''' is a [[human]] [[Hollow One]] [[wizard]]. As a player character in [[Campaign 4]], he is played by [[Alexander Ward]].
+
+== Description ==
+[[File:Occtis Tachonis - Solelle.jpg|300px|thumb|left|{{caption|subject=Occtis Tachonis|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679664455143798}}]]
+&lt;!-- Insert character description here. --&gt;
+Occtis is a young man who is thin, with dark hair, light olive skin and bright green eyes. He wears clean but worn dark, noble clothing, with a book strapped to his leg and an array of implements around his belt.{{ep ref|ep=4x01|39:17}} He has a small fox familiar named [[Pincushion]].{{ep ref|ep=4x01|2:43:19}}
+=== Personality ===
+&lt;!-- Insert character personality here. If there is not a lot of information to dedicate sections for them, consider deleting the header and merging the section upwards.--&gt;
+{{clr|left}}
+== Biography ==
+=== Before Campaign 4 ===
+Occtis failed to demonstrate sorcerous abilities as were typical of [[House Tachonis]] and was sent by his family to the [[Penteveral]]'s boarding school to learn magic.{{ep ref|ep=4x03|52:48}}
+
+[[Thjazi Fang]] helped Occtis when he was a child,{{ep ref|ep=4x01|44:08}} and six months prior to Thjazi's execution, Occtis and [[Thaisha]] went to [[Venatus]] to retrieve an item for him.{{ep ref|ep=4x02|21:30}} Occtis and Thaisha were also supposed to help Thjazi get away after he escaped his execution.{{ep ref|ep=4x01|2:36:16}}
+
+=== [[Campaign 4]] ===
+Occtis and Thaisha arrived at the wake together, and Occtis addressed Thjazi's body. When [[Azune]] arrived, he and Occtis decided to go find [[Thimble]], and took [[Teor]] with them as well. They found Thjazi's hideout had been ransacked and Thimble attacked. [[Kattigan]] followed them to the location and was able to determine the assailants were likely [[Crow Keepers]].{{ep ref|ep=4x01}} The group, including Kattigan and Thimble, returned to [[Hal]]'s home, and explained what had happened regarding the plan. Occtis comforted Thimble, and helped Azune determine why the rune on Thjazi had appeared legitimate. He had [[Pincushion]] watch [[Vaelus]] and Thimble's interaction, but both realized he was spying on them. He then stayed overnight in Thaisha's room. Upon waking up, he agreed to join Thimble and Kattigan in tracking down the Crow Keepers and [[Casimir Gavendale]]. Upon arriving at the [[Guard Tower]], after Thimble asked [[Solomon]] about Casimir, the rogues attacked.{{ep ref|ep=4x02}} The fight initially went poorly until [[Vaelus]], who had followed them, arrived and killed two Crow Keepers. The group interrogated another and learned that Casimir had sold them out. They returned to Hal's house, where [[Julien]] was waiting, having been told by [[Raimond Davinos|his father]] and Lady [[Aranessa]] to find Occtis and bring him to them. Meanwhile, [[Primus Tachonis]] was asking for Occtis at the [[Penteveral]]. Occtis agreed to join Julien, and Vaelus came along to the [[Palazzo Davinos]], where Aranessa brought Occtis to a room where he could stay. She asked about the plan to save Thjazi as well as the coffin he had retrieved and the [[Stone of Nightsong]]. Occtis was somewhat evasive, but they were interrupted when his brother [[Ethrand Tachonis]] entered the room, along with six [[ghoul]]s and the Stone of Nightsong and commanded them to implant the stone in Occtis.{{ep ref|ep=4x03}}
+
+== Character information ==
+=== Notable items ===
+
+=== Abilities ===
+====Human abilities====
+*Resourceful{{print ref|phb2024|194}}
+*Skillful{{print ref|phb2024|194}}
+*Versatile{{print ref|phb2024|194}}
+
+====Hollow One abilities====
+*Ageless{{print ref|egtw|182}}
+*Cling to Life{{print ref|egtw|182}}
+*Revenance{{print ref|egtw|182}}
+*Unsettling Presence{{print ref|egtw|182}}
+
+====Feats====
+
+====Wizard abilities====
+Occtis uses the Wizard mechanics as defined in the 2024 ''Player's Handbook''.
+* Spellcasting
+* Ritual Adept
+* Arcane Recovery
+* Scholar
+* Wizard Subclass: Necromancer
+** Necromancy Savant
+** Necromancy Spellbook
+
+====Proficiencies====
+{{slim table}}
+{| class="slim-table sortable" style="line-height:100%"
+|-
+! Proficiency !! Source !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| Arcana || Wizard or Background || {{ep ref|ep=4x02|1:09:28|more=Alex rolls a 27 Arcana check with a +4 INT modifier.}}
+|}
+
+====Spells====
+{{slim table}}
+{| class="article-table sortable" style="line-height:100%;"
+! Spell !! Level !! class="unsortable" | Notes !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| ''Fire Bolt'' || data-sort-value="0" | Cantrip ||  || {{ep ref|ep=4x03|1:31:22}}
+|-
+|''Cause Fear'' || 1st || || {{ep ref|ep=4x03|1:11:45}}
+|-
+| ''Disguise Self'' || 1st || || {{ep ref|ep=4x01|2:03:33}}
+|-
+|''Find Familiar'' || 1st || || {{ep ref|ep=4x01|2:42:38}}
+|-
+|''Mind Spike'' || 2nd || || {{ep ref|ep=4x04|44:23}}
+|-
+|''Spider Climb'' || 2nd || || {{Beacon ref|title=CR Cooldown C4 E004|URL=content/cr-cooldown-c4-e004|4:46}}
+|-
+|''[[Summon Undead Critter]]'' || 1st or 2nd || || {{ep ref|ep="&lt;nowiki&gt;Overview of the Overture | Campaign 4 | Ep 1-4 Recap&lt;/nowiki&gt;"|vod=https://www.youtube.com/watch?v=hdLPwuKMlIY|44:23}}
+|}
+
+== Appearances and mentions ==
+&lt;!-- See "Template:Appearance" for more information about using the template. --&gt;
+* [[Campaign 4]]
+** {{appearance|4x01|appear|{{1st}}}}
+** {{appearance|4x02|appear}}
+** {{appearance|4x03|appear}}
+** {{appearance|4x04|appear}}
+** {{appearance|4x05|appear}}
+** {{appearance|4x06|appear}}
+** {{appearance|4x07|mention}}
+
+== Quotations ==
+&lt;!-- Insert quotations here. --&gt;
+
+== Trivia ==
+* According to Thaisha, Occtis has never had sex.{{ep ref|ep=4x02|3:49:19}} Occtis would later confirmed this fact after becoming a Hollow One.{{ep ref|ep=4x05|1:30:52}}
+
+== References ==
+{{Reflist}}
+{{Art reflist}}
+
+{{Nav-C4PCs}}
+[[Category:Main player characters]]
+[[Category:Characters in Campaign 4| ]][[Category:Aramán player characters]]</text>
+      <sha1>sqq8fuxwbwcocmh3c6dizrpoa2361jl</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Teor Pridesire</title>
+    <ns>0</ns>
+    <id>45179</id>
+    <revision>
+      <id>327766</id>
+      <parentid>327764</parentid>
+      <timestamp>2025-12-07T06:04:28Z</timestamp>
+      <contributor>
+        <username>Thes</username>
+        <id>1409</id>
+      </contributor>
+      <comment>/* Paladin abilities */</comment>
+      <origin>327766</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="9158" sha1="1woghcq1r10stboonq6ks8vnk20x8fg" xml:space="preserve">{{Short description|Nama paladin played by Travis Willingham}}
+{{Infobox Character
+| title = &lt;!-- If different from article title --&gt;
+| image = File:Teor Pridesire headshot - Solelle.jpg
+| image_size = 300px
+| caption = {{caption|subject=Teor Pridesire|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679646117532162}}
+&lt;!-- Basic information --&gt;
+| type = PC
+| setting = [[Aramán]]
+| actor = [[Travis Willingham]]
+| class = [[Paladin]] (Oath of Glory)
+| species = [[Nama]]
+&lt;!-- Biographical information --&gt;
+| name = &lt;!-- If different from article title --&gt;
+| pronouns = he/him
+| characterTitles = 
+| AKA = 
+| age = &lt;!-- Use {{character age}} --&gt;
+| languages = &lt;!-- Avoid using if the only entry is "Common" --&gt;
+| place = 
+| family = [[Tal'cydimir Pridesire]] (younger brother)
+| partner = 
+| children = 
+| profession = Mercenary
+| connections = [[Torn Banner]] (member)
+&lt;!-- Status --&gt;
+| status = 
+| deathReason = &lt;!-- Both cause and episode/date go here. Keep this *brief* --&gt;
+&lt;!-- Mechanical information --&gt;
+| statsArray1 = {{Infobox Character/stats|
+| system = d&amp;d
+| creatureType = Humanoid
+| background = Soldier&lt;ref&gt;Per 2024 rules, Teor has one feat at level 3 from his background. He has Savage Attacker ({{ep time|ep=4x06|4:01:08}}), granted only by the Soldier background.&lt;/ref&gt;
+| alignment = 
+| level = 3
+| HP = 36
+| AC = 18
+| DC = 13
+| str = 15
+| dex = 15
+| con = 16
+| int = 12
+| wis = 14
+| cha = 17
+| speed = walk 35 ft.{{ep ref|ep=4x06|1:33:35}}
+| statsRef = {{ep ref|ep=4x01|59:36}}
+}}
+&lt;!-- Appearances --&gt;
+| first = {{ep|4x01}}
+| last = {{ep|4x03}}
+| stream = [[Campaign 4]] (3 episodes)
+| television = &lt;!-- ''[[The Legend of Vox Machina]]'' (X episodes) --&gt;
+| comic = &lt;!-- Wikilinked comic series title, i.e. the italicized part like "Vox Machina Origins Series II" or "The Tales of Exandria: The Bright Queen" --&gt;
+| other = &lt;!-- Any works that are not a streamed episode or a comic, including "Pre-stream" and "Kith &amp; Kin" --&gt; 
+}}
+'''Teor Pridesire''' is a [[nama]] paladin and mercenary of the [[Torn Banner]]. As a player character in [[Campaign 4]], he is played by [[Travis Willingham]].
+
+== Description ==
+[[File:Teor Pridesire - Solelle.jpg|300px|thumb|left|{{caption|subject=Teor Pridesire|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679646117532162}}]]
+Teor is a light tan and grey nama. He has yellow eyes. On the left side of his face he has a long scar starting at just above the eyebrow bone and going down to just under his lips. He has a long grey mane, some of which is braided with a purple band and worn over his shoulders. He has a beard which is also braided with a purple band.
+
+=== Personality ===
+Teor is described as stoic.{{ep ref|ep=The Cast of Critical Role Discusses Campaign 4|vod=https://www.youtube.com/watch?v=J9Mtkh1FUPA|1:08}}
+{{clr|left}}
+
+== Biography ==
+=== Before Campaign 4 ===
+Teor served in the [[Torn Banner]] during the [[Falconer's Rebellion]].{{ep ref|ep=4x02|5:47}} He remained with his commander [[Loza Blade]] as a mercenary afterwards, and they returned to [[Dol-Makjar]] shortly prior to [[Thjazi]]'s execution.{{ep ref|ep=4x01|1:05:54}}
+
+=== [[Campaign 4]] ===
+Teor and Loza came to Thjazi's funeral together. There, Teor reunited with [[Azune]], who had also served with them, and told Azune he had hoped to settle back in town because his brother [[Cyd]] still lived here. He and Azune, along with [[Occtis]], left the funeral after a few hours to investigate Thjazi's safe house. There, they found it ransacked, and [[Thimble]] unconscious. Teor healed her, and the group broke the news of Thjazi's death to her. [[Kattigan]], who had also served in the Torn Banner, joined, having followed the others, and was able to determine a likely lead on who had attacked Thimble.{{ep ref|ep=4x01}} They returned to the wake and updated others involved in the plan to save Thjazi with what had happened. Teor learned that Cyd had been part of the plan from Azune and Occtis, and told them that Cyd was generally not very trustworthy and had a history of stealing. Upon leaving the wake with Loza, she told him that she would be retiring and heading further west, but gave him a case containing half of a banner that had once been the pennant of the now disbanded Torn Banner. She also told him she had set up a meeting with [[Wicander Halovar]] for a security job for him. The following day, he went to the meeting, and while waiting for Wick healed a worker who was injured when a crate fell. Wick seemed amenable to hiring him, as did [[Tyranny]], but [[Yanessa Halovar]] felt he was asking too many questions and sent him to [[Filoneus Halovar]]{{ep ref|ep=4x02}} to pass on to the [[Mercanaud Couturier]], the house's fixers. On the way, Teor encountered [[Julien]], who realized that Teor was likely being sent to his death, but did not intervene. At the Couterier, once [[Rulius and Calastro Mercanaud]] realized Teor had been sent to be "outfitted", they captured him and began cutting up his shadow. However, Tyranny and Wick, having decided to save Teor after Wick had learned the truth about the [[Candescent Creed]], convinced the Mercanaud twins to let Teor go. They all went to [[Hal]]'s home, where they met Thimble and Kattigan, who told them [[Casimir Gavendale]], another former member of the Torn Banner, was the traitor, and Cyd had run after him in pursuit towards [[Gormalay]]. They all realized they needed to leave the city as they were in danger from [[House Halovar]] or the [[Crow Keepers]] and with Azune's help left that night.{{ep ref|ep=4x03}}
+
+== Character information ==
+=== Notable items ===
+* Breastplate
+* Shield
+* Flail{{ep ref|ep=4x02|2:07:58}}
+* The namesake [[Torn Banner]], given by [[Loza Blade]]{{ep ref|ep=4x02|1:40:04}}
+
+=== Abilities ===
+====Nama abilities====
+Teor uses the leonin mechanics as defined in ''Mythic Odysseys of Theros''.
+*Darkvision{{ep ref|ep=4x06|3:29:45}}
+*Claws
+*Hunter's Instinct
+*Daunting Roar{{ep ref|ep=4x08|cite=needed}}
+
+====Feats====
+* Savage Attacker,{{ep ref|ep=4x06|4:01:08}} from the Soldier background
+
+====Paladin abilities====
+Teor uses the paladin mechanics as defined in the 2024 ''Player's Handbook''.
+* Lay on Hands (15 points)
+* Spellcasting
+* Weapon Mastery (2 weapons)
+* Fighting Style: Blessed Warrior{{ep ref|ep=4x08|cite=needed|more=Teor casts a cantrip.}} or Dueling{{ep ref|ep=4x08|02:42:50|}}
+* Paladin's Smite
+* Channel Divinity
+* Paladin Subclass: Oath of Glory
+**Inspiring Smite{{ep ref|ep=4x06|4:29:36}}
+** Oath of Glory Spells
+** Peerless Athlete
+
+====Proficiencies====
+{{slim table}}
+{| class="slim-table sortable" style="line-height:100%"
+|-
+! Proficiency !! Source !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| Athletics || Soldier || {{ep ref|ep=4x01|2:29:41|more=Teor adds +4 to his athletics roll}}
+|-
+| Insight || Paladin || {{ep ref|ep=4x03|0:04:14|more=Teor rolls 23 on a natural 19}}
+|-
+| Intimidation || Soldier || {{dnd ref|phb 2024|185}}
+|-
+| Religion{{presumed}} || Paladin || &lt;ref&gt;Paladin have a choice of two from Athletics, Insight, Intimidation, Medicine, Persuasion, or Religion. Teor already has Athletics and Intimidation from Soldier and is known to have Insight from Paladin. He does not have Medicine ({{ep time|ep=4x02|0h3m52s}}, he adds +2) or Persuasion ({{ep time|ep=4x02|2h11m37s}}, his Deception and Persuasion are the same), leaving him only Religion.&lt;/ref&gt;
+|-
+| Stealth || || {{ep ref|ep=4x08|0:45:30|more=Teor adds 4 to his stealth roll}}
+|}
+
+====Spells====
+{{slim table}}
+{| class="article-table sortable" style="line-height:100%;"
+! Spell !! Level !! class="unsortable" | Notes !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| ''Thaumaturgy'' || data-sort-value="0" | Cantrip || Blessed Warrior || {{ep ref|ep=4x08|cite=needed}}
+|-
+| ''Cure Wounds'' || 1st || || {{ep ref|ep=4x01|2:29:22}}
+|-
+| ''Guiding Bolt'' || 1st || Oath Spell || {{ep ref|ep=4x06|1:33:32}}
+|-
+| ''Heroism'' || 1st || Oath Spell || {{print ref|phb2024|115}}
+|-
+| ''Divine Smite'' || 1st || Paladin's Smite || {{ep ref|ep=4x06|4:00:56}}
+|-
+| ''Shield of Faith'' || 1st || || {{ep ref|ep=4x08|cite=needed}}
+|}
+
+== Behind the scenes ==
+Travis considered playing a bull or elephant before he decided on a lion for Teor.{{ep ref|ep=Brennan Lee Mulligan &amp; Critical Role Cast Reveal Their Campaign 4 Secrets!|vod=https://youtu.be/4rUtd6noMAo?si=GWmgF_ixqELLqCb0|0:15}}
+
+== Appearances and mentions ==
+* [[Campaign 4]]
+** {{appearance|4x01|appear|{{1st}}}}
+** {{appearance|4x02|appear}}
+** {{appearance|4x03|appear}}
+** {{appearance|4x05|appear}}
+** {{appearance|4x06|appear}}
+
+== Quotations ==
+&lt;!-- Insert quotations here. --&gt;
+
+== Trivia ==
+* Travis, when asked to describe Teor in one word, gave the answer "meow".{{ep ref|ep=CRITICAL ROLE CAMPAIGN 4 INTERVIEW! MULTIPLE TABLES! NO ONE TRUSTS MATT MERCER! Brennan Lee Mulligan|vod=https://www.youtube.com/watch?v=vUHrc_fXzZo&amp;t=1s|10:44}}
+
+== References ==
+{{Reflist}}
+{{Art reflist}}
+
+{{Nav-C4PCs}}
+[[Category:Main player characters]]
+[[Category:Characters in Campaign 4| ]]
+[[Category:Aramán player characters]]
+[[Category:Nama]]</text>
+      <sha1>1woghcq1r10stboonq6ks8vnk20x8fg</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Thaisha Lloy</title>
+    <ns>0</ns>
+    <id>45170</id>
+    <revision>
+      <id>326099</id>
+      <parentid>325719</parentid>
+      <timestamp>2025-11-09T03:57:31Z</timestamp>
+      <contributor>
+        <ip>71.54.170.92</ip>
+      </contributor>
+      <comment>The levels of Fog Cloud and Hold Person from Thaisha's Circle of Land (Polar) spells were swapped, I just put them back to where they should be</comment>
+      <origin>326099</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="8832" sha1="mba1m8wd48l1qor22fo7v3er4x0mbhv" xml:space="preserve">{{Short description|Orc Druid played by Aabria Iyengar}}
+{{Infobox Character
+| title = &lt;!-- If different from article title --&gt;
+| image = File:Thaisha Lloy headshot - Solelle.jpg
+| image_size = 300px
+| caption = {{caption|subject=Thaisha Lloy|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679655416398110}}
+&lt;!-- Basic information --&gt;
+| type = PC
+| setting = [[Aramán]]
+| actor = [[Aabria Iyengar]]
+| class = [[Druid]] (Circle of the Land)
+| species = [[Orc]]
+&lt;!-- Biographical information --&gt;
+| name = &lt;!-- If different from article title --&gt;
+| pronouns = she/her
+| characterTitles = 
+| AKA = 
+| age = &lt;!-- Use {{character age}} --&gt;
+| languages = &lt;!-- Avoid using if the only entry is "Common" --&gt;
+| place = 
+| family = {{plainlist|
+* [[Lloy family]]
+* [[Fang family]]}}
+| partner = [[Halandil Fang]] (ex-partner)
+| children = {{Plainlist|
+*[[Shadia Fang]] (daughter)
+*[[Alogar Fang]] (son)}}
+| profession = 
+| connections = [[Old Path]] (member)
+&lt;!-- Status --&gt;
+| status = 
+| deathReason = &lt;!-- Both cause and episode/date go here. Keep this *brief* --&gt;
+&lt;!-- Mechanical information --&gt;
+| statsArray1 = {{Infobox Character/stats|
+| system = d&amp;d
+| creatureType = Humanoid
+| background = &lt;!-- Mechanical background, i.e. "Haunted One" --&gt;
+| alignment = 
+| level = 3
+| HP =28
+| AC = 14
+| DC = 15
+| str = 13
+| dex = 13
+| con = 16
+| int = 13
+| wis = 20
+| cha = 16
+| statsRef = {{ep ref|ep=4x01|0:38:40}}
+}}
+&lt;!-- Appearances --&gt;
+| first = {{ep|4x01}}
+| last = {{ep|4x04}}
+| stream = [[Campaign 4]] (4 episodes)
+| television = &lt;!-- ''[[The Legend of Vox Machina]]'' (X episodes) --&gt;
+| comic = &lt;!-- Wikilinked comic series title, i.e. the italicized part like "Vox Machina Origins Series II" or "The Tales of Exandria: The Bright Queen" --&gt;
+| other = &lt;!-- Any works that are not a streamed episode or a comic, including "Pre-stream" and "Kith &amp; Kin" --&gt; 
+}}
+'''Thaisha Lloy''' (pronounced "TAI-shuh") is an [[orc]] [[druid]]. As a player character in [[Campaign 4]], she is played by [[Aabria Iyengar]].
+
+== Description ==
+[[File:Thaisha Lloy - Solelle.jpg|300px|thumb|left|{{caption|subject=Thaisha Lloy|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679655416398110}}]]
+Thaisha is a 6'4" orc with desaturated green skin, and long curly dark hair which is beginning to gray. Her fingers are red and black at the tips, and her eyes are black with silver and red irises. She wears fine clothes in the Lloy family colors (red for blood, and gray for the soot and scale of smiths).{{ep ref|ep=4x01|0:37:46}}
+
+=== Personality ===
+&lt;!-- Insert character personality here. If there is not a lot of information to dedicate sections for them, consider deleting the header and merging the section upwards.--&gt;
+{{clr|left}}
+== Biography ==
+Thaisha was born into the noble Lloy family. Around age 19, she began a romantic relationship with [[Halandil Fang]] and they had two children together - [[Alogar]] and [[Shadia Fang]].{{ep ref|ep=4x01|01:55:19}} Thaisha was inspired by Hal's art and her own family's history to become a druid of the [[Old Path]].
+
+Prior to his arrest, [[Thjazi Fang]] sent Thaisha with [[Occtis Tachonis]] to retrieve a box from Venatus and bring it back to [[Bolaire]].{{ep ref|ep=4x02|00:21:30}}
+
+In the two weeks following Thjazi's arrest, Thaisha, Azune, Thimble, [[Casimir]], Occtis, and [[Cyd Pridesire]] formulated a plan to rescue him, involving Thimble creating a glyph of Misty Step and planting it on Thjazi. Thaisha and Occtis would be responsible for escorting Thjazi out of the city to a safe place.{{ep ref|ep=4x01|00:42:17}}
+
+=== [[Campaign 4]] ===
+Thaisha arrived at Halandil's home for Thjazi’s funeral, alongside Occtis, one of the first guests to arrive. Thaisha introduced the Fangs to Occtis and confirmed that she will be staying for the time being. She grew jasmine flowers around the entrance to the home with druidic magic, and used those flowers to welcome guests. At the wake, she mingled with other guests and recited funerary rites for Thjazi. She bonded with [[Tyranny]] while intoxicated, but sobered up to greet [[Elodie]] and [[Aranessa]]. She and [[Julien]] then exchanged heated words about his disrespect for Thjazi and about his tutelage of Thaisha's son [[Alogar]], but were interrupted by [[Vaelus]]'s arrival. Thaisha then went upstairs with Hal and opened the box she and Occtis had retrieved.{{ep ref|ep=4x01}} She immediately fell unconscious, hearing the song of a nightingale, and Hal healed her. She realized that Shadia was angry at her for this. After [[Bolaire]] and [[Murray]] took the box away, Thaisha returned downstairs, and remained at the wake for the rest of the night, continuing to talk to guests. She slept in her room at the house, as did Occtis, and woke up to make breakfast with Hal and talk more with [[Thimble]].{{ep ref|ep=4x02}}
+
+Later that day, she joined Hal in going to the [[Hallowed Round]] and had a heartfelt conversation with Shadia. Upon returning to Hal's, she learned that Julien had come to retrieve Occtis, and Wildshaped into a wolf to follow Occtis's scent. As she approached, still in this form, she and Vaelus saw each other at a distance and realized that despite being on opposite sides philosophically regarding the [[Shapers]], they would have to find commonality. Thaisha continued to run towards the [[Palazzo Davinos]].{{ep ref|ep=4x03}}
+
+== Character information ==
+=== Notable items ===
+* [[Lloy staff]]{{ep ref|ep=4x04|2:31:04}}
+
+=== Abilities ===
+====Orc abilities====
+* Adrenaline Rush{{print ref|phb2024|195}}
+* Darkvision (120 ft.){{print ref|phb2024|195}}
+* Relentless Endurance{{print ref|phb2024|195}}
+
+====Feats====
+
+====Druid abilities====
+Thaisha uses the Druid mechanics as defined in the 2024 ''Player's Handbook''.
+* Spellcasting
+* Druidic
+* Primal Order
+* Wild Shape
+* Wild Companion{{ep ref|ep=4x01|3:06:53}}
+* Druid Subclass: Circle of the Land
+** Circle of the Land spells
+** Land's Aid{{ep ref|ep=4x04|1:33:54}}
+
+====Proficiencies====
+{{slim table}}
+{| class="slim-table sortable" style="line-height:100%"
+|-
+! Proficiency !! Source !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| SKILL OR TOOL || SOURCE || 
+|}
+
+====Class spells====
+At the end of a long rest, Thaisha chooses a type of Land to prepare: Arid, Polar, Temperate, or Tropical.{{print ref|phb2024|84}}
+{{slim table}}
+{| class="article-table sortable" style="line-height:100%;"
+! Spell !! Level !! Notes !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| ''Acid Splash'' || data-sort-value="0" | Cantrip || Tropical Land || {{print ref|phb2024|84}}
+|-
+| ''Druidcraft'' || data-sort-value="0" | Cantrip ||  || {{ep ref|ep=4x01|1:46:05}}
+|-
+| ''Fire Bolt'' || data-sort-value="0" | Cantrip || Arid Land || {{print ref|phb2024|84}}
+|-
+| ''Guidance'' || data-sort-value="0" | Cantrip ||  || {{ep ref|ep=4x02|36:27}}
+|-
+| ''Ray of Frost'' || data-sort-value="0" | Cantrip || Polar Land || {{print ref|phb2024|84}}
+|-
+| ''Shillelagh'' || data-sort-value="0" | Cantrip ||  || {{ep ref|ep=4x04|1:36:48}}
+|-
+| ''Shocking Grasp'' || data-sort-value="0" | Cantrip || Temperate Land || {{print ref|phb2024|85}}
+|-
+| ''Burning Hands'' || 1st || Arid Land || {{print ref|phb2024|84}}
+|-
+| ''Cure Wounds'' || 1st ||  || {{ep ref|ep=4x04|2:38:35}}
+|-
+| ''Fog Cloud''|| 1st || Polar Land || {{print ref|phb2024|84}}
+|-
+| ''Ray of Sickness'' || 1st || Tropical Land || {{print ref|phb2024|85}}
+|-
+| ''Sleep'' || 1st || Temperate Land || {{print ref|phb2024|85}}
+|-
+| ''Speak with Animals'' || 1st ||  || {{ep ref|ep=4x02|1:13:45}}
+|-
+| ''Thunderwave'' || 1st ||  || {{ep ref|ep=4x04|2:16:31}}
+|-
+| ''Enrichment'' || 1st or 2nd || "Enrichment" effect of the 3rd-level spell ''Plant Growth''{{fn|May have been cast via the [[Lloy staff]].}} || {{ep ref|ep=4x01|0:41:57|more=Because Thaisha is level 3, ''Enrichment'' must be 2nd-level or lower.}}
+|-
+| ''Blur'' || 2nd || Arid Land || {{print ref|phb2024|84}}
+|-
+| ''Hold Person''|| 2nd || Polar Land || {{print ref|phb2024|84}}
+|-
+| ''Misty Step'' || 2nd || Temperate Land || {{print ref|phb2024|85}}{{ep ref|ep=4x04|2:47:05}}
+|-
+| ''Web'' || 2nd || Tropical Land || {{print ref|phb2024|85}}
+|}
+
+== Appearances and mentions ==
+&lt;!-- See "Template:Appearance" for more information about using the template. --&gt;
+* [[Campaign 4]]
+** {{appearance|4x01|appear|{{1st}}}}
+** {{appearance|4x02|appear}}
+** {{appearance|4x03|appear}}
+** {{appearance|4x04|appear}}
+
+== Quotations ==
+&lt;!-- Insert quotations here. --&gt;
+
+== Trivia ==
+&lt;!-- Insert trivia here. --&gt;
+
+== References ==
+{{Reflist}}
+{{Fn reflist}}
+{{Art reflist}}
+
+{{Nav-C4PCs}}
+[[Category:Main player characters]]
+[[Category:Characters in Campaign 4| ]]
+[[Category:Aramán player characters]]
+[[Category:Aramán orcs]]
+[[Category:Orcs in Dungeons &amp; Dragons]]</text>
+      <sha1>mba1m8wd48l1qor22fo7v3er4x0mbhv</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Thimble</title>
+    <ns>0</ns>
+    <id>45167</id>
+    <revision>
+      <id>327751</id>
+      <parentid>327440</parentid>
+      <timestamp>2025-12-06T05:50:18Z</timestamp>
+      <contributor>
+        <username>Thes</username>
+        <id>1409</id>
+      </contributor>
+      <comment>/* Proficiencies */</comment>
+      <origin>327751</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="7877" sha1="anywp503mtrtgxv03a0wojw0kztk8l8" xml:space="preserve">{{Short description|Fairy Rogue played by Laura Bailey}}
+{{Infobox Character
+| title = &lt;!-- If different from article title --&gt;
+| image = File:Thimble headshot - Solelle.jpg
+| image_size = 300px
+| caption = {{caption|subject=Thimble|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967683653674340606}}
+&lt;!-- Basic information --&gt;
+| type = PC
+| setting = [[Aramán]]
+| actor = [[Laura Bailey]]
+| class = [[Rogue]] (Swashbuckler)
+| species = [[Fairy]] ([[Pixie]])
+&lt;!-- Biographical information --&gt;
+| name = &lt;!-- If different from article title --&gt;
+| pronouns = she/her
+| characterTitles = 
+| AKA = 
+| age = 
+| languages = Sylvan{{ep ref|ep=4x06|1:27:12}}, Thieves' Cant{{ep ref|ep=4x06|3:22:35}}
+| place =                
+| place = 
+| family = 
+| partner = 
+| children = 
+| profession = 
+| connections = {{plainlist|
+*[[Thjazi Fang]] (best friend)
+*[[Torn Banner]] (former member)}}
+&lt;!-- Status --&gt;
+| status = 
+| deathReason = &lt;!-- Both cause and episode/date go here. Keep this *brief* --&gt;
+&lt;!-- Mechanical information --&gt;
+| statsArray1 = {{Infobox Character/stats|
+| system = d&amp;d
+| creatureType = [[Fey]]
+| background = &lt;!-- Mechanical background, i.e. "Haunted One" --&gt;
+| alignment = 
+| level = 
+| HP = 24
+| AC = 17
+| DC = 
+| str = 3
+| dex = 20
+| con = 18
+| int = 14
+| wis = 17
+| cha = 16
+| statsRef = {{ep ref|ep=4x1|2:28:03}}
+}}
+&lt;!-- Appearances --&gt;
+| first = {{ep|4x01}}
+| last = {{ep|4x03}}
+| stream = [[Campaign 4]] (3 episodes)
+| television = &lt;!-- ''[[The Legend of Vox Machina]]'' (X episodes) --&gt;
+| comic = &lt;!-- Wikilinked comic series title, i.e. the italicized part like "Vox Machina Origins Series II" or "The Tales of Exandria: The Bright Queen" --&gt;
+| other = &lt;!-- Any works that are not a streamed episode or a comic, including "Pre-stream" and "Kith &amp; Kin" --&gt; 
+}}
+'''Thimble''' is a [[fairy]] rogue. As a player character in [[Campaign 4]], she is played by [[Laura Bailey]].
+
+== Description ==
+[[File:Thimble - Solelle.jpg|300px|thumb|left|{{caption|subject=Thimble|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967683653674340606}}]]
+Thimble is four inches tall and looks to be about eighteen years old. She has short, brown hair and bright spring green wings. She has rosey pale skin and a few freckles on her face.&lt;!-- Insert character description here. --&gt;
+
+=== Personality ===
+&lt;!-- Insert character personality here. If there is not a lot of information to dedicate sections for them, consider deleting the header and merging the section upwards.--&gt;
+{{clr|left}}
+
+== Biography ==
+As a fairy, Thimble is from [[Tír Cruthú]], also known as Faerie.{{ep ref|ep=4x1|2:26:10}} She was gifted to [[Thjazi Fang]] as a wedding present.{{ep ref|ep=4x2|1:01:56}} Thimble started aging when the doors to Faerie were closed.{{ep ref|ep=4x1|2:28:25}}
+
+She fought alongside Thjazi as part of the [[Torn Banner]] for many years, and was known as Thjazi’s partner “in all things”.{{ep ref|ep=4x01|02:10:00}}
+
+In the two weeks following Thjazi's arrest, Thimble, [[Thaisha Lloy]], [[Azune Nayar]], [[Casimir Gavendale]], [[Occtis Tachonis]], and [[Cyd Pridesire]] formulated a plan to rescue him, involving Thimble creating a glyph of Misty Step and planting it on Thjazi. 
+
+=== [[Campaign 4]] ===
+The safehouse Thimble was staying in was attacked and robbed before she could deliver the glyph, and she took down three assailants before falling unconscious. She was found by [[Teor Pridesire]], Azune, and Occtis following Thjazi’s execution. They informed her of Thjazi’s death and together they tried to put together why she was attacked. [[Kattigan Vale]] joined them and determined the attackers had likely been [[Crow Keepers]].{{ep ref|ep=4x01}} She, along with the others, went to [[Hal]]'s house to Thjazi's wake, where she wept over his body and asked [[Vaelus]] if she'd been the attacker. Vaelus told her she had not been. She and the other Torn Banner members, as well as Occtis, looked at the glyph that had been on Thjazi when he died and found that it had been a clever fake, and they discussed that the two missing members from the plan were Casimir and Cyd. Thimble decided to pursue the lead on Casimir in the morning, and stayed at Hal's, sleeping on Thjazi's chest. The following morning, Kattigan returned, and he and Occtis joined her in going to the [[Guard Tower]] to find Casimir. Before leaving, Thimble gave Hal a letter to give to [[Bolaire]], and Hal told her she could always stay at his home if she needed a place. At the Guard Tower, when she asked about Casimir, she, Kattigan, and Occtis were immediately attacked.{{ep ref|ep=4x02}} The fight went poorly until Vaelus, who had followed them, arrived and joined, killing two Crow Keepers. The rest fled except one they asked to stay and interrogate, who told them Casimir had been deeply in debt and had just paid it off in full the previous day, and had had a deed to a fortress in [[Gormalay]] as well, but that had been taken by Cyd. The group returned to Hal's, realizing Casimir had sold them out. There they encountered [[Julien]], who was looking for Occtis, but grabbed Thimble by the wings briefly in telling them this. Occtis and Vaelus left with him, and Kattigan and Thimble told Hal, Thaisha, Azune, and Murray what had happened when they returned. They also told Teor when he returned, bringing [[Wick]] and [[Tyranny]]. Thimble and Kattigan realized the Crow Keepers would likely give them trouble, and Teor, Wick, and Tyranny had to flee [[House Halovar]], so they all decided to leave the city and pursue Casimir and Cyd.{{ep ref|ep=4x03}}
+
+== Character information ==
+=== Notable items ===
+* [[Thimble's toy sword]], given by [[Ulbid Morn]].{{ep ref|ep=4x06|0:31:20}}
+
+=== Abilities ===
+====Pixie abilities====
+Thimble uses the Fairy mechanics as defined in ''Monsters of the Multiverse''.
+* Fairy Magic{{print ref|motm|14}}
+* Flight{{print ref|motm|14}}{{print ref|motm|14}}
+
+====Feats====
+
+====Rogue abilities====
+Thimble uses the Rogue mechanics as defined in the 2024 ''Player's Handbook''.
+* Expertise
+* Sneak Attack
+* Thieves' Cant
+* Weapon Mastery (2 weapons)
+* Cunning Action
+* Rogue Subclass: Swashbuckler
+** Fancy Footwork{{ep ref|ep=4x06|4:11:11}}
+** Rakish Audacity
+* Steady Aim
+
+====Proficiencies====
+{{slim table}}
+{| class="slim-table sortable" style="line-height:100%"
+|-
+! Proficiency !! Source !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| Acrobatics (expertise) || Rogue || {{ep ref|ep=4x03|1:15:55|1:16:22|more=Thimble adds +9 to her acrobatics roll}}
+|-
+| Stealth (expertise) || Rogue || {{ep ref|ep=4x06|03:45:12|more=Thimble adds +9 to her stealth roll}}
+|-
+| Survival || Background || {{ep ref|ep=4x05|12:18}}
+|}
+
+====Spells====
+{{slim table}}
+{| class="article-table sortable" style="line-height:100%;"
+! Spell !! Level !! class="unsortable" | Notes !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| ''Druidcraft'' || data-sort-value="0" | Cantrip || Fairy Magic || {{print ref|motm|14}}
+|-
+| ''Faerie Fire'' || 1st || Fairy Magic || {{print ref|motm|14}}{{ep ref|ep=4x03|1:29:23}}
+|}
+
+== Appearances and mentions ==
+&lt;!-- See "Template:Appearance" for more information about using the template. --&gt;
+* [[Campaign 4]]
+** {{appearance|4x01|appear|{{1st}}}}
+** {{appearance|4x02|appear}}
+** {{appearance|4x03|appear}}
+** {{appearance|4x04|mention}}
+
+== Quotations ==
+&lt;!-- Insert quotations here. --&gt;
+
+== Trivia ==
+At a Strength score of 3, Thimble has both the lowest Strength score and lowest ability score in any stat among all player characters in ''[[Critical Role]]''. Both records were previously held by [[Shakäste]], with his Strength score of 4.
+
+== References ==
+{{Reflist}}
+{{Art reflist}}
+
+{{Nav-C4PCs}}
+
+[[Category:Main player characters]]
+[[Category:Characters in Campaign 4| ]][[Category:Aramán player characters]]</text>
+      <sha1>anywp503mtrtgxv03a0wojw0kztk8l8</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Tyranny</title>
+    <ns>0</ns>
+    <id>45174</id>
+    <revision>
+      <id>327809</id>
+      <parentid>327765</parentid>
+      <timestamp>2025-12-08T23:39:56Z</timestamp>
+      <contributor>
+        <username>Patopq</username>
+        <id>2450</id>
+      </contributor>
+      <minor/>
+      <comment>cites</comment>
+      <origin>327809</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="9984" sha1="plp7tjb8herzw6xd09gfd4aburcziaa" xml:space="preserve">{{Short description|Demon Warlock played by Whitney Moore}}
+{{Infobox Character
+| title = &lt;!-- If different from article title --&gt;
+| image = File:Tyranny headshot - Solelle.jpg
+| image_size = 300px
+| caption = {{caption|subject=Tyranny|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679648306995452}}
+&lt;!-- Basic information --&gt;
+| type = PC
+| setting = [[Aramán]]
+| actor = [[Whitney Moore]]
+| class = [[Warlock]] (Fiend Patron)
+| species = [[Demon]]{{ep ref|vod=https://www.youtube.com/watch?v=94mCyd_2Q_Y|ep=Critical Role Cast Interview with Brennan Lee Mulligan Campaign 4|5:10}}{{fn|Tyranny is mechanically an abyssal legacy tiefling.}}
+&lt;!-- Biographical information --&gt;
+| name = &lt;!-- If different from article title --&gt;
+| pronouns = she/her
+| characterTitles = 
+| AKA = 
+| age = &lt;!-- Use {{character age}} --&gt;
+| languages = Common, [[Demonic]]{{ep ref|ep=4x02|4:21:31|more=Tyranny understood her sister, [[Enmity]], talking to her in demonic}}
+| place = 
+| family = {{Tree list}}
+*[[Ksha'aravi]] (creator){{ep ref|42:55|ep=4x03}}
+**[[Enmity]] (sister)
+**[[Cruelty]] (sister)
+**[[Agony (character)|Agony]] (sister)
+{{Tree list/end}}
+| partner = 
+| children = 
+| profession = 
+| connections = {{Plainlist|
+*[[Candescent Creed]]
+*[[Wicander Halovar]] (ward)
+}}
+&lt;!-- Status --&gt;
+| status = 
+| deathReason = &lt;!-- Both cause and episode/date go here. Keep this *brief* --&gt;
+&lt;!-- Mechanical information --&gt;
+| statsArray1 = {{Infobox Character/stats|
+| system = d&amp;d
+| creatureType = [[Fiend]]{{ep ref|ep=4x05|3:05:22|more=Tyranny registers as a Fiend when Teor uses Divine Sense.}}
+| background = &lt;!-- Mechanical background, i.e. "Haunted One" --&gt;
+| alignment = 
+| level = 
+| HP =30
+| AC = 15 / 12{{an|name=Mage Armor|With and without the ''Mage Armor''.}}
+| DC = 15
+| str = 12
+| dex = 15
+| con = 18
+| int = 12
+| wis = 8
+| cha = 20
+| statsRef = 
+}}
+&lt;!-- Appearances --&gt;
+| first = {{ep|4x01}}
+| last = {{ep|4x03}}
+| stream = [[Campaign 4]] (3 episodes)
+| television = &lt;!-- ''[[The Legend of Vox Machina]]'' (X episodes) --&gt;
+| comic = &lt;!-- Wikilinked comic series title, i.e. the italicized part like "Vox Machina Origins Series II" or "The Tales of Exandria: The Bright Queen" --&gt;
+| other = &lt;!-- Any works that are not a streamed episode or a comic, including "Pre-stream" and "Kith &amp; Kin" --&gt; 
+}}
+'''Tyranny''' is a [[demon]] warlock and Aspirant of the [[Candescent Creed]]. As a player character in [[Campaign 4]], she is played by [[Whitney Moore]].
+
+== Description ==
+[[File:Tyranny - Solelle.jpg|300px|thumb|left|{{caption|subject=Tyranny|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679648306995452}}]]
+&lt;!-- Insert character description here. --&gt;
+
+===Appearance===
+Tyranny is a demon with bubblegum pink skin and straight white hair in blunt bangs, partially slipping out of a wimple. She has yellow goat eyes, goat hooves and ears that are extremely soft,{{ep ref|ep=4x01|1:55:56}} of which the right one is pierced with an arrow-shaped silver earring. Tyranny has a distinctive scent resembling chocolate chip laced with sulfur.{{ep ref|ep=4x01|1:21:00}}
+
+=== Personality ===
+Whitney describes Tyranny as "fresh to the world" of Aramán, as someone from a different [[plane]], and looking to enjoy herself.{{ep ref|vod=https://www.youtube.com/watch?v=94mCyd_2Q_Y|ep=Critical Role Cast Interview with Brennan Lee Mulligan Campaign 4|4:22}} She also is described as more tender than she initially appears.{{ep ref|vod=https://www.youtube.com/watch?v=XMCeXvy580s|ep=Critical Role Campaign 4 Cast Interview - Brennan Lee Mulligan as DM, campaign themes and more!|7:03}}
+{{clr|left}}
+== Biography ==
+=== Prior to Campaign 4 ===
+Tyranny was given corporeal form six months prior to [[Thjazi Fang]]'s execution, having previously been a soul in the [[Pit]]. She was assigned to [[Wicander Halovar]] as an Aspirant. Unlike him, she knew that the [[Candescent Creed]] was false, but she found that Wick seemed to be a better person than the others of his family and grew fond of him.{{ep ref|ep=4x03|42:20}}
+
+=== [[Campaign 4]] ===
+Tyranny and Wick watched the execution, and Tyranny's sister [[Enmity]] berated her for her "dimmings". They later arrived at Thjazi's farramh following his execution and were given a somewhat chilly reception, as [[House Halovar]] had had a hand in the execution. She drank an entire bottle of liquor and went to the kitchen with [[Olgud Akarat|Olgud]] to get more for Wick, until [[Thaisha]] found her and intervened. The two hit it off, and Thaisha got drunk and confided in Tyranny about her past. When [[Bolaire]] arrived, he made small talk with Tyranny, who had vomited in an artifact at the Archanade some months ago. After [[Aranessa]] arrived, and began asking Wick why she had not been given an audience with [[Yanessa Halovar|his grandmother]], Tyranny vomited again and used it as an excuse to leave and take Wick with her.{{ep ref|ep=4x01}} The following day, she went to answer the door for [[Teor]]'s appointment with Wick, and as she did, her sisters Enmity, [[Cruelty]], and [[Agony (character)|Agony]] all spoke to her in the hall, indicating they knew Wick was ignorant of the true nature of the Creed. She then let Teor in and fetched Wick, who was somewhat nervous. The two saw Teor heal an injured worker. They spoke with him until Yanessa joined them and sent Teor to [[Filoneus]]. Later that night, Tyranny joined Wick as he was brought downstairs to learn the truth about the Halovar's power and was shown [[Aetheon]], the [[celestial]] they had imprisoned who was the true source of [[Filament]].{{ep ref|ep=4x02}} Following this revelation Tyranny suggested she draw Wick a bath, and Yanessa agreed that would be thoughtful. Once there, she told Wick that she hadn't wanted to lie to him, but had to, and that his family had a deal with hers, but her contract was to him and he could dismiss her if he wanted. She also told him she suspected Teor had been sent to his death, and encouraged him to help her rescue him. Wick agreed, and the two went to the [[Mercanaud Couturier]], where Tyranny was able to convince [[Rulius and Calastro Mercanaud]] to release Teor to them. They all went to [[Hal]]'s house, where Teor learned his brother [[Cyd]] had fled chasing [[Casimir]], who had betrayed the plan to save Thjazi. Teor told Tyranny and Wick he owed them for saving his life, and they, along with Thimble and Kattigan, all realized they should flee the city and follow Casimir's trail.{{ep ref|ep=4x03}}
+
+== Character information ==
+&lt;!--=== Notable items ===
+--&gt;
+=== Abilities ===
+====Demon abilities====
+Tyranny uses the tiefling mechanics as defined in the 2024 ''Player's Handbook''.
+* Darkvision{{print ref|phb2024|197}}
+* Fiendish Legacy: Abyssal
+** Poison resistance{{ep ref|ep=4x06|2:41:24}}{{print ref|phb2024|197}}
+* Otherworldly Presence{{print ref|phb2024|197}}
+
+&lt;!--====Feats====--&gt;
+
+====Warlock abilities====
+Tyranny uses the Warlock mechanics as defined in the 2024 ''Player's Handbook''.
+* Eldritch Invocations (3)
+** Armor of Shadows{{ep ref|ep=4x06|1:20:56}}
+** Pact of the Blade (demon claws){{ep ref|ep=4x06|3:59:40}}
+** Mask of Many Faces{{ep ref|ep=4x07|3:16:24}}
+* Pact Magic
+* Magical Cunning
+* Warlock Subclass: Fiend Patron
+** Fiend Spells
+** Dark One's Blessing{{ep ref|ep=4x06|4:29:07}}
+
+====Proficiencies====
+{{slim table}}
+{| class="slim-table sortable" style="line-height:100%"
+|-
+! Proficiency !! Source !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| SKILL OR TOOL || SOURCE || 
+|}
+====Spells====
+{{slim table}}
+{| class="article-table sortable" style="line-height:100%;"
+! Spell !! Level !! class="unsortable" | Notes !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| ''Eldritch Blast''|| data-sort-value="0" | Cantrip ||  || {{ep ref|ep=4x06|4:23:10}}
+|-
+| ''Poison Spray''|| data-sort-value="0" | Cantrip || Abyssal Legacy || {{print ref|phb2024|197}}{{ep ref|ep=4x08|3:34:20}}
+|-
+| ''Thaumaturgy''|| data-sort-value="0" | Cantrip || Otherworldly Presence || {{ep ref|ep=4x03|3:21:27}} 
+|-
+| ''Burning Hands'' || 1st || Fiend spell || {{print ref|phb2024|161}}{{ep ref|ep=4x06|04:29:07}}
+|-
+| ''Command'' || 1st || Fiend spell || {{print ref|phb2024|161}}
+|-
+| ''Disguise Self''|| 1st || Mask of Many Faces || {{ep ref|ep=4x07|3:16:24}} 
+|-
+| ''Hex'' || 1st ||  || {{ep ref|ep=4x06|3:58:54}}
+|-
+| ''Mage Armor''|| 1st || Armor of Shadows || {{ep ref|ep=4x06|01:20:56}} 
+|-
+| ''Ray of Sickness''|| 1st || Abyssal Legacy || {{print ref|phb2024|197}}
+|-
+| ''Hold Person'' || 2nd ||  || {{ep ref|ep=4x08|1:36:09}}
+|-
+| ''Scorching Ray'' || 2nd || Fiend spell || {{print ref|phb2024|161}}{{ep ref|ep=4x06|3:56:43}}
+|-
+| ''Suggestion'' || 2nd || Fiend spell || {{print ref|phb2024|161}}
+|}
+
+== Appearances and mentions ==
+* [[Campaign 4]]
+** {{appearance|4x01|appear|{{1st}}}}
+** {{appearance|4x02|appear}}
+** {{appearance|4x03|appear}}
+** {{appearance|4x05|appear}}
+** {{appearance|4x06|appear}}
+** {{appearance|4x07|appear}}
+
+== Quotations ==
+* '''Tyranny''': I really am sorry that when they killed that guy, I said: 'Can I eat that?' It's just a little demon humor. I don't know.
+* '''Tyranny''': Can I just make a quick suggestion? [...] You need to figure out really fucking fast who you can trust and who you can't. I'm going to say now that you have directly gone against your family twice, you're not going to be able to trust them very much. So that includes everyone who your family knows.{{ep ref|3:21:29|ep=4x03}}
+
+== Trivia ==
+* When asked to describe Tyranny in one word, Whitney said "grenade."{{ep ref|ep=CRITICAL ROLE CAMPAIGN 4 INTERVIEW! MULTIPLE TABLES! NO ONE TRUSTS MATT MERCER! Brennan Lee Mulligan|vod=https://www.youtube.com/watch?v=vUHrc_fXzZo&amp;t=1s|11:20}}
+
+== References ==
+{{Reflist}}
+{{Fn reflist|multi=y}}
+{{Art reflist}}
+
+{{Nav-C4PCs}}
+[[Category:Main player characters]]
+[[Category:Characters in Campaign 4| ]][[Category:Aramán player characters]]</text>
+      <sha1>plp7tjb8herzw6xd09gfd4aburcziaa</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Vaelus</title>
+    <ns>0</ns>
+    <id>45172</id>
+    <revision>
+      <id>327761</id>
+      <parentid>327385</parentid>
+      <timestamp>2025-12-06T23:06:24Z</timestamp>
+      <contributor>
+        <username>CaptainOfTheTidesBreath</username>
+        <id>5</id>
+      </contributor>
+      <comment>explain how we know Acolyte</comment>
+      <origin>327761</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="8203" sha1="2r3ep54w3iaoll3kiaq90duygbk8l81" xml:space="preserve">{{Short description|Elven paladin played by Ashley Johnson}}
+{{Infobox Character
+| title = &lt;!-- If different from article title --&gt;
+| image = File:Vaelus headshot - Solelle.jpg
+| image_size = 300px
+| caption = {{caption|subject=Vaelus|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679662462734550}}
+&lt;!-- Basic information --&gt;
+| type = PC
+| setting = [[Aramán]]
+| actor = [[Ashley Johnson]]
+| class = [[Paladin]] (Oath of Vengeance)
+| species = [[Elf]]
+&lt;!-- Biographical information --&gt;
+| name = &lt;!-- If different from article title --&gt;
+| pronouns = she/her
+| characterTitles = 
+| AKA = 
+| age = {{character age|800|C4}}&lt;ref&gt;Age specified in the [https://critrole.com/critical-recap-critical-role-c4e01-the-fall-of-thjazi-fang/ episode 1 recap].&lt;/ref&gt;
+| languages = &lt;!-- Avoid using if the only entry is "Common" --&gt;
+| place = 
+| family = {{tree list}}
+*Unnamed mother &amp; father{{ep ref|ep=4x06|3:41}}
+** Maywyn (sister){{ep ref|ep=4x06|1:17}}
+** Arthus (brother){{ep ref|ep=4x06|1:36}}
+{{tree list/end}}
+| partner = 
+| children = 
+| profession = Temple guard
+| connections = [[Sisters of Sylandri]]
+&lt;!-- Status --&gt;
+| status = 
+| deathReason = &lt;!-- Both cause and episode/date go here. Keep this *brief* --&gt;
+&lt;!-- Mechanical information --&gt;
+| statsArray1 = {{Infobox Character/stats|
+| system = d&amp;d
+| creatureType = Humanoid
+| background = Acolyte&lt;ref&gt;In 2024 rules, Vaelus at level 3 has one feat that is granted by her background. She has Magic Initiate (Cleric), which is only granted by the Acolyte background.&lt;/ref&gt;
+| alignment = 
+| level = 3
+| HP = 31
+| AC = 16
+| DC = 
+| str = 17
+| dex = 15
+| con = 16
+| int = 14
+| wis = 17
+| cha = 19
+| statsRef = {{ep ref|ep=4x01|4:11:19}}
+}}
+&lt;!-- Appearances --&gt;
+| first = {{ep|4x01}}
+| last = {{ep|4x04}}
+| stream = [[Campaign 4]] (4 episodes)
+| television = &lt;!-- ''[[The Legend of Vox Machina]]'' (X episodes) --&gt;
+| comic = &lt;!-- Wikilinked comic series title, i.e. the italicized part like "Vox Machina Origins Series II" or "The Tales of Exandria: The Bright Queen" --&gt;
+| other = &lt;!-- Any works that are not a streamed episode or a comic, including "Pre-stream" and "Kith &amp; Kin" --&gt; 
+}}
+'''Vaelus''' is an [[elf]] [[paladin]] and follower of the dead goddess [[Sylandri]]. As a player character in [[Campaign 4]], she is played by [[Ashley Johnson]].
+
+== Description ==
+[[File:Vaelus - Solelle.jpg|300px|thumb|left|{{caption|subject=Vaelus|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679662462734550}}]]
+
+Vaelus is a tall elf with lavender skin.{{Ep ref|ep=4x1|4:16:33}} She is eight centuries old.&lt;ref&gt;{{CR|critical-recap-critical-role-c4e01-the-fall-of-thjazi-fang/|Critical Recap: Critical Role C4E01 “The Fall of Thjazi Fang”}}&lt;/ref&gt; She wears a chainmail veil of mourning. She is heavily scarred and burned in a manner that looks arcane. She carries a censer with a very long chain.{{Ep ref|ep=4x1|4:07:38}}
+
+=== Personality ===
+Ashley describes Vaelus as a mysterious person,{{ep ref|ep=CRITICAL ROLE CAMPAIGN 4 INTERVIEW! MULTIPLE TABLES! NO ONE TRUSTS MATT MERCER! Brennan Lee Mulligan|vod=https://www.youtube.com/watch?v=vUHrc_fXzZo&amp;t=1s|11:07}} and someone acquainted with the history of [[Aramán]].{{ep ref|ep=The Cast of Critical Role Discusses Campaign 4|vod=https://www.youtube.com/watch?v=J9Mtkh1FUPA|2:42}}
+{{clr|left}}
+== Biography ==
+Vaelus comes from the [[Mournvale]].{{Ep ref|ep=4x1|4:13:22}} She is a member of the [[Sisters of Sylandri]], worshippers of [[Sylandri]].{{Ep ref|ep=4x1|4:11:15}}
+She witnessed the death of the last [[deities of Aramán|deity of Aramán]].{{Ep ref|ep=4x1|4:16:33}}
+
+=== [[Campaign 4]] ===
+Vaelus traveled for a few weeks from the Mournvale to [[Dol-Makjar]] to retrieve the [[Stone of Nightsong]] from [[Thjazi Fang]].{{Ep ref|ep=4x1|4:11:52}} [[Bolaire Lathalia]] let her into the city.{{Ep ref|ep=4x1|4:19:51}} When [[Thaisha]] touched the coffin of [[Olbalad]], she heard the song of a nightingale, and saw Vaelus as the mist cleared. [[Murray]] asked Vaelus to be kind to [[Hal]] and his family, and Vaelus promised to enact no unnecessary murder, which did not comfort [[Shadia]]. After [[Thimble]] and [[Occtis]] returned from Thjazi's hideout, Vaelus learned the stone had been stolen, and asked to speak with Thimble privately. Occtis sent [[Pincushion]] to observe the conversation, but both women noticed him. Vaelus told Thimble that she did not harm Thjazi nor was she behind his execution, and only wanted to retrieve the stone. They returned downstairs, where Hal offered Vaelus a tray of cranberry rolls but told her not to bother his family. She left and remained on the porch all night.{{ep ref|ep=4x02}}
+
+The following day she followed Occtis, Thimble, and [[Kattigan]] to the [[Guard Tower]] where they intended to investigate Thimble's attackers, and when their combat with the [[Crow Keepers]] went poorly, she crashed through the window and killed two Crow Keepers, including [[Solomon]], at which the remainder fled. They kept one, [[Gavrey]], behind for questioning, and he told them [[Casimir Gavendale]] had paid off a large number of debts the previous day and had additionally had a deed of title to a location in [[Gormalay]], and the group realized he likely sold what had been in Thjazi's safe house, including the stone. They returned to Hal's, where [[Julien]] was waiting for Occtis. Occtis decided to go with him, and Vaelus followed. They were taken to the [[Palazzo Davinos]], where Vaelus heard a wolf's call and realized the wolf had to be let in to the garden or something terrible would happen, and made the guards open the gate. As she waited for the wolf, who was a Wildshaped Thaisha, to arrive, Julien told her he believed something bad was about to happen. Immediately after, his father, [[Raimond Davinos]], was assassinated by a member of [[House Tachonis]].{{ep ref|ep=4x03}}
+
+== Character information ==
+=== Notable items ===
+
+=== Abilities ===
+====Elf abilities====
+* Darkvision (60 ft.){{print ref|phb2024|190}}
+* Elven Lineage: Aramán homebrew
+** Necrotic resistance{{ep ref|ep=4x04|01:31:00}}
+** Deathless
+* Fey Ancestry{{print ref|phb2024|190}}
+* Keen Senses{{print ref|phb2024|190}}
+* Trance{{print ref|phb2024|190}}
+
+====Feats====
+* Magic Initiate (Cleric),{{ep ref|ep=4x03|1:37:14|more=Vaelus knows ''Guiding Bolt'', a cleric spell.}} from the Acolyte background
+
+====Paladin abilities====
+Vaelus uses the Paladin mechanics as defined in the 2024 ''Player's Handbook''.
+* Lay on Hands (15 points)
+* Spellcasting
+* Weapon Mastery (2 weapons)
+* Fighting Style
+* Paladin's Smite
+* Channel Divinity
+* Paladin Subclass: Oath of Vengeance{{ep ref|ep=4x03|1:28:03|more=Vaelus can cast ''Hunter's Mark'', so she must be a Vengeance paladin.}}
+** Oath Spells
+** Vow of Enmity
+
+====Proficiencies====
+{{slim table}}
+{| class="slim-table sortable" style="line-height:100%"
+|-
+! Proficiency !! Source !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| SKILL OR TOOL || SOURCE || 
+|}
+
+====Spells====
+{{slim table}}
+{| class="article-table sortable" style="line-height:100%;"
+! Spell !! Level !! class="unsortable" | Notes !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| ''Bane'' || 1st || Oath spell || {{print ref|phb2024|110}}
+|-
+| ''Command'' || 1st ||  || {{ep ref|ep=4x03|4:43:09}}
+|-
+| ''Divine Smite'' || 1st ||  || {{print ref|phb2024|117}}
+|-
+| ''Guiding Bolt'' || 1st || Magic Initiate || {{ep ref|ep=4x03|1:37:14}}
+|-
+| ''Hunter's Mark'' || 1st || Oath spell || {{print ref|phb2024|117}}{{ep ref|ep=4x03|1:28:03}}
+|}
+
+== Appearances and mentions ==
+&lt;!-- See "Template:Appearance" for more information about using the template. --&gt;
+* [[Campaign 4]]
+** {{appearance|4x01|appear|{{1st}}}}
+** {{appearance|4x02|appear}}
+** {{appearance|4x03|appear}}
+** {{appearance|4x04|appear}}
+
+== Quotations ==
+&lt;!-- Insert quotations here. --&gt;
+
+== Trivia ==
+* Vaelus has claimed she doesn't eat sugar.
+
+== References ==
+{{Reflist}}
+{{Art reflist}}
+
+{{Nav-C4PCs}}
+[[Category:Main player characters]]
+[[Category:Characters in Campaign 4| ]]
+[[Category:Aramán player characters]]
+[[Category:Aramán elves]]
+[[Category:Elves in Dungeons &amp; Dragons]]</text>
+      <sha1>2r3ep54w3iaoll3kiaq90duygbk8l81</sha1>
+    </revision>
+  </page>
+  <page>
+    <title>Wicander Halovar</title>
+    <ns>0</ns>
+    <id>45177</id>
+    <revision>
+      <id>327752</id>
+      <parentid>327711</parentid>
+      <timestamp>2025-12-06T05:50:24Z</timestamp>
+      <contributor>
+        <username>Thes</username>
+        <id>1409</id>
+      </contributor>
+      <comment>/* Proficiencies */</comment>
+      <origin>327752</origin>
+      <model>wikitext</model>
+      <format>text/x-wiki</format>
+      <text bytes="9926" sha1="jjvejdp4ali5fi1h9hovfpx0rpc0z9d" xml:space="preserve">{{Short description|Aasimar Sorcerer played by Sam Riegel}}
+{{redirect|Wick|the goliath in Jorenn Village|Wick (Kith &amp; Kin)}}
+{{Infobox Character
+| title = &lt;!-- If different from article title --&gt;
+| image = File:Wicander Halovar headshot - Solelle.jpg
+| image_size = 300px
+| caption = {{caption|subject=Wicander Halovar|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679675028869126}}
+&lt;!-- Basic information --&gt;
+| type = PC
+| setting = [[Aramán]]
+| actor = [[Sam Riegel]]
+| class = [[Sorcerer]] (Clockwork Sorcery)
+| species = [[Aasimar]]
+&lt;!-- Biographical information --&gt;
+| name = &lt;!-- If different from article title --&gt;
+| pronouns = he/him
+| characterTitles = {{Plainlist|
+* Light Priest {{ep ref|ep=4x01|3:38:07}}
+* His Radiance
+* Bearer of the Filament
+}}
+| AKA = Wick(y)
+| age = {{character age|28 to 30|C4}}{{ep ref|ep=4x01|1:19:39}}
+| languages = &lt;!-- Avoid using if the only entry is "Common" --&gt;
+| place = [[Dol Makjar]]
+| family = {{Tree list}}
+* [[House Halovar]]
+** [[Yanessa Halovar]] (grandmother)
+*** [[Filoneus Halovar]] (uncle){{ep ref|ep=4x02|2:14:21}}
+*** [[Godard Halovar]] (father)
+*** [[Iris Halovar]] (mother)
+**** [[Zebani Halovar]] (sister)
+**** Unnamed youngest brother
+{{Tree list/end}}
+| partner = 
+| children = 
+| profession = 
+| connections = [[Tyranny]] (Aspirant)
+&lt;!-- Status --&gt;
+| status = 
+| deathReason = &lt;!-- Both cause and episode/date go here. Keep this *brief* --&gt;
+&lt;!-- Mechanical information --&gt;
+| statsArray1 = {{Infobox Character/stats|
+| system = d&amp;d
+| creatureType = Humanoid
+| background = &lt;!-- Mechanical background, i.e. "Haunted One" --&gt;
+| alignment = 
+| level = 
+| HP = 20
+| AC = 12
+| DC = 14
+| str = 10
+| dex = 15
+| con = 15
+| int = 12
+| wis = 10
+| cha = 18
+| statsRef = {{ep ref|ep=4x01|1:20:30}}
+}}
+&lt;!-- Appearances --&gt;
+| first = {{ep|4x01}}
+| last = {{ep|4x03}}
+| stream = [[Campaign 4]] (3 episodes)
+| television = &lt;!-- ''[[The Legend of Vox Machina]]'' (X episodes) --&gt;
+| comic = &lt;!-- Wikilinked comic series title, i.e. the italicized part like "Vox Machina Origins Series II" or "The Tales of Exandria: The Bright Queen" --&gt;
+| other = &lt;!-- Any works that are not a streamed episode or a comic, including "Pre-stream" and "Kith &amp; Kin" --&gt; 
+}}
+'''Wicander "Wick" Halovar''' is an [[aasimar]] sorcerer of the [[Candescent Creed]]. As a player character in [[Campaign 4]], he is played by [[Sam Riegel]].
+
+== Description ==
+[[File:Wicander Halovar - Solelle.jpg|300px|thumb|left|{{caption|subject=Wicander Halovar|artist=Solelle|artist2=Hannah Friederichs|source=https://x.com/CriticalRole/status/1967679675028869126}}]]
+Wicander is a tall{{ep ref|ep=4x01|1:19:28|more=Sam describes Wicander as "a tall man, 5'11"}} and beautiful human man, with light teal and white hair. He has pearlescent face markings over half of his face, that seem to shimmer with a light of their own. He wears light teal robes. He carries a cane with the symbol of the Candescent Creed.
+
+=== Personality ===
+Wicander is greatly preoccupied with his role as a scion of [[House Halovar]] and a Light Priest of the Candescent Creed. He often quotes the texts of the Creed, and attempts to follow its tenets in his daily life.{{ep ref|ep=4x01|1:46:52}}
+
+{{clr|left}}
+
+== Biography ==
+=== Before Campaign 4 ===
+At some point, Wick fell in love with a commoner but was not permitted to marry her.{{ep ref|ep=4x03|0:49:07}}
+
+In the few weeks leading up to [[Thjazi Fang]]'s execution, [[Halandil Fang]] worked with Wick to attempt to have his family stay the execution.{{ep ref|ep=4x01|1:53:21}}
+
+=== [[Campaign 4]] ===
+At the execution, Wick was told by [[Yanessa Halovar|his grandmother]] moments before it occurred that House Halovar would be calling for it along with [[House Tachonis]], which was a shock to him. Later, he and [[Tyranny]] arrived at Thjazi's wake at Hal's home, Wick bringing Thjazi's sword to give to Hal. After Tyranny gave him a drink, Wick was called to Hal's study. Hal asked him what had happened, and Wick told him he'd tried, but Hal was hesitant to trust him. He then rejoined the wake, and [[Loza Blade]] recognized the sword. When she did, Wick gave it to Hal. She also set up a meeting between Wick and her companion [[Teor Pridesire]] for an interview as a guard. Lady [[Aranessa]] arrived soon after and was, unbeknownst to him, extremely angry with Wick and the Candescent Creed. After she began to ask Wick why she'd been denied an audience with his house, Tyranny pretended to vomit and the two left quickly.{{ep ref|ep=4x01}}
+
+The following day, Wick met with Teor and was interrupted by Yanessa, who sent Teor to be outfitted and told Wick to get rid of him. When Wick seemed confused as to why, she grew openly frustrated with him and told him to be less naive, that their house was once priests in [[Obridimia]], and that they needed to maintain good terms with House Tachonis for the sake of their own power. She told him she would reveal more that night. Wick's father, Lord [[Godard]], called on him that night and brought him and Tyranny deep below the [[Villa Aurora]] into a basement, and along with Yanessa, revealed that they had a massive [[celestial]] named [[Aetheon]] kept captive, and that [[Filament]] was the product of Aetheon, his grandfather.{{ep ref|ep=4x02}} Yanessa then explained further that she had used Filament to cast a spell and had given birth to Godard as a result. She also explained the truth: following the death of the [[Shapers]], she had developed the Candescent Creed as people still needed religion, and as a source of wealth and power for the family. Wick's mother [[Iris Halovar|Iris]] loved the Creed and requested Wick be raised as a true believer and as the face of the family so he could make an advantageous political marriage; everyone else, including his sister [[Zebani Halovar|Zebani]] and the [[demon]]s were aware the Creed had been created by Yanessa and Filament came from Aetheon. Wick was taken aback but said he would continue as the scion of the house, and Tyranny suggested he take a bath. Upstairs in his chambers, Tyranny explained that not only was everything Yanessa had said true, but that the Halovars had a deal with her family for power, that they were afraid of his willpower and moral certainty and that was why they'd told him the truth, and that Teor was likely on his way to be killed. The two of them decided to leave together to rescue Teor. They did so, though Tyranny did most of the talking at the [[Mercanaud Couturier]], and then headed to Hal's house. There, they learned that Teor's brother had left the city yesterday in pursuit of [[Casimir Gavendale]], who had sold out Thjazi, and, upon realizing they were themselves about to be wanted by House Halovar, fled the city with [[Thimble]] and [[Kattigan]] to track Casimir to [[Gormalay]].{{ep ref|ep=4x03}}
+
+== Character information ==
+=== Notable items ===
+* Cane with the symbol of the Candescent Creed{{ep ref|ep=4x03|50:24|name="Packing"}}
+* Silver-framed picture of commoner woman he loved&lt;ref name="Packing"/&gt;
+
+=== Abilities ===
+====Aasimar abilities====
+*Celestial Resistance{{print ref|phb2024|186}}
+*Darkvision{{print ref|phb2024|186}}
+*Healing Hands{{print ref|phb2024|186}}
+*Light Bearer{{print ref|phb2024|186}}
+*Celestial Revelation{{ep ref|ep=4x06|01:42:41}}
+
+&lt;!--====Feats====
+--&gt;
+
+====Sorcerer abilities====
+Wicander uses the sorcerer mechanics as defined in the 2024 ''Player's Handbook''.
+* Spellcasting
+* Innate Sorcery{{ep ref|ep=4x06|3:49:45}}
+* Font of Magic (3 points)
+** Heightened Spell{{ep ref|ep=4x06|4:16:51}}
+* Metamagic
+* Sorcerer Subclass: Clockwork Sorcery
+** Clockwork Spells
+** Restore Balance{{ep ref|ep=4x05|2:35:48}}
+
+====Proficiencies====
+{{slim table}}
+{| class="slim-table sortable" style="line-height:100%"
+|-
+! Proficiency !! Source !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| Deception || Sorcerer || {{ep ref|ep=4x08|cite=needed}}
+|-
+| Persuasion || Sorcerer || {{ep ref|ep=4x08|cite=neededl}}
+|-
+| Religion || Background || {{ep ref|ep=4x06|01:49:41}}
+|}
+
+====Class spells====
+{{slim table}}
+{| class="article-table sortable" style="line-height:100%;"
+! Spell !! Level !! class="unsortable" | Notes !! class="unsortable" | &lt;abbr title="References"&gt;Ref.&lt;/abbr&gt;
+|-
+| ''Friends'' || data-sort-value="0" | Cantrip ||  || {{ep ref|ep=4x07|1:08:47}}
+|-
+| ''Light'' || data-sort-value="0" | Cantrip || Light Bearer || {{print ref|phb2024|186}}{{ep ref|ep=4x06|3:31:16}}
+|-
+| ''Thaumaturgy'' || data-sort-value="0" | Cantrip ||  || {{ep ref|ep=4x01|3:13:47}}
+|-
+| ''Word of Radiance'' || data-sort-value="0" | Cantrip ||  || {{ep ref|ep=4x08|cite=needed}}
+|-
+| ''Alarm'' || 1st|| Clockwork Spell || {{print ref|phb2024|146}}
+|-
+| ''Charm Person'' || 1st ||  || {{ep ref|ep=4x07|3:49:33}}
+|-
+| ''Color Spray'' || 1st ||  || {{ep ref|ep=4x06|3:50:57}}
+|-
+| ''Shield'' || 1st ||  || {{ep ref|ep=4x06|3:54:05}}
+|-
+| ''Protection from Evil and Good'' || 1st || Clockwork Spell || {{print ref|phb2024|146}}
+|-
+| ''Aid'' || 2nd || Clockwork Spell || {{print ref|phb2024|146}}{{ep ref|ep=4x07|3:17:46}}
+|-
+| ''[[Halovar's Luminous Lash]]'' || 2nd || Reflavored ''Earthen Grasp'' || {{ep ref|ep=4x06|4:16:09}}
+|-
+| ''Lesser Restoration'' || 2nd || Clockwork Spell || {{print ref|phb2024|146}}{{ep ref|ep=4x03|3:20:51}}
+|-
+| ''Misty Step'' || 2nd ||  || {{ep ref|ep=4x08|cite=needed}}
+|}
+
+== Appearances and mentions ==
+
+* [[Campaign 4]]
+** {{appearance|4x01|appear|{{1st}}}}
+** {{appearance|4x02|appear}}
+** {{appearance|4x03|appear}}
+** {{appearance|4x05|appear}}
+** {{appearance|4x06|appear}}
+** {{appearance|4x07|appear}}
+
+== Quotations ==
+&lt;!-- Insert quotations here. --&gt;
+
+== Trivia ==
+&lt;!-- Insert trivia here. --&gt;
+
+== References ==
+{{Reflist}}
+{{Fn reflist}}
+{{Art reflist}}
+
+{{Nav-C4PCs}}
+[[Category:Aramán aasimar]]
+[[Category:Main player characters]]
+[[Category:Characters in Campaign 4| ]][[Category:Aramán player characters]]</text>
+      <sha1>jjvejdp4ali5fi1h9hovfpx0rpc0z9d</sha1>
+    </revision>
+  </page>
+</mediawiki>

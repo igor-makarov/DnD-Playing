@@ -12,7 +12,8 @@
     "format:check": "prettier --check .",
     "postinstall": "playwright install",
     "5etools": "tsx 5etools-cli.ts",
-    "cr-extract": "tsx cr-extract-characters.ts"
+    "cr:extract": "tsx cr-extract-characters.ts",
+    "cr:download": "tsx cr-download.ts"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",

@@ -9,69 +9,9 @@
  *
  * Parses pages tagged with [[Category:Main player characters]] and outputs raw wikitext.
  */
-import * as fs from "fs";
-import { parseString } from "xml2js";
-
-interface Character {
-  name: string;
-  rawWikitext: string;
-}
-
-interface MediaWikiPage {
-  title?: string[];
-  revision?: Array<{
-    text?: Array<{ _: string } | string>;
-  }>;
-}
-
-interface MediaWikiExport {
-  mediawiki?: {
-    page?: MediaWikiPage[];
-  };
-}
-
-function parseCharacter(title: string, wikitext: string): Character | null {
-  if (!wikitext.includes("[[Category:Main player characters]]")) {
-    return null;
-  }
-
-  return {
-    name: title,
-    rawWikitext: wikitext,
-  };
-}
-
-function parseXML(xmlContent: string): Character[] {
-  const characters: Character[] = [];
-
-  let result: MediaWikiExport = {};
-  parseString(xmlContent, { async: false }, (err, parsed) => {
-    if (err) throw err;
-    result = parsed;
-  });
-
-  const pages = result.mediawiki?.page ?? [];
-
-  for (const page of pages) {
-    const title = page.title?.[0];
-    if (!title) continue;
-
-    const textNode = page.revision?.[0]?.text?.[0];
-    const wikitext = typeof textNode === "string" ? textNode : textNode?._ ?? "";
-    if (!wikitext) continue;
-
-    const character = parseCharacter(title, wikitext);
-    if (character) {
-      characters.push(character);
-    }
-  }
-
-  return characters;
-}
-
-function formatCharacter(char: Character): string {
-  return `# ${char.name}\n\n${char.rawWikitext}`;
-}
+import { getCharacter } from "./src/js/utils/render-cr/getCharacter";
+import { getCharacterNames } from "./src/js/utils/render-cr/loadData";
+import renderMarkdown from "./src/js/utils/render-cr/renderMarkdown";
 
 function main() {
   const args = process.argv.slice(2);
@@ -91,33 +31,28 @@ function main() {
     process.exit(1);
   }
 
-  if (!fs.existsSync(inputFile)) {
-    console.error(`Error: File not found: ${inputFile}`);
-    process.exit(1);
-  }
-
-  const xmlContent = fs.readFileSync(inputFile, "utf-8");
-  const characters = parseXML(xmlContent);
-
   if (listNames) {
-    console.log(`Found ${characters.length} main player characters:\n`);
-    for (const char of characters) {
-      console.log(`- ${char.name}`);
+    const names = getCharacterNames(inputFile);
+    console.log(`Found ${names.length} main player characters:\n`);
+    for (const name of names) {
+      console.log(`- ${name}`);
     }
     return;
   }
 
   if (filterName) {
-    const char = characters.find((c) => c.name.toLowerCase() === filterName.toLowerCase() || c.name.toLowerCase().includes(filterName.toLowerCase()));
-    if (!char) {
-      console.error(`Character not found: ${filterName}`);
+    try {
+      const character = getCharacter(inputFile, filterName);
+      console.log(renderMarkdown(character));
+    } catch (error) {
+      console.error((error as Error).message);
+      const names = getCharacterNames(inputFile);
       console.error(`Available characters:`);
-      for (const c of characters) {
-        console.error(`  - ${c.name}`);
+      for (const name of names) {
+        console.error(`  - ${name}`);
       }
       process.exit(1);
     }
-    console.log(formatCharacter(char));
   }
 }
 

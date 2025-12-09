@@ -37,6 +37,8 @@ This project has a copy of the 5etools data in `5etools/`
 
 # Critical Role data
 - XML sources: `critical-role/`
-- Extract main character data from MediaWiki XML: `npm run cr-extract`
-- Get names: `npm run cr-extract -- <xml-file> [--names]`
-- Get character info: `npm run cr-extract -- <xml-file> [--name <name>]`
+- Extract main character data from MediaWiki XML: `npm run cr:extract`
+- Download main character data XML from MediaWiki: `npm run cr:download`
+- Get names: `npm run cr:extract -- <xml-file> [--names]`
+- Get character info: `npm run cr:extract -- <xml-file> [--name <name>]`
+- IMPORTANT: DO NOT truncate CR tool output! This will result in incomplete character info
