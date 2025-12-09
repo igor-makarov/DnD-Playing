@@ -14,7 +14,10 @@ import type { Weapon } from "@/js/character/CharacterTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import { getClass } from "@/js/utils/render-5etools/getClass";
+import { getClassFeature } from "@/js/utils/render-5etools/getClassFeature";
+import { getFeat } from "@/js/utils/render-5etools/getFeat";
 import { getSpecies } from "@/js/utils/render-5etools/getSpecies";
+import { getSpell } from "@/js/utils/render-5etools/getSpell";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 import "@/styles/style.css";
 
@@ -162,6 +165,34 @@ const characterName = "Azune Nayar";
                 <span class="mono">{character.getSpellSaveDC()}</span>
               </td>
             </tr>
+            <tr>
+              <th>Cantrips</th>
+              <th class="modifier">Source</th>
+            </tr>
+            <tr>
+              <td><InfoTooltip client:load reference={renderHTML(getSpell("Guidance"))}>Guidance</InfoTooltip></td>
+              <td class="modifier">Paladin/Sorcerer</td>
+            </tr>
+            <tr>
+              <td><InfoTooltip client:load reference={renderHTML(getSpell("Mending"))}>Mending</InfoTooltip></td>
+              <td class="modifier">Sorcerer</td>
+            </tr>
+            <tr>
+              <td><InfoTooltip client:load reference={renderHTML(getSpell("Message"))}>Message</InfoTooltip></td>
+              <td class="modifier">Sorcerer</td>
+            </tr>
+            <tr>
+              <th>1st Level Spells</th>
+              <th class="modifier">Effect</th>
+            </tr>
+            <tr>
+              <td><InfoTooltip client:load reference={renderHTML(getSpell("Detect Magic"))}>Detect Magic</InfoTooltip></td>
+              <td class="modifier">ritual, sense magic</td>
+            </tr>
+            <tr>
+              <td><InfoTooltip client:load reference={renderHTML(getSpell("False Life"))}>False Life</InfoTooltip></td>
+              <td class="modifier">temp HP</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -199,23 +230,25 @@ const characterName = "Azune Nayar";
             <td class="modifier">Origin feat</td>
           </tr>
           <tr>
-            <td>[Feat] Lucky</td>
+            <td><InfoTooltip client:load reference={renderHTML(getFeat("Lucky"))}>[Feat] Lucky</InfoTooltip></td>
             <td class="modifier">reroll d20s</td>
           </tr>
           <tr>
-            <td>[Paladin] Lay on Hands</td>
+            <td><InfoTooltip client:load reference={renderHTML(getClassFeature("Lay on Hands", "Paladin"))}>[Paladin] Lay on Hands</InfoTooltip></td>
             <td class="modifier">pool: <span class="mono">{character.getLayOnHandsPool()}</span> HP</td>
           </tr>
           <tr>
-            <td>[Paladin] Divine Smite</td>
-            <td class="modifier">2d8+ radiant on hit</td>
-          </tr>
-          <tr>
-            <td>[Paladin] Fighting Style</td>
+            <td
+              ><InfoTooltip client:load reference={renderHTML(getClassFeature("Fighting Style", "Paladin"))}>[Paladin] Fighting Style</InfoTooltip
+              ></td
+            >
             <td class="modifier">Defense (+1 AC)</td>
           </tr>
           <tr>
-            <td>[Sorcerer] Innate Sorcery</td>
+            <td
+              ><InfoTooltip client:load reference={renderHTML(getClassFeature("Innate Sorcery", "Sorcerer"))}>[Sorcerer] Innate Sorcery</InfoTooltip
+              ></td
+            >
             <td class="modifier">bonus action, adv on spell attacks</td>
           </tr>
         </table>
