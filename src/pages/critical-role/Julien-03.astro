@@ -12,6 +12,7 @@ import { Character } from "@/js/character/Character";
 import type { Weapon } from "@/js/character/CharacterTypes";
 import { DiceString } from "@/js/common/DiceString";
 import { getClass } from "@/js/utils/render-5etools/getClass";
+import { getSpecies } from "@/js/utils/render-5etools/getSpecies";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 import "@/styles/style.css";
 
@@ -166,7 +167,7 @@ const characterName = "Julien Davinos";
           </tr>
           <tr>
             <td>Species</td>
-            <td class="modifier">Human</td>
+            <td class="modifier"><InfoTooltip client:load reference={renderHTML(getSpecies("Human"))}>Human</InfoTooltip></td>
           </tr>
           <tr>
             <td>Class</td>
