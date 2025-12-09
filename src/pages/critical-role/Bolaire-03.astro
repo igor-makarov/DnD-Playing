@@ -15,7 +15,10 @@ import type { Weapon } from "@/js/character/CharacterTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import { getClass } from "@/js/utils/render-5etools/getClass";
+import { getItem } from "@/js/utils/render-5etools/getItem";
+import { getOptionalFeature } from "@/js/utils/render-5etools/getOptionalFeature";
 import { getSpell } from "@/js/utils/render-5etools/getSpell";
+import { getSubclassFeature } from "@/js/utils/render-5etools/getSubclassFeature";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 import "@/styles/style.css";
 
@@ -166,10 +169,12 @@ const characterName = "Bolaire Lathalia";
             <LevelledSpellDamageRow
               name="Burning Hands"
               damageOptions={character.getDamageProgression({ level: 1, damage: new DiceString("3d6") }, new DiceString("d6"))}
+              reference={renderHTML(getSpell("Burning Hands"))}
             />
             <LevelledSpellDamageRow
               name="Scorching Ray"
               damageOptions={character.getDamageProgression({ level: 2, damage: new DiceString("2d6") }, new DiceString("d6"))}
+              reference={renderHTML(getSpell("Scorching Ray"))}
             />
             <tr>
               <td><InfoTooltip client:load reference={renderHTML(getSpell("Command"))}>Command</InfoTooltip></td>
@@ -205,15 +210,22 @@ const characterName = "Bolaire Lathalia";
             <td class="modifier">recover spell slots</td>
           </tr>
           <tr>
-            <td>[Invocation] Pact of the Blade</td>
+            <td
+              >[Invocation] <InfoTooltip client:load reference={renderHTML(getOptionalFeature("Pact of the Blade"))}>Pact of the Blade</InfoTooltip
+              ></td
+            >
             <td class="modifier">summon weapon, use CHA</td>
           </tr>
           <tr>
-            <td>[Invocation] Devil's Sight</td>
+            <td>[Invocation] <InfoTooltip client:load reference={renderHTML(getOptionalFeature("Devil's Sight"))}>Devil's Sight</InfoTooltip></td>
             <td class="modifier">darkvision 120ft (magical)</td>
           </tr>
           <tr>
-            <td>[Fiend] Dark One's Blessing</td>
+            <td
+              >[Fiend] <InfoTooltip client:load reference={renderHTML(getSubclassFeature("Dark One's Blessing", "Warlock", "Fiend"))}
+                >Dark One's Blessing</InfoTooltip
+              ></td
+            >
             <td class="modifier">
               temp HP on kill: <span class="mono">{character.getDarkOnesBlessingTempHP()}</span>
             </td>
@@ -225,7 +237,7 @@ const characterName = "Bolaire Lathalia";
           </tr>
           <tr>
             <td colspan="2">
-              <strong>Tools:</strong> Alchemist's Supplies
+              [Tool] <InfoTooltip client:load reference={renderHTML(getItem("Alchemist's Supplies"))}>Alchemist's Supplies</InfoTooltip>
             </td>
           </tr>
         </table>
