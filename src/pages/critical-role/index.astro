@@ -1,5 +1,6 @@
 ---
 import "@/styles/style.css";
+import Link from "@/components/Link.astro";
 
 // Get all character pages in critical-role
 const pageModules = import.meta.glob("./*.astro", { eager: true });
@@ -15,7 +16,7 @@ const characterPages = Object.keys(pageModules)
       character,
       level,
       label: `Level ${level}`,
-      url: new URL(filename, Astro.url.href.replace(/\/?$/, "/")).pathname,
+      to: `/critical-role/${filename}`,
     };
   })
   .sort((a, b) => a.character.localeCompare(b.character) || a.level - b.level);
@@ -50,10 +51,10 @@ const pageTitle = "Critical Role Characters";
               <tr>
                 <th>{character}</th>
               </tr>
-              {pages.map(({ label, url }) => (
+              {pages.map(({ label, to }) => (
                 <tr>
                   <td>
-                    <a href={url}>{label}</a>
+                    <Link to={to}>{label}</Link>
                   </td>
                 </tr>
               ))}

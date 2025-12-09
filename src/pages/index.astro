@@ -1,12 +1,13 @@
 ---
 import "@/styles/style.css";
+import Link from "@/components/Link.astro";
 
 // Get all character pages
 const pageModules = import.meta.glob("./characters/*.astro", { eager: true });
 const characterPages = Object.keys(pageModules)
   .map((path) => {
     const name = path.replace("./characters/", "").replace(".astro", "");
-    return { name, url: new URL(`characters/${name}`, Astro.url).pathname };
+    return { name, to: `/characters/${name}` };
   })
   .sort((a, b) => a.name.localeCompare(b.name));
 
@@ -27,10 +28,10 @@ const pageTitle = "D&D Character Sheets";
             <th>Characters</th>
           </tr>
           {
-            characterPages.map(({ name, url }) => (
+            characterPages.map(({ name, to }) => (
               <tr>
                 <td>
-                  <a href={url}>{name}</a>
+                  <Link to={to}>{name}</Link>
                 </td>
               </tr>
             ))
@@ -42,7 +43,7 @@ const pageTitle = "D&D Character Sheets";
           </tr>
           <tr>
             <td>
-              <a href={new URL("critical-role", Astro.url).pathname}>Critical Role Characters</a>
+              <Link to="/critical-role">Critical Role Characters</Link>
             </td>
           </tr>
         </table>
@@ -52,7 +53,7 @@ const pageTitle = "D&D Character Sheets";
           </tr>
           <tr>
             <td>
-              <a href={new URL("classes", Astro.url).pathname}>All Classes</a>
+              <Link to="/classes">All Classes</Link>
             </td>
           </tr>
         </table>

@@ -1,13 +1,36 @@
 ---
 import "@/styles/style.css";
+import Link from "@/components/Link.astro";
 import { collectAllClassReferences } from "@/js/utils/collectClassNames";
+import { collectAllSubclassReferences } from "@/js/utils/collectSubclassNames";
 import { getSourceName } from "@/js/utils/render-5etools/ReferenceTypes";
+
+const subclassRefs = collectAllSubclassReferences();
+
+// Group subclasses by class key (className|classSource)
+const subclassesByClass = subclassRefs.reduce(
+  (acc, sc) => {
+    const key = `${sc.className}|${sc.classSource}`;
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    acc[key].push(sc);
+    return acc;
+  },
+  {} as Record<string, typeof subclassRefs>,
+);
 
 const classPages = collectAllClassReferences()
   .map((ref) => ({
     name: ref.name,
     source: ref.source,
-    url: new URL(`${ref.name}-${ref.source}`, Astro.url).pathname,
+    to: `/classes/${ref.name}-${ref.source}`,
+    subclasses: (subclassesByClass[`${ref.name}|${ref.source}`] || [])
+      .map((sc) => ({
+        name: sc.subclassShortName,
+        to: `/subclasses/${sc.className}-${sc.classSource}-${sc.subclassShortName}-${sc.subclassSource}`,
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name)),
   }))
   .sort((a, b) => a.name.localeCompare(b.name) || a.source.localeCompare(b.source));
 
@@ -43,10 +66,19 @@ const pageTitle = "D&D Classes";
               <tr>
                 <th>{getSourceName(source)}</th>
               </tr>
-              {classesBySource[source].map(({ name, url }) => (
+              {classesBySource[source].map(({ name, to, subclasses }) => (
                 <tr>
                   <td>
-                    <a href={url}>{name}</a>
+                    <Link to={to}>{name}</Link>
+                    {subclasses.length > 0 && (
+                      <ul>
+                        {subclasses.map((sc) => (
+                          <li>
+                            <Link to={sc.to}>{sc.name}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </td>
                 </tr>
               ))}

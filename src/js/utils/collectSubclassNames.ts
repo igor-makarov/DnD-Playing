@@ -25,11 +25,16 @@ interface ClassFileData {
 
 /**
  * Look up the actual subclass source from 5etools data.
+ * Uses the same preference logic as getSubclass() - prefers subclass source matching classSource.
  */
 function getActualSubclassSource(className: string, subclassShortName: string, classSource: string): string | null {
   try {
     const classData = loadData<ClassFileData>(`class/class-${className.toLowerCase()}.json`);
-    const subclass = classData.subclass.find((s) => s.shortName === subclassShortName && s.className === className && s.classSource === classSource);
+    const matchingSubclasses = classData.subclass.filter(
+      (s) => s.shortName === subclassShortName && s.className === className && s.classSource === classSource,
+    );
+    // Prefer subclass with source matching classSource (e.g., XPHB subclass for XPHB class)
+    const subclass = matchingSubclasses.find((s) => s.source === classSource) || matchingSubclasses[0];
     return subclass?.source || null;
   } catch {
     return null;

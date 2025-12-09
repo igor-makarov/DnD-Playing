@@ -227,7 +227,7 @@ export function getSubclass(className: string, subclassShortName: string, classS
     source: subclass.source,
     byline,
     entries,
-    fullLink: `/subclasses/${className}-${classSource}-${subclassShortName}-${subclass.source}`,
+    fullLink: `/subclasses/${className}-${classSource}-${subclassShortName}-${subclass.source}/`,
   };
 }
 
