@@ -223,23 +223,24 @@ const characterName = "Azune Nayar";
             <td class="modifier">Origin feat</td>
           </tr>
           <tr>
-            <td><InfoTooltip client:load reference={renderHTML(getFeat("Lucky"))}>[Feat] Lucky</InfoTooltip></td>
+            <td>[Feat] <InfoTooltip client:load reference={renderHTML(getFeat("Lucky"))}>Lucky</InfoTooltip></td>
             <td class="modifier">reroll d20s</td>
           </tr>
           <tr>
-            <td><InfoTooltip client:load reference={renderHTML(getClassFeature("Lay on Hands", "Paladin"))}>[Paladin] Lay on Hands</InfoTooltip></td>
+            <td>[Paladin 1] <InfoTooltip client:load reference={renderHTML(getClassFeature("Lay on Hands", "Paladin"))}>Lay on Hands</InfoTooltip></td
+            >
             <td class="modifier">pool: <span class="mono">{character.getLayOnHandsPool()}</span> HP</td>
           </tr>
           <tr>
             <td
-              ><InfoTooltip client:load reference={renderHTML(getClassFeature("Fighting Style", "Paladin"))}>[Paladin] Fighting Style</InfoTooltip
+              >[Paladin 2] <InfoTooltip client:load reference={renderHTML(getClassFeature("Fighting Style", "Paladin"))}>Fighting Style</InfoTooltip
               ></td
             >
             <td class="modifier">Defense (+1 AC)</td>
           </tr>
           <tr>
             <td
-              ><InfoTooltip client:load reference={renderHTML(getClassFeature("Innate Sorcery", "Sorcerer"))}>[Sorcerer] Innate Sorcery</InfoTooltip
+              >[Sorcerer 1] <InfoTooltip client:load reference={renderHTML(getClassFeature("Innate Sorcery", "Sorcerer"))}>Innate Sorcery</InfoTooltip
               ></td
             >
             <td class="modifier">bonus action, adv on spell attacks</td>

@@ -54,7 +54,49 @@ function renderTags(text: string): string {
     .replace(/{@spell ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
     .replace(/{@item ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
     .replace(/{@hazard ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
-    .replace(/{@filter ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>");
+    .replace(/{@filter ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
+    .replace(/{@i ([^}]+)}/g, "<em>$1</em>")
+    .replace(/{@b ([^}]+)}/g, "<strong>$1</strong>");
+}
+
+function renderProperties(entry: Entry & { type: "properties"; data: Array<{ key: string; value: string }> }): string {
+  return entry.data.map(({ key, value }) => `<p class="property"><strong>${key}:</strong> ${value}</p>`).join("");
+}
+
+function renderList(entry: Entry & { type: "list"; items: Entry[] }): string {
+  const items = entry.items.map((item) => `<li>${renderEntry(item)}</li>`).join("");
+  return `<ul>${items}</ul>`;
+}
+
+function renderTable(entry: Entry & { type: "table"; rows: Array<Array<string | Entry>>; caption?: string; colLabels?: string[] }): string {
+  let html = "<table>";
+  if (entry.caption) {
+    html += `<caption>${renderTags(entry.caption)}</caption>`;
+  }
+  if (entry.colLabels) {
+    html += "<thead><tr>";
+    html += entry.colLabels.map((label) => `<th>${renderTags(label)}</th>`).join("");
+    html += "</tr></thead>";
+  }
+  html += "<tbody>";
+  for (const row of entry.rows) {
+    html += "<tr>";
+    if (Array.isArray(row)) {
+      html += row.map((cell) => `<td>${typeof cell === "string" ? renderTags(cell) : renderEntry(cell)}</td>`).join("");
+    }
+    html += "</tr>";
+  }
+  html += "</tbody></table>";
+  return html;
+}
+
+function renderEntries(entry: Entry & { type: "entries"; entries?: Entry[]; name?: string }): string {
+  if (entry.name) {
+    const inner = entry.entries?.map(renderEntry).join(" ") || "";
+    return `<p><strong>${entry.name}.</strong> ${inner}</p>`;
+  }
+  // Anonymous entries wrapper - render children as block elements
+  return entry.entries?.map(renderEntry).join("") || "";
 }
 
 // Recursively renders 5etools entry objects to HTML
@@ -63,34 +105,23 @@ function renderEntry(entry: Entry): string {
     return renderTags(entry);
   }
 
-  // Handle properties entry (just data, no content)
-  if (entry.type === "properties" && entry.data) {
-    return entry.data.map(({ key, value }) => `<p class="property"><strong>${key}:</strong> ${value}</p>`).join("");
-  }
-
-  // Handle heading (standalone, no children)
-  if (entry.type === "heading" && entry.name) {
-    return `<h3>${entry.name}</h3>`;
-  }
-
-  // Handle section as wrapper (no heading, just groups content)
-  if (entry.type === "section") {
-    return entry.entries?.map(renderEntry).join("") || "";
-  }
-
-  if (entry.type === "entries" && entry.name) {
-    const inner = entry.entries?.map(renderEntry).join(" ") || "";
-    return `<p><strong>${entry.name}.</strong> ${inner}</p>`;
-  }
-
-  // Handle anonymous entries wrapper (no name) - render children as block elements
-  if (entry.type === "entries" && !entry.name) {
-    return entry.entries?.map(renderEntry).join("") || "";
-  }
-
-  if (entry.type === "list" && entry.items) {
-    const items = entry.items.map((item) => `<li>${renderEntry(item)}</li>`).join("");
-    return `<ul>${items}</ul>`;
+  switch (entry.type) {
+    case "properties":
+      if (entry.data) return renderProperties(entry as Entry & { type: "properties"; data: Array<{ key: string; value: string }> });
+      break;
+    case "heading":
+      if (entry.name) return `<h3>${entry.name}</h3>`;
+      break;
+    case "section":
+      return entry.entries?.map(renderEntry).join("") || "";
+    case "entries":
+      return renderEntries(entry as Entry & { type: "entries"; entries?: Entry[]; name?: string });
+    case "list":
+      if (entry.items) return renderList(entry as Entry & { type: "list"; items: Entry[] });
+      break;
+    case "table":
+      if (entry.rows) return renderTable(entry as Entry & { type: "table"; rows: Array<Array<string | Entry>> });
+      break;
   }
 
   // Fallback for other types
