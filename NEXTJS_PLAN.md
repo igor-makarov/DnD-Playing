@@ -1,8 +1,10 @@
-# Astro → Next.js Migration Plan (Pages Router)
+# Astro → Next.js Migration Plan (App Router with RSC)
 
 ## Overview
 
-Migrate from Astro to Next.js Pages Router for a D&D Character Sheet application. The project uses React components with URL-based state management and static site generation.
+Migrate from Astro to Next.js App Router for a D&D Character Sheet application. The project uses React components with URL-based state management and static site generation.
+
+**Key benefit of App Router:** React Server Components (RSC) allow server-only code (like `jsdom`, `fs`, `dompurify`) to run seamlessly at build time, similar to Astro's frontmatter.
 
 ## Configuration
 
@@ -20,140 +22,133 @@ module.exports = nextConfig
 
 ### tsconfig.json
 
-Update to remove Astro extension, keep path aliases.
+Use `@tsconfig/next` base, keep path aliases.
 
 ## Routing Migration
 
-| Astro | Next.js Pages Router |
-|-------|---------------------|
-| `src/pages/index.astro` | `pages/index.tsx` |
-| `src/pages/characters/Azamat.astro` | `pages/characters/Azamat.tsx` |
-| `src/pages/characters/Jacob.astro` | `pages/characters/Jacob.tsx` |
-| `src/pages/characters/Adrik.astro` | `pages/characters/Adrik.tsx` |
-| `src/pages/classes/index.astro` | `pages/classes/index.tsx` |
-| `src/pages/classes/[class].astro` | `pages/classes/[class].tsx` |
-| `src/pages/subclasses/[subclass].astro` | `pages/subclasses/[subclass].tsx` |
-| `src/pages/critical-role/index.astro` | `pages/critical-role/index.tsx` |
-| `src/pages/critical-role/[character].astro` | `pages/critical-role/[character].tsx` |
-| `src/layouts/ReferenceLayout.astro` | `src/components/Layout.tsx` |
+| Astro | Next.js App Router |
+|-------|-------------------|
+| `src/pages/index.astro` | `app/page.tsx` |
+| `src/pages/characters/Azamat.astro` | `app/characters/Azamat/page.tsx` |
+| `src/pages/characters/Jacob.astro` | `app/characters/Jacob/page.tsx` |
+| `src/pages/characters/Adrik.astro` | `app/characters/Adrik/page.tsx` |
+| `src/pages/classes/index.astro` | `app/classes/page.tsx` |
+| `src/pages/classes/[class].astro` | `app/classes/[class]/page.tsx` |
+| `src/pages/subclasses/[subclass].astro` | `app/subclasses/[subclass]/page.tsx` |
+| `src/pages/critical-role/index.astro` | `app/critical-role/page.tsx` |
+| `src/pages/critical-role/[character].astro` | `app/critical-role/[character]/page.tsx` |
+| `src/layouts/ReferenceLayout.astro` | `app/classes/layout.tsx` or component |
 
-## Page Structure Pattern
+## Server vs Client Components
 
-### Static Page
+### Server Components (default)
+
+Pages are Server Components by default - Node.js code runs at build time:
 
 ```tsx
-// pages/characters/Azamat.tsx
-import type { GetStaticProps } from 'next'
-import Layout from '@/components/Layout'
+// app/characters/Azamat/page.tsx (Server Component)
+import renderHTML from "@/js/utils/render-5etools/renderHTML";
+import { getClass } from "@/js/utils/render-5etools/getClass";
 
-interface Props {
-  // props from getStaticProps
-}
+export default function AzamatPage() {
+  // This runs ONLY on the server at build time - uses jsdom, fs, etc.
+  const classData = renderHTML(getClass("Paladin"));
 
-export default function AzamatPage(props: Props) {
   return (
-    <Layout title="Azamat">
-      {/* content */}
-    </Layout>
-  )
-}
-
-export const getStaticProps: GetStaticProps<Props> = async () => {
-  return { props: { /* ... */ } }
+    <>
+      <ServerContent classData={classData} />
+      <InteractiveSection /> {/* Client Component */}
+    </>
+  );
 }
 ```
 
-### Dynamic Page
+### Client Components
+
+Components needing interactivity must be marked with `"use client"`:
 
 ```tsx
-// pages/classes/[class].tsx
-import type { GetStaticPaths, GetStaticProps } from 'next'
+// src/components/HitPointsInput.tsx
+"use client";
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const classes = collectAllClassReferences()
-  return {
-    paths: classes.map(c => ({ params: { class: `${c.name}-${c.source}` } })),
-    fallback: false,
-  }
-}
+import { useState } from "react";
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  // load class data
-  return { props: { /* ... */ } }
-}
-
-export default function ClassPage(props: Props) {
-  return (
-    <Layout title={props.className}>
-      {/* content */}
-    </Layout>
-  )
+export default function HitPointsInput({ hitPointMaximum }) {
+  const [hp, setHp] = useState(hitPointMaximum);
+  // ... interactive logic
 }
 ```
+
+**Client Components needed:**
+- `HitPointsInput` - URL state
+- `HitDiceTable` - URL state
+- `D20TestCell` - keyboard modifiers, roll links
+- `WeaponAttackTable` - weapon selection state
+- `SpellSlotsTable` - URL state
+- `InfoTooltip` - dialog interaction
+- Any component using `useState`, `useEffect`, `useStore`, or browser APIs
 
 ## Layout Structure
 
-**No shared layout wrapper** - each page is self-contained (like current Astro setup).
-
-### pages/_app.tsx
-
-Just imports global CSS:
+### app/layout.tsx (Root Layout)
 
 ```tsx
-import '@/styles/style.css'
-import type { AppProps } from 'next/app'
+import "@/styles/style.css";
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
 }
 ```
 
 ### Character Pages (self-contained)
 
-Each character page has its own structure with `next/head`:
-
 ```tsx
-// pages/characters/Azamat.tsx
-import Head from 'next/head'
+// app/characters/Azamat/page.tsx
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Azamat",
+};
 
 export default function AzamatPage() {
   return (
     <>
-      <Head>
-        <title>{process.env.NODE_ENV === 'development' ? '[dev] ' : ''}Azamat</title>
-        <base target="_blank" />
-      </Head>
+      <base target="_blank" />
       <div className="row six-across">
         {/* content */}
       </div>
     </>
-  )
+  );
 }
 ```
 
-### src/components/ReferenceLayout.tsx (class/subclass pages only)
-
-Small wrapper component only for class/subclass reference pages:
+### Dynamic Routes
 
 ```tsx
-import Head from 'next/head'
+// app/classes/[class]/page.tsx
+import { collectAllClassReferences } from "@/js/utils/collectClassNames";
+import { getClass } from "@/js/utils/render-5etools/getClass";
+import renderHTML from "@/js/utils/render-5etools/renderHTML";
 
-interface Props {
-  title: string
-  children: React.ReactNode
+export async function generateStaticParams() {
+  const classes = collectAllClassReferences();
+  return classes.map((c) => ({ class: `${c.name}-${c.source}` }));
 }
 
-export default function ReferenceLayout({ title, children }: Props) {
+export default function ClassPage({ params }: { params: { class: string } }) {
+  const [name, source] = params.class.split("-");
+  const classData = getClass(name, source);
+  const { sanitizedHtml } = renderHTML(classData);
+
   return (
-    <>
-      <Head>
-        <title>{process.env.NODE_ENV === 'development' ? '[dev] ' : ''}{title}</title>
-      </Head>
-      <div className="info-tooltip-dialog" style={{ margin: '0 auto' }}>
-        {children}
-      </div>
-    </>
-  )
+    <div className="info-tooltip-dialog" style={{ margin: "0 auto" }}>
+      <div dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
+    </div>
+  );
 }
 ```
 
@@ -161,35 +156,34 @@ export default function ReferenceLayout({ title, children }: Props) {
 
 ### Astro Components → React
 
-| Astro File | React File |
-|------------|------------|
-| `ReferenceLayout.astro` | `src/components/ReferenceLayout.tsx` (class/subclass only) |
-| `AbilitiesTable.astro` | `src/components/AbilitiesTable.tsx` |
-| `SkillsTable.astro` | `src/components/SkillsTable.tsx` |
-| `SavesTable.astro` | `src/components/SavesTable.tsx` |
-| `SaveRow.astro` | `src/components/SaveRow.tsx` |
-| `SkillRow.astro` | `src/components/SkillRow.tsx` |
-| `WeaponAttackTable.astro` | Merge into existing React component |
-| `SpellSlotsTables.astro` | `src/components/SpellSlotsTables.tsx` |
-| `Link.astro` | `src/components/Link.tsx` (use `next/link`) |
+| Astro File | React File | Type |
+|------------|------------|------|
+| `ReferenceLayout.astro` | `src/components/ReferenceLayout.tsx` | Server |
+| `AbilitiesTable.astro` | `src/components/AbilitiesTable.tsx` | Server (wraps Client) |
+| `SkillsTable.astro` | `src/components/SkillsTable.tsx` | Server (wraps Client) |
+| `SavesTable.astro` | `src/components/SavesTable.tsx` | Server (wraps Client) |
+| `SaveRow.astro` | `src/components/SaveRow.tsx` | Server (wraps Client) |
+| `SkillRow.astro` | `src/components/SkillRow.tsx` | Server (wraps Client) |
+| `WeaponAttackTable.astro` | Keep existing React component | Client |
+| `SpellSlotsTables.astro` | `src/components/SpellSlotsTables.tsx` | Server (wraps Client) |
+| `Link.astro` | `src/components/Link.tsx` (use `next/link`) | Server |
 
 ### Hydration Changes
 
-Remove Astro `client:load` directives - everything is React:
+Remove Astro `client:load` directives - use `"use client"` instead:
 
 ```diff
 - <HitPointsInput client:load {...props} />
-+ <HitPointsInput {...props} />
++ <HitPointsInput {...props} />  // Component has "use client" directive
 ```
 
 ## What Stays the Same
 
 - **URL query state management** - Custom store system in `src/js/stores/primitives/`
-- **Static data loading** - SSG via `getStaticProps` / `getStaticPaths`
-- **React components** - All existing `.tsx` components
+- **React components** - All existing `.tsx` components (add `"use client"` where needed)
 - **Character logic** - `src/js/character/` unchanged
-- **Utilities** - `src/js/utils/` mostly unchanged
-- **CSS** - `src/styles/style.css` (import in `_app.tsx`)
+- **Server utilities** - `src/js/utils/render-5etools/` work naturally in RSC
+- **CSS** - `src/styles/style.css` (import in root layout)
 - **Unit tests** - Vitest configuration
 - **E2E tests** - Playwright (update port/command)
 
@@ -230,24 +224,24 @@ Remove Astro `client:load` directives - everything is React:
 ## Final Directory Structure
 
 ```
-├── pages/
-│   ├── _app.tsx
-│   ├── index.tsx
+├── app/
+│   ├── layout.tsx              # Root layout with CSS
+│   ├── page.tsx                # Home page
 │   ├── characters/
-│   │   ├── Azamat.tsx
-│   │   ├── Jacob.tsx
-│   │   └── Adrik.tsx
+│   │   ├── Azamat/page.tsx
+│   │   ├── Jacob/page.tsx
+│   │   └── Adrik/page.tsx
 │   ├── classes/
-│   │   ├── index.tsx
-│   │   └── [class].tsx
+│   │   ├── page.tsx            # Classes index
+│   │   └── [class]/page.tsx    # Dynamic class pages
 │   ├── subclasses/
-│   │   └── [subclass].tsx
+│   │   └── [subclass]/page.tsx
 │   └── critical-role/
-│       ├── index.tsx
-│       └── [character].tsx
+│       ├── page.tsx            # CR index
+│       └── [character]/page.tsx
 ├── src/
-│   ├── components/
-│   ├── js/
+│   ├── components/             # Shared components
+│   ├── js/                     # Business logic
 │   └── styles/
 ├── public/
 ├── next.config.js

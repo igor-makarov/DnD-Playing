@@ -1,4 +1,4 @@
-# Next.js Migration Checkpoints
+# Next.js Migration Checkpoints (App Router)
 
 ## Checkpoint 1: Next.js Bootstrapped [COMPLETE]
 
@@ -7,33 +7,59 @@
 - [x] Add `next` dependency
 - [x] Create `next.config.js`
 - [x] Update `tsconfig.json` (use `@tsconfig/next` base)
-- [x] Create `pages/_app.tsx` with global CSS import
-- [x] Create `pages/index.tsx` (minimal placeholder)
 - [x] Update `package.json` scripts
 
 **Verify:**
 - [x] `npm run dev` starts on localhost:3000
-- [x] Index page renders
 - [x] `npm run build` succeeds
 
 ---
 
-## Checkpoint 2: First Static Page
+## Checkpoint 1.5: Switch to App Router
 
-**Goal:** One character page works end-to-end
+**Goal:** Migrate from Pages Router to App Router
 
-- [ ] Convert `pages/characters/Azamat.astro` → `pages/characters/Azamat.tsx`
-- [ ] Convert `AbilitiesTable.astro` → React
-- [ ] Convert `SkillsTable.astro` → React
-- [ ] Convert `SavesTable.astro` → React
-- [ ] Convert `SaveRow.astro` → React
-- [ ] Convert `SkillRow.astro` → React
-- [ ] Convert `SpellSlotsTables.astro` → React
-- [ ] Convert `WeaponAttackTable.astro` → React
-- [ ] Convert `LevelledSpellDamageRow.astro` → React
+- [ ] Create `app/layout.tsx` (root layout with CSS import)
+- [ ] Create `app/page.tsx` (minimal placeholder)
+- [ ] Delete `pages/` directory
+- [ ] Verify dev server works with App Router
+
+**Verify:**
+- [ ] `npm run dev` starts
+- [ ] Index page renders
+- [ ] `npm run build` succeeds
+
+---
+
+## Checkpoint 2: First Character Page (RSC)
+
+**Goal:** One character page works with Server Components
+
+- [ ] Create `app/characters/Azamat/page.tsx` as Server Component
+- [ ] Add `"use client"` to interactive components:
+  - [ ] `HitPointsInput`
+  - [ ] `HitDiceTable`
+  - [ ] `D20TestCell`
+  - [ ] `WeaponAttackTable`
+  - [ ] `SpellSlotsTable`
+  - [ ] `WarlockSpellSlotsTable`
+  - [ ] `InfoTooltip`
+  - [ ] `ChannelDivinityCheckboxes`
+  - [ ] `LayOnHandsInput`
+  - [ ] `LevelledSpellLevelSelector`
+  - [ ] `LevelledSpellDamageCell`
+- [ ] Convert Astro components to React:
+  - [ ] `AbilitiesTable.astro` → `AbilitiesTable.tsx`
+  - [ ] `SkillsTable.astro` → `SkillsTable.tsx`
+  - [ ] `SavesTable.astro` → `SavesTable.tsx`
+  - [ ] `SaveRow.astro` → `SaveRow.tsx`
+  - [ ] `SkillRow.astro` → `SkillRow.tsx`
+  - [ ] `SpellSlotsTables.astro` → `SpellSlotsTables.tsx`
+  - [ ] `LevelledSpellDamageRow.astro` → `LevelledSpellDamageRow.tsx`
 
 **Verify:**
 - [ ] `/characters/Azamat` renders correctly
+- [ ] Server-only code (renderHTML, getClass, getSpecies) works
 - [ ] Styling looks correct
 - [ ] `npm run build` succeeds
 
@@ -61,12 +87,12 @@
 
 **Goal:** All non-dynamic pages work
 
-- [ ] Convert `pages/index.tsx` (real content)
-- [ ] Convert `pages/characters/Jacob.tsx`
-- [ ] Convert `pages/characters/Adrik.tsx`
-- [ ] Convert `pages/classes/index.tsx`
-- [ ] Convert `pages/critical-role/index.tsx`
-- [ ] Convert `Link.astro` → `src/components/Link.tsx` using `next/link`
+- [ ] Convert `app/page.tsx` (real home content)
+- [ ] Create `app/characters/Jacob/page.tsx`
+- [ ] Create `app/characters/Adrik/page.tsx`
+- [ ] Create `app/classes/page.tsx` (classes index)
+- [ ] Create `app/critical-role/page.tsx` (CR index)
+- [ ] Create `src/components/Link.tsx` using `next/link`
 
 **Verify:**
 - [ ] All static pages render
@@ -77,12 +103,11 @@
 
 ## Checkpoint 5: Dynamic Routes
 
-**Goal:** `getStaticPaths` pages generate correctly
+**Goal:** `generateStaticParams` pages generate correctly
 
-- [ ] Create `src/components/ReferenceLayout.tsx` (for class/subclass pages)
-- [ ] Convert `pages/classes/[class].tsx` with `getStaticPaths`
-- [ ] Convert `pages/subclasses/[subclass].tsx` with `getStaticPaths`
-- [ ] Convert `pages/critical-role/[character].tsx` with `getStaticPaths`
+- [ ] Create `app/classes/[class]/page.tsx` with `generateStaticParams`
+- [ ] Create `app/subclasses/[subclass]/page.tsx` with `generateStaticParams`
+- [ ] Create `app/critical-role/[character]/page.tsx` with `generateStaticParams`
 - [ ] Update `routes.ts` for Next.js (if needed)
 
 **Verify:**
