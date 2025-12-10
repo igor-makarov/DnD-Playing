@@ -54,12 +54,19 @@ function collectSubclassRoutes(): string[] {
   );
 }
 
+let cachedRoutes: Set<string> | null = null;
+
 /**
  * Get all valid routes in the application.
  * Routes are normalized: start with /, no trailing slash.
  * Example: "/classes/Fighter-XPHB", "/characters/Azamat"
+ * Results are memoized for dev mode performance.
  */
 export function getAllRoutes(): Set<string> {
+  if (cachedRoutes) {
+    return cachedRoutes;
+  }
+
   const pagesPath = path.resolve(PAGES_DIR);
 
   if (!fs.existsSync(pagesPath)) {
@@ -71,5 +78,6 @@ export function getAllRoutes(): Set<string> {
   const classRoutes = collectClassRoutes();
   const subclassRoutes = collectSubclassRoutes();
 
-  return new Set([...staticRoutes, ...classRoutes, ...subclassRoutes]);
+  cachedRoutes = new Set([...staticRoutes, ...classRoutes, ...subclassRoutes]);
+  return cachedRoutes;
 }
