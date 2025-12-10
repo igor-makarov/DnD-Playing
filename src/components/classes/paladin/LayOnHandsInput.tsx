@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 import PointsCountInput from "@/components/common/PointsCountInput";

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 import CheckboxUsesRow from "@/components/common/CheckboxUsesRow";
