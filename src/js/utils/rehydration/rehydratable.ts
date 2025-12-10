@@ -38,16 +38,11 @@ export function rehydratable(name: string) {
  * const rehydratedProps = rehydrate(deserializedProps);
  */
 export function rehydrate<P extends object>(props: P) {
-  console.log("rehydrate() props:", props);
-
   const rehydrated = { ...props } as any;
 
   for (const key in rehydrated) {
     rehydrateValue(rehydrated[key]);
   }
-
-  console.log("rehydrate() rehydrated:", rehydrated);
-  console.log("rehydrate() prototype:", Object.getPrototypeOf(rehydrated));
 
   return rehydrated as P;
 }

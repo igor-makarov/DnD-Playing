@@ -9,7 +9,6 @@ import RollLink from "./RollLink";
 export default function D20TestCellClient({ roll, advantage = false }: Props) {
   const modifier = useRollModifiers();
 
-  console.log("roll:", roll);
   const bonus = roll.getBonus();
   const diceString = roll.getDiceString();
 
