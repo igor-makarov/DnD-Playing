@@ -23,18 +23,19 @@
 **Goal:** One character page works with Server Components
 
 - [ ] Create `src/app/characters/Azamat/page.tsx` as Server Component
-- [ ] Add `"use client"` to interactive components:
-  - [ ] `HitPointsInput`
-  - [ ] `HitDiceTable`
-  - [ ] `D20TestCell`
-  - [ ] `WeaponAttackTable`
-  - [ ] `SpellSlotsTable`
-  - [ ] `WarlockSpellSlotsTable`
-  - [ ] `InfoTooltip`
-  - [ ] `ChannelDivinityCheckboxes`
-  - [ ] `LayOnHandsInput`
-  - [ ] `LevelledSpellLevelSelector`
-  - [ ] `LevelledSpellDamageCell`
+- [ ] Apply client/server boundary pattern to interactive components:
+  - [x] `D20TestCell` → `D20TestCell.tsx` (server) + `D20TestCell.client.tsx` (client) + `withAutoRehydration`
+  - [x] `AttackDamageCell` → same pattern
+  - [ ] `HitPointsInput` → apply pattern if needed
+  - [ ] `HitDiceTable` → apply pattern if needed
+  - [ ] `WeaponAttackTable` → apply pattern if needed
+  - [ ] `SpellSlotsTable` → apply pattern if needed
+  - [ ] `WarlockSpellSlotsTable` → apply pattern if needed
+  - [ ] `InfoTooltip` → apply pattern if needed
+  - [ ] `ChannelDivinityCheckboxes` → apply pattern if needed
+  - [ ] `LayOnHandsInput` → apply pattern if needed
+  - [ ] `LevelledSpellLevelSelector` → apply pattern if needed
+  - [ ] `LevelledSpellDamageCell` → apply pattern if needed
 - [ ] Convert Astro components to React:
   - [ ] `AbilitiesTable.astro` → `AbilitiesTable.tsx`
   - [ ] `SkillsTable.astro` → `SkillsTable.tsx`

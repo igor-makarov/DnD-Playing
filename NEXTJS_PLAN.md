@@ -63,30 +63,58 @@ export default function AzamatPage() {
 }
 ```
 
-### Client Components
+### Client Components with Rehydration Pattern
 
-Components needing interactivity must be marked with `"use client"`:
+For components that need both:
+1. Rich props (class instances like `D20Test`, `DiceString`) from Server Components
+2. Client-side interactivity (`useState`, `useEffect`, browser APIs)
+
+Use the **Server/Client wrapper pattern** with `withAutoRehydration`:
 
 ```tsx
-// src/components/HitPointsInput.tsx
+// src/components/common/D20TestCell.tsx (Server Component - entry point)
+import { D20Test } from "@/js/common/D20Test";
+import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
+import D20TestCellClient from "./D20TestCell.client";
+
+export interface Props {
+  roll: D20Test;  // Class instance - will be dehydrated
+  advantage?: boolean;
+}
+
+const D20TestCell: React.FC<Props> = withAutoRehydration(D20TestCellClient);
+export default D20TestCell;
+```
+
+```tsx
+// src/components/common/D20TestCell.client.tsx (Client Component)
 "use client";
+import type { Props } from "./D20TestCell";
 
-import { useState } from "react";
-
-export default function HitPointsInput({ hitPointMaximum }) {
-  const [hp, setHp] = useState(hitPointMaximum);
-  // ... interactive logic
+export default function D20TestCellClient({ roll, advantage = false }: Props) {
+  // roll is rehydrated back to D20Test class instance
+  const bonus = roll.getBonus();  // Methods work!
+  // ... interactive logic with hooks
 }
 ```
 
-**Client Components needed:**
-- `HitPointsInput` - URL state
+**How it works:**
+1. `withAutoRehydration` wraps the client component in `ServerWrapper`
+2. `ServerWrapper` (RSC) calls `dehydrate(props)` to serialize class instances to JSON
+3. `ClientWrapper` (`"use client"`) calls `rehydrate(props)` to restore class instances
+4. The client component receives fully functional class instances
+
+**Pattern applies to:**
+- `D20TestCell` - receives `D20Test` class, uses keyboard modifier hooks
+- `AttackDamageCell` - receives `DiceString` class
+- Components receiving class instances that need client interactivity
+
+**Simple Client Components (no rehydration needed):**
+- `HitPointsInput` - URL state, no class instances
 - `HitDiceTable` - URL state
-- `D20TestCell` - keyboard modifiers, roll links
-- `WeaponAttackTable` - weapon selection state
 - `SpellSlotsTable` - URL state
 - `InfoTooltip` - dialog interaction
-- Any component using `useState`, `useEffect`, `useStore`, or browser APIs
+- Components that only receive primitive props
 
 ## Layout Structure
 
@@ -170,11 +198,18 @@ export default function ClassPage({ params }: { params: { class: string } }) {
 
 ### Hydration Changes
 
-Remove Astro `client:load` directives - use `"use client"` instead:
+Remove Astro `client:load` directives - Next.js handles hydration automatically:
 
 ```diff
 - <HitPointsInput client:load {...props} />
-+ <HitPointsInput {...props} />  // Component has "use client" directive
++ <HitPointsInput {...props} />  // Component has "use client" directive internally
+```
+
+For components receiving class instances, the `withAutoRehydration` HOC handles serialization:
+
+```diff
+- <D20TestCell client:load roll={d20Test} />
++ <D20TestCell roll={d20Test} />  // Uses withAutoRehydration pattern
 ```
 
 ## What Stays the Same
