@@ -74,7 +74,7 @@ Use the **Server/Client wrapper pattern** with `withAutoRehydration`:
 ```tsx
 // src/components/common/D20TestCell.tsx (Server Component - entry point)
 import { D20Test } from "@/js/common/D20Test";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
+import { withAutoRehydration } from "@/js/utils/rehydration/withAutoRehydration";
 import D20TestCellClient from "./D20TestCell.client";
 
 export interface Props {
