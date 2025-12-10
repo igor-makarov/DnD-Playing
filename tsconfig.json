@@ -1,11 +1,15 @@
 {
-  "extends": "astro/tsconfigs/base",
+  "extends": "@tsconfig/next/tsconfig.json",
   "compilerOptions": {
+    "tsBuildInfoFile": "./.next/tsconfig.tsbuildinfo",
+    "target": "ES2020",
+    "lib": ["DOM", "DOM.Iterable", "ES2020"],
     "strict": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     }
   },
-  "exclude": ["dist", "coverage", "5etools"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["dist", "out", "coverage", "5etools"]
 }

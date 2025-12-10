@@ -1,20 +1,20 @@
 # Next.js Migration Checkpoints
 
-## Checkpoint 1: Next.js Bootstrapped
+## Checkpoint 1: Next.js Bootstrapped [COMPLETE]
 
 **Goal:** Next.js runs with a minimal page
 
-- [ ] Add `next` dependency
-- [ ] Create `next.config.js`
-- [ ] Update `tsconfig.json` (remove Astro extension)
-- [ ] Create `pages/_app.tsx` with global CSS import
-- [ ] Create `pages/index.tsx` (minimal placeholder)
-- [ ] Update `package.json` scripts
+- [x] Add `next` dependency
+- [x] Create `next.config.js`
+- [x] Update `tsconfig.json` (use `@tsconfig/next` base)
+- [x] Create `pages/_app.tsx` with global CSS import
+- [x] Create `pages/index.tsx` (minimal placeholder)
+- [x] Update `package.json` scripts
 
 **Verify:**
-- [ ] `npm run dev` starts on localhost:3000
-- [ ] Index page renders
-- [ ] `npm run build` succeeds
+- [x] `npm run dev` starts on localhost:3000
+- [x] Index page renders
+- [x] `npm run build` succeeds
 
 ---
 

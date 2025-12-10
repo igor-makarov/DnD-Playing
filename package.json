@@ -4,10 +4,14 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug",
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "check": "astro check",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "check": "tsc --noEmit",
+    "dev:astro": "astro dev",
+    "build:astro": "astro build",
+    "preview:astro": "astro preview",
+    "check:astro": "astro check",
     "format": "prettier --write --list-different .",
     "format:check": "prettier --check .",
     "postinstall": "playwright install",
@@ -20,6 +24,7 @@
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "astro": "^5.15.8",
+    "next": "^16.0.8",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
@@ -29,9 +34,9 @@
     "@babel/preset-react": "^7.28.5",
     "@playwright/test": "^1.57.0",
     "@trivago/prettier-plugin-sort-imports": "^6.0.0",
+    "@tsconfig/next": "^2.0.5",
     "@types/dompurify": "^3.0.5",
     "@types/jsdom": "^27.0.0",
-    "xml2js": "^0.6.2",
     "@types/xml2js": "^0.4.14",
     "@vitest/coverage-v8": "^4.0.12",
     "@vitest/ui": "^4.0.12",
@@ -41,6 +46,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "tsx": "^4.21.0",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^4.0.12"
+    "vitest": "^4.0.12",
+    "xml2js": "^0.6.2"
   }
 }
