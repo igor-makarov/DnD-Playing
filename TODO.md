@@ -1,33 +1,20 @@
 # Next.js Migration Checkpoints (App Router)
 
-## Checkpoint 1: Next.js Bootstrapped [COMPLETE]
+## Checkpoint 1: Next.js App Router Bootstrapped [COMPLETE]
 
-**Goal:** Next.js runs with a minimal page
+**Goal:** Next.js App Router runs with a minimal page
 
 - [x] Add `next` dependency
 - [x] Create `next.config.js`
 - [x] Update `tsconfig.json` (use `@tsconfig/next` base)
 - [x] Update `package.json` scripts
+- [x] Create `src/app/layout.tsx` (root layout with CSS import)
+- [x] Create `src/app/page.tsx` (minimal placeholder)
 
 **Verify:**
 - [x] `npm run dev` starts on localhost:3000
+- [x] Index page renders
 - [x] `npm run build` succeeds
-
----
-
-## Checkpoint 1.5: Switch to App Router
-
-**Goal:** Migrate from Pages Router to App Router
-
-- [ ] Create `app/layout.tsx` (root layout with CSS import)
-- [ ] Create `app/page.tsx` (minimal placeholder)
-- [ ] Delete `pages/` directory
-- [ ] Verify dev server works with App Router
-
-**Verify:**
-- [ ] `npm run dev` starts
-- [ ] Index page renders
-- [ ] `npm run build` succeeds
 
 ---
 
@@ -35,7 +22,7 @@
 
 **Goal:** One character page works with Server Components
 
-- [ ] Create `app/characters/Azamat/page.tsx` as Server Component
+- [ ] Create `src/app/characters/Azamat/page.tsx` as Server Component
 - [ ] Add `"use client"` to interactive components:
   - [ ] `HitPointsInput`
   - [ ] `HitDiceTable`
@@ -87,11 +74,11 @@
 
 **Goal:** All non-dynamic pages work
 
-- [ ] Convert `app/page.tsx` (real home content)
-- [ ] Create `app/characters/Jacob/page.tsx`
-- [ ] Create `app/characters/Adrik/page.tsx`
-- [ ] Create `app/classes/page.tsx` (classes index)
-- [ ] Create `app/critical-role/page.tsx` (CR index)
+- [ ] Convert `src/app/page.tsx` (real home content)
+- [ ] Create `src/app/characters/Jacob/page.tsx`
+- [ ] Create `src/app/characters/Adrik/page.tsx`
+- [ ] Create `src/app/classes/page.tsx` (classes index)
+- [ ] Create `src/app/critical-role/page.tsx` (CR index)
 - [ ] Create `src/components/Link.tsx` using `next/link`
 
 **Verify:**
@@ -105,9 +92,9 @@
 
 **Goal:** `generateStaticParams` pages generate correctly
 
-- [ ] Create `app/classes/[class]/page.tsx` with `generateStaticParams`
-- [ ] Create `app/subclasses/[subclass]/page.tsx` with `generateStaticParams`
-- [ ] Create `app/critical-role/[character]/page.tsx` with `generateStaticParams`
+- [ ] Create `src/app/classes/[class]/page.tsx` with `generateStaticParams`
+- [ ] Create `src/app/subclasses/[subclass]/page.tsx` with `generateStaticParams`
+- [ ] Create `src/app/critical-role/[character]/page.tsx` with `generateStaticParams`
 - [ ] Update `routes.ts` for Next.js (if needed)
 
 **Verify:**

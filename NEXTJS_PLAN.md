@@ -28,16 +28,16 @@ Use `@tsconfig/next` base, keep path aliases.
 
 | Astro | Next.js App Router |
 |-------|-------------------|
-| `src/pages/index.astro` | `app/page.tsx` |
-| `src/pages/characters/Azamat.astro` | `app/characters/Azamat/page.tsx` |
-| `src/pages/characters/Jacob.astro` | `app/characters/Jacob/page.tsx` |
-| `src/pages/characters/Adrik.astro` | `app/characters/Adrik/page.tsx` |
-| `src/pages/classes/index.astro` | `app/classes/page.tsx` |
-| `src/pages/classes/[class].astro` | `app/classes/[class]/page.tsx` |
-| `src/pages/subclasses/[subclass].astro` | `app/subclasses/[subclass]/page.tsx` |
-| `src/pages/critical-role/index.astro` | `app/critical-role/page.tsx` |
-| `src/pages/critical-role/[character].astro` | `app/critical-role/[character]/page.tsx` |
-| `src/layouts/ReferenceLayout.astro` | `app/classes/layout.tsx` or component |
+| `src/pages/index.astro` | `src/app/page.tsx` |
+| `src/pages/characters/Azamat.astro` | `src/app/characters/Azamat/page.tsx` |
+| `src/pages/characters/Jacob.astro` | `src/app/characters/Jacob/page.tsx` |
+| `src/pages/characters/Adrik.astro` | `src/app/characters/Adrik/page.tsx` |
+| `src/pages/classes/index.astro` | `src/app/classes/page.tsx` |
+| `src/pages/classes/[class].astro` | `src/app/classes/[class]/page.tsx` |
+| `src/pages/subclasses/[subclass].astro` | `src/app/subclasses/[subclass]/page.tsx` |
+| `src/pages/critical-role/index.astro` | `src/app/critical-role/page.tsx` |
+| `src/pages/critical-role/[character].astro` | `src/app/critical-role/[character]/page.tsx` |
+| `src/layouts/ReferenceLayout.astro` | `src/app/classes/layout.tsx` or component |
 
 ## Server vs Client Components
 
@@ -46,7 +46,7 @@ Use `@tsconfig/next` base, keep path aliases.
 Pages are Server Components by default - Node.js code runs at build time:
 
 ```tsx
-// app/characters/Azamat/page.tsx (Server Component)
+// src/app/characters/Azamat/page.tsx (Server Component)
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
 import { getClass } from "@/js/utils/render-5etools/getClass";
 
@@ -107,7 +107,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ### Character Pages (self-contained)
 
 ```tsx
-// app/characters/Azamat/page.tsx
+// src/app/characters/Azamat/page.tsx
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -129,7 +129,7 @@ export default function AzamatPage() {
 ### Dynamic Routes
 
 ```tsx
-// app/classes/[class]/page.tsx
+// src/app/classes/[class]/page.tsx
 import { collectAllClassReferences } from "@/js/utils/collectClassNames";
 import { getClass } from "@/js/utils/render-5etools/getClass";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
@@ -224,24 +224,24 @@ Remove Astro `client:load` directives - use `"use client"` instead:
 ## Final Directory Structure
 
 ```
-├── app/
-│   ├── layout.tsx              # Root layout with CSS
-│   ├── page.tsx                # Home page
-│   ├── characters/
-│   │   ├── Azamat/page.tsx
-│   │   ├── Jacob/page.tsx
-│   │   └── Adrik/page.tsx
-│   ├── classes/
-│   │   ├── page.tsx            # Classes index
-│   │   └── [class]/page.tsx    # Dynamic class pages
-│   ├── subclasses/
-│   │   └── [subclass]/page.tsx
-│   └── critical-role/
-│       ├── page.tsx            # CR index
-│       └── [character]/page.tsx
 ├── src/
-│   ├── components/             # Shared components
-│   ├── js/                     # Business logic
+│   ├── app/
+│   │   ├── layout.tsx              # Root layout with CSS
+│   │   ├── page.tsx                # Home page
+│   │   ├── characters/
+│   │   │   ├── Azamat/page.tsx
+│   │   │   ├── Jacob/page.tsx
+│   │   │   └── Adrik/page.tsx
+│   │   ├── classes/
+│   │   │   ├── page.tsx            # Classes index
+│   │   │   └── [class]/page.tsx    # Dynamic class pages
+│   │   ├── subclasses/
+│   │   │   └── [subclass]/page.tsx
+│   │   └── critical-role/
+│   │       ├── page.tsx            # CR index
+│   │       └── [character]/page.tsx
+│   ├── components/                 # Shared components
+│   ├── js/                         # Business logic
 │   └── styles/
 ├── public/
 ├── next.config.js
