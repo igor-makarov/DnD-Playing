@@ -8,4 +8,5 @@ export interface Props {
   advantage?: boolean;
 }
 
-export default withAutoRehydration(D20TestCellClient);
+const D20TestCell: React.FC<Props> = withAutoRehydration(D20TestCellClient);
+export default D20TestCell;

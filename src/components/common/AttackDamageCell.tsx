@@ -1,5 +1,3 @@
-import React from "react";
-
 import { DiceString } from "@/js/common/DiceString";
 import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 
@@ -9,4 +7,5 @@ export interface Props {
   dice: DiceString;
 }
 
-export default withAutoRehydration(AttackDamageCellClient);
+const AttackDamageCell: React.FC<Props> = withAutoRehydration(AttackDamageCellClient);
+export default AttackDamageCell;
