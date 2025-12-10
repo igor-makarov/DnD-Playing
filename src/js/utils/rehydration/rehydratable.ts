@@ -38,11 +38,16 @@ export function rehydratable(name: string) {
  * const rehydratedProps = rehydrate(deserializedProps);
  */
 export function rehydrate<P extends object>(props: P) {
+  console.log("rehydrate() props:", props);
+
   const rehydrated = { ...props } as any;
 
   for (const key in rehydrated) {
     rehydrateValue(rehydrated[key]);
   }
+
+  console.log("rehydrate() rehydrated:", rehydrated);
+  console.log("rehydrate() prototype:", Object.getPrototypeOf(rehydrated));
 
   return rehydrated as P;
 }
@@ -88,4 +93,44 @@ function rehydrateRehydratableObject<T>(obj: any, classConstructor: new (...args
   }
 
   Object.setPrototypeOf(obj, classConstructor.prototype);
+}
+
+/**
+ * Dehydrates objects within props, converting class instances to plain objects.
+ * This is the inverse of rehydrate() - prepares props for crossing the server/client boundary.
+ * Recursively walks through nested objects and arrays to dehydrate all values.
+ *
+ * @param props - The props object containing class instances
+ * @returns Plain object representation suitable for serialization
+ */
+export function dehydrate<P extends object>(props: P): P {
+  return dehydrateValue(props) as P;
+}
+
+/**
+ * Recursively converts a value to a plain object representation.
+ * Class instances become plain objects, arrays are mapped, primitives pass through.
+ */
+function dehydrateValue(value: any): any {
+  if (value === null || value === undefined) {
+    return value;
+  }
+
+  if (typeof value !== "object") {
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    return value.map(dehydrateValue);
+  }
+
+  // Convert object (including class instances) to plain object
+  const plain: Record<string, any> = {};
+  for (const key in value) {
+    if (Object.prototype.hasOwnProperty.call(value, key)) {
+      plain[key] = dehydrateValue(value[key]);
+    }
+  }
+
+  return plain;
 }

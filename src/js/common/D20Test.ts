@@ -1,5 +1,6 @@
+import { rehydratable } from "@/js/utils/rehydration/rehydratable";
+
 import type { Ability, Proficiency } from "../character/CharacterTypes";
-import { rehydratable } from "../utils/rehydratable";
 import { DiceString } from "./DiceString";
 
 /**
