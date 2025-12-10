@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import AttackDamageCell from "@/components/common/AttackDamageCell";
 import D20TestCell from "@/components/common/D20TestCell";
+import RollLink from "@/components/common/RollLink";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 
@@ -24,6 +25,8 @@ export default function HomePage() {
         D20 Test: <D20TestCell roll={new D20Test("Ability Check", "Cha", 2)} />
         <br />
         Attack Damage: <AttackDamageCell dice={new DiceString("2d6+5")} />
+        <br />
+        Roll Link (standalone): <RollLink dice={new DiceString("1d20+5")}>Roll d20</RollLink>
       </div>
     </div>
   );
