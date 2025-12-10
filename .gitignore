@@ -3,6 +3,7 @@ dist/
 out/
 .astro/
 .next/
+next-env.d.ts
 .claude/settings.local.json
 coverage/
 test-results/
