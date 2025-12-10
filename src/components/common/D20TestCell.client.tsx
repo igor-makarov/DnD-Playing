@@ -1,15 +1,10 @@
 "use client";
 import React from "react";
 
-import { D20Test } from "@/js/common/D20Test";
 import { RollModifier, useRollModifiers } from "@/js/hooks/useRollModifiers";
 
+import type { Props } from "./D20TestCell";
 import RollLink from "./RollLink";
-
-interface Props {
-  roll: D20Test;
-  advantage?: boolean;
-}
 
 export default function D20TestCellClient({ roll, advantage = false }: Props) {
   const modifier = useRollModifiers();

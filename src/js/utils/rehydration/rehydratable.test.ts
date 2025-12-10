@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { rehydratable, rehydrate, dehydrate } from "./rehydratable";
+import { dehydrate, rehydratable, rehydrate } from "./rehydratable";
 
 // Test fixture classes
 @rehydratable("TestClass")
