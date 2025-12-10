@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+import D20TestCell from "@/components/common/D20TestCell";
+import { D20Test } from "@/js/common/D20Test";
+
 export const metadata: Metadata = {
   title: "D&D Character Sheets",
 };
@@ -12,19 +15,11 @@ export default function HomePage() {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
+        padding: "2rem",
       }}
     >
-      <div style={{ width: 300 }}>
-        <table>
-          <tbody>
-            <tr>
-              <th>Next.js App Router Migration</th>
-            </tr>
-            <tr>
-              <td>Checkpoint 1 complete!</td>
-            </tr>
-          </tbody>
-        </table>
+      <div style={{ maxWidth: 600 }}>
+        D20 Test: <D20TestCell roll={new D20Test("Ability Check", "Cha", 2)} />
       </div>
     </div>
   );
