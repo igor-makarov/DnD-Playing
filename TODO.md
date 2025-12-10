@@ -18,38 +18,38 @@
 
 ---
 
-## Checkpoint 2: First Character Page (RSC)
+## Checkpoint 2: First Character Page (RSC) [COMPLETE]
 
 **Goal:** One character page works with Server Components
 
-- [ ] Create `src/app/characters/Azamat/page.tsx` as Server Component
-- [ ] Apply client/server boundary pattern to interactive components:
+- [x] Create `src/app/characters/Azamat/page.tsx` as Server Component
+- [x] Apply client/server boundary pattern to interactive components:
   - [x] `D20TestCell` → `D20TestCell.tsx` (server) + `D20TestCell.client.tsx` (client) + `withAutoRehydration`
   - [x] `AttackDamageCell` → same pattern
-  - [ ] `HitPointsInput` → apply pattern if needed
-  - [ ] `HitDiceTable` → apply pattern if needed
-  - [ ] `WeaponAttackTable` → apply pattern if needed
-  - [ ] `SpellSlotsTable` → apply pattern if needed
-  - [ ] `WarlockSpellSlotsTable` → apply pattern if needed
-  - [ ] `InfoTooltip` → apply pattern if needed
-  - [ ] `ChannelDivinityCheckboxes` → apply pattern if needed
-  - [ ] `LayOnHandsInput` → apply pattern if needed
-  - [ ] `LevelledSpellLevelSelector` → apply pattern if needed
-  - [ ] `LevelledSpellDamageCell` → apply pattern if needed
-- [ ] Convert Astro components to React:
-  - [ ] `AbilitiesTable.astro` → `AbilitiesTable.tsx`
-  - [ ] `SkillsTable.astro` → `SkillsTable.tsx`
-  - [ ] `SavesTable.astro` → `SavesTable.tsx`
-  - [ ] `SaveRow.astro` → `SaveRow.tsx`
-  - [ ] `SkillRow.astro` → `SkillRow.tsx`
-  - [ ] `SpellSlotsTables.astro` → `SpellSlotsTables.tsx`
-  - [ ] `LevelledSpellDamageRow.astro` → `LevelledSpellDamageRow.tsx`
+  - [x] `HitPointsInput` → works (no rehydration needed, URL state only)
+  - [x] `HitDiceTable` → works (no rehydration needed, URL state only)
+  - [x] `WeaponAttackTable` → works
+  - [x] `SpellSlotsTable` → works
+  - [x] `WarlockSpellSlotsTable` → works
+  - [x] `InfoTooltip` → works (no rehydration needed)
+  - [x] `ChannelDivinityCheckboxes` → works (no rehydration needed)
+  - [x] `LayOnHandsInput` → works (no rehydration needed)
+  - [x] `LevelledSpellLevelSelector` → works
+  - [x] `LevelledSpellDamageCell` → works
+- [x] Convert Astro components to React:
+  - [x] `AbilitiesTable.astro` → `AbilitiesTable.tsx`
+  - [x] `SkillsTable.astro` → `SkillsTable.tsx`
+  - [x] `SavesTable.astro` → `SavesTable.tsx`
+  - [x] `SaveRow.astro` → `SaveRow.tsx`
+  - [x] `SkillRow.astro` → `SkillRow.tsx`
+  - [x] `SpellSlotsTables.astro` → `SpellSlotsTables.tsx`
+  - [x] `LevelledSpellDamageRow.astro` → `LevelledSpellDamageRow.tsx`
 
 **Verify:**
-- [ ] `/characters/Azamat` renders correctly
-- [ ] Server-only code (renderHTML, getClass, getSpecies) works
-- [ ] Styling looks correct
-- [ ] `npm run build` succeeds
+- [x] `/characters/Azamat` renders correctly
+- [x] Server-only code (renderHTML, getClass, getSpecies) works
+- [x] Styling looks correct
+- [x] `npm run build` succeeds
 
 ---
 
