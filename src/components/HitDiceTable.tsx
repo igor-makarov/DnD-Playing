@@ -2,7 +2,7 @@ import React from "react";
 
 import HitDiceRow from "@/components/HitDiceRow";
 import type { DiceString } from "@/js/common/DiceString";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
+import { withAutoRehydration } from "@/js/utils/rehydration/withAutoRehydration";
 
 interface Props {
   hitDice: Array<{ die: DiceString; count: number }>;

@@ -3,8 +3,8 @@ import React from "react";
 import { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";
 import { $rollModeStore } from "@/js/stores/rollModeStore";
+import { withAutoRehydration } from "@/js/utils/rehydration/withAutoRehydration";
 import { getRollUrl } from "@/js/utils/rollOptions";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 
 interface Props {
   dice: DiceString;

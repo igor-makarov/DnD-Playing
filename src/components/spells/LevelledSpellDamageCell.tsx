@@ -3,7 +3,7 @@ import React from "react";
 import RollLink from "@/components/common/RollLink";
 import type { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
+import { withAutoRehydration } from "@/js/utils/rehydration/withAutoRehydration";
 import { $spellLevelStore } from "@/stores/spellLevelStore";
 
 interface Props {

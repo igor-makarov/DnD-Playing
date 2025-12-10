@@ -1,5 +1,5 @@
 import { DiceString } from "@/js/common/DiceString";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
+import { withAutoRehydration } from "@/js/utils/rehydration/withAutoRehydration";
 
 import AttackDamageCellClient from "./AttackDamageCell.client";
 

@@ -1,7 +1,7 @@
 import React from "react";
 
 import type { DiceString } from "@/js/common/DiceString";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
+import { withAutoRehydration } from "@/js/utils/rehydration/withAutoRehydration";
 
 import TinyDropdown from "./TinyDropdown";
 

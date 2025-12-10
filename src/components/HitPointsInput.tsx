@@ -5,7 +5,7 @@ import type { DiceString } from "@/js/common/DiceString";
 import { useLongRest } from "@/js/hooks/useLongRest";
 import { useShortRest } from "@/js/hooks/useShortRest";
 import { useStore } from "@/js/hooks/useStore";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
+import { withAutoRehydration } from "@/js/utils/rehydration/withAutoRehydration";
 
 import PointsCountInput from "./common/PointsCountInput";
 
