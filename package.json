@@ -5,7 +5,7 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug",
     "dev": "next dev",
-    "build": "next build",
+    "build": "NODE_OPTIONS='--enable-source-maps' next build",
     "start": "next start",
     "check": "tsc --noEmit",
     "dev:astro": "astro dev",
