@@ -1,9 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import { dehydrate, rehydratable, rehydrate } from "./rehydratable";
+import { dehydrate, registerRehydratable, rehydrate } from "./rehydratable";
 
 // Test fixture classes
-@rehydratable("TestClass")
 class TestClass {
   value?: number;
   constructor(value?: number) {
@@ -13,22 +12,22 @@ class TestClass {
     return "test";
   }
 }
+registerRehydratable("TestClass", TestClass);
 
-@rehydratable("OtherClass")
 class OtherClass {
   method() {
     return "other";
   }
 }
+registerRehydratable("OtherClass", OtherClass);
 
-describe("@rehydratable decorator", () => {
-  it("should create new instances with __rehydrationType tag", () => {
-    // Create a NEW instance (not rehydrating)
+describe("registerRehydratable()", () => {
+  it("should add __rehydrationType during dehydrate", () => {
     const instance = new TestClass(42);
+    const dehydrated = dehydrate({ item: instance });
 
-    // Should have the __rehydrationType tag
-    expect((instance as any).__rehydrationType).toBe("TestClass");
-    expect(instance.value).toBe(42);
+    expect((dehydrated.item as any).__rehydrationType).toBe("TestClass");
+    expect(dehydrated.item.value).toBe(42);
   });
 });
 

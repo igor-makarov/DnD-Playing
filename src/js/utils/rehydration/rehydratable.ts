@@ -1,30 +1,20 @@
 type Constructor<T = {}> = new (...args: any[]) => T;
 
 const rehydratableClasses = new Map<string, Constructor>();
+const classToName = new Map<Constructor, string>();
 
 /**
- * Class decorator that enables automatic rehydration across serialization boundaries.
- * Tags instances with __rehydrationType for identification after deserialization.
+ * Register a class for rehydration.
  *
- * @param name - Explicit name for the class that won't be affected by minification
+ * @param name - The rehydration type name
+ * @param constructor - The class constructor
+ *
  * @example
- * @rehydratable("DiceString")
- * class DiceString { ... }
+ * registerRehydratable("DiceString", DiceString);
  */
-export function rehydratable(name: string) {
-  return function <T extends Constructor>(target: T, _context: ClassDecoratorContext): T {
-    const wrappedClass = class extends target {
-      constructor(...args: any[]) {
-        super(...args);
-        (this as any).__rehydrationType = name;
-      }
-    } as T;
-
-    // Store the wrapped class so instanceof checks work correctly after rehydration
-    rehydratableClasses.set(name, wrappedClass);
-
-    return wrappedClass;
-  };
+export function registerRehydratable(name: string, constructor: Constructor): void {
+  rehydratableClasses.set(name, constructor);
+  classToName.set(constructor, name);
 }
 
 /**
@@ -104,7 +94,7 @@ export function dehydrate<P extends object>(props: P): P {
 
 /**
  * Recursively converts a value to a plain object representation.
- * Class instances become plain objects, arrays are mapped, primitives pass through.
+ * Class instances become plain objects with __rehydrationType tag, arrays are mapped, primitives pass through.
  */
 function dehydrateValue(value: any): any {
   if (value === null || value === undefined) {
@@ -121,6 +111,14 @@ function dehydrateValue(value: any): any {
 
   // Convert object (including class instances) to plain object
   const plain: Record<string, any> = {};
+
+  // Check if this is an instance of a registered rehydratable class
+  const constructor = value.constructor;
+  const typeName = classToName.get(constructor);
+  if (typeName) {
+    plain.__rehydrationType = typeName;
+  }
+
   for (const key in value) {
     if (Object.prototype.hasOwnProperty.call(value, key)) {
       plain[key] = dehydrateValue(value[key]);

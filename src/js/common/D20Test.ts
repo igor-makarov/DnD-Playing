@@ -1,5 +1,3 @@
-import { rehydratable } from "@/js/utils/rehydration/rehydratable";
-
 import type { Ability, Proficiency } from "../character/CharacterTypes";
 import { DiceString } from "./DiceString";
 
@@ -18,7 +16,6 @@ export type D20TestKind = "Ability Check" | "Attack Roll" | "Saving Throw";
  * check.getBonusString() // "+5"
  * check.getDiceString() // DiceString("d20+5")
  */
-@rehydratable("D20Test")
 export class D20Test {
   private kind: D20TestKind;
   private ability: Ability;
