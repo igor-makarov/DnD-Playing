@@ -1,6 +1,6 @@
 import React from "react";
 
-import ServerWrapper from "./ServerWrapper";
+import ServerWrapper from "./rehydration/ServerWrapper";
 
 /**
  * React HOC that automatically rehydrates decorated class instances in props.
