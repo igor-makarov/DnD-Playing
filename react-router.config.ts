@@ -5,7 +5,7 @@ export default {
   appDirectory: "src/app",
 
   // Enable SSR for pre-rendering
-  ssr: true,
+  ssr: false,
 
   // Pre-render these routes at build time for SSG
   prerender: ["/", "/characters/Azamat"],
