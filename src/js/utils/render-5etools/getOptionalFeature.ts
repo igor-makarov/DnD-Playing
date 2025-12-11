@@ -77,7 +77,7 @@ function formatPrerequisites(prerequisites?: OptionalFeaturePrerequisite[]): str
 
 /**
  * Get an optional feature (invocation, maneuver, etc.) from the 5etools data by name and source.
- * This function should be called at build time in Astro frontmatter.
+ * This function should be called at build time or during server-side rendering.
  *
  * @param name - The feature name (e.g., "Pact of the Blade")
  * @param source - The source book (default: "XPHB" for 2024 PHB)

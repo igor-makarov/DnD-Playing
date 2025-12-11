@@ -15,7 +15,7 @@ interface ItemsBaseData {
 
 /**
  * Get a weapon mastery property from the 5etools data.
- * This function should be called at build time in Astro frontmatter.
+ * This function should be called at build time or during server-side rendering.
  *
  * @param name - The mastery property name (e.g., "Vex", "Topple")
  * @param source - The source book (default: "XPHB" for 2024 PHB)

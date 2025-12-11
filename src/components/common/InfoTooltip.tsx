@@ -14,7 +14,7 @@ interface Props {
  * - Build time: HTML content is passed as a prop
  * - Runtime: Click opens a dialog with the pre-rendered content
  *
- * Use with client:load in Astro to enable click interaction.
+ * Click interaction is enabled when rendered in the browser.
  */
 export default function InfoTooltip({ reference, children }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);

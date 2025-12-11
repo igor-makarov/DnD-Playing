@@ -20,7 +20,7 @@ interface ClassData {
 
 /**
  * Get a subclass feature from the 5etools data by name, class, subclass, and source.
- * This function should be called at build time in Astro frontmatter.
+ * This function should be called at build time or during server-side rendering.
  *
  * @param featureName - The feature name (e.g., "Dark One's Blessing", "Divine Strike")
  * @param className - The class name (e.g., "Warlock", "Cleric")

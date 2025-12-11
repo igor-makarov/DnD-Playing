@@ -76,7 +76,7 @@ function formatSpeed(speed?: number | { walk?: number; fly?: number; swim?: numb
 
 /**
  * Get a species from the 5etools data by name and source.
- * This function should be called at build time in Astro frontmatter.
+ * This function should be called at build time or during server-side rendering.
  *
  * @param name - The species name (e.g., "Human", "Elf")
  * @param source - The source book (default: "XPHB" for 2024 PHB)
@@ -110,7 +110,7 @@ export function getSpecies(name: string, source: string = "XPHB"): Reference {
 
 /**
  * Get a subspecies from the 5etools data by name, species name, and source.
- * This function should be called at build time in Astro frontmatter.
+ * This function should be called at build time or during server-side rendering.
  *
  * @param name - The subspecies name (e.g., "Hill", "Mountain")
  * @param speciesName - The parent species name (e.g., "Dwarf", "Elf")
