@@ -1,9 +1,10 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 
+import { findFiles } from "./findFiles";
 import { loadData } from "./render-5etools/loadData";
 
-const PAGES_DIR = "src/pages";
+const ROUTES_DIR = "src/app/routes";
 
 export interface SubclassReferenceFromPage {
   className: string;
@@ -72,37 +73,19 @@ function extractSubclassReferencesFromFile(filePath: string): SubclassReferenceF
 }
 
 /**
- * Recursively find all .astro files in a directory.
- */
-function findAstroFiles(dir: string): string[] {
-  const files: string[] = [];
-
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      files.push(...findAstroFiles(fullPath));
-    } else if (entry.name.endsWith(".astro")) {
-      files.push(fullPath);
-    }
-  }
-
-  return files;
-}
-
-/**
- * Collect all unique subclass references from all page files by searching for getSubclass() calls.
+ * Collect all unique subclass references from all route files by searching for getSubclass() calls.
  * Returns a unique list keyed by "ClassName|ClassSource|SubclassShortName|SubclassSource".
  */
 export function collectAllSubclassReferences(): SubclassReferenceFromPage[] {
   const refMap = new Map<string, SubclassReferenceFromPage>();
-  const pagesPath = path.resolve(PAGES_DIR);
+  const routesPath = path.resolve(ROUTES_DIR);
 
-  if (!fs.existsSync(pagesPath)) {
-    console.warn(`[subclasses] Pages directory not found: ${pagesPath}`);
+  if (!fs.existsSync(routesPath)) {
+    console.warn(`[subclasses] Routes directory not found: ${routesPath}`);
     return [];
   }
 
-  const files = findAstroFiles(pagesPath);
+  const files = findFiles(routesPath);
 
   for (const filePath of files) {
     const refs = extractSubclassReferencesFromFile(filePath);

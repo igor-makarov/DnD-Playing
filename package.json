@@ -11,10 +11,6 @@
     "preview": "serve build/client",
     "typecheck": "react-router typegen && tsc --noEmit",
     "check": "react-router typegen && tsc --noEmit",
-    "dev:astro": "astro dev",
-    "build:astro": "astro build",
-    "preview:astro": "astro preview",
-    "check:astro": "astro check",
     "format": "prettier --write --list-different .",
     "format:check": "prettier --check .",
     "postinstall": "playwright install",
@@ -23,13 +19,11 @@
     "cr:download": "tsx cr-download.ts"
   },
   "dependencies": {
-    "@astrojs/react": "^4.4.2",
     "@react-router/dev": "^7.10.1",
     "@react-router/node": "^7.10.1",
     "@react-router/serve": "^7.10.1",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
-    "astro": "^5.15.8",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router": "^7.10.1",
@@ -37,7 +31,6 @@
     "isbot": "^5"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.5",
     "@babel/plugin-proposal-decorators": "^7.28.0",
     "@babel/preset-react": "^7.28.5",
     "@playwright/test": "^1.57.0",
@@ -51,7 +44,6 @@
     "dompurify": "^3.3.0",
     "jsdom": "^27.2.0",
     "prettier": "^3.6.2",
-    "prettier-plugin-astro": "^0.14.1",
     "serve": "^14.2.5",
     "tsx": "^4.21.0",
     "vite-tsconfig-paths": "^5.1.4",

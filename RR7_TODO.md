@@ -107,21 +107,21 @@ Full plan: @RR7_PLAN.md
 
 ---
 
-## Checkpoint 7: Deployment Ready
+## Checkpoint 7: Deployment Ready [COMPLETE]
 
 **Goal:** GitHub Pages deployment works
 
-- [ ] Update `.github/workflows/deploy.yml` for RR7
-- [ ] Remove Next.js dependencies from `package.json`
-- [ ] Remove Astro dependencies from `package.json`
-- [ ] Delete old files (`next.config.js`, `src/app/layout.tsx`, `src/app/page.tsx`, etc.)
-- [ ] Clean up unused code
+- [x] Update `.github/workflows/deploy.yml` for RR7
+- [x] Remove Next.js dependencies from `package.json`
+- [x] Remove Astro dependencies from `package.json`
+- [x] Delete old files (`astro.config.mjs`, `src/pages/`, `src/layouts/`, `.astro` components)
+- [x] Clean up unused code (`.prettierrc`, `collectClasses.ts`, `collectSubclasses.ts`)
 
 **Verify:**
-- [ ] `npm run format` passes
-- [ ] `npm run check` passes
-- [ ] `npm run build` succeeds
-- [ ] `npm test` passes
-- [ ] `npm run test:e2e` passes
+- [x] `npm run format` passes
+- [x] `npm run check` passes
+- [x] `npm run build` succeeds
+- [x] `npm test` passes (51 tests)
+- [x] `npm run test:e2e` passes (36 tests)
 - [ ] Push to branch → GitHub Actions succeeds
 - [ ] Live site works

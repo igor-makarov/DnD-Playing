@@ -17,17 +17,20 @@ interface LoaderData {
   groupedCharacters: Record<string, CharacterPage[]>;
 }
 
+const CRITICAL_ROLE_ROUTES_DIR = "src/app/routes/critical-role";
+
 // Server-only: runs during pre-render, not bundled for client
 export async function loader(): Promise<LoaderData> {
-  const fs = await import("node:fs");
   const path = await import("node:path");
+  const { findFiles } = await import("@/js/utils/findFiles");
 
-  const crDir = path.resolve("src/pages/critical-role");
-  const files = fs.readdirSync(crDir).filter((f: string) => f.endsWith(".astro") && f !== "index.astro");
+  const crDir = path.resolve(CRITICAL_ROLE_ROUTES_DIR);
+  const files = findFiles(crDir).filter((f: string) => !f.endsWith("index.tsx"));
 
   const characterPages = files
-    .map((filename: string) => {
-      const name = filename.replace(".astro", "");
+    .map((filePath: string) => {
+      // findFiles returns full paths, extract just the basename without extension
+      const name = path.basename(filePath, ".tsx");
       // Parse "Name-Level" format (e.g., "Bolaire-03" -> { character: "Bolaire", level: 3 })
       const match = name.match(/^(.+)-(\d+)$/);
       const character = match ? match[1] : name;
