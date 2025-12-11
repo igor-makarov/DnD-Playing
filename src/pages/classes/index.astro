@@ -1,8 +1,8 @@
 ---
 import "@/styles/style.css";
 import Link from "@/components/Link.astro";
-import { collectAllClassReferences } from "@/js/utils/collectClassNames";
-import { collectAllSubclassReferences } from "@/js/utils/collectSubclassNames";
+import { collectAllClassReferences, classRoute } from "@/js/utils/collectClasses";
+import { collectAllSubclassReferences, subclassRoute } from "@/js/utils/collectSubclasses";
 import { getSourceName } from "@/js/utils/render-5etools/ReferenceTypes";
 
 const subclassRefs = collectAllSubclassReferences();
@@ -24,11 +24,11 @@ const classPages = collectAllClassReferences()
   .map((ref) => ({
     name: ref.name,
     source: ref.source,
-    to: `/classes/${ref.name}-${ref.source}`,
+    to: classRoute(ref),
     subclasses: (subclassesByClass[`${ref.name}|${ref.source}`] || [])
       .map((sc) => ({
         name: sc.subclassShortName,
-        to: `/subclasses/${sc.className}-${sc.classSource}-${sc.subclassShortName}-${sc.subclassSource}`,
+        to: subclassRoute(sc),
       }))
       .sort((a, b) => a.name.localeCompare(b.name)),
   }))

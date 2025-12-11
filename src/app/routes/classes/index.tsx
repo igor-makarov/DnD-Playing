@@ -22,8 +22,8 @@ interface LoaderData {
 
 // Server-only: runs during pre-render, not bundled for client
 export async function loader(): Promise<LoaderData> {
-  const { collectAllClassReferences } = await import("@/js/utils/collectClassNames");
-  const { collectAllSubclassReferences } = await import("@/js/utils/collectSubclassNames");
+  const { collectAllClassReferences, classRoute } = await import("@/js/utils/collectClasses");
+  const { collectAllSubclassReferences, subclassRoute } = await import("@/js/utils/collectSubclasses");
 
   const subclassRefs = collectAllSubclassReferences();
 
@@ -44,11 +44,11 @@ export async function loader(): Promise<LoaderData> {
     .map((ref) => ({
       name: ref.name,
       source: ref.source,
-      to: `/classes/${ref.name}-${ref.source}`,
+      to: classRoute(ref),
       subclasses: (subclassesByClass[`${ref.name}|${ref.source}`] || [])
         .map((sc) => ({
           name: sc.subclassShortName,
-          to: `/subclasses/${sc.className}-${sc.classSource}-${sc.subclassShortName}-${sc.subclassSource}`,
+          to: subclassRoute(sc),
         }))
         .sort((a, b) => a.name.localeCompare(b.name)),
     }))

@@ -1,3 +1,4 @@
+import { subclassRoute } from "../collectSubclasses";
 import type { Entry, Reference } from "./ReferenceTypes";
 import { loadData } from "./loadData";
 
@@ -227,7 +228,7 @@ export function getSubclass(className: string, subclassShortName: string, classS
     source: subclass.source,
     byline,
     entries,
-    fullLink: `/subclasses/${className}-${classSource}-${subclassShortName}-${subclass.source}/`,
+    fullLink: subclassRoute({ className, classSource, subclassShortName, subclassSource: subclass.source }),
   };
 }
 

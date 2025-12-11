@@ -82,3 +82,17 @@ export function collectAllClassNames(): Set<string> {
   const refs = collectAllClassReferences();
   return new Set(refs.map((r) => r.name));
 }
+
+/**
+ * Build URL path for a class page.
+ */
+export function classRoute(ref: ClassReference): string {
+  return `/classes/${ref.name}-${ref.source}`;
+}
+
+/**
+ * Collect URL paths for dynamic class routes.
+ */
+export function collectClassRoutes(): string[] {
+  return collectAllClassReferences().map(classRoute);
+}

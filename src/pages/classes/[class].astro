@@ -2,7 +2,7 @@
 import ReferenceLayout from "@/layouts/ReferenceLayout.astro";
 import { getClass, getClassFeaturesFull } from "@/js/utils/render-5etools/getClass";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
-import { collectAllClassReferences } from "@/js/utils/collectClassNames";
+import { collectAllClassReferences } from "@/js/utils/collectClasses";
 
 export function getStaticPaths() {
   const classRefs = collectAllClassReferences();

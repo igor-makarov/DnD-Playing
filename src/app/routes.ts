@@ -1,6 +1,15 @@
 import { type RouteConfigEntry, route } from "@react-router/dev/routes";
 import { readdirSync, statSync } from "node:fs";
-import { join, basename, dirname } from "node:path";
+import { basename, dirname, join } from "node:path";
+
+// Convert file name segment to URL segment
+// $param -> :param (dynamic route parameter)
+function toUrlSegment(segment: string): string {
+  if (segment.startsWith("$")) {
+    return ":" + segment.slice(1);
+  }
+  return segment;
+}
 
 // Auto-discover routes from the routes directory
 function discoverRoutes(routesDir: string): RouteConfigEntry[] {
@@ -14,8 +23,8 @@ function discoverRoutes(routesDir: string): RouteConfigEntry[] {
       const stat = statSync(fullPath);
 
       if (stat.isDirectory()) {
-        // Recurse into subdirectories
-        scanDirectory(fullPath, `${urlPrefix}/${entry}`);
+        // Recurse into subdirectories, converting $ to : for dynamic segments
+        scanDirectory(fullPath, `${urlPrefix}/${toUrlSegment(entry)}`);
       } else if (entry.endsWith(".tsx")) {
         const name = basename(entry, ".tsx");
         const relativePath = fullPath.replace(routesDir + "/", "routes/");
@@ -25,8 +34,8 @@ function discoverRoutes(routesDir: string): RouteConfigEntry[] {
           const urlPath = urlPrefix || "/";
           routes.push(route(urlPath, relativePath));
         } else {
-          // Other files -> /prefix/name
-          const urlPath = `${urlPrefix}/${name}`;
+          // Other files -> /prefix/name (converting $ to : for dynamic params)
+          const urlPath = `${urlPrefix}/${toUrlSegment(name)}`;
           routes.push(route(urlPath, relativePath));
         }
       }

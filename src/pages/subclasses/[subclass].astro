@@ -2,7 +2,7 @@
 import ReferenceLayout from "@/layouts/ReferenceLayout.astro";
 import { getSubclass, getSubclassFeaturesFull } from "@/js/utils/render-5etools/getSubclass";
 import renderHTML from "@/js/utils/render-5etools/renderHTML";
-import { collectAllSubclassReferences } from "@/js/utils/collectSubclassNames";
+import { collectAllSubclassReferences } from "@/js/utils/collectSubclasses";
 
 export function getStaticPaths() {
   const subclassRefs = collectAllSubclassReferences();

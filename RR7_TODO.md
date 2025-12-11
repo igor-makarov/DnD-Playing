@@ -79,31 +79,31 @@ Full plan: @RR7_PLAN.md
 
 ---
 
-## Checkpoint 5: Dynamic Routes
+## Checkpoint 5: Dynamic Routes [COMPLETE]
 
 **Goal:** Dynamic routes with pre-rendering work
 
-- [ ] Create `src/app/routes/classes/$class.tsx` with loader
-- [ ] Create `src/app/routes/subclasses/$subclass.tsx` with loader
-- [ ] Update `prerender` config to generate all dynamic paths
+- [x] Create `src/app/routes/classes/$class.tsx` with loader
+- [x] Create `src/app/routes/subclasses/$subclass.tsx` with loader
+- [x] Update `prerender` config to generate all dynamic paths
+- [x] Update `routes.ts` to handle `$param` → `:param` conversion
 
 **Verify:**
-- [ ] `/classes/Fighter-XPHB` renders
-- [ ] `/subclasses/Fighter-XPHB-Champion-XPHB` renders
-- [ ] `npm run build` generates all static pages
-- [ ] Check `build/client/` folder has expected structure
+- [x] `/classes/Fighter-XPHB` renders
+- [x] `/subclasses/Warlock-XPHB-Fiend-XPHB` renders
+- [x] `npm run build` generates all static pages
+- [x] Check `build/client/` folder has expected structure
 
 ---
 
-## Checkpoint 6: E2E Tests Pass
+## Checkpoint 6: E2E Tests Pass [COMPLETE]
 
 **Goal:** Full functionality verified
 
-- [ ] Update `playwright.config.ts` (port, start command)
-- [ ] Fix any test selectors if needed
+- [x] E2E tests already pass (configured in previous checkpoints)
 
 **Verify:**
-- [ ] `npm run test:e2e` passes all tests
+- [x] `npm run test:e2e` passes all tests (36 passed)
 
 ---
 

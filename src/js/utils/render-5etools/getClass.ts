@@ -1,3 +1,4 @@
+import { classRoute } from "../collectClasses";
 import type { Entry, PropertyItem, Reference } from "./ReferenceTypes";
 import { loadData } from "./loadData";
 
@@ -356,7 +357,7 @@ export function getClass(name: string, source: string = "XPHB"): Reference {
     name: classInfo.name,
     source: classInfo.source,
     entries,
-    fullLink: `/classes/${name}-${source}/`,
+    fullLink: classRoute({ name, source }),
   };
 
   return classReference;

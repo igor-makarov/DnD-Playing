@@ -116,3 +116,17 @@ export function collectAllSubclassReferences(): SubclassReferenceFromPage[] {
 
   return [...refMap.values()];
 }
+
+/**
+ * Build URL path for a subclass page.
+ */
+export function subclassRoute(ref: SubclassReferenceFromPage): string {
+  return `/subclasses/${ref.className}-${ref.classSource}-${ref.subclassShortName}-${ref.subclassSource}`;
+}
+
+/**
+ * Collect URL paths for dynamic subclass routes.
+ */
+export function collectSubclassRoutes(): string[] {
+  return collectAllSubclassReferences().map(subclassRoute);
+}
