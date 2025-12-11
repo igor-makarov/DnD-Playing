@@ -1,5 +1,3 @@
-import React from "react";
-
 import { D20Test } from "@/js/common/D20Test";
 import { RollModifier, useRollModifiers } from "@/js/hooks/useRollModifiers";
 

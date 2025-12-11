@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { Character } from "@/js/character/Character";
 import type { SkillAbilityCheck } from "@/js/character/CharacterTypes";
 

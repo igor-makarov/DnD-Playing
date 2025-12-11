@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { OptionalDamage } from "@/js/character/DamageTypes";
 import type { DamageAddonData } from "@/js/character/WeaponAttackTypes";
 

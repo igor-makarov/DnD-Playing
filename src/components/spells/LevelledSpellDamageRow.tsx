@@ -1,5 +1,3 @@
-import React from "react";
-
 import InfoTooltip from "@/components/common/InfoTooltip";
 import type { DamageLevel } from "@/js/character/DamageTypes";
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";

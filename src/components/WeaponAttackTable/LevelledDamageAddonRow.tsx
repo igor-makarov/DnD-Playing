@@ -1,5 +1,3 @@
-import React from "react";
-
 import LevelDamageSelector from "@/components/common/LevelDamageSelector";
 import type { LevelledDamage } from "@/js/character/DamageTypes";
 import type { DamageAddonData } from "@/js/character/WeaponAttackTypes";

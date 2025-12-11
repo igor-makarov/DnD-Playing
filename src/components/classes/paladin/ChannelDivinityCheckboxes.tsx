@@ -1,5 +1,3 @@
-import React from "react";
-
 import CheckboxUsesRow from "@/components/common/CheckboxUsesRow";
 import { $channelDivinityUsed } from "@/js/character/dynamic-state/stores";
 import { useStore } from "@/js/hooks/useStore";

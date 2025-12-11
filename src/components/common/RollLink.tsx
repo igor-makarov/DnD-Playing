@@ -1,5 +1,3 @@
-import React from "react";
-
 import { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";
 import { $rollModeStore } from "@/js/stores/rollModeStore";

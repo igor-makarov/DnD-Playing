@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { DiceString } from "@/js/common/DiceString";
 
 import TinyDropdown from "./TinyDropdown";

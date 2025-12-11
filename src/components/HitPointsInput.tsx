@@ -1,5 +1,3 @@
-import React from "react";
-
 import { $hitPoints, $temporaryHitPoints } from "@/js/character/dynamic-state/stores";
 import type { DiceString } from "@/js/common/DiceString";
 import { useLongRest } from "@/js/hooks/useLongRest";

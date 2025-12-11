@@ -1,5 +1,3 @@
-import React from "react";
-
 import RollLink from "@/components/common/RollLink";
 import type { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";

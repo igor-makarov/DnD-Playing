@@ -1,5 +1,3 @@
-import React from "react";
-
 interface Props {
   maxUses: number;
   currentUsed: number;

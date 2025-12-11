@@ -1,5 +1,3 @@
-import React from "react";
-
 import CheckboxUsesRow from "@/components/common/CheckboxUsesRow";
 import type { SpellSlotsForLevel } from "@/js/character/CharacterTypes";
 import { $spellSlotsSpent } from "@/js/character/dynamic-state/stores";

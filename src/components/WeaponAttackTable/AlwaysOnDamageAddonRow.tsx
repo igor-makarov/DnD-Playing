@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { DamageAddonData } from "@/js/character/WeaponAttackTypes";
 import type { DiceString } from "@/js/common/DiceString";
 

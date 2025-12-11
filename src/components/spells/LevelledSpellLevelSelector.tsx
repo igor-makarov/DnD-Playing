@@ -1,5 +1,3 @@
-import React from "react";
-
 import LevelDamageSelector from "@/components/common/LevelDamageSelector";
 import type { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";

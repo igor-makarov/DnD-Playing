@@ -1,5 +1,3 @@
-import React from "react";
-
 import AttackDamageCell from "@/components/common/AttackDamageCell";
 import type { DiceString } from "@/js/common/DiceString";
 

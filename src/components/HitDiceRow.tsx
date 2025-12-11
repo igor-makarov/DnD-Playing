@@ -1,5 +1,3 @@
-import React from "react";
-
 import PointsCountInput from "@/components/common/PointsCountInput";
 import RollLink from "@/components/common/RollLink";
 import { $hitDice } from "@/js/character/dynamic-state/stores";

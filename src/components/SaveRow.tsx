@@ -1,5 +1,3 @@
-import React from "react";
-
 import type { SavingThrow } from "@/js/character/CharacterTypes";
 
 import D20TestCell from "./common/D20TestCell";
