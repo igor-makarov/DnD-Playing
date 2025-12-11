@@ -1,5 +1,5 @@
 import { D20Test } from "@/js/common/D20Test";
-import { RollModifier, useRollModifiers } from "@/js/hooks/useRollModifiers";
+import { useRollModifiers } from "@/js/hooks/useRollModifiers";
 
 import RollLink from "./RollLink";
 
@@ -16,18 +16,18 @@ export default function D20TestCell({ roll, advantage = false }: Props) {
 
   // Get the effective modifier (keyboard modifier overrides advantage prop)
   const effectiveModifier = (() => {
-    if (modifier === RollModifier.ADVANTAGE) return RollModifier.ADVANTAGE;
-    if (modifier === RollModifier.DISADVANTAGE) return RollModifier.DISADVANTAGE;
-    if (modifier === RollModifier.REGULAR) return RollModifier.REGULAR;
+    if (modifier === "ADVANTAGE") return "ADVANTAGE";
+    if (modifier === "DISADVANTAGE") return "DISADVANTAGE";
+    if (modifier === "REGULAR") return "REGULAR";
     // NONE or any other state: use default based on advantage prop
-    return advantage ? RollModifier.ADVANTAGE : RollModifier.REGULAR;
+    return advantage ? "ADVANTAGE" : "REGULAR";
   })();
 
-  const currentCaption = {
-    [RollModifier.ADVANTAGE]: "ADV",
-    [RollModifier.DISADVANTAGE]: "DIS",
-    [RollModifier.REGULAR]: "",
-  }[effectiveModifier];
+  const currentCaption = (() => {
+    if (effectiveModifier === "ADVANTAGE") return "ADV";
+    if (effectiveModifier === "DISADVANTAGE") return "DIS";
+    return "";
+  })();
 
   const mobileOptions = (() => {
     const regOption = { key: "reg", caption: "REG", advantage: false, disadvantage: false };
@@ -49,8 +49,8 @@ export default function D20TestCell({ roll, advantage = false }: Props) {
       <span className="check-cell-desktop">
         <RollLink
           dice={diceString}
-          advantage={effectiveModifier === RollModifier.ADVANTAGE}
-          disadvantage={effectiveModifier === RollModifier.DISADVANTAGE}
+          advantage={effectiveModifier === "ADVANTAGE"}
+          disadvantage={effectiveModifier === "DISADVANTAGE"}
           title="Hold A: advantage | Hold D: disadvantage | Hold S: regular"
         >
           [{currentCaption}

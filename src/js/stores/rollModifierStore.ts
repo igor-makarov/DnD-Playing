@@ -1,16 +1,9 @@
 import { createStore } from "@/js/stores/primitives/createStore";
 
-// Enum for roll modifier types
-export enum RollModifier {
-  NONE = "NONE",
-  ADVANTAGE = "ADVANTAGE",
-  DISADVANTAGE = "DISADVANTAGE",
-  REGULAR = "REGULAR",
-  CRITICAL = "CRITICAL",
-}
+export type RollModifier = "NONE" | "ADVANTAGE" | "DISADVANTAGE" | "REGULAR" | "CRITICAL";
 
 // Create the store
-export const $rollModifierStore = createStore<RollModifier>(RollModifier.NONE);
+export const $rollModifierStore = createStore<RollModifier>("NONE");
 
 // Initialize event listeners once
 let initialized = false;
@@ -24,13 +17,13 @@ function initializeEventListeners() {
     let newState: RollModifier | null = null;
 
     if (key === "s") {
-      newState = RollModifier.REGULAR;
+      newState = "REGULAR";
     } else if (key === "a") {
-      newState = RollModifier.ADVANTAGE;
+      newState = "ADVANTAGE";
     } else if (key === "d") {
-      newState = RollModifier.DISADVANTAGE;
+      newState = "DISADVANTAGE";
     } else if (key === "c") {
-      newState = RollModifier.CRITICAL;
+      newState = "CRITICAL";
     }
 
     if (newState !== null && $rollModifierStore.get() !== newState) {
@@ -42,20 +35,20 @@ function initializeEventListeners() {
     const key = e.key.toLowerCase();
     const currentState = $rollModifierStore.get();
     const shouldReset =
-      (key === "a" && currentState === RollModifier.ADVANTAGE) ||
-      (key === "d" && currentState === RollModifier.DISADVANTAGE) ||
-      (key === "s" && currentState === RollModifier.REGULAR) ||
-      (key === "c" && currentState === RollModifier.CRITICAL);
+      (key === "a" && currentState === "ADVANTAGE") ||
+      (key === "d" && currentState === "DISADVANTAGE") ||
+      (key === "s" && currentState === "REGULAR") ||
+      (key === "c" && currentState === "CRITICAL");
 
     if (shouldReset) {
-      $rollModifierStore.set(RollModifier.NONE);
+      $rollModifierStore.set("NONE");
     }
   };
 
   const handleFocus = () => {
     // Reset modifier state when page regains focus
-    if ($rollModifierStore.get() !== RollModifier.NONE) {
-      $rollModifierStore.set(RollModifier.NONE);
+    if ($rollModifierStore.get() !== "NONE") {
+      $rollModifierStore.set("NONE");
     }
   };
 

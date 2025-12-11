@@ -1,7 +1,7 @@
 import React from "react";
 
 import { DiceString } from "@/js/common/DiceString";
-import { RollModifier, useRollModifiers } from "@/js/hooks/useRollModifiers";
+import { useRollModifiers } from "@/js/hooks/useRollModifiers";
 
 import RollLink from "./RollLink";
 
@@ -12,7 +12,7 @@ export interface Props {
 export default function AttackDamageCell({ dice }: Props) {
   const modifier = useRollModifiers();
 
-  const isCritical = modifier === RollModifier.CRITICAL;
+  const isCritical = modifier === "CRITICAL";
 
   const mobileOptions = [
     { key: "damage", caption: dice.toString(), critical: false },
