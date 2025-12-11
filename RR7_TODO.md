@@ -41,21 +41,21 @@ Full plan: @RR7_PLAN.md
 
 ---
 
-## Checkpoint 3: Interactive Components Work
+## Checkpoint 3: Interactive Components Work [COMPLETE]
 
 **Goal:** Client-side state and interactivity function
 
-- [ ] Verify `HitPointsInput` works (URL state updates)
-- [ ] Verify `HitDiceTable` works
-- [ ] Verify `WeaponAttackTable` works
-- [ ] Verify `SpellSlotsTables` works
-- [ ] Verify keyboard modifiers (A/D/S/C) work for rolls
+- [x] Verify `HitPointsInput` works (URL state updates)
+- [x] Verify `HitDiceTable` works
+- [x] Verify `WeaponAttackTable` works
+- [x] Verify `SpellSlotsTables` works
+- [x] Verify keyboard modifiers (A/D/S/C) work for rolls
 
 **Verify:**
-- [ ] Change HP → URL query param updates
-- [ ] Refresh page → state persists from URL
-- [ ] Click roll links → correct dice roller URLs
-- [ ] `npm test` passes
+- [x] Change HP → URL query param updates
+- [x] Refresh page → state persists from URL
+- [x] Click roll links → correct dice roller URLs
+- [x] `npm test` passes
 
 ---
 
