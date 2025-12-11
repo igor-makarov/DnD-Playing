@@ -1,9 +1,10 @@
+"use client";
 import React from "react";
 
 import { DiceString } from "@/js/common/DiceString";
-import { withAutoRehydration } from "@/js/utils/rehydration/withAutoRehydration";
-
-import RollLinkClient from "./RollLink.client";
+import { useStore } from "@/js/hooks/useStore";
+import { $rollModeStore } from "@/js/stores/rollModeStore";
+import { getRollUrl } from "@/js/utils/rollOptions";
 
 export interface Props {
   dice: DiceString;
@@ -14,5 +15,21 @@ export interface Props {
   children?: React.ReactNode;
 }
 
-const RollLink: React.FC<Props> = withAutoRehydration(RollLinkClient);
-export default RollLink;
+export default function RollLink({ dice, advantage = false, disadvantage = false, critical = false, title, children }: Props) {
+  const rollMode = useStore($rollModeStore);
+
+  // If critical is true, use the crit version of the dice
+  const effectiveDice = critical ? dice.crit() : dice;
+
+  // Generate the URL with the appropriate options
+  const url = getRollUrl(effectiveDice, rollMode, {
+    advantage,
+    disadvantage,
+  });
+
+  return (
+    <a className="dice-roll mono" href={url} title={title}>
+      {children ?? `[${effectiveDice.toString()}]`}
+    </a>
+  );
+}

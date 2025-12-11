@@ -1,9 +1,10 @@
+"use client";
 import React from "react";
 
+import LevelDamageSelector from "@/components/common/LevelDamageSelector";
 import type { DiceString } from "@/js/common/DiceString";
-import { withAutoRehydration } from "@/js/utils/rehydration/withAutoRehydration";
-
-import LevelledSpellLevelSelectorClient from "./LevelledSpellLevelSelector.client";
+import { useStore } from "@/js/hooks/useStore";
+import { $spellLevelStore } from "@/stores/spellLevelStore";
 
 interface LevelOption {
   level: number;
@@ -16,5 +17,20 @@ export interface Props {
   optional?: boolean;
 }
 
-const LevelledSpellLevelSelector: React.FC<Props> = withAutoRehydration(LevelledSpellLevelSelectorClient);
-export default LevelledSpellLevelSelector;
+export default function LevelledSpellLevelSelector({ spellName, options, optional = false }: Props) {
+  const spellData = useStore($spellLevelStore);
+
+  const selectedLevel = spellData[spellName]?.level ?? options[0]?.level ?? 1;
+
+  const handleLevelChange = (level: number) => {
+    const option = options.find((opt) => opt.level === level);
+    if (option) {
+      $spellLevelStore.set((prev) => ({
+        ...prev,
+        [spellName]: { level, damageRoll: option.damage },
+      }));
+    }
+  };
+
+  return <LevelDamageSelector options={options} selectedLevel={selectedLevel} onLevelChange={handleLevelChange} optional={optional} />;
+}

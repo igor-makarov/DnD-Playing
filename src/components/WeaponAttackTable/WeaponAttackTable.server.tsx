@@ -1,14 +1,8 @@
-import React from "react";
-
-import type { DamageAddonData, WeaponAttackData } from "@/js/character/WeaponAttackTypes";
 import { withAutoRehydration } from "@/js/utils/rehydration/withAutoRehydration";
 
-import WeaponAttackTableClient from "./WeaponAttackTable.client";
+import WeaponAttackTable from "./WeaponAttackTable";
 
-export interface Props {
-  weaponAttacks: WeaponAttackData[];
-  damageAddons: DamageAddonData[];
-}
+export type { Props } from "./WeaponAttackTable";
 
-const WeaponAttackTableServer: React.FC<Props> = withAutoRehydration(WeaponAttackTableClient);
+const WeaponAttackTableServer: React.FC<React.ComponentProps<typeof WeaponAttackTable>> = withAutoRehydration(WeaponAttackTable);
 export default WeaponAttackTableServer;

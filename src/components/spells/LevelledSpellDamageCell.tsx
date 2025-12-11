@@ -1,14 +1,29 @@
+"use client";
 import React from "react";
 
+import RollLink from "@/components/common/RollLink";
 import type { DiceString } from "@/js/common/DiceString";
-import { withAutoRehydration } from "@/js/utils/rehydration/withAutoRehydration";
-
-import LevelledSpellDamageCellClient from "./LevelledSpellDamageCell.client";
+import { useStore } from "@/js/hooks/useStore";
+import { $spellLevelStore } from "@/stores/spellLevelStore";
 
 export interface Props {
   spellName: string;
   initialDamageRoll?: DiceString;
 }
 
-const LevelledSpellDamageCell: React.FC<Props> = withAutoRehydration(LevelledSpellDamageCellClient);
-export default LevelledSpellDamageCell;
+export default function LevelledSpellDamageCell({ spellName, initialDamageRoll }: Props) {
+  const spellData = useStore($spellLevelStore);
+  // Use store value if available, otherwise fall back to initial value
+  // This ensures SSR and initial client render are consistent
+  const damageRoll = spellData[spellName]?.damageRoll ?? initialDamageRoll;
+
+  if (!damageRoll) {
+    return null;
+  }
+
+  return (
+    <span className="mono check-cell">
+      <RollLink dice={damageRoll} />
+    </span>
+  );
+}

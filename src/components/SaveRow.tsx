@@ -2,7 +2,7 @@ import React from "react";
 
 import type { SavingThrow } from "@/js/character/CharacterTypes";
 
-import D20TestCell from "./common/D20TestCell";
+import D20TestCell from "./common/D20TestCell.server";
 
 interface Props {
   savingThrow: SavingThrow;

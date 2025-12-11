@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
-import AttackDamageCell from "@/components/common/AttackDamageCell";
-import D20TestCell from "@/components/common/D20TestCell";
-import RollLink from "@/components/common/RollLink";
+import AttackDamageCell from "@/components/common/AttackDamageCell.server";
+import D20TestCell from "@/components/common/D20TestCell.server";
+import RollLink from "@/components/common/RollLink.server";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 

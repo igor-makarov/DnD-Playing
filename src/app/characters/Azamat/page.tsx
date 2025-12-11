@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 
 import AbilitiesTable from "@/components/AbilitiesTable";
-import HitDiceTable from "@/components/HitDiceTable";
-import HitPointsInput from "@/components/HitPointsInput";
+import HitDiceTable from "@/components/HitDiceTable.server";
+import HitPointsInput from "@/components/HitPointsInput.server";
 import SavesTable from "@/components/SavesTable";
 import SkillsTable from "@/components/SkillsTable";
 import SpellSlotsTables from "@/components/SpellSlotsTables";
-import WeaponAttackTable from "@/components/WeaponAttackTable/WeaponAttackTable";
+import WeaponAttackTable from "@/components/WeaponAttackTable/WeaponAttackTable.server";
 import ChannelDivinityCheckboxes from "@/components/classes/paladin/ChannelDivinityCheckboxes";
 import LayOnHandsInput from "@/components/classes/paladin/LayOnHandsInput";
-import D20TestCell from "@/components/common/D20TestCell";
+import D20TestCell from "@/components/common/D20TestCell.server";
 import InfoTooltip from "@/components/common/InfoTooltip";
 import LevelledSpellDamageRow from "@/components/spells/LevelledSpellDamageRow";
 import AzamatCharacter from "@/js/characters/AzamatCharacter";
@@ -111,7 +111,7 @@ export default function AzamatPage() {
           <HitDiceTable hitDice={character.getHitDice()} conModifier={character.getAbilityModifier("Con")} />
         </div>
         <div className="column">
-          <WeaponAttackTable character={character} />
+          <WeaponAttackTable weaponAttacks={character.getWeaponAttacks()} damageAddons={character.getWeaponAttackAddons()} />
           <table>
             <tbody>
               <tr>
