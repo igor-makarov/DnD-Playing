@@ -188,7 +188,7 @@ export default function JacobPage() {
                   <InfoTooltip reference={tollTheDeadRef}>Toll the Dead</InfoTooltip>
                 </td>
                 <td className="checkCell mono">
-                  <RollLink dice={character.getCantripDamage(new DiceString("d8"), new DiceString("d8"))} />
+                  <RollLink dice={character.getCantripDamage(new DiceString("d8"), new DiceString("d8"))} />{" "}
                   <RollLink dice={character.getCantripDamage(new DiceString("d12"), new DiceString("d12"))} />
                 </td>
               </tr>
