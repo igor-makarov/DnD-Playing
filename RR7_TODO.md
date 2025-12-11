@@ -63,10 +63,11 @@ Full plan: @RR7_PLAN.md
 
 **Goal:** All non-dynamic pages work
 
-- [ ] Create `src/app/routes/characters/Jacob.tsx`
-- [ ] Create `src/app/routes/characters/Adrik.tsx`
-- [ ] Create `src/app/routes/classes/index.tsx` (classes index)
-- [ ] Create `src/app/routes/critical-role/index.tsx` (CR index)
+- [x] Create `src/app/routes/characters/Jacob.tsx`
+- [x] Create `src/app/routes/characters/Adrik.tsx`
+- [x] Create `src/app/routes/classes/index.tsx` (classes index)
+- [x] Create `src/app/routes/critical-role/index.tsx` (CR index)
+- [x] Update main `index.tsx` with navigation links
 - [ ] Create Critical Role character pages (static)
 - [ ] Update `routes.ts` with all routes
 - [ ] Update `prerender` config with all static paths

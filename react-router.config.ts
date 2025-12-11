@@ -8,7 +8,7 @@ export default {
   ssr: false,
 
   // Pre-render these routes at build time for SSG
-  prerender: ["/", "/characters/Azamat"],
+  prerender: ["/", "/characters/Azamat", "/characters/Jacob", "/characters/Adrik", "/classes", "/critical-role"],
 
   // Support BASE_URL for deployment
   basename: process.env.BASE_URL || "/",
