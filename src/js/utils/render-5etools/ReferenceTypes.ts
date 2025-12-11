@@ -39,6 +39,7 @@ export type ReferenceHTML = string & { readonly __brand: "ReferenceHTML" };
  */
 export interface ReferenceRendered {
   sanitizedHtml: ReferenceHTML;
+  fullLink?: string;
 }
 
 /**
