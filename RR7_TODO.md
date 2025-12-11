@@ -67,6 +67,7 @@ Full plan: @RR7_PLAN.md
 - [ ] Create `src/app/routes/characters/Adrik.tsx`
 - [ ] Create `src/app/routes/classes/index.tsx` (classes index)
 - [ ] Create `src/app/routes/critical-role/index.tsx` (CR index)
+- [ ] Create Critical Role character pages (static)
 - [ ] Update `routes.ts` with all routes
 - [ ] Update `prerender` config with all static paths
 
@@ -83,13 +84,11 @@ Full plan: @RR7_PLAN.md
 
 - [ ] Create `src/app/routes/classes/$class.tsx` with loader
 - [ ] Create `src/app/routes/subclasses/$subclass.tsx` with loader
-- [ ] Create `src/app/routes/critical-role/$character.tsx` with loader
 - [ ] Update `prerender` config to generate all dynamic paths
 
 **Verify:**
 - [ ] `/classes/Fighter-XPHB` renders
 - [ ] `/subclasses/Fighter-XPHB-Champion-XPHB` renders
-- [ ] `/critical-role/[character]` renders
 - [ ] `npm run build` generates all static pages
 - [ ] Check `build/client/` folder has expected structure
 
