@@ -147,7 +147,7 @@ function formatDuration(duration: SpellDuration[]): string {
 
 /**
  * Get a spell from the 5etools data by name and source.
- * This function should be called at build time in Astro frontmatter.
+ * This function should be called at build time or during server-side rendering.
  *
  * @param name - The spell name (e.g., "Fireball")
  * @param source - The source book (default: "XPHB" for 2024 PHB)

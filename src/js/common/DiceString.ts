@@ -1,5 +1,3 @@
-import { rehydratable } from "../utils/rehydratable";
-
 /**
  * Represents a single dice term (e.g., "2d6" means 2 dice with 6 sides)
  */
@@ -17,7 +15,6 @@ interface DiceTerm {
  * - "d20+3" => 1 twenty-sided die plus 3
  * - "2d6+1d4-2" => 2d6, 1d4, minus 2
  */
-@rehydratable("DiceString")
 export class DiceString {
   private dice: DiceTerm[];
   private modifier: number;

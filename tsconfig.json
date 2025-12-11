@@ -1,11 +1,16 @@
 {
-  "extends": "astro/tsconfigs/base",
+  "extends": "@tsconfig/vite-react/tsconfig.json",
   "compilerOptions": {
-    "strict": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": ["vite/client"],
+    "rootDirs": [".", ".react-router/types"],
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "erasableSyntaxOnly": false
   },
-  "exclude": ["dist", "coverage", "5etools"]
+  "include": [".react-router/types/**/*", "**/*.ts", "**/*.tsx"],
+  "exclude": ["dist", "build", "coverage", "5etools", "node_modules"]
 }

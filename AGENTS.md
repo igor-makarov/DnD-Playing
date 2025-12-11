@@ -1,7 +1,7 @@
 # General notes
 
-- This is a D&D Character sheet project using Astro.js with React components
-- Each character is an Astro **page**
+- This is a D&D Character sheet project using React Router 7 with React components
+- Each character is an React Router **route**
 - Prefer running local `./jq` wrapper, example: `./jq 5etools/data/races.json '.race[] | select(.name == "Dwarf")'`
 - Prefer validating HTML output with `Read` and `Search` tools
 
@@ -16,7 +16,7 @@ You MUST run verification when you are done
 - Run e2e tests with `npm run test:e2e`
 
 # React notes
-- Use idiomatic component declarations to be as consistent as possible with Astro: 
+- Use idiomatic component declarations to be as consistent as possible with React: 
 ```typescript 
 import React from "react";
 interface Props { 

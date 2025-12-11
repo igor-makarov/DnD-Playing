@@ -1,15 +1,15 @@
 import React from "react";
 
-import HitDiceRow from "@/components/HitDiceRow";
 import type { DiceString } from "@/js/common/DiceString";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 
-interface Props {
+import HitDiceRow from "./HitDiceRow";
+
+export interface Props {
   hitDice: Array<{ die: DiceString; count: number }>;
   conModifier: number;
 }
 
-export default withAutoRehydration(function HitDiceTable({ hitDice, conModifier }: Props) {
+export default function HitDiceTable({ hitDice, conModifier }: Props) {
   if (hitDice.length === 0) {
     return null;
   }
@@ -34,4 +34,4 @@ export default withAutoRehydration(function HitDiceTable({ hitDice, conModifier 
       </tbody>
     </table>
   );
-});
+}

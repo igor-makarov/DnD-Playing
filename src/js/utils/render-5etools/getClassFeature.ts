@@ -17,7 +17,7 @@ interface ClassFeatureData {
 
 /**
  * Get a class feature from the 5etools data by name, class, and source.
- * This function should be called at build time in Astro frontmatter.
+ * This function should be called at build time or during server-side rendering.
  *
  * @param featureName - The feature name (e.g., "Second Wind", "Action Surge")
  * @param className - The class name (e.g., "Fighter", "Wizard")

@@ -2,16 +2,15 @@ import React from "react";
 
 import { D20Test } from "@/js/common/D20Test";
 import { RollModifier, useRollModifiers } from "@/js/hooks/useRollModifiers";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 
 import RollLink from "./RollLink";
 
-interface Props {
+export interface Props {
   roll: D20Test;
   advantage?: boolean;
 }
 
-export default withAutoRehydration(function D20TestCell({ roll, advantage = false }: Props) {
+export default function D20TestCell({ roll, advantage = false }: Props) {
   const modifier = useRollModifiers();
 
   const bonus = roll.getBonus();
@@ -74,4 +73,4 @@ export default withAutoRehydration(function D20TestCell({ roll, advantage = fals
       </span>
     </span>
   );
-});
+}

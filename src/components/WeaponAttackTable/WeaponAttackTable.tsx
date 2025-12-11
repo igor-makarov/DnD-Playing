@@ -1,20 +1,19 @@
 import React, { useMemo, useReducer } from "react";
 
-import D20TestCell from "@/components/common/D20TestCell.tsx";
+import D20TestCell from "@/components/common/D20TestCell";
 import type { DamageAddonData, WeaponAttackData } from "@/js/character/WeaponAttackTypes";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 
 import AddonRow from "./AddonRow";
 import TotalDamageRow from "./TotalDamageRow";
 import WeaponSelector from "./WeaponSelector";
 import { type WeaponState, computeTotalDamage, weaponReducer } from "./weaponAttackReducer";
 
-interface Props {
+export interface Props {
   weaponAttacks: WeaponAttackData[];
   damageAddons: DamageAddonData[];
 }
 
-export default withAutoRehydration(function WeaponAttackTable({ weaponAttacks, damageAddons }: Props) {
+export default function WeaponAttackTable({ weaponAttacks, damageAddons }: Props) {
   const [state, dispatch] = useReducer(weaponReducer, {
     selectedWeaponName: weaponAttacks[0]?.weapon || "",
     selectedLevels: new Map(),
@@ -62,4 +61,4 @@ export default withAutoRehydration(function WeaponAttackTable({ weaponAttacks, d
       </tbody>
     </table>
   );
-});
+}

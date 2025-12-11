@@ -63,7 +63,7 @@ function formatWeight(weight?: number): string | null {
 
 /**
  * Get an item from the 5etools data by name and source.
- * This function should be called at build time in Astro frontmatter.
+ * This function should be called at build time or during server-side rendering.
  *
  * @param name - The item name (e.g., "Alchemist's Supplies", "Longsword")
  * @param source - The source book (default: "XPHB" for 2024 PHB)

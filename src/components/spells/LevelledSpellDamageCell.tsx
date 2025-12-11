@@ -3,15 +3,14 @@ import React from "react";
 import RollLink from "@/components/common/RollLink";
 import type { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 import { $spellLevelStore } from "@/stores/spellLevelStore";
 
-interface Props {
+export interface Props {
   spellName: string;
   initialDamageRoll?: DiceString;
 }
 
-export default withAutoRehydration(function LevelledSpellDamageCell({ spellName, initialDamageRoll }: Props) {
+export default function LevelledSpellDamageCell({ spellName, initialDamageRoll }: Props) {
   const spellData = useStore($spellLevelStore);
   // Use store value if available, otherwise fall back to initial value
   // This ensures SSR and initial client render are consistent
@@ -26,4 +25,4 @@ export default withAutoRehydration(function LevelledSpellDamageCell({ spellName,
       <RollLink dice={damageRoll} />
     </span>
   );
-});
+}

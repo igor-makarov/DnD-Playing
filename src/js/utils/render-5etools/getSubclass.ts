@@ -1,3 +1,4 @@
+import { subclassRoute } from "../collectSubclasses";
 import type { Entry, Reference } from "./ReferenceTypes";
 import { loadData } from "./loadData";
 
@@ -160,7 +161,7 @@ function extractRefSubclassFeatures(
 
 /**
  * Get a subclass from the 5etools data by name, class, and source.
- * This function should be called at build time in Astro frontmatter.
+ * This function should be called at build time or during server-side rendering.
  *
  * @param className - The class name (e.g., "Wizard", "Warlock")
  * @param subclassShortName - The subclass short name (e.g., "Necromancy", "Fiend")
@@ -227,7 +228,7 @@ export function getSubclass(className: string, subclassShortName: string, classS
     source: subclass.source,
     byline,
     entries,
-    fullLink: `/subclasses/${className}-${classSource}-${subclassShortName}-${subclass.source}/`,
+    fullLink: subclassRoute({ className, classSource, subclassShortName, subclassSource: subclass.source }),
   };
 }
 

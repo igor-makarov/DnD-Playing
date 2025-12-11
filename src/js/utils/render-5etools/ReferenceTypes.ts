@@ -12,6 +12,7 @@ type EntryObject = {
   entries?: Array<EntryString | EntryObject>;
   items?: Array<EntryString | EntryObject>;
   data?: PropertyItem[]; // For type: "properties"
+  rows?: Array<Array<EntryString | EntryObject>>; // For type: "table"
 };
 export type Entry = EntryString | EntryObject;
 
@@ -38,6 +39,7 @@ export type ReferenceHTML = string & { readonly __brand: "ReferenceHTML" };
  */
 export interface ReferenceRendered {
   sanitizedHtml: ReferenceHTML;
+  fullLink?: string;
 }
 
 /**

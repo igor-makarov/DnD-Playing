@@ -2,15 +2,14 @@ import React from "react";
 
 import { DiceString } from "@/js/common/DiceString";
 import { RollModifier, useRollModifiers } from "@/js/hooks/useRollModifiers";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 
 import RollLink from "./RollLink";
 
-interface Props {
+export interface Props {
   dice: DiceString;
 }
 
-export default withAutoRehydration(function AttackDamageCell({ dice }: Props) {
+export default function AttackDamageCell({ dice }: Props) {
   const modifier = useRollModifiers();
 
   const isCritical = modifier === RollModifier.CRITICAL;
@@ -40,4 +39,4 @@ export default withAutoRehydration(function AttackDamageCell({ dice }: Props) {
       </span>
     </span>
   );
-});
+}

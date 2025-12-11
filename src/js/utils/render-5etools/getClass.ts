@@ -1,3 +1,4 @@
+import { classRoute } from "../collectClasses";
 import type { Entry, PropertyItem, Reference } from "./ReferenceTypes";
 import { loadData } from "./loadData";
 
@@ -231,7 +232,7 @@ function createMulticlassingEntries(multiclassing?: Multiclassing): Entry[] {
 
 /**
  * Get a class from the 5etools data by name and source.
- * This function should be called at build time in Astro frontmatter.
+ * This function should be called at build time or during server-side rendering.
  *
  * @param name - The class name (e.g., "Fighter", "Wizard")
  * @param source - The source book (default: "XPHB" for 2024 PHB)
@@ -356,7 +357,7 @@ export function getClass(name: string, source: string = "XPHB"): Reference {
     name: classInfo.name,
     source: classInfo.source,
     entries,
-    fullLink: `/classes/${name}-${source}/`,
+    fullLink: classRoute({ name, source }),
   };
 
   return classReference;

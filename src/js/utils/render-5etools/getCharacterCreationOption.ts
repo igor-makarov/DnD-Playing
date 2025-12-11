@@ -55,7 +55,7 @@ function formatPrerequisites(prerequisites?: CharOptionPrerequisite[]): string |
 
 /**
  * Get a character creation option (supernatural gift, dark gift, etc.) from the 5etools data by name and source.
- * This function should be called at build time in Astro frontmatter.
+ * This function should be called at build time or during server-side rendering.
  *
  * @param name - The option name (e.g., "Hollow One")
  * @param source - The source book (e.g., "EGW" for Explorer's Guide to Wildemount)

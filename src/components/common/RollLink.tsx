@@ -4,9 +4,8 @@ import { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";
 import { $rollModeStore } from "@/js/stores/rollModeStore";
 import { getRollUrl } from "@/js/utils/rollOptions";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 
-interface Props {
+export interface Props {
   dice: DiceString;
   advantage?: boolean;
   disadvantage?: boolean;
@@ -15,7 +14,7 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export default withAutoRehydration(function RollLink({ dice, advantage = false, disadvantage = false, critical = false, title, children }: Props) {
+export default function RollLink({ dice, advantage = false, disadvantage = false, critical = false, title, children }: Props) {
   const rollMode = useStore($rollModeStore);
 
   // If critical is true, use the crit version of the dice
@@ -32,4 +31,4 @@ export default withAutoRehydration(function RollLink({ dice, advantage = false, 
       {children ?? `[${effectiveDice.toString()}]`}
     </a>
   );
-});
+}

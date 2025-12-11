@@ -3,7 +3,6 @@ import React from "react";
 import LevelDamageSelector from "@/components/common/LevelDamageSelector";
 import type { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";
-import { withAutoRehydration } from "@/js/utils/withAutoRehydration";
 import { $spellLevelStore } from "@/stores/spellLevelStore";
 
 interface LevelOption {
@@ -11,13 +10,13 @@ interface LevelOption {
   damage: DiceString;
 }
 
-interface Props {
+export interface Props {
   spellName: string;
   options: LevelOption[];
   optional?: boolean;
 }
 
-export default withAutoRehydration(function LevelledSpellLevelSelector({ spellName, options, optional = false }: Props) {
+export default function LevelledSpellLevelSelector({ spellName, options, optional = false }: Props) {
   const spellData = useStore($spellLevelStore);
 
   const selectedLevel = spellData[spellName]?.level ?? options[0]?.level ?? 1;
@@ -33,4 +32,4 @@ export default withAutoRehydration(function LevelledSpellLevelSelector({ spellNa
   };
 
   return <LevelDamageSelector options={options} selectedLevel={selectedLevel} onLevelChange={handleLevelChange} optional={optional} />;
-});
+}
