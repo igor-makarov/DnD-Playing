@@ -1,31 +1,48 @@
-import type { Metadata } from "next";
+import { useLoaderData } from "react-router";
 
 import AbilitiesTable from "@/components/AbilitiesTable";
-import HitDiceTable from "@/components/HitDiceTable.server";
-import HitPointsInput from "@/components/HitPointsInput.server";
+import HitDiceTable from "@/components/HitDiceTable";
+import HitPointsInput from "@/components/HitPointsInput";
 import SavesTable from "@/components/SavesTable";
 import SkillsTable from "@/components/SkillsTable";
 import SpellSlotsTables from "@/components/SpellSlotsTables";
-import WeaponAttackTable from "@/components/WeaponAttackTable/WeaponAttackTable.server";
+import WeaponAttackTable from "@/components/WeaponAttackTable/WeaponAttackTable";
 import ChannelDivinityCheckboxes from "@/components/classes/paladin/ChannelDivinityCheckboxes";
 import LayOnHandsInput from "@/components/classes/paladin/LayOnHandsInput";
-import D20TestCell from "@/components/common/D20TestCell.server";
+import D20TestCell from "@/components/common/D20TestCell";
 import InfoTooltip from "@/components/common/InfoTooltip";
 import LevelledSpellDamageRow from "@/components/spells/LevelledSpellDamageRow";
 import AzamatCharacter from "@/js/characters/AzamatCharacter";
 import { DiceString } from "@/js/common/DiceString";
-import { getClass } from "@/js/utils/render-5etools/getClass";
-import { getSpecies } from "@/js/utils/render-5etools/getSpecies";
-import renderHTML from "@/js/utils/render-5etools/renderHTML";
+import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
 
 const character = new AzamatCharacter();
 const characterName = "Azamat";
 
-export const metadata: Metadata = {
-  title: characterName,
-};
+export function meta() {
+  return [{ title: characterName }];
+}
+
+// Server-only: runs during pre-render, not bundled for client
+export async function loader() {
+  const { getClass } = await import("@/js/utils/render-5etools/getClass");
+  const { getSpecies } = await import("@/js/utils/render-5etools/getSpecies");
+  const { default: renderHTML } = await import("@/js/utils/render-5etools/renderHTML");
+
+  return {
+    speciesRef: renderHTML(getSpecies("Warforged", "ERLW")),
+    classRef: renderHTML(getClass("Paladin")),
+  };
+}
+
+interface LoaderData {
+  speciesRef: ReferenceRendered;
+  classRef: ReferenceRendered;
+}
 
 export default function AzamatPage() {
+  const { speciesRef, classRef } = useLoaderData<LoaderData>();
+
   return (
     <>
       <base target="_blank" />
@@ -158,13 +175,13 @@ export default function AzamatPage() {
               <tr>
                 <td>Species</td>
                 <td className="modifier">
-                  <InfoTooltip reference={renderHTML(getSpecies("Warforged", "ERLW"))}>Warforged</InfoTooltip>
+                  <InfoTooltip reference={speciesRef}>Warforged</InfoTooltip>
                 </td>
               </tr>
               <tr>
                 <td>Class</td>
                 <td className="modifier">
-                  <InfoTooltip reference={renderHTML(getClass("Paladin"))}>Paladin</InfoTooltip> {character.characterLevel}
+                  <InfoTooltip reference={classRef}>Paladin</InfoTooltip> {character.characterLevel}
                 </td>
               </tr>
               <tr>

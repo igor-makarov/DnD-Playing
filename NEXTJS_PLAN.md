@@ -88,7 +88,6 @@ export default D20TestCell;
 
 ```tsx
 // src/components/common/D20TestCell.client.tsx (Client Component)
-"use client";
 import type { Props } from "./D20TestCell";
 
 export default function D20TestCellClient({ roll, advantage = false }: Props) {

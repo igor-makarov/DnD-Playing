@@ -2,7 +2,7 @@ import React from "react";
 
 import type { Character } from "@/js/character/Character";
 
-import D20TestCell from "./common/D20TestCell.server";
+import D20TestCell from "./common/D20TestCell";
 
 interface Props {
   character: Character;

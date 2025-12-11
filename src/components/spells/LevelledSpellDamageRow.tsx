@@ -4,8 +4,8 @@ import InfoTooltip from "@/components/common/InfoTooltip";
 import type { DamageLevel } from "@/js/character/DamageTypes";
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
 
-import LevelledSpellDamageCell from "./LevelledSpellDamageCell.server";
-import LevelledSpellLevelSelector from "./LevelledSpellLevelSelector.server";
+import LevelledSpellDamageCell from "./LevelledSpellDamageCell";
+import LevelledSpellLevelSelector from "./LevelledSpellLevelSelector";
 
 interface Props {
   name: string;

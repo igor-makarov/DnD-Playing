@@ -1,13 +1,16 @@
 {
-  "extends": "@tsconfig/next/tsconfig.json",
+  "extends": "@tsconfig/vite-react/tsconfig.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "./.next/tsconfig.tsbuildinfo",
-    "target": "ESNext",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": ["vite/client"],
+    "rootDirs": [".", ".react-router/types"],
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "erasableSyntaxOnly": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["dist", "out", "coverage", "5etools"]
+  "include": [".react-router/types/**/*", "**/*.ts", "**/*.tsx"],
+  "exclude": ["dist", "build", "coverage", "5etools", "node_modules"]
 }

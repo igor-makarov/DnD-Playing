@@ -1,4 +1,3 @@
-"use client";
 import React, { useRef } from "react";
 
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";

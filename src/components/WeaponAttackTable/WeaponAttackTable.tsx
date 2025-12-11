@@ -1,4 +1,3 @@
-"use client";
 import React, { useMemo, useReducer } from "react";
 
 import D20TestCell from "@/components/common/D20TestCell";
