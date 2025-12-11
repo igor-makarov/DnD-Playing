@@ -1,7 +1,7 @@
 # General notes
 
-- This is a D&D Character sheet project using Next.js with React components
-- Each character is an Next.js **page**
+- This is a D&D Character sheet project using React Router 7 with React components
+- Each character is an React Router **route**
 - Prefer running local `./jq` wrapper, example: `./jq 5etools/data/races.json '.race[] | select(.name == "Dwarf")'`
 - Prefer validating HTML output with `Read` and `Search` tools
 
