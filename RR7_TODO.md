@@ -59,7 +59,7 @@ Full plan: @RR7_PLAN.md
 
 ---
 
-## Checkpoint 4: All Static Pages
+## Checkpoint 4: All Static Pages [COMPLETE]
 
 **Goal:** All non-dynamic pages work
 
@@ -68,14 +68,14 @@ Full plan: @RR7_PLAN.md
 - [x] Create `src/app/routes/classes/index.tsx` (classes index)
 - [x] Create `src/app/routes/critical-role/index.tsx` (CR index)
 - [x] Update main `index.tsx` with navigation links
-- [ ] Create Critical Role character pages (static)
-- [ ] Update `routes.ts` with all routes
-- [ ] Update `prerender` config with all static paths
+- [x] Create Critical Role character pages (static)
+- [x] Update `routes.ts` with all routes (now auto-discovers)
+- [x] Update `prerender` config with all static paths (now uses `getStaticPaths()`)
 
 **Verify:**
-- [ ] All static pages render
-- [ ] Navigation between pages works
-- [ ] `npm run build` succeeds
+- [x] All static pages render
+- [x] Navigation between pages works
+- [x] `npm run build` succeeds
 
 ---
 
