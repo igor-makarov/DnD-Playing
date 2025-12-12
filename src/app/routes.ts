@@ -49,6 +49,6 @@ function discoverRoutes(routesDir: string): RouteConfigEntry[] {
 const routesDir = join(dirname(import.meta.dirname!), "app/routes");
 export default discoverRoutes(routesDir).concat([
   layout(join(dirname(import.meta.dirname!), "layouts/ReferenceLayout.tsx"), [
-    route("/characters/Jacob/info", `${routesDir}/characters/Jacob/info.md`),
+    route("/characters/Jacob/info", `${routesDir}/characters/Jacob/info.mdx`),
   ]),
 ]);

@@ -5,7 +5,7 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["vite/client"],
+    "types": ["vite/client", "mdx"],
     "rootDirs": [".", ".react-router/types"]
   },
   "include": [".react-router/types/**/*", "**/*.ts", "**/*.tsx"],
