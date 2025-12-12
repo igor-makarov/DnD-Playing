@@ -1,6 +1,8 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 
+import { href } from "react-router";
+
 import { findFiles } from "./findFiles";
 
 const ROUTES_DIR = "src/app/routes";
@@ -71,7 +73,7 @@ export function collectAllClassNames(): Set<string> {
  * Build URL path for a class page.
  */
 export function classRoute(ref: ClassReference): string {
-  return `/classes/${ref.name}-${ref.source}`;
+  return href("/classes/:class", { class: `${ref.name}-${ref.source}` });
 }
 
 /**

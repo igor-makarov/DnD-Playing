@@ -1,6 +1,8 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 
+import { href } from "react-router";
+
 import { findFiles } from "./findFiles";
 import { loadData } from "./render-5etools/loadData";
 
@@ -104,7 +106,7 @@ export function collectAllSubclassReferences(): SubclassReferenceFromPage[] {
  * Build URL path for a subclass page.
  */
 export function subclassRoute(ref: SubclassReferenceFromPage): string {
-  return `/subclasses/${ref.className}-${ref.classSource}-${ref.subclassShortName}-${ref.subclassSource}`;
+  return href("/subclasses/:subclass", { subclass: `${ref.className}-${ref.classSource}-${ref.subclassShortName}-${ref.subclassSource}` });
 }
 
 /**
