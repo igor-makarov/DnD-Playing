@@ -1,6 +1,6 @@
-import { type RouteConfigEntry, layout, route } from "@react-router/dev/routes";
+import { layout, route } from "@react-router/dev/routes";
 import { readdirSync, statSync } from "node:fs";
-import { basename, dirname, join } from "node:path";
+import { basename, dirname, extname, join } from "node:path";
 
 // Convert file name segment to URL segment
 // $param -> :param (dynamic route parameter)
@@ -11,33 +11,25 @@ function toUrlSegment(segment: string): string {
   return segment;
 }
 
+type DiscoveredRoute = { urlPath: string; filePath: string; ext: ".tsx" | ".mdx" };
+
 // Auto-discover routes from the routes directory
-function discoverRoutes(routesDir: string): RouteConfigEntry[] {
-  const routes: RouteConfigEntry[] = [];
+function discoverRoutes(routesDir: string): DiscoveredRoute[] {
+  const routes: DiscoveredRoute[] = [];
 
   function scanDirectory(dir: string, urlPrefix: string = "") {
-    const entries = readdirSync(dir);
-
-    for (const entry of entries) {
+    for (const entry of readdirSync(dir)) {
       const fullPath = join(dir, entry);
-      const stat = statSync(fullPath);
 
-      if (stat.isDirectory()) {
+      if (statSync(fullPath).isDirectory()) {
         // Recurse into subdirectories, converting $ to : for dynamic segments
         scanDirectory(fullPath, `${urlPrefix}/${toUrlSegment(entry)}`);
-      } else if (entry.endsWith(".tsx")) {
-        const name = basename(entry, ".tsx");
+      } else if (entry.endsWith(".tsx") || entry.endsWith(".mdx")) {
+        const ext = extname(entry) as ".tsx" | ".mdx";
+        const name = basename(entry, ext);
         const relativePath = fullPath.replace(routesDir + "/", "routes/");
-
-        if (name === "index") {
-          // index.tsx -> /prefix or /
-          const urlPath = urlPrefix || "/";
-          routes.push(route(urlPath, relativePath));
-        } else {
-          // Other files -> /prefix/name (converting $ to : for dynamic params)
-          const urlPath = `${urlPrefix}/${toUrlSegment(name)}`;
-          routes.push(route(urlPath, relativePath));
-        }
+        const urlPath = name === "index" ? urlPrefix || "/" : `${urlPrefix}/${toUrlSegment(name)}`;
+        routes.push({ urlPath, filePath: relativePath, ext });
       }
     }
   }
@@ -47,8 +39,10 @@ function discoverRoutes(routesDir: string): RouteConfigEntry[] {
 }
 
 const routesDir = join(dirname(import.meta.dirname!), "app/routes");
-export default discoverRoutes(routesDir).concat([
-  layout(join(dirname(import.meta.dirname!), "layouts/ReferenceLayout.tsx"), [
-    route("/characters/Jacob/info", `${routesDir}/characters/Jacob/info.mdx`),
-  ]),
-]);
+const layoutPath = join(dirname(import.meta.dirname!), "layouts/ReferenceLayout.tsx");
+
+const discovered = discoverRoutes(routesDir);
+const tsxRoutes = discovered.filter((r) => r.ext === ".tsx").map((r) => route(r.urlPath, r.filePath));
+const mdxRoutes = discovered.filter((r) => r.ext === ".mdx").map((r) => route(r.urlPath, r.filePath));
+
+export default tsxRoutes.concat(mdxRoutes.length > 0 ? [layout(layoutPath, mdxRoutes)] : []);
