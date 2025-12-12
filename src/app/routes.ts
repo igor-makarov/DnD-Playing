@@ -1,4 +1,4 @@
-import { type RouteConfigEntry, route } from "@react-router/dev/routes";
+import { type RouteConfigEntry, layout, route } from "@react-router/dev/routes";
 import { readdirSync, statSync } from "node:fs";
 import { basename, dirname, join } from "node:path";
 
@@ -47,4 +47,8 @@ function discoverRoutes(routesDir: string): RouteConfigEntry[] {
 }
 
 const routesDir = join(dirname(import.meta.dirname!), "app/routes");
-export default discoverRoutes(routesDir);
+export default discoverRoutes(routesDir).concat([
+  layout(join(dirname(import.meta.dirname!), "layouts/ReferenceLayout.tsx"), [
+    route("/characters/Jacob/info", `${routesDir}/characters/Jacob/info.md`),
+  ]),
+]);
