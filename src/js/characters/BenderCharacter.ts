@@ -3,7 +3,7 @@ import type { AttackAddon, Weapon } from "@/js/character/CharacterTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 
-export default class JacobCharacter extends Character {
+export default class BenderCharacter extends Character {
   constructor() {
     super({
       abilityScores: {

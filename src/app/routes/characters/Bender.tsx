@@ -10,12 +10,12 @@ import D20TestCell from "@/components/common/D20TestCell";
 import InfoTooltip from "@/components/common/InfoTooltip";
 import RollLink from "@/components/common/RollLink";
 import HeroicInspirationCheckboxes from "@/components/species/human/HeroicInspirationCheckboxes";
-import JacobCharacter from "@/js/characters/JacobCharacter";
+import BenderCharacter from "@/js/characters/BenderCharacter";
 import { DiceString } from "@/js/common/DiceString";
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
 
-const character = new JacobCharacter();
-const characterName = "Sir Jacob Lancaster";
+const character = new BenderCharacter();
+const characterName = "Sir Jeremy Bender";
 
 export function meta() {
   return [{ title: characterName }];
@@ -60,7 +60,7 @@ interface LoaderData {
   mageArmorRef: ReferenceRendered;
 }
 
-export default function JacobPage() {
+export default function BenderPage() {
   const {
     speciesRef,
     classRef,
