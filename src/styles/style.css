@@ -40,8 +40,12 @@ th a:not(.dice-roll) {
   }
 }
 
+a {
+  color: inherit;
+}
+
 a:visited {
-  color: LinkText;
+  color: inherit;
 }
 
 * {

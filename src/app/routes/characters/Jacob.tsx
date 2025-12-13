@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 
 import AbilitiesTable from "@/components/AbilitiesTable";
 import HitDiceTable from "@/components/HitDiceTable";
@@ -206,6 +206,24 @@ export default function JacobPage() {
           </table>
         </div>
         <div className="column features">
+          <table>
+            <tbody>
+              <tr>
+                <th colSpan={2} style={{ textAlign: "center" }}>
+                  Name
+                </th>
+              </tr>
+              <tr>
+                <td colSpan={2} style={{ textAlign: "center" }}>
+                  {characterName} (
+                  <Link to="info" target="_blank">
+                    build info
+                  </Link>
+                  )
+                </td>
+              </tr>
+            </tbody>
+          </table>
           <table>
             <tbody>
               <tr>
