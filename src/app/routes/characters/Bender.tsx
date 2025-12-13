@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router";
+import { href, Link, useLoaderData } from "react-router";
 
 import AbilitiesTable from "@/components/AbilitiesTable";
 import HitDiceTable from "@/components/HitDiceTable";
@@ -216,7 +216,7 @@ export default function BenderPage() {
               <tr>
                 <td colSpan={2} style={{ textAlign: "center" }}>
                   {characterName} (
-                  <Link to="info" target="_blank">
+                  <Link to={href("/characters/Bender-info")} target="_blank">
                     build info
                   </Link>
                   )
