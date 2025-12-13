@@ -17,7 +17,7 @@ export default function HomePage() {
             </tr>
             <tr>
               <td>
-                <Link to="/characters">All Characters</Link>
+                <Link to="/characters">My Characters</Link>
               </td>
             </tr>
           </tbody>
