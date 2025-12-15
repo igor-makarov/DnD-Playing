@@ -1,3 +1,5 @@
+import ReferenceCard from "@/components/common/ReferenceCard";
+
 import type { Route } from "./+types/$class";
 
 const pageTitle = "Class Reference";
@@ -50,8 +52,8 @@ export default function ClassPage({ loaderData }: Route.ComponentProps) {
   const { sanitizedHtml } = loaderData;
 
   return (
-    <div className="info-tooltip-dialog" style={{ margin: "0 auto" }}>
+    <ReferenceCard >
       <div dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
-    </div>
+    </ReferenceCard>
   );
 }

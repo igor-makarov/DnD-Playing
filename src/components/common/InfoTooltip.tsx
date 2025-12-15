@@ -3,6 +3,8 @@ import { Link } from "react-router";
 
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
 
+import ReferenceCard from "./ReferenceCard";
+
 interface Props {
   reference: ReferenceRendered;
   children: React.ReactNode;
@@ -40,20 +42,22 @@ export default function InfoTooltip({ reference, children }: Props) {
       <button onClick={handleClick} className="info-tooltip-button">
         {children}
       </button>
-      <dialog ref={dialogRef} onClick={handleBackdropClick} className="info-tooltip-dialog">
-        {/* Hidden autofocus element prevents Safari from auto-scrolling to the Close button */}
-        <span autoFocus tabIndex={-1} style={{ position: "absolute", opacity: 0 }} />
-        <div dangerouslySetInnerHTML={{ __html: reference.sanitizedHtml }} />
-        {reference.fullLink && (
-          <p>
-            <Link to={reference.fullLink} target="_blank">
-              Full Reference
-            </Link>
-          </p>
-        )}
-        <div className="button-container">
-          <button onClick={handleClose}>Close</button>
-        </div>
+      <dialog ref={dialogRef} onClick={handleBackdropClick} className="info-tooltip-dialog" >
+        <ReferenceCard>
+          {/* Hidden autofocus element prevents Safari from auto-scrolling to the Close button */}
+          <span autoFocus tabIndex={-1} style={{ position: "absolute", opacity: 0 }} />
+          <div dangerouslySetInnerHTML={{ __html: reference.sanitizedHtml }} />
+          {reference.fullLink && (
+            <p>
+              <Link to={reference.fullLink} target="_blank">
+                Full Reference
+              </Link>
+            </p>
+          )}
+          <div className="button-container">
+            <button onClick={handleClose}>Close</button>
+          </div>
+        </ReferenceCard>
       </dialog>
     </>
   );

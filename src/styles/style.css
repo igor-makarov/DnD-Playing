@@ -157,10 +157,13 @@ input[type="text"] {
 }
 
 .info-tooltip-dialog {
-  max-width: 600px;
   padding: 1.5rem;
   border: 1px solid #ccc;
   border-radius: 8px;
+}
+
+.reference-card {
+  max-width: 600px;
   text-align: start;
 
   & h1,

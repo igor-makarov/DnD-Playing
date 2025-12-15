@@ -1,9 +1,11 @@
 import { Outlet } from "react-router";
 
+import ReferenceCard from "@/components/common/ReferenceCard";
+
 export default function ReferenceLayout() {
   return (
-    <div className="info-tooltip-dialog" style={{ margin: "0 auto" }}>
+    <ReferenceCard>
       <Outlet />
-    </div>
+    </ReferenceCard>
   );
 }
