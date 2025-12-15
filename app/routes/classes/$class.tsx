@@ -52,8 +52,10 @@ export default function ClassPage({ loaderData }: Route.ComponentProps) {
   const { sanitizedHtml } = loaderData;
 
   return (
-    <ReferenceCard >
-      <div dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
-    </ReferenceCard>
+    <div className="reference-layout">
+      <ReferenceCard>
+        <div dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
+      </ReferenceCard>
+    </div>
   );
 }

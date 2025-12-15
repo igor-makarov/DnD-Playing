@@ -42,7 +42,7 @@ export default function InfoTooltip({ reference, children }: Props) {
       <button onClick={handleClick} className="info-tooltip-button">
         {children}
       </button>
-      <dialog ref={dialogRef} onClick={handleBackdropClick} className="info-tooltip-dialog" >
+      <dialog ref={dialogRef} onClick={handleBackdropClick} className="info-tooltip-dialog">
         <ReferenceCard>
           {/* Hidden autofocus element prevents Safari from auto-scrolling to the Close button */}
           <span autoFocus tabIndex={-1} style={{ position: "absolute", opacity: 0 }} />

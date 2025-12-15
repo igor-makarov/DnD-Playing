@@ -5,9 +5,5 @@ interface Props {
 }
 
 export default function ReferenceCard({ children }: Props) {
-  return (
-    <article className="reference-card" style={{ margin: "0 auto" }}>
-      {children}
-    </article>
-  );
+  return <article className="reference-card">{children}</article>;
 }

@@ -162,6 +162,11 @@ input[type="text"] {
   border-radius: 8px;
 }
 
+.reference-layout {
+  margin: 3rem auto 0;
+  width: fit-content;
+}
+
 .reference-card {
   max-width: 600px;
   text-align: start;

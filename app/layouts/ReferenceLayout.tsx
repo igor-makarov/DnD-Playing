@@ -4,8 +4,10 @@ import ReferenceCard from "@/components/common/ReferenceCard";
 
 export default function ReferenceLayout() {
   return (
-    <ReferenceCard>
-      <Outlet />
-    </ReferenceCard>
+    <div className="reference-layout">
+      <ReferenceCard>
+        <Outlet />
+      </ReferenceCard>
+    </div>
   );
 }
