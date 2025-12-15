@@ -6,7 +6,7 @@ import { href } from "react-router";
 import { findFiles } from "./findFiles";
 import { loadData } from "./render-5etools/loadData";
 
-const ROUTES_DIR = "src/app/routes";
+const ROUTES_DIR = "app/routes";
 
 export interface SubclassReferenceFromPage {
   className: string;

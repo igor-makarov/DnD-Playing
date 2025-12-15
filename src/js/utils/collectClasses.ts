@@ -5,7 +5,7 @@ import { href } from "react-router";
 
 import { findFiles } from "./findFiles";
 
-const ROUTES_DIR = "src/app/routes";
+const ROUTES_DIR = "app/routes";
 
 export interface ClassReference {
   name: string;

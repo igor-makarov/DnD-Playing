@@ -1,4 +1,4 @@
-import { href, Link, useLoaderData } from "react-router";
+import { Link, href, useLoaderData } from "react-router";
 
 import AbilitiesTable from "@/components/AbilitiesTable";
 import HitDiceTable from "@/components/HitDiceTable";

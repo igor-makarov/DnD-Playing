@@ -39,7 +39,7 @@ function discoverRoutes(routesDir: string): DiscoveredRoute[] {
 }
 
 const routesDir = join(dirname(import.meta.dirname!), "app/routes");
-const layoutPath = join(dirname(import.meta.dirname!), "layouts/ReferenceLayout.tsx");
+const layoutPath = "layouts/ReferenceLayout.tsx";
 
 const discovered = discoverRoutes(routesDir);
 const tsxRoutes = discovered.filter((r) => r.ext === ".tsx").map((r) => route(r.urlPath, r.filePath));

@@ -17,7 +17,7 @@ interface LoaderData {
   groupedCharacters: Record<string, CharacterPage[]>;
 }
 
-const CRITICAL_ROLE_ROUTES_DIR = "src/app/routes/critical-role";
+const CRITICAL_ROLE_ROUTES_DIR = "app/routes/critical-role";
 
 // Server-only: runs during pre-render, not bundled for client
 export async function loader(): Promise<LoaderData> {

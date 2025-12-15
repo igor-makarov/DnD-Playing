@@ -4,7 +4,7 @@ import { collectClassRoutes } from "./src/js/utils/collectClasses";
 import { collectSubclassRoutes } from "./src/js/utils/collectSubclasses";
 
 export default {
-  appDirectory: "src/app",
+  appDirectory: "app",
   ssr: false,
   prerender: async function prerender({ getStaticPaths }) {
     const staticPaths = getStaticPaths();

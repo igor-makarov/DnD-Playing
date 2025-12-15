@@ -19,7 +19,7 @@ export async function loader(): Promise<LoaderData> {
   const fs = await import("node:fs");
   const path = await import("node:path");
 
-  const charactersDir = path.resolve("src/app/routes/characters");
+  const charactersDir = path.resolve("app/routes/characters");
   const files = fs.readdirSync(charactersDir).filter((f: string) => f.endsWith(".tsx") && f !== "index.tsx");
 
   const characterPages = files
