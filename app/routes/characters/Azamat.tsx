@@ -5,13 +5,13 @@ import HitDiceTable from "@/components/HitDiceTable";
 import HitPointsInput from "@/components/HitPointsInput";
 import SavesTable from "@/components/SavesTable";
 import SkillsTable from "@/components/SkillsTable";
-import SpellSlotsTables from "@/components/SpellSlotsTables";
 import WeaponAttackTable from "@/components/WeaponAttackTable/WeaponAttackTable";
 import ChannelDivinityCheckboxes from "@/components/classes/paladin/ChannelDivinityCheckboxes";
 import LayOnHandsInput from "@/components/classes/paladin/LayOnHandsInput";
 import D20TestCell from "@/components/common/D20TestCell";
 import InfoTooltip from "@/components/common/InfoTooltip";
 import LevelledSpellDamageRow from "@/components/spells/LevelledSpellDamageRow";
+import SpellSlotsTable from "@/components/spells/SpellSlotsTable";
 import AzamatCharacter from "@/js/characters/AzamatCharacter";
 import { DiceString } from "@/js/common/DiceString";
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
@@ -160,7 +160,7 @@ export default function AzamatPage() {
           </table>
         </div>
         <div className="column features">
-          <SpellSlotsTables character={character} />
+          <SpellSlotsTable spellSlots={character.getSpellSlots()} />
           <table>
             <tbody>
               <tr>

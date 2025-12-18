@@ -5,10 +5,10 @@ import HitDiceTable from "@/components/HitDiceTable";
 import HitPointsInput from "@/components/HitPointsInput";
 import SavesTable from "@/components/SavesTable";
 import SkillsTable from "@/components/SkillsTable";
-import SpellSlotsTables from "@/components/SpellSlotsTables";
 import WeaponAttackTable from "@/components/WeaponAttackTable/WeaponAttackTable";
 import D20TestCell from "@/components/common/D20TestCell";
 import InfoTooltip from "@/components/common/InfoTooltip";
+import SpellSlotsTable from "@/components/spells/SpellSlotsTable";
 import { Character } from "@/js/character/Character";
 import type { Weapon } from "@/js/character/CharacterTypes";
 import { D20Test } from "@/js/common/D20Test";
@@ -214,7 +214,7 @@ export default function HalandilPage() {
           </table>
         </div>
         <div className="column features">
-          <SpellSlotsTables character={character} />
+          <SpellSlotsTable spellSlots={character.getSpellSlots()} />
           <table>
             <tbody>
               <tr>
