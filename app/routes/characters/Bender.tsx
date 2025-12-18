@@ -154,6 +154,11 @@ export default function BenderPage() {
         </div>
         <div className="column">
           <WeaponAttackTable weaponAttacks={character.getWeaponAttacks()} damageAddons={character.getWeaponAttackAddons()} />
+          <WeaponAttackTable
+            title="Offhand Attack"
+            weaponAttacks={character.getOffhandWeaponAttacks()}
+            damageAddons={character.getWeaponAttackAddons()}
+          />
           <table>
             <tbody>
               <tr>

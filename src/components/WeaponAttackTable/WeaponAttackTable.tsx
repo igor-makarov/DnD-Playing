@@ -9,11 +9,12 @@ import WeaponSelector from "./WeaponSelector";
 import { type WeaponState, computeTotalDamage, weaponReducer } from "./weaponAttackReducer";
 
 export interface Props {
+  title?: string;
   weaponAttacks: WeaponAttackData[];
   damageAddons: DamageAddonData[];
 }
 
-export default function WeaponAttackTable({ weaponAttacks, damageAddons }: Props) {
+export default function WeaponAttackTable({ title = "Weapon Attack", weaponAttacks, damageAddons }: Props) {
   const [state, dispatch] = useReducer(weaponReducer, {
     selectedWeaponName: weaponAttacks[0]?.weapon || "",
     selectedLevels: new Map(),
@@ -38,7 +39,7 @@ export default function WeaponAttackTable({ weaponAttacks, damageAddons }: Props
       <tbody>
         <tr>
           <th colSpan={2} style={{ textAlign: "center" }}>
-            Weapon Attack
+            {title}
           </th>
         </tr>
         <tr>

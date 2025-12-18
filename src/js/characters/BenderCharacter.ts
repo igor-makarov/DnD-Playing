@@ -48,6 +48,26 @@ export default class BenderCharacter extends Character {
     ];
   }
 
+  // Offhand weapons don't add ability modifier to damage (no Two-Weapon Fighting style)
+  getOffhandWeapons(): Weapon[] {
+    return [
+      { weapon: "Dagger (Nick)", ability: "Dex", damage: new DiceString("d4") },
+      { weapon: "Shortsword (Vex)", ability: "Dex", damage: new DiceString("d6") },
+    ];
+  }
+
+  getOffhandWeaponAttacks(): import("@/js/character/WeaponAttackTypes").WeaponAttackData[] {
+    return this.getOffhandWeapons().map((w) => {
+      const weaponBonus = w.damage.getModifier();
+      // Offhand: no ability modifier added to damage
+      return {
+        weapon: w.weapon,
+        attackRoll: new D20Test("Attack Roll", w.ability, this.getAbilityModifier(w.ability), this.createProficiency(true), weaponBonus),
+        damage: w.damage.normalize(),
+      };
+    });
+  }
+
   getSneakAttackDice(): DiceString {
     const rogueLevel = this.getClassLevel("Rogue");
     const sneakAttackDice = Math.ceil(rogueLevel / 2);
