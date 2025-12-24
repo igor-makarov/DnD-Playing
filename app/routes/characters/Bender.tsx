@@ -15,7 +15,7 @@ import { DiceString } from "@/js/common/DiceString";
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
 
 const character = new BenderCharacter();
-const characterName = "Sir Jeremy Bender";
+const characterName = "Sir James Bender";
 
 export function meta() {
   return [{ title: characterName }];
