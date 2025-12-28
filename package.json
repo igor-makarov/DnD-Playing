@@ -14,9 +14,9 @@
     "format": "prettier --write --list-different .",
     "format:check": "prettier --check .",
     "postinstall": "playwright install",
-    "5etools": "tsx 5etools-cli.ts",
-    "cr:extract": "tsx cr-extract-characters.ts",
-    "cr:download": "tsx cr-download.ts"
+    "5etools": "node --import=tsx 5etools-cli.ts",
+    "cr:extract": "node --import=tsx cr-extract-characters.ts",
+    "cr:download": "node --import=tsx cr-download.ts"
   },
   "dependencies": {
     "@mdx-js/rollup": "^3.1.1",
