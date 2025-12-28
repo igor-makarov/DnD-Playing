@@ -2,7 +2,6 @@
 
 - This is a D&D Character sheet project using React Router 7 with React components
 - Each character is an React Router **route**
-- Prefer running local `./jq` wrapper, example: `./jq 5etools/data/races.json '.race[] | select(.name == "Dwarf")'`
 - Prefer validating HTML output with `Read` and `Search` tools
 
 # Verification
@@ -33,9 +32,7 @@ export default function ComponentName({ ... }: Props) {
 # 5etools reference
 This project has a copy of the 5etools data in `5etools/`
 - YOU MUST use prefer the local data when question related to D&D 5e arise
-  @.agents/using-5etools.md
-- CLI to use for quick reference: `npm run 5etools`
-- CLI can output Markdown (default) or HTML
+- Guide: @.agents/using-5etools.md
 
 # Critical Role data
 - XML sources: `critical-role/`

@@ -3,6 +3,10 @@
 ## Location
 `5etools/data/` - 495 JSON files, 106MB, D&D 5e reference data
 
+## Important Guidelines
+- **Limited** CLI to use for quick reference: `npm run 5etools` - outputs Markdown (default) or HTML entries
+- For complex queries, prefer to use `jq` or write JS code
+
 ## Structure
 - **Top-level JSON files**: Core game data (races.json, feats.json, items.json, etc.)
 - **`books.json`, `adventures.json`**: Metadata and references to sourcebook content
@@ -16,5 +20,4 @@
 ## Key Fields
 - `name`, `source` (PHB/XGE/TCE/MM/etc), `page`
 - `entries` - description array
-- `srd` - free SRD content flag
 
