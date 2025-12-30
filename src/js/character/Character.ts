@@ -124,6 +124,11 @@ export class Character {
     return new D20Test("Ability Check", "Dex", this.getAbilityModifier("Dex"));
   }
 
+  // Grapple DC (XPHB): 8 + Strength modifier + Proficiency Bonus
+  getGrappleDC(): number {
+    return 8 + this.getAbilityModifier("Str") + this.proficiencyBonus;
+  }
+
   createProficiency(proficient: boolean, multiplier?: number): Proficiency {
     multiplier ||= 1;
     const symbol = multiplier > 1 ? "E" : "P";

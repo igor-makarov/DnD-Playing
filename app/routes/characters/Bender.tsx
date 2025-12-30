@@ -163,6 +163,19 @@ export default function BenderPage() {
             <tbody>
               <tr>
                 <th colSpan={2} style={{ textAlign: "center" }}>
+                  Misc
+                </th>
+              </tr>
+              <tr>
+                <td>Grapple DC</td>
+                <td className="checkCell mono">{character.getGrappleDC()}</td>
+              </tr>
+            </tbody>
+          </table>
+          <table>
+            <tbody>
+              <tr>
+                <th colSpan={2} style={{ textAlign: "center" }}>
                   Spells
                 </th>
               </tr>
