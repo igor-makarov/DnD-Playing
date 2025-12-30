@@ -29,6 +29,7 @@ export async function loader() {
   const { getSpell } = await import("@/js/utils/render-5etools/getSpell");
   const { getSpecies } = await import("@/js/utils/render-5etools/getSpecies");
   const { getWeaponMastery } = await import("@/js/utils/render-5etools/getWeaponMastery");
+  const { getVariantRule } = await import("@/js/utils/render-5etools/getVariantRule");
   const { default: renderHTML } = await import("@/js/utils/render-5etools/renderHTML");
 
   return {
@@ -43,6 +44,7 @@ export async function loader() {
     trueStrikeRef: renderHTML(getSpell("True Strike")),
     tollTheDeadRef: renderHTML(getSpell("Toll the Dead")),
     mageArmorRef: renderHTML(getSpell("Mage Armor")),
+    unarmedStrikeRef: renderHTML(getVariantRule("Unarmed Strike")),
   };
 }
 
@@ -58,6 +60,7 @@ interface LoaderData {
   trueStrikeRef: ReferenceRendered;
   tollTheDeadRef: ReferenceRendered;
   mageArmorRef: ReferenceRendered;
+  unarmedStrikeRef: ReferenceRendered;
 }
 
 export default function BenderPage() {
@@ -73,6 +76,7 @@ export default function BenderPage() {
     trueStrikeRef,
     tollTheDeadRef,
     mageArmorRef,
+    unarmedStrikeRef,
   } = useLoaderData<LoaderData>();
 
   return (
@@ -167,7 +171,9 @@ export default function BenderPage() {
                 </th>
               </tr>
               <tr>
-                <td>Grapple DC</td>
+                <td>
+                  <InfoTooltip reference={unarmedStrikeRef}>Grapple</InfoTooltip> DC
+                </td>
                 <td className="checkCell mono">{character.getGrappleDC()}</td>
               </tr>
             </tbody>
