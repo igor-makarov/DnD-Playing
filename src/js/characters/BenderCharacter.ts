@@ -7,12 +7,12 @@ export default class BenderCharacter extends Character {
   constructor() {
     super({
       abilityScores: {
-        Str: 13,
-        Dex: 15 + 1 /* Background +1 */,
-        Con: 14,
+        Str: 12,
+        Dex: 14,
+        Con: 13 + 1 /* Background +1 */,
         Int: 10,
         Wis: 8,
-        Cha: 16 + 2 /* Background +2 */,
+        Cha: 15 + 1 + 2 /* DM Bonus +1, Background +2 */,
       },
       classLevels: [{ className: "Rogue", level: 1 }],
 

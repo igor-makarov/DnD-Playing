@@ -3,7 +3,8 @@ export function meta() {
 }
 
 # Sir James Bender
-*Charisma-based Rogue*
+
+_Charisma-based Rogue_
 
 ## Overview
 
@@ -14,21 +15,29 @@ export function meta() {
 
 ## Ability Scores
 
-### Base Array (Standard Array Variant)
+### Standard Array
 
-- CHA: 16
-- DEX: 15
-- CON: 14
-- STR: 13
+15, 14, 13, 12, 10, 8
+
+### DM Bonus
+
++1 to one score (applied to CHA)
+
+### Base Assignment (Standard Array + DM Bonus)
+
+- CHA: 15 + 1 = 16
+- DEX: 14
+- CON: 13
+- STR: 12
 - INT: 10
 - WIS: 8 (dump stat)
 
-### With Background ASIs (+2 CHA / +1 DEX)
+### With Background ASIs (+2 CHA / +1 CON)
 
 - **CHA: 18 (+4)** - Primary stat, spell DC 14, spell attack +6
-- **DEX: 16 (+3)** - AC, attacks, Stealth
+- **DEX: 14 (+2)** - AC, attacks, Stealth
 - **CON: 14 (+2)** - HP (10 at level 1: 8 + 2)
-- **STR: 13 (+1)** - Athletics if needed
+- **STR: 12 (+1)** - Athletics if needed
 - **INT: 10 (+0)** - Investigation
 - **WIS: 8 (-1)** - Perception/Insight weakness
 
@@ -37,7 +46,7 @@ export function meta() {
 ### Background Components
 
 - **Abilities:** DEX, CON, CHA (player chooses +2/+1 or +1/+1/+1 distribution)
-  - **Chosen:** +2 CHA / +1 DEX
+  - **Chosen:** +2 CHA / +1 CON
 - **Origin Feat:** Magic Initiate (Wizard)
   - Cantrips: True Strike, Toll the Dead
   - 1st level spell: Mage Armor (1/day)
@@ -116,9 +125,9 @@ export function meta() {
 
 ### Combat Stats
 
-- **AC:** 16 (Mage Armor)
-- **Initiative:** +3 DEX + 2 proficiency (Alert) = **+5**
-- **Attack Bonus:** +3 DEX + 2 proficiency = **+5 to hit**
+- **AC:** 15 (Mage Armor)
+- **Initiative:** +2 DEX + 2 proficiency (Alert) = **+4**
+- **Attack Bonus:** +2 DEX + 2 proficiency = **+4 to hit**
 - **Sneak Attack:** +1d6 damage (once per turn)
 
 ### Weapon Mastery
@@ -133,15 +142,15 @@ export function meta() {
 1. **Deception (CHA)** - +6 (from Rogue)
 2. **Intimidation (CHA)** - +6 (from Rogue)
 3. **Persuasion (CHA)** - **+8** (from Rogue, with Expertise)
-4. **Stealth (DEX)** - **+7** (from Rogue, with Expertise)
+4. **Stealth (DEX)** - **+6** (from Rogue, with Expertise)
 5. **Performance (CHA)** - +6 (from Background)
 6. **Investigation (INT)** - +2 (from Background)
-7. **Acrobatics (DEX)** - +5 (from Human)
+7. **Acrobatics (DEX)** - +4 (from Human)
 
 ### Expertise
 
 - **Persuasion (CHA)** - +8 (CHA +4, expertise +4)
-- **Stealth (DEX)** - +7 (DEX +3, expertise +4)
+- **Stealth (DEX)** - +6 (DEX +2, expertise +4)
 
 ### Tool Proficiencies
 
@@ -237,7 +246,8 @@ _TO BE DECIDED_
 ## Notes
 
 - CHA 18 at level 1 is strong for social encounters
-- Mage Armor increases AC from 15 to 16
-- Alert feat gives excellent Initiative (+5 total)
+- Mage Armor gives AC 15 (13 + DEX 2)
+- Alert feat gives good Initiative (+4 total)
 - Dump WIS (-1) means Perception and Insight will be weak
 - True Strike synergizes well with Sneak Attack (guarantees Advantage)
+- Using Standard Array + DM's +1 bonus to one score
