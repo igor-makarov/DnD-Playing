@@ -129,6 +129,11 @@ export class Character {
     return 8 + this.getAbilityModifier("Str") + this.proficiencyBonus;
   }
 
+  // Unarmed Strike Attack (XPHB): Strength modifier + Proficiency Bonus
+  getUnarmedStrikeAttack(): D20Test {
+    return new D20Test("Attack Roll", "Str", this.getAbilityModifier("Str"), this.createProficiency(true));
+  }
+
   createProficiency(proficient: boolean, multiplier?: number): Proficiency {
     multiplier ||= 1;
     const symbol = multiplier > 1 ? "E" : "P";

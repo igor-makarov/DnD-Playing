@@ -30,6 +30,7 @@ export async function loader() {
   const { getSpecies } = await import("@/js/utils/render-5etools/getSpecies");
   const { getWeaponMastery } = await import("@/js/utils/render-5etools/getWeaponMastery");
   const { getVariantRule } = await import("@/js/utils/render-5etools/getVariantRule");
+  const { getCondition } = await import("@/js/utils/render-5etools/getCondition");
   const { default: renderHTML } = await import("@/js/utils/render-5etools/renderHTML");
 
   return {
@@ -45,6 +46,8 @@ export async function loader() {
     tollTheDeadRef: renderHTML(getSpell("Toll the Dead")),
     mageArmorRef: renderHTML(getSpell("Mage Armor")),
     unarmedStrikeRef: renderHTML(getVariantRule("Unarmed Strike")),
+    grappledRef: renderHTML(getCondition("Grappled")),
+    proneRef: renderHTML(getCondition("Prone")),
   };
 }
 
@@ -61,6 +64,8 @@ interface LoaderData {
   tollTheDeadRef: ReferenceRendered;
   mageArmorRef: ReferenceRendered;
   unarmedStrikeRef: ReferenceRendered;
+  grappledRef: ReferenceRendered;
+  proneRef: ReferenceRendered;
 }
 
 export default function BenderPage() {
@@ -77,6 +82,8 @@ export default function BenderPage() {
     tollTheDeadRef,
     mageArmorRef,
     unarmedStrikeRef,
+    grappledRef,
+    proneRef,
   } = useLoaderData<LoaderData>();
 
   return (
@@ -167,14 +174,34 @@ export default function BenderPage() {
             <tbody>
               <tr>
                 <th colSpan={2} style={{ textAlign: "center" }}>
-                  Misc
+                  Unarmed Strike
                 </th>
               </tr>
               <tr>
                 <td>
-                  <InfoTooltip reference={unarmedStrikeRef}>Grapple</InfoTooltip> DC
+                  <InfoTooltip reference={unarmedStrikeRef}>Attack Modifier</InfoTooltip>
+                </td>
+                <td className="checkCell mono">
+                  <D20TestCell roll={character.getUnarmedStrikeAttack()} />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={unarmedStrikeRef}>Grapple/Shove DC</InfoTooltip>
                 </td>
                 <td className="checkCell mono">{character.getGrappleDC()}</td>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={grappledRef}>Grappled</InfoTooltip>
+                </td>
+                <td className="modifier">speed 0, DIS</td>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={proneRef}>Prone</InfoTooltip>
+                </td>
+                <td className="modifier">DIS/ADV</td>
               </tr>
             </tbody>
           </table>
