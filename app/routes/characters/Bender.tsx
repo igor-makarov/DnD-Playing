@@ -1,6 +1,7 @@
-import { Link, href, useLoaderData } from "react-router";
+import { useLoaderData } from "react-router";
 
 import AbilitiesTable from "@/components/AbilitiesTable";
+import CharacterNameTable from "@/components/CharacterNameTable";
 import HitDiceTable from "@/components/HitDiceTable";
 import HitPointsInput from "@/components/HitPointsInput";
 import SavesTable from "@/components/SavesTable";
@@ -256,24 +257,7 @@ export default function BenderPage() {
           </table>
         </div>
         <div className="column features">
-          <table>
-            <tbody>
-              <tr>
-                <th colSpan={2} style={{ textAlign: "center" }}>
-                  Name
-                </th>
-              </tr>
-              <tr>
-                <td colSpan={2} style={{ textAlign: "center" }}>
-                  {character.name} (
-                  <Link to={href("/characters/Bender-info")} target="_blank">
-                    build info
-                  </Link>
-                  )
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <CharacterNameTable name={character.name} infoHref="/characters/Bender-info" />
           <table>
             <tbody>
               <tr>
