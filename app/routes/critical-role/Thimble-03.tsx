@@ -171,6 +171,20 @@ export default function Thimble03Page() {
             <tbody>
               <tr>
                 <th colSpan={2} style={{ textAlign: "center" }}>
+                  Name
+                </th>
+              </tr>
+              <tr>
+                <td colSpan={2} style={{ textAlign: "center" }}>
+                  {character.name}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table>
+            <tbody>
+              <tr>
+                <th colSpan={2} style={{ textAlign: "center" }}>
                   Features
                 </th>
               </tr>

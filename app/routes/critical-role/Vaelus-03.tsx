@@ -187,6 +187,20 @@ export default function VaelusPage() {
           </table>
         </div>
         <div className="column features">
+          <table>
+            <tbody>
+              <tr>
+                <th colSpan={2} style={{ textAlign: "center" }}>
+                  Name
+                </th>
+              </tr>
+              <tr>
+                <td colSpan={2} style={{ textAlign: "center" }}>
+                  {character.name}
+                </td>
+              </tr>
+            </tbody>
+          </table>
           <SpellSlotsTable spellSlots={character.getSpellSlots()} />
           <table>
             <tbody>
