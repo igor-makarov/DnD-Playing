@@ -30,6 +30,7 @@ import type { DamageLevel, OptionalDamage } from "./DamageTypes";
 import type { DamageAddonData, WeaponAttackData } from "./WeaponAttackTypes";
 
 export class Character {
+  name: string;
   abilityScores: AbilityScores;
   classLevels: ClassLevel[];
   skillProficiencies: SkillProficiency[];
@@ -37,18 +38,21 @@ export class Character {
   hitPointRolls: HitPointRoll[];
 
   constructor({
+    name,
     abilityScores,
     classLevels = [],
     skillProficiencies,
     saveProficiencies,
     hitPointRolls = [],
   }: {
+    name: string;
     abilityScores: AbilityScores;
     classLevels?: ClassLevel[];
     skillProficiencies: SkillProficiency[];
     saveProficiencies: SavingThrowProficiency[];
     hitPointRolls?: HitPointRoll[];
   }) {
+    this.name = name;
     this.abilityScores = abilityScores;
     this.classLevels = classLevels;
     this.skillProficiencies = skillProficiencies;

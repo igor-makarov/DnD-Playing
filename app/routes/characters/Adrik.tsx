@@ -13,10 +13,9 @@ import { D20Test } from "@/js/common/D20Test";
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
 
 const character = new AdrikCharacter();
-const characterName = "Adrik";
 
 export function meta() {
-  return [{ title: characterName }];
+  return [{ title: character.name }];
 }
 
 // Server-only: runs during pre-render, not bundled for client

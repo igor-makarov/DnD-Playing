@@ -4,6 +4,7 @@ import { DiceString } from "@/js/common/DiceString";
 export default class AdrikCharacter extends Character {
   constructor() {
     super({
+      name: "Adrik",
       abilityScores: {
         Str: 11,
         Dex: 13 + 1 /* ASI Cleric 4 */,

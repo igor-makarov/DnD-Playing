@@ -17,10 +17,9 @@ import { DiceString } from "@/js/common/DiceString";
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
 
 const character = new AzamatCharacter();
-const characterName = "Azamat";
 
 export function meta() {
-  return [{ title: characterName }];
+  return [{ title: character.name }];
 }
 
 // Server-only: runs during pre-render, not bundled for client

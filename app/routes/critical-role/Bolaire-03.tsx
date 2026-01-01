@@ -19,6 +19,7 @@ import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes
 class BolaireCharacter extends Character {
   constructor() {
     super({
+      name: "Bolaire Lathalia",
       abilityScores: {
         Str: 12,
         Dex: 14,
@@ -62,10 +63,9 @@ class BolaireCharacter extends Character {
 }
 
 const character = new BolaireCharacter();
-const characterName = "Bolaire Lathalia";
 
 export function meta() {
-  return [{ title: characterName }];
+  return [{ title: character.name }];
 }
 
 // Server-only: runs during pre-render, not bundled for client

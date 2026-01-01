@@ -6,6 +6,7 @@ import { DiceString } from "@/js/common/DiceString";
 export default class BenderCharacter extends Character {
   constructor() {
     super({
+      name: "James Bender",
       abilityScores: {
         Str: 12,
         Dex: 14,

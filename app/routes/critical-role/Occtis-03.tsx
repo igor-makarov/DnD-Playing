@@ -18,6 +18,7 @@ import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes
 class OcctisCharacter extends Character {
   constructor() {
     super({
+      name: "Occtis Tachonis",
       abilityScores: {
         Str: 10,
         Dex: 16,
@@ -56,10 +57,9 @@ class OcctisCharacter extends Character {
 }
 
 const character = new OcctisCharacter();
-const characterName = "Occtis Tachonis";
 
 export function meta() {
-  return [{ title: characterName }];
+  return [{ title: character.name }];
 }
 
 interface LoaderData {

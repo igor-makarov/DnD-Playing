@@ -15,10 +15,9 @@ import { DiceString } from "@/js/common/DiceString";
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
 
 const character = new BenderCharacter();
-const characterName = "James Bender";
 
 export function meta() {
-  return [{ title: characterName }];
+  return [{ title: character.name }];
 }
 
 // Server-only: runs during pre-render, not bundled for client
@@ -266,7 +265,7 @@ export default function BenderPage() {
               </tr>
               <tr>
                 <td colSpan={2} style={{ textAlign: "center" }}>
-                  {characterName} (
+                  {character.name} (
                   <Link to={href("/characters/Bender-info")} target="_blank">
                     build info
                   </Link>
