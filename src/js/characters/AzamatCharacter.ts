@@ -6,7 +6,7 @@ import { DiceString } from "@/js/common/DiceString";
 export default class AzamatCharacter extends Character {
   constructor() {
     super({
-      name: "Azamat",
+      name: "Azamat-e Khaleq Seh (Grandeur of Creator Mk. III)",
       abilityScores: {
         Str: 15 + 1 + 2 + 2 /* ASI 4/8/12 */,
         Dex: 13 + 1 /* ASI 4 */,
