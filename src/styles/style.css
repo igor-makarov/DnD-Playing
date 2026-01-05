@@ -156,6 +156,28 @@ input[type="text"] {
   width: 3em;
 }
 
+/* Collapsible table summary styles */
+details:has(table) > summary {
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
+  background-color: #eee;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  user-select: none;
+}
+
+details:has(table)[open] > summary {
+  border-bottom: 1px solid #ddd;
+}
+
+/* Hide table heading when inside details (summary serves as heading) */
+details > table > tbody > tr:first-child:has(th[colspan]) {
+  display: none;
+}
+
 /* Info Tooltip styles */
 .info-tooltip-button {
   cursor: pointer;

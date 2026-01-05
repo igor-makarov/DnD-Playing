@@ -1,5 +1,6 @@
 import { Character } from "@/js/character/Character";
 import type { AttackAddon, Weapon } from "@/js/character/CharacterTypes";
+import type { WeaponAttackData } from "@/js/character/WeaponAttackTypes";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 
@@ -35,18 +36,30 @@ export default class BenderCharacter extends Character {
   }
 
   getWeapons(): Weapon[] {
-    const extraRadiant = this.getCantripDamage(new DiceString("0"), new DiceString("d6"));
-
     return [
-      { weapon: "[True Strike] Shortsword (Vex)", ability: "Cha", damage: DiceString.sum([new DiceString("d6"), extraRadiant]) },
       { weapon: "Shortsword (Vex)", ability: "Dex", damage: new DiceString("d6") },
-      { weapon: "[True Strike] Dagger (Nick)", ability: "Cha", damage: DiceString.sum([new DiceString("d4"), extraRadiant]) },
       { weapon: "Dagger (Nick)", ability: "Dex", damage: new DiceString("d4") },
-      { weapon: "[True Strike] Dart (Vex)", ability: "Cha", damage: DiceString.sum([new DiceString("d4"), extraRadiant]) },
       { weapon: "Dart (Vex)", ability: "Dex", damage: new DiceString("d4") },
-      { weapon: "[True Strike] Shortbow (Vex)", ability: "Cha", damage: DiceString.sum([new DiceString("d6"), extraRadiant]) },
       { weapon: "Shortbow (Vex)", ability: "Dex", damage: new DiceString("d6") },
     ];
+  }
+
+  // True Strike weapon attacks - transforms plain weapons to use Charisma with extra radiant damage
+  getTrueStrikeWeaponAttacks(): WeaponAttackData[] {
+    const extraRadiant = this.getCantripDamage(new DiceString("0"), new DiceString("d6"));
+    const weapons = this.getWeapons();
+
+    return weapons.map((weapon) => {
+      const totalDamage = DiceString.sum([weapon.damage, extraRadiant]);
+      const damageWithAbility = new DiceString(totalDamage, this.getAbilityModifier("Cha"));
+      const weaponBonus = totalDamage.getModifier();
+
+      return {
+        weapon: weapon.weapon,
+        attackRoll: new D20Test("Attack Roll", "Cha", this.getAbilityModifier("Cha"), this.createProficiency(true), weaponBonus),
+        damage: damageWithAbility.normalize(),
+      };
+    });
   }
 
   // Offhand weapons don't add ability modifier to damage (no Two-Weapon Fighting style)
