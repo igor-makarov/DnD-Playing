@@ -173,6 +173,11 @@ details:has(table)[open] > summary {
   border-bottom: 1px solid #ddd;
 }
 
+/* Hide table heading when inside details (summary serves as heading) */
+details > table > tbody > tr:first-child:has(th[colspan]) {
+  display: none;
+}
+
 /* Info Tooltip styles */
 .info-tooltip-button {
   cursor: pointer;
