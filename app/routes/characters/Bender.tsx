@@ -165,17 +165,20 @@ export default function BenderPage() {
         </div>
         <div className="column">
           <WeaponAttackTable
-            title="True Strike Attacks"
+            title="Weapon Attacks (True Strike)"
             weaponAttacks={character.getTrueStrikeWeaponAttacks()}
             damageAddons={character.getWeaponAttackAddons()}
           />
+          <details>
+            <summary>Weapon Attacks (plain)</summary>
+            <WeaponAttackTable
+              title="Weapon Attacks (plain)"
+              weaponAttacks={character.getWeaponAttacks()}
+              damageAddons={character.getWeaponAttackAddons()}
+            />
+          </details>
           <WeaponAttackTable
-            title="Weapon Attacks"
-            weaponAttacks={character.getWeaponAttacks()}
-            damageAddons={character.getWeaponAttackAddons()}
-          />
-          <WeaponAttackTable
-            title="Offhand Attack"
+            title="Offhand Attacks"
             weaponAttacks={character.getOffhandWeaponAttacks()}
             damageAddons={character.getWeaponAttackAddons()}
           />
