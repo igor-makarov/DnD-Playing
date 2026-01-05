@@ -46,6 +46,18 @@ export default function HomePage() {
             </tr>
           </tbody>
         </table>
+        <table>
+          <tbody>
+            <tr>
+              <th>Reference</th>
+            </tr>
+            <tr>
+              <td>
+                <Link to="/general-info">General Info</Link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   );
