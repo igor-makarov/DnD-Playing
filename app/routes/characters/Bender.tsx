@@ -164,7 +164,16 @@ export default function BenderPage() {
           <HitDiceTable hitDice={character.getHitDice()} conModifier={character.getAbilityModifier("Con")} />
         </div>
         <div className="column">
-          <WeaponAttackTable weaponAttacks={character.getWeaponAttacks()} damageAddons={character.getWeaponAttackAddons()} />
+          <WeaponAttackTable
+            title="True Strike Attacks"
+            weaponAttacks={character.getTrueStrikeWeaponAttacks()}
+            damageAddons={character.getWeaponAttackAddons()}
+          />
+          <WeaponAttackTable
+            title="Weapon Attacks"
+            weaponAttacks={character.getWeaponAttacks()}
+            damageAddons={character.getWeaponAttackAddons()}
+          />
           <WeaponAttackTable
             title="Offhand Attack"
             weaponAttacks={character.getOffhandWeaponAttacks()}
