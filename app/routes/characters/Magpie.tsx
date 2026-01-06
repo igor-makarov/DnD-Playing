@@ -241,7 +241,7 @@ export default function MagpiePage() {
                 <td>
                   <InfoTooltip reference={armorOfAgathysRef}>Armor of Agathys</InfoTooltip>
                 </td>
-                <td className="modifier">5 THP, 5 dmg on hit</td>
+                <td className="modifier">5 THP 5 dmg</td>
               </tr>
               <tr>
                 <td>
