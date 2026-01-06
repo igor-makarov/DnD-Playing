@@ -30,5 +30,7 @@ export const $heroicInspirationUsed = createSearchParamStore<number | undefined>
   numberCodec,
 );
 
+export const $luckPointsUsed = createSearchParamStore<number | undefined>(searchParamsStore, "luck-points-used", undefined, numberCodec);
+
 // Map from die type (e.g., "d10", "d8") to number of dice available (undefined means maximum)
 export const $hitDice = createSearchParamMapStore<number | undefined>(searchParamsStore, "hit-dice-", {}, numberCodec);
