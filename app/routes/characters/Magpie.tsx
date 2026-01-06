@@ -231,7 +231,7 @@ export default function MagpiePage() {
                 <td>
                   <InfoTooltip reference={messageRef}>Message</InfoTooltip>
                 </td>
-                <td className="modifier">whisper 120 ft</td>
+                <td className="modifier">120 ft</td>
               </tr>
               <tr>
                 <th>Prepared Spells</th>
