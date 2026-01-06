@@ -325,8 +325,20 @@ export default function AlondraPage() {
                 <td className="modifier">4h Long Rest</td>
               </tr>
               <tr>
+                <td>[High Elf] Elven Lineage</td>
+                <td className="modifier"></td>
+              </tr>
+              <tr>
+                <td>[Hollow One] Ageless</td>
+                <td className="modifier"></td>
+              </tr>
+              <tr>
                 <td>[Hollow One] Cling to Life</td>
                 <td className="modifier">death save 16+ = 1 HP</td>
+              </tr>
+              <tr>
+                <td>[Hollow One] Revenance</td>
+                <td className="modifier">detect as undead</td>
               </tr>
               <tr>
                 <td>[Hollow One] Unsettling Presence</td>
