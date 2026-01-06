@@ -17,10 +17,10 @@ test.describe("Stat boxes layout", () => {
       heights.push(box!.height);
     }
 
-    // All heights should be equal (within 1px for subpixel rounding)
+    // All heights should be exactly equal
     const [first, ...rest] = heights;
     for (const height of rest) {
-      expect(Math.abs(height - first)).toBeLessThanOrEqual(1);
+      expect(height).toBe(first);
     }
   });
 });
