@@ -9,6 +9,7 @@ type EntryString = string;
 type EntryObject = {
   type: string;
   name?: string;
+  entry?: string; // For type: "item" (singular entry text)
   entries?: Array<EntryString | EntryObject>;
   items?: Array<EntryString | EntryObject>;
   data?: PropertyItem[]; // For type: "properties"

@@ -14,7 +14,9 @@ function renderTags(text: string): string {
     .replace(/{@spell ([^}|]+)(\|[^}]+)?}/g, "**$1**")
     .replace(/{@item ([^}|]+)(\|[^}]+)?}/g, "**$1**")
     .replace(/{@hazard ([^}|]+)(\|[^}]+)?}/g, "**$1**")
-    .replace(/{@filter ([^}|]+)(\|[^}]+)?}/g, "**$1**");
+    .replace(/{@filter ([^}|]+)(\|[^}]+)?}/g, "**$1**")
+    .replace(/{@skill ([^}|]+)(\|[^}]+)?}/g, "**$1**")
+    .replace(/{@feat ([^}|]+)(\|[^}]+)?}/g, "**$1**");
 }
 
 // Renders property data (key-value pairs) to markdown
@@ -57,6 +59,11 @@ function renderEntry(entry: Entry, indent: number = 0): string {
       })
       .join("\n");
     return items;
+  }
+
+  // Handle "item" type with name and entry (singular) - used in backgrounds, etc.
+  if (entry.type === "item" && entry.name && entry.entry) {
+    return `**${entry.name}** ${renderTags(entry.entry)}`;
   }
 
   // Fallback for other types

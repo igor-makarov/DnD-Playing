@@ -1,5 +1,6 @@
 #!/usr/bin/env tsx
 
+import { getBackground } from "./src/js/utils/render-5etools/getBackground";
 import { getClass, getClassFeaturesFull } from "./src/js/utils/render-5etools/getClass";
 import { getClassFeature } from "./src/js/utils/render-5etools/getClassFeature";
 import { getFeat } from "./src/js/utils/render-5etools/getFeat";
@@ -15,6 +16,7 @@ function printUsage(): void {
 Commands:
   spell <name> [source]              Get spell information (default source: XPHB)
   species <name> [source]            Get species/race information (default source: XPHB)
+  background <name> [source]         Get background information (default source: XPHB)
   feat <name> [source]               Get feat information (default source: XPHB)
   class <name> [source]              Get class information (default source: XPHB)
   feature <name> <class> [source]    Get class feature information (default source: XPHB)
@@ -85,6 +87,12 @@ async function main() {
         {
           const source = filteredArgs[2] || "XPHB";
           reference = getSpecies(name, source);
+        }
+        break;
+      case "background":
+        {
+          const source = filteredArgs[2] || "XPHB";
+          reference = getBackground(name, source);
         }
         break;
       case "feat":

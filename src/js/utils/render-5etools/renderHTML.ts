@@ -55,6 +55,8 @@ function renderTags(text: string): string {
     .replace(/{@item ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
     .replace(/{@hazard ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
     .replace(/{@filter ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
+    .replace(/{@skill ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
+    .replace(/{@feat ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
     .replace(/{@i ([^}]+)}/g, "<em>$1</em>")
     .replace(/{@b ([^}]+)}/g, "<strong>$1</strong>");
 }
@@ -121,6 +123,10 @@ function renderEntry(entry: Entry): string {
       break;
     case "table":
       if (entry.rows) return renderTable(entry as Entry & { type: "table"; rows: Array<Array<string | Entry>> });
+      break;
+    case "item":
+      // Handle "item" type with name and entry (singular) - used in backgrounds, etc.
+      if (entry.name && entry.entry) return `<strong>${entry.name}</strong> ${renderTags(entry.entry)}`;
       break;
   }
 

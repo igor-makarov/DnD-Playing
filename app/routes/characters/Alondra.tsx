@@ -23,6 +23,7 @@ export function meta() {
 
 // Server-only: runs during pre-render, not bundled for client
 export async function loader() {
+  const { getBackground } = await import("@/js/utils/render-5etools/getBackground");
   const { getClass } = await import("@/js/utils/render-5etools/getClass");
   const { getFeat } = await import("@/js/utils/render-5etools/getFeat");
   const { getOptionalFeature } = await import("@/js/utils/render-5etools/getOptionalFeature");
@@ -33,6 +34,7 @@ export async function loader() {
 
   return {
     speciesRef: renderHTML(getSpecies("Elf")),
+    backgroundRef: renderHTML(getBackground("Wayfarer")),
     classRef: renderHTML(getClass("Warlock")),
     hollowOneRef: renderHTML(getCharacterCreationOption("Hollow One")),
     luckyRef: renderHTML(getFeat("Lucky")),
@@ -52,6 +54,7 @@ export async function loader() {
 
 interface LoaderData {
   speciesRef: ReferenceRendered;
+  backgroundRef: ReferenceRendered;
   classRef: ReferenceRendered;
   hollowOneRef: ReferenceRendered;
   luckyRef: ReferenceRendered;
@@ -71,6 +74,7 @@ interface LoaderData {
 export default function AlondraPage() {
   const {
     speciesRef,
+    backgroundRef,
     classRef,
     hollowOneRef,
     luckyRef,
@@ -287,10 +291,16 @@ export default function AlondraPage() {
                 </td>
               </tr>
               <tr>
-                <td>
-                  <InfoTooltip reference={hollowOneRef}>Supernatural Gift</InfoTooltip>
+                <td>Background</td>
+                <td className="modifier">
+                  <InfoTooltip reference={backgroundRef}>Wayfarer</InfoTooltip>
                 </td>
-                <td className="modifier">Hollow One</td>
+              </tr>
+              <tr>
+                <td>Supernatural Gift</td>
+                <td className="modifier">
+                  <InfoTooltip reference={hollowOneRef}>Hollow One</InfoTooltip>
+                </td>
               </tr>
               <tr>
                 <td>Class</td>
