@@ -43,6 +43,7 @@ interface Multiclassing {
 interface ClassReference extends Omit<Reference, "entries"> {
   page?: number;
   entries?: Entry[]; // Classes may not have entries in the data
+  primaryAbility?: Array<Record<string, boolean>>;
   hd?: HitDice;
   proficiency?: string[]; // Saving throw proficiencies
   spellcastingAbility?: string;
@@ -79,6 +80,18 @@ const ABILITY_NAMES: Record<string, string> = {
   wis: "Wisdom",
   cha: "Charisma",
 };
+
+function formatPrimaryAbility(primaryAbility?: Array<Record<string, boolean>>): string {
+  if (!primaryAbility || primaryAbility.length === 0) return "None";
+
+  return primaryAbility
+    .map((option) =>
+      Object.keys(option)
+        .map((ability) => ABILITY_NAMES[ability] || ability)
+        .join(" and "),
+    )
+    .join(" or ");
+}
 
 function formatProficiencies(proficiencies?: string[]): string {
   if (!proficiencies || proficiencies.length === 0) return "None";
@@ -298,6 +311,10 @@ export function getClass(name: string, source: string = "XPHB"): Reference {
 
   // Build ordered properties
   const propsData: PropertyItem[] = [];
+
+  if (classInfo.primaryAbility) {
+    propsData.push({ key: "Primary Ability", value: formatPrimaryAbility(classInfo.primaryAbility) });
+  }
 
   if (classInfo.hd) {
     propsData.push({ key: "Hit Die", value: `1d${classInfo.hd.faces}` });
