@@ -4,8 +4,10 @@ import {
   $hitDice,
   $hitPoints,
   $layOnHands,
+  $luckPointsUsed,
   $spellSlotsSpent,
   $temporaryHitPoints,
+  $warlockSpellSlotsUsed,
 } from "@/js/character/dynamic-state/stores";
 import type { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";
@@ -21,9 +23,11 @@ export function useLongRest(hitDiceByType: Array<{ die: DiceString; count: numbe
       $hitPoints.set(undefined);
       $temporaryHitPoints.set(undefined);
       $spellSlotsSpent.set(undefined);
+      $warlockSpellSlotsUsed.set(undefined);
       $channelDivinityUsed.set(undefined);
       $layOnHands.set(undefined);
       $heroicInspirationUsed.set(undefined);
+      $luckPointsUsed.set(undefined);
 
       // Restore hit dice: regain spent hit dice up to half of total (minimum 1)
       const restoredHitDice = restoreHitDice(hitDiceByType, currentHitDice);
