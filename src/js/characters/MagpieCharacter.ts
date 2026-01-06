@@ -2,10 +2,10 @@ import { Character } from "@/js/character/Character";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 
-export default class AlondraCharacter extends Character {
+export default class MagpieCharacter extends Character {
   constructor() {
     super({
-      name: "Alondra",
+      name: "Magpie",
       abilityScores: {
         Str: 8,
         Dex: 14,

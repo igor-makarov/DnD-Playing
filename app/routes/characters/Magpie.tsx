@@ -11,11 +11,11 @@ import InfoTooltip from "@/components/common/InfoTooltip";
 import RollLink from "@/components/common/RollLink";
 import LuckPointsCheckboxes from "@/components/feats/LuckPointsCheckboxes";
 import WarlockSpellSlotsTable from "@/components/spells/WarlockSpellSlotsTable";
-import AlondraCharacter from "@/js/characters/AlondraCharacter";
+import MagpieCharacter from "@/js/characters/MagpieCharacter";
 import { DiceString } from "@/js/common/DiceString";
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
 
-const character = new AlondraCharacter();
+const character = new MagpieCharacter();
 
 export function meta() {
   return [{ title: character.name }];
@@ -71,7 +71,7 @@ interface LoaderData {
   unseenServantRef: ReferenceRendered;
 }
 
-export default function AlondraPage() {
+export default function MagpiePage() {
   const {
     speciesRef,
     backgroundRef,
@@ -271,7 +271,7 @@ export default function AlondraPage() {
           </table>
         </div>
         <div className="column features">
-          <CharacterNameTable name={character.name} infoHref="/characters/Alondra-info" />
+          <CharacterNameTable name={character.name} infoHref="/characters/Magpie-info" />
           <WarlockSpellSlotsTable warlockSpellSlots={character.getWarlockSpellSlots()} />
           <table>
             <tbody>
