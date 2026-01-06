@@ -74,6 +74,10 @@ a:visited {
   grid-template-columns: repeat(4, 1fr);
 }
 
+.four-across table {
+  flex: 1;
+}
+
 .row.six-across {
   display: grid;
   gap: 10px;
