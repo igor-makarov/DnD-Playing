@@ -263,7 +263,7 @@ export default function BenderPage() {
                 <td>
                   <InfoTooltip reference={mageArmorRef}>Mage Armor</InfoTooltip>
                 </td>
-                <td className="modifier">AC 13 + DEX (8h)</td>
+                <td className="modifier">AC 13 + DEX</td>
               </tr>
             </tbody>
           </table>
