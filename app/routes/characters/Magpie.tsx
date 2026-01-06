@@ -335,10 +335,6 @@ export default function MagpiePage() {
                 <td className="modifier">4h Long Rest</td>
               </tr>
               <tr>
-                <td>[High Elf] Elven Lineage</td>
-                <td className="modifier"></td>
-              </tr>
-              <tr>
                 <td>[Hollow One] Ageless</td>
                 <td className="modifier"></td>
               </tr>
