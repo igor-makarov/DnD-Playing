@@ -39,6 +39,7 @@ export async function loader() {
   return {
     speciesRef: renderHTML(getSpecies("Human")),
     classRef: renderHTML(getClass("Rogue")),
+    heroicInspirationRef: renderHTML(getVariantRule("Heroic Inspiration")),
     luckyRef: renderHTML(getFeat("Lucky")),
     magicInitiateRef: renderHTML(getFeat("Magic Initiate")),
     sneakAttackRef: renderHTML(getClassFeature("Sneak Attack", "Rogue")),
@@ -59,6 +60,7 @@ export async function loader() {
 interface LoaderData {
   speciesRef: ReferenceRendered;
   classRef: ReferenceRendered;
+  heroicInspirationRef: ReferenceRendered;
   luckyRef: ReferenceRendered;
   magicInitiateRef: ReferenceRendered;
   sneakAttackRef: ReferenceRendered;
@@ -79,6 +81,7 @@ export default function BenderPage() {
   const {
     speciesRef,
     classRef,
+    heroicInspirationRef,
     luckyRef,
     magicInitiateRef,
     sneakAttackRef,
@@ -303,7 +306,9 @@ export default function BenderPage() {
                 </td>
               </tr>
               <tr>
-                <td>[Human] Resourceful (free Inspiration)</td>
+                <td>
+                  [Human] Resourceful (free <InfoTooltip reference={heroicInspirationRef}>Inspiration</InfoTooltip>)
+                </td>
                 <td className="modifier">
                   <HeroicInspirationCheckboxes />
                 </td>
