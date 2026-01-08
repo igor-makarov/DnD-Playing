@@ -12,6 +12,7 @@ import InfoTooltip from "@/components/common/InfoTooltip";
 import RollLink from "@/components/common/RollLink";
 import HeroicInspirationCheckboxes from "@/components/species/human/HeroicInspirationCheckboxes";
 import BenderCharacter from "@/js/characters/BenderCharacter";
+import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
 
@@ -31,6 +32,7 @@ export async function loader() {
   const { getWeaponMastery } = await import("@/js/utils/render-5etools/getWeaponMastery");
   const { getVariantRule } = await import("@/js/utils/render-5etools/getVariantRule");
   const { getCondition } = await import("@/js/utils/render-5etools/getCondition");
+  const { getItem } = await import("@/js/utils/render-5etools/getItem");
   const { default: renderHTML } = await import("@/js/utils/render-5etools/renderHTML");
 
   return {
@@ -48,6 +50,8 @@ export async function loader() {
     unarmedStrikeRef: renderHTML(getVariantRule("Unarmed Strike")),
     grappledRef: renderHTML(getCondition("Grappled")),
     proneRef: renderHTML(getCondition("Prone")),
+    thievesToolsRef: renderHTML(getItem("Thieves' Tools")),
+    forgeryKitRef: renderHTML(getItem("Forgery Kit")),
   };
 }
 
@@ -66,6 +70,8 @@ interface LoaderData {
   unarmedStrikeRef: ReferenceRendered;
   grappledRef: ReferenceRendered;
   proneRef: ReferenceRendered;
+  thievesToolsRef: ReferenceRendered;
+  forgeryKitRef: ReferenceRendered;
 }
 
 export default function BenderPage() {
@@ -84,6 +90,8 @@ export default function BenderPage() {
     unarmedStrikeRef,
     grappledRef,
     proneRef,
+    thievesToolsRef,
+    forgeryKitRef,
   } = useLoaderData<LoaderData>();
 
   return (
@@ -325,6 +333,30 @@ export default function BenderPage() {
                   <InfoTooltip reference={vexRef}>Vex</InfoTooltip>, <InfoTooltip reference={nickRef}>Nick</InfoTooltip>
                 </td>
               </tr>
+              <tr>
+                <td>[Thieves&apos; Tools] Pick Lock (DC 15)</td>
+                <td className="checkCell">
+                  <D20TestCell roll={new D20Test("Ability Check", "Dex", character.getAbilityModifier("Dex"), character.createProficiency(true))} />
+                </td>
+              </tr>
+              <tr>
+                <td>[Thieves&apos; Tools] Disarm Trap (DC 15)</td>
+                <td className="checkCell">
+                  <D20TestCell roll={new D20Test("Ability Check", "Dex", character.getAbilityModifier("Dex"), character.createProficiency(true))} />
+                </td>
+              </tr>
+              <tr>
+                <td>[Forgery Kit] Mimic Handwriting (DC 15)</td>
+                <td className="checkCell">
+                  <D20TestCell roll={new D20Test("Ability Check", "Dex", character.getAbilityModifier("Dex"), character.createProficiency(true))} />
+                </td>
+              </tr>
+              <tr>
+                <td>[Forgery Kit] Duplicate Seal (DC 20)</td>
+                <td className="checkCell">
+                  <D20TestCell roll={new D20Test("Ability Check", "Dex", character.getAbilityModifier("Dex"), character.createProficiency(true))} />
+                </td>
+              </tr>
             </tbody>
           </table>
           <table>
@@ -338,7 +370,8 @@ export default function BenderPage() {
                 <td colSpan={2}>
                   <strong>Languages:</strong> Common, Deep Speech, Thieves&apos; Cant
                   <br />
-                  <strong>Tools:</strong> Thieves&apos; Tools, Alchemist&apos;s Supplies
+                  <strong>Tools:</strong> <InfoTooltip reference={thievesToolsRef}>Thieves&apos; Tools</InfoTooltip>,{" "}
+                  <InfoTooltip reference={forgeryKitRef}>Forgery Kit</InfoTooltip>
                 </td>
               </tr>
             </tbody>
