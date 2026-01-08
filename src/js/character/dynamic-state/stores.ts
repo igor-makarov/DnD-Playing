@@ -23,9 +23,9 @@ export const $channelDivinityUsed = createSearchParamStore<number | undefined>(s
 
 export const $layOnHands = createSearchParamStore<number | undefined>(searchParamsStore, "lay-on-hands", undefined, numberCodec);
 
-export const $heroicInspirationUsed = createSearchParamStore<number | undefined>(
+export const $humanHeroicInspirationUsed = createSearchParamStore<number | undefined>(
   searchParamsStore,
-  "heroic-inspiration-used",
+  "human-heroic-inspiration-used",
   undefined,
   numberCodec,
 );

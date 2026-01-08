@@ -1,14 +1,14 @@
 import CheckboxUsesRow from "@/components/common/CheckboxUsesRow";
-import { $heroicInspirationUsed } from "@/js/character/dynamic-state/stores";
+import { $humanHeroicInspirationUsed } from "@/js/character/dynamic-state/stores";
 import { useStore } from "@/js/hooks/useStore";
 
 export default function HeroicInspirationCheckboxes() {
-  const used = useStore($heroicInspirationUsed);
+  const used = useStore($humanHeroicInspirationUsed);
 
   const currentUsed = used ?? 0;
 
   const handleChange = (newCount: number) => {
-    $heroicInspirationUsed.set(newCount > 0 ? newCount : undefined);
+    $humanHeroicInspirationUsed.set(newCount > 0 ? newCount : undefined);
   };
 
   return (

@@ -1,8 +1,8 @@
 import {
   $channelDivinityUsed,
-  $heroicInspirationUsed,
   $hitDice,
   $hitPoints,
+  $humanHeroicInspirationUsed,
   $layOnHands,
   $luckPointsUsed,
   $spellSlotsSpent,
@@ -26,7 +26,7 @@ export function useLongRest(hitDiceByType: Array<{ die: DiceString; count: numbe
       $warlockSpellSlotsUsed.set(undefined);
       $channelDivinityUsed.set(undefined);
       $layOnHands.set(undefined);
-      $heroicInspirationUsed.set(undefined);
+      $humanHeroicInspirationUsed.set(undefined);
       $luckPointsUsed.set(undefined);
 
       // Restore hit dice: regain spent hit dice up to half of total (minimum 1)
