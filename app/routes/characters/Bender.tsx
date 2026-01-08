@@ -352,7 +352,7 @@ export default function BenderPage() {
                 </td>
               </tr>
               <tr>
-                <td>[Forgery Kit] Duplicate Seal (DC 20)</td>
+                <td>[Forgery Kit] Duplicate Wax Seal (DC 20)</td>
                 <td className="checkCell">
                   <D20TestCell roll={new D20Test("Ability Check", "Dex", character.getAbilityModifier("Dex"), character.createProficiency(true))} />
                 </td>
