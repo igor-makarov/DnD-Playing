@@ -7,6 +7,7 @@ import HitPointsInput from "@/components/HitPointsInput";
 import SavesTable from "@/components/SavesTable";
 import SkillsTable from "@/components/SkillsTable";
 import D20TestCell from "@/components/common/D20TestCell";
+import HeroicInspirationCheckboxes from "@/components/common/HeroicInspirationCheckboxes";
 import InfoTooltip from "@/components/common/InfoTooltip";
 import RollLink from "@/components/common/RollLink";
 import WarlockSpellSlotsTable from "@/components/spells/WarlockSpellSlotsTable";
@@ -29,6 +30,7 @@ export async function loader() {
   const { getOptionalFeature } = await import("@/js/utils/render-5etools/getOptionalFeature");
   const { getSpell } = await import("@/js/utils/render-5etools/getSpell");
   const { getSpecies } = await import("@/js/utils/render-5etools/getSpecies");
+  const { getVariantRule } = await import("@/js/utils/render-5etools/getVariantRule");
   const { getCharacterCreationOption } = await import("@/js/utils/render-5etools/getCharacterCreationOption");
   const { getItem } = await import("@/js/utils/render-5etools/getItem");
   const { default: renderHTML } = await import("@/js/utils/render-5etools/renderHTML");
@@ -38,6 +40,7 @@ export async function loader() {
     backgroundRef: renderHTML(getBackground("Wayfarer")),
     classRef: renderHTML(getClass("Warlock")),
     hollowOneRef: renderHTML(getCharacterCreationOption("Hollow One")),
+    heroicInspirationRef: renderHTML(getVariantRule("Heroic Inspiration")),
     alertRef: renderHTML(getFeat("Alert")),
     pactOfTheTomeRef: renderHTML(getOptionalFeature("Pact of the Tome")),
     eldritchBlastRef: renderHTML(getSpell("Eldritch Blast")),
@@ -59,6 +62,7 @@ interface LoaderData {
   backgroundRef: ReferenceRendered;
   classRef: ReferenceRendered;
   hollowOneRef: ReferenceRendered;
+  heroicInspirationRef: ReferenceRendered;
   alertRef: ReferenceRendered;
   pactOfTheTomeRef: ReferenceRendered;
   eldritchBlastRef: ReferenceRendered;
@@ -80,6 +84,7 @@ export default function MagpiePage() {
     backgroundRef,
     classRef,
     hollowOneRef,
+    heroicInspirationRef,
     alertRef,
     pactOfTheTomeRef,
     eldritchBlastRef,
@@ -305,6 +310,14 @@ export default function MagpiePage() {
                 <td>Supernatural Gift</td>
                 <td className="modifier">
                   <InfoTooltip reference={hollowOneRef}>Hollow One</InfoTooltip>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={heroicInspirationRef}>Heroic Inspiration</InfoTooltip>
+                </td>
+                <td className="modifier">
+                  <HeroicInspirationCheckboxes />
                 </td>
               </tr>
               <tr>
