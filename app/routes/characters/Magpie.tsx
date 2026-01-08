@@ -9,7 +9,6 @@ import SkillsTable from "@/components/SkillsTable";
 import D20TestCell from "@/components/common/D20TestCell";
 import InfoTooltip from "@/components/common/InfoTooltip";
 import RollLink from "@/components/common/RollLink";
-import LuckPointsCheckboxes from "@/components/feats/LuckPointsCheckboxes";
 import WarlockSpellSlotsTable from "@/components/spells/WarlockSpellSlotsTable";
 import MagpieCharacter from "@/js/characters/MagpieCharacter";
 import { D20Test } from "@/js/common/D20Test";
@@ -39,7 +38,7 @@ export async function loader() {
     backgroundRef: renderHTML(getBackground("Wayfarer")),
     classRef: renderHTML(getClass("Warlock")),
     hollowOneRef: renderHTML(getCharacterCreationOption("Hollow One")),
-    luckyRef: renderHTML(getFeat("Lucky")),
+    alertRef: renderHTML(getFeat("Alert")),
     pactOfTheTomeRef: renderHTML(getOptionalFeature("Pact of the Tome")),
     eldritchBlastRef: renderHTML(getSpell("Eldritch Blast")),
     mindSliverRef: renderHTML(getSpell("Mind Sliver")),
@@ -60,7 +59,7 @@ interface LoaderData {
   backgroundRef: ReferenceRendered;
   classRef: ReferenceRendered;
   hollowOneRef: ReferenceRendered;
-  luckyRef: ReferenceRendered;
+  alertRef: ReferenceRendered;
   pactOfTheTomeRef: ReferenceRendered;
   eldritchBlastRef: ReferenceRendered;
   mindSliverRef: ReferenceRendered;
@@ -81,7 +80,7 @@ export default function MagpiePage() {
     backgroundRef,
     classRef,
     hollowOneRef,
-    luckyRef,
+    alertRef,
     pactOfTheTomeRef,
     eldritchBlastRef,
     mindSliverRef,
@@ -157,6 +156,7 @@ export default function MagpiePage() {
                   <span className="checkCell">
                     <D20TestCell roll={character.getInitiative()} />
                   </span>
+                  <span> (Alert, can swap)</span>
                 </td>
               </tr>
             </tbody>
@@ -315,11 +315,9 @@ export default function MagpiePage() {
               </tr>
               <tr>
                 <td>
-                  [Feat] <InfoTooltip reference={luckyRef}>Lucky</InfoTooltip>
+                  [Feat] <InfoTooltip reference={alertRef}>Alert</InfoTooltip>
                 </td>
-                <td className="modifier">
-                  <LuckPointsCheckboxes maxLuckPoints={character.getLuckPoints()} />
-                </td>
+                <td className="modifier">+PB to Initiative, can swap</td>
               </tr>
               <tr>
                 <td>

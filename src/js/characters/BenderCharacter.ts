@@ -107,8 +107,8 @@ export default class BenderCharacter extends Character {
     return 13 + this.getAbilityModifier("Dex");
   }
 
-  // Initiative with Alert feat: DEX modifier + Proficiency bonus
-  getInitiative(): D20Test {
-    return new D20Test("Ability Check", "Dex", this.getAbilityModifier("Dex"), this.createProficiency(true));
+  // Lucky feat: Luck Points equal to Proficiency Bonus
+  getLuckPoints(): number {
+    return this.proficiencyBonus;
   }
 }

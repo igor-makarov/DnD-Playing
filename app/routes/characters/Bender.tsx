@@ -10,6 +10,7 @@ import WeaponAttackTable from "@/components/WeaponAttackTable/WeaponAttackTable"
 import D20TestCell from "@/components/common/D20TestCell";
 import InfoTooltip from "@/components/common/InfoTooltip";
 import RollLink from "@/components/common/RollLink";
+import LuckPointsCheckboxes from "@/components/feats/LuckPointsCheckboxes";
 import HeroicInspirationCheckboxes from "@/components/species/human/HeroicInspirationCheckboxes";
 import BenderCharacter from "@/js/characters/BenderCharacter";
 import { D20Test } from "@/js/common/D20Test";
@@ -38,7 +39,7 @@ export async function loader() {
   return {
     speciesRef: renderHTML(getSpecies("Human")),
     classRef: renderHTML(getClass("Rogue")),
-    alertRef: renderHTML(getFeat("Alert")),
+    luckyRef: renderHTML(getFeat("Lucky")),
     magicInitiateRef: renderHTML(getFeat("Magic Initiate")),
     sneakAttackRef: renderHTML(getClassFeature("Sneak Attack", "Rogue")),
     weaponMasteryRef: renderHTML(getClassFeature("Weapon Mastery", "Rogue")),
@@ -58,7 +59,7 @@ export async function loader() {
 interface LoaderData {
   speciesRef: ReferenceRendered;
   classRef: ReferenceRendered;
-  alertRef: ReferenceRendered;
+  luckyRef: ReferenceRendered;
   magicInitiateRef: ReferenceRendered;
   sneakAttackRef: ReferenceRendered;
   weaponMasteryRef: ReferenceRendered;
@@ -78,7 +79,7 @@ export default function BenderPage() {
   const {
     speciesRef,
     classRef,
-    alertRef,
+    luckyRef,
     magicInitiateRef,
     sneakAttackRef,
     weaponMasteryRef,
@@ -155,7 +156,7 @@ export default function BenderPage() {
                   <span className="checkCell">
                     <D20TestCell roll={character.getInitiative()} />
                   </span>
-                  <span> (Alert, can swap)</span>
+                  <span></span>
                 </td>
               </tr>
             </tbody>
@@ -309,9 +310,11 @@ export default function BenderPage() {
               </tr>
               <tr>
                 <td>
-                  [Feat] <InfoTooltip reference={alertRef}>Alert</InfoTooltip> (from background)
+                  [Feat] <InfoTooltip reference={luckyRef}>Lucky</InfoTooltip> (from background)
                 </td>
-                <td className="modifier">+PB to Initiative, can swap</td>
+                <td className="modifier">
+                  <LuckPointsCheckboxes maxLuckPoints={character.getLuckPoints()} />
+                </td>
               </tr>
               <tr>
                 <td>
