@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("Stat boxes layout", () => {
-  test("Magpie - all four stat boxes should have the same height", async ({ page }) => {
-    await page.goto("/characters/Magpie/");
+  test("Meg - all four stat boxes should have the same height", async ({ page }) => {
+    await page.goto("/characters/Meg/");
     await page.waitForLoadState("networkidle");
 
     // Get the tables inside the four-across row columns

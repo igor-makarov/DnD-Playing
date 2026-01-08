@@ -11,12 +11,12 @@ import HeroicInspirationCheckboxes from "@/components/common/HeroicInspirationCh
 import InfoTooltip from "@/components/common/InfoTooltip";
 import RollLink from "@/components/common/RollLink";
 import WarlockSpellSlotsTable from "@/components/spells/WarlockSpellSlotsTable";
-import MagpieCharacter from "@/js/characters/MagpieCharacter";
+import MegCharacter from "@/js/characters/MegCharacter";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
 
-const character = new MagpieCharacter();
+const character = new MegCharacter();
 
 export function meta() {
   return [{ title: character.name }];
@@ -78,7 +78,7 @@ interface LoaderData {
   thievesToolsRef: ReferenceRendered;
 }
 
-export default function MagpiePage() {
+export default function MegPage() {
   const {
     speciesRef,
     backgroundRef,
@@ -281,7 +281,7 @@ export default function MagpiePage() {
           </table>
         </div>
         <div className="column features">
-          <CharacterNameTable name={character.name} infoHref="/characters/Magpie-info" />
+          <CharacterNameTable name={character.name} infoHref="/characters/Meg-info" />
           <WarlockSpellSlotsTable warlockSpellSlots={character.getWarlockSpellSlots()} />
           <table>
             <tbody>
