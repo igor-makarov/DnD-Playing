@@ -12,6 +12,7 @@ import RollLink from "@/components/common/RollLink";
 import LuckPointsCheckboxes from "@/components/feats/LuckPointsCheckboxes";
 import WarlockSpellSlotsTable from "@/components/spells/WarlockSpellSlotsTable";
 import MagpieCharacter from "@/js/characters/MagpieCharacter";
+import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
 
@@ -30,6 +31,7 @@ export async function loader() {
   const { getSpell } = await import("@/js/utils/render-5etools/getSpell");
   const { getSpecies } = await import("@/js/utils/render-5etools/getSpecies");
   const { getCharacterCreationOption } = await import("@/js/utils/render-5etools/getCharacterCreationOption");
+  const { getItem } = await import("@/js/utils/render-5etools/getItem");
   const { default: renderHTML } = await import("@/js/utils/render-5etools/renderHTML");
 
   return {
@@ -49,6 +51,7 @@ export async function loader() {
     hellishRebukeRef: renderHTML(getSpell("Hellish Rebuke")),
     comprehendLanguagesRef: renderHTML(getSpell("Comprehend Languages")),
     unseenServantRef: renderHTML(getSpell("Unseen Servant")),
+    thievesToolsRef: renderHTML(getItem("Thieves' Tools")),
   };
 }
 
@@ -69,6 +72,7 @@ interface LoaderData {
   hellishRebukeRef: ReferenceRendered;
   comprehendLanguagesRef: ReferenceRendered;
   unseenServantRef: ReferenceRendered;
+  thievesToolsRef: ReferenceRendered;
 }
 
 export default function MagpiePage() {
@@ -89,6 +93,7 @@ export default function MagpiePage() {
     hellishRebukeRef,
     comprehendLanguagesRef,
     unseenServantRef,
+    thievesToolsRef,
   } = useLoaderData<LoaderData>();
 
   return (
@@ -350,6 +355,18 @@ export default function MagpiePage() {
                 <td>[Hollow One] Unsettling Presence</td>
                 <td className="modifier">1/day, DIS next save</td>
               </tr>
+              <tr>
+                <td>[Thieves&apos; Tools] Pick Lock (DC 15)</td>
+                <td className="checkCell">
+                  <D20TestCell roll={new D20Test("Ability Check", "Dex", character.getAbilityModifier("Dex"), character.createProficiency(true))} />
+                </td>
+              </tr>
+              <tr>
+                <td>[Thieves&apos; Tools] Disarm Trap (DC 15)</td>
+                <td className="checkCell">
+                  <D20TestCell roll={new D20Test("Ability Check", "Dex", character.getAbilityModifier("Dex"), character.createProficiency(true))} />
+                </td>
+              </tr>
             </tbody>
           </table>
           <table>
@@ -363,7 +380,7 @@ export default function MagpiePage() {
                 <td colSpan={2}>
                   <strong>Languages:</strong> Common, Elvish
                   <br />
-                  <strong>Tools:</strong> Thieves&apos; Tools
+                  <strong>Tools:</strong> <InfoTooltip reference={thievesToolsRef}>Thieves&apos; Tools</InfoTooltip>
                 </td>
               </tr>
             </tbody>
