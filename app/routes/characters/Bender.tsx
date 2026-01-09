@@ -378,8 +378,8 @@ export default function BenderPage() {
                 <td colSpan={2}>
                   <strong>Languages:</strong> Common, Deep Speech, Thieves&apos; Cant
                   <br />
-                  <strong>Tools:</strong> <InfoTooltip reference={thievesToolsRef}>Thieves&apos; Tools</InfoTooltip>,{" "}
-                  <InfoTooltip reference={forgeryKitRef}>Forgery Kit</InfoTooltip>
+                  <strong>Tools:</strong> <InfoTooltip reference={thievesToolsRef}>Thieves&apos; Tools</InfoTooltip> (Dex),{" "}
+                  <InfoTooltip reference={forgeryKitRef}>Forgery Kit</InfoTooltip> (Dex)
                 </td>
               </tr>
             </tbody>

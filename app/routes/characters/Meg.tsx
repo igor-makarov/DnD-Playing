@@ -391,7 +391,7 @@ export default function MegPage() {
                 <td colSpan={2}>
                   <strong>Languages:</strong> Common, Elvish
                   <br />
-                  <strong>Tools:</strong> <InfoTooltip reference={thievesToolsRef}>Thieves&apos; Tools</InfoTooltip>
+                  <strong>Tools:</strong> <InfoTooltip reference={thievesToolsRef}>Thieves&apos; Tools</InfoTooltip> (Dex)
                 </td>
               </tr>
             </tbody>
