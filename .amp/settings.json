@@ -1,0 +1,9 @@
+{
+  "amp.permissions": [
+    { "tool": "Bash", "matches": { "cmd": "npm run format" }, "action": "allow" },
+    { "tool": "Bash", "matches": { "cmd": "npm run check" }, "action": "allow" },
+    { "tool": "Bash", "matches": { "cmd": "npm run build" }, "action": "allow" },
+    { "tool": "Bash", "matches": { "cmd": "npm test" }, "action": "allow" },
+    { "tool": "Bash", "matches": { "cmd": "npm run test:e2e" }, "action": "allow" }
+  ]
+}
