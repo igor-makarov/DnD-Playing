@@ -9,7 +9,7 @@
     "build": "react-router build",
     "start": "react-router-serve ./build/server/index.js",
     "preview": "serve build/client",
-    "typecheck": "react-router typegen && tsc --noEmit",
+    "typegen": "react-router typegen",
     "check": "react-router typegen && tsc --noEmit",
     "format": "prettier --write --list-different .",
     "format:check": "prettier --check .",
