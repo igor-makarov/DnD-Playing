@@ -10,7 +10,9 @@ import D20TestCell from "@/components/common/D20TestCell";
 import HeroicInspirationCheckboxes from "@/components/common/HeroicInspirationCheckboxes";
 import InfoTooltip from "@/components/common/InfoTooltip";
 import RollLink from "@/components/common/RollLink";
+import TextBox from "@/components/common/TextBox";
 import WarlockSpellSlotsTable from "@/components/spells/WarlockSpellSlotsTable";
+import { $notes } from "@/js/character/dynamic-state/stores";
 import MegCharacter from "@/js/characters/MegCharacter";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
@@ -176,6 +178,7 @@ export default function MegPage() {
         <div className="column">
           <SavesTable title="Saves" character={character} />
           <HitDiceTable hitDice={character.getHitDice()} conModifier={character.getAbilityModifier("Con")} />
+          <TextBox title="Notes" store={$notes} placeholder="Notes" rows={20} data-testid="notes-text-box" />
         </div>
         <div className="column">
           <table>

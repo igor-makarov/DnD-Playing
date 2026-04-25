@@ -1,10 +1,11 @@
 import { createSearchParamMapStore } from "@/js/stores/primitives/createSearchParamMapStore";
 import { createSearchParamStore } from "@/js/stores/primitives/createSearchParamStore";
 import { createURLSearchParamsStore } from "@/js/stores/primitives/createURLSearchParamsStore";
-import { kebabNumberArrayCodec, numberCodec } from "@/js/stores/primitives/queryCodecs";
+import { kebabNumberArrayCodec, numberCodec, textCodec } from "@/js/stores/primitives/queryCodecs";
 
 // Create shared base store for all character state
 const searchParamsStore = createURLSearchParamsStore();
+const replaceSearchParamsStore = createURLSearchParamsStore("replaceState");
 
 export const $hitPoints = createSearchParamStore<number | undefined>(searchParamsStore, "hit-points", undefined, numberCodec);
 
@@ -33,6 +34,8 @@ export const $humanHeroicInspirationUsed = createSearchParamStore<number | undef
 export const $heroicInspiration = createSearchParamStore<number | undefined>(searchParamsStore, "heroic-inspiration", undefined, numberCodec);
 
 export const $luckPointsUsed = createSearchParamStore<number | undefined>(searchParamsStore, "luck-points-used", undefined, numberCodec);
+
+export const $notes = createSearchParamStore<string>(replaceSearchParamsStore, "notes", "", textCodec);
 
 // Map from die type (e.g., "d10", "d8") to number of dice available (undefined means maximum)
 export const $hitDice = createSearchParamMapStore<number | undefined>(searchParamsStore, "hit-dice-", {}, numberCodec);

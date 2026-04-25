@@ -10,8 +10,10 @@ import WeaponAttackTable from "@/components/WeaponAttackTable/WeaponAttackTable"
 import D20TestCell from "@/components/common/D20TestCell";
 import InfoTooltip from "@/components/common/InfoTooltip";
 import RollLink from "@/components/common/RollLink";
+import TextBox from "@/components/common/TextBox";
 import LuckPointsCheckboxes from "@/components/feats/LuckPointsCheckboxes";
 import HeroicInspirationCheckboxes from "@/components/species/human/HeroicInspirationCheckboxes";
+import { $notes } from "@/js/character/dynamic-state/stores";
 import BenderCharacter from "@/js/characters/BenderCharacter";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";
@@ -174,6 +176,7 @@ export default function BenderPage() {
         <div className="column">
           <SavesTable title="Saves" character={character} />
           <HitDiceTable hitDice={character.getHitDice()} conModifier={character.getAbilityModifier("Con")} />
+          <TextBox title="Notes" store={$notes} placeholder="Notes" rows={20} data-testid="notes-text-box" />
         </div>
         <div className="column">
           <WeaponAttackTable

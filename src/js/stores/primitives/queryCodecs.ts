@@ -6,6 +6,11 @@ export const numberCodec: SearchParamStoreOptions<number | undefined> = {
   decode: (str) => parseInt(str, 10),
 };
 
+export const textCodec: SearchParamStoreOptions<string> = {
+  encode: (value) => (value === "" ? undefined : value),
+  decode: (value) => value,
+};
+
 // Format: Stored in URL as hyphen-separated string (e.g., "1-2-0" means 1 slot used at level 1, 2 at level 2, 0 at level 3)
 // - Empty/undefined query param = no slots spent (returns undefined)
 // - Trailing zeros are automatically trimmed when saving (e.g., [1, 2, 0] -> "1-2")
