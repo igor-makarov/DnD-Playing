@@ -303,7 +303,7 @@ export default function MiloPage() {
                 <td>
                   [Artificer 1] <InfoTooltip reference={spellcastingRef}>Spellcasting</InfoTooltip>
                 </td>
-                <td className="modifier">tools as focus, INT casting, 2 slots</td>
+                <td className="modifier">{character.getPreparedSpellsCount()} spells prepared</td>
               </tr>
             </tbody>
           </table>
