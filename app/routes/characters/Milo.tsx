@@ -284,7 +284,7 @@ export default function MiloPage() {
                 <td>
                   [Feat] <InfoTooltip reference={crafterRef}>Crafter</InfoTooltip> (from Human)
                 </td>
-                <td className="modifier">smith, tinker, mason; 20% discount</td>
+                <td className="modifier">20% discount; fast crafting</td>
               </tr>
               <tr>
                 <td>
