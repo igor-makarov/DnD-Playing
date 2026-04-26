@@ -7,6 +7,7 @@ import HitPointsInput from "@/components/HitPointsInput";
 import SavesTable from "@/components/SavesTable";
 import SkillsTable from "@/components/SkillsTable";
 import WeaponAttackTable from "@/components/WeaponAttackTable/WeaponAttackTable";
+import TinkersMagicCheckboxes from "@/components/classes/artificer/TinkersMagicCheckboxes";
 import D20TestCell from "@/components/common/D20TestCell";
 import InfoTooltip from "@/components/common/InfoTooltip";
 import RollLink from "@/components/common/RollLink";
@@ -297,7 +298,9 @@ export default function MiloPage() {
                 <td>
                   [Artificer 1] <InfoTooltip reference={tinkersMagicRef}>Tinker&apos;s Magic</InfoTooltip>
                 </td>
-                <td className="modifier">Mending, create utility item, {character.getTinkersMagicUses()}/long rest</td>
+                <td className="modifier">
+                  <TinkersMagicCheckboxes maxUses={character.getTinkersMagicUses()} />
+                </td>
               </tr>
               <tr>
                 <td>
