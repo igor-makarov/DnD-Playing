@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # Download 5etools data
-VERSION="v2.19.1"
+VERSION="v2.28.0"
 URL="https://github.com/5etools-mirror-3/5etools-src/releases/download/${VERSION}/5etools-${VERSION}.zip"
 OUTPUT_DIR="5etools"
 
