@@ -51,6 +51,7 @@ function renderTags(text: string): string {
     .replace(/{@scaledamage [^}|]+\|[^}|]+\|([^}]+)}/g, "<highlight-5e>$1</highlight-5e>") // Show increment only
     .replace(/{@dice ([^}]+)}/g, "<highlight-5e>$1</highlight-5e>")
     .replace(/{@damage ([^}]+)}/g, "<highlight-5e>$1</highlight-5e>")
+    .replace(/{@dc ([^}]+)}/g, "<highlight-5e>DC $1</highlight-5e>")
     .replace(/{@spell ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
     .replace(/{@item ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
     .replace(/{@hazard ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
