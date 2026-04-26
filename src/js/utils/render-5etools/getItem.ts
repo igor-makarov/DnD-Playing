@@ -7,11 +7,22 @@ interface ItemReference extends Reference {
   rarity?: string;
   weight?: number;
   value?: number; // in copper pieces
+  additionalEntries?: Entry[];
 }
 
 // Structure of item data from 5etools JSON file
 interface ItemData {
   item: Array<ItemReference>;
+}
+
+interface BaseItemData {
+  baseitem: Array<ItemReference>;
+}
+
+function getAllItems(): ItemReference[] {
+  const items = loadData<ItemData>("items.json").item;
+  const baseItems = loadData<BaseItemData>("items-base.json").baseitem;
+  return items.concat(baseItems);
 }
 
 // Map of item type codes to readable names
@@ -71,9 +82,9 @@ function formatWeight(weight?: number): string | null {
  * @throws Error if item is not found
  */
 export function getItem(name: string, source: string = "XPHB"): Reference {
-  const data = loadData<ItemData>("items.json");
+  const items = getAllItems();
 
-  const item = data.item.find((i) => i.name.toLowerCase() === name.toLowerCase() && i.source === source);
+  const item = items.find((i) => i.name.toLowerCase() === name.toLowerCase() && i.source === source);
 
   if (!item) {
     throw new Error(`Item "${name}" from source "${source}" not found in 5etools data`);
@@ -98,7 +109,7 @@ export function getItem(name: string, source: string = "XPHB"): Reference {
   if (propsData.length > 0) {
     entries.push({ type: "properties", data: propsData });
   }
-  entries.push(...item.entries);
+  entries.push(...(item.entries || item.additionalEntries || []));
 
   return {
     name: item.name,

@@ -85,7 +85,7 @@ export const PROFICIENCY_BONUS_BY_LEVEL: number[] = [
 ];
 
 export const FULL_CASTER_CLASSES: readonly ClassName[] = ["Bard", "Cleric", "Druid", "Sorcerer", "Wizard"] as const;
-export const HALF_CASTER_CLASSES: readonly ClassName[] = ["Paladin", "Ranger"] as const;
+export const HALF_CASTER_CLASSES: readonly ClassName[] = ["Artificer", "Paladin", "Ranger"] as const;
 
 // prettier-ignore
 export const SPELL_SLOTS_BY_LEVEL: number[][] = [
