@@ -14,7 +14,7 @@ export default class MegCharacter extends Character {
         Wis: 10,
         Cha: 15 + 1 + 2 /* DM Bonus +1, Wayfarer +2 */,
       },
-      classLevels: [{ className: "Warlock", level: 1 }],
+      classLevels: [{ className: "Warlock", level: 2 }],
 
       skillProficiencies: [
         { skill: "Intimidation" }, // Warlock
@@ -27,7 +27,10 @@ export default class MegCharacter extends Character {
         { save: "Wis" }, // Warlock
         { save: "Cha" }, // Warlock
       ],
-      hitPointRolls: [{ level: 1, die: new DiceString("d8"), roll: 8 }],
+      hitPointRolls: [
+        { level: 1, die: new DiceString("d8"), roll: 8 },
+        { level: 2, die: new DiceString("d8"), roll: 5 },
+      ],
     });
   }
 
@@ -49,6 +52,14 @@ export default class MegCharacter extends Character {
   // Initiative with Alert feat: DEX modifier + Proficiency bonus
   getInitiative(): D20Test {
     return new D20Test("Ability Check", "Dex", this.getAbilityModifier("Dex"), this.createProficiency(true));
+  }
+
+  getEldritchBlastDamage(): DiceString {
+    return new DiceString(this.getCantripDamage(new DiceString("d10"), new DiceString("d10")), this.getAbilityModifier("Cha"));
+  }
+
+  getFiendishVigorTempHP(): number {
+    return 12;
   }
 
   // Hollow One: Unsettling Presence (1/long rest)

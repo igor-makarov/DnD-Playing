@@ -6,6 +6,7 @@ import HitDiceTable from "@/components/HitDiceTable";
 import HitPointsInput from "@/components/HitPointsInput";
 import SavesTable from "@/components/SavesTable";
 import SkillsTable from "@/components/SkillsTable";
+import AttackDamageCell from "@/components/common/AttackDamageCell";
 import D20TestCell from "@/components/common/D20TestCell";
 import HeroicInspirationCheckboxes from "@/components/common/HeroicInspirationCheckboxes";
 import InfoTooltip from "@/components/common/InfoTooltip";
@@ -28,6 +29,7 @@ export function meta() {
 export async function loader() {
   const { getBackground } = await import("@/js/utils/render-5etools/getBackground");
   const { getClass } = await import("@/js/utils/render-5etools/getClass");
+  const { getClassFeature } = await import("@/js/utils/render-5etools/getClassFeature");
   const { getFeat } = await import("@/js/utils/render-5etools/getFeat");
   const { getOptionalFeature } = await import("@/js/utils/render-5etools/getOptionalFeature");
   const { getSpell } = await import("@/js/utils/render-5etools/getSpell");
@@ -44,15 +46,20 @@ export async function loader() {
     hollowOneRef: renderHTML(getCharacterCreationOption("Hollow One")),
     heroicInspirationRef: renderHTML(getVariantRule("Heroic Inspiration")),
     alertRef: renderHTML(getFeat("Alert")),
+    magicalCunningRef: renderHTML(getClassFeature("Magical Cunning", "Warlock")),
     pactOfTheTomeRef: renderHTML(getOptionalFeature("Pact of the Tome")),
+    agonizingBlastRef: renderHTML(getOptionalFeature("Agonizing Blast")),
+    fiendishVigorRef: renderHTML(getOptionalFeature("Fiendish Vigor")),
     eldritchBlastRef: renderHTML(getSpell("Eldritch Blast")),
     mindSliverRef: renderHTML(getSpell("Mind Sliver")),
     minorIllusionRef: renderHTML(getSpell("Minor Illusion")),
     spareTheDyingRef: renderHTML(getSpell("Spare the Dying")),
     sacredFlameRef: renderHTML(getSpell("Sacred Flame")),
     messageRef: renderHTML(getSpell("Message")),
+    falseLifeRef: renderHTML(getSpell("False Life")),
     armorOfAgathysRef: renderHTML(getSpell("Armor of Agathys")),
     hellishRebukeRef: renderHTML(getSpell("Hellish Rebuke")),
+    witchBoltRef: renderHTML(getSpell("Witch Bolt")),
     comprehendLanguagesRef: renderHTML(getSpell("Comprehend Languages")),
     unseenServantRef: renderHTML(getSpell("Unseen Servant")),
     thievesToolsRef: renderHTML(getItem("Thieves' Tools")),
@@ -66,15 +73,20 @@ interface LoaderData {
   hollowOneRef: ReferenceRendered;
   heroicInspirationRef: ReferenceRendered;
   alertRef: ReferenceRendered;
+  magicalCunningRef: ReferenceRendered;
   pactOfTheTomeRef: ReferenceRendered;
+  agonizingBlastRef: ReferenceRendered;
+  fiendishVigorRef: ReferenceRendered;
   eldritchBlastRef: ReferenceRendered;
   mindSliverRef: ReferenceRendered;
   minorIllusionRef: ReferenceRendered;
   spareTheDyingRef: ReferenceRendered;
   sacredFlameRef: ReferenceRendered;
   messageRef: ReferenceRendered;
+  falseLifeRef: ReferenceRendered;
   armorOfAgathysRef: ReferenceRendered;
   hellishRebukeRef: ReferenceRendered;
+  witchBoltRef: ReferenceRendered;
   comprehendLanguagesRef: ReferenceRendered;
   unseenServantRef: ReferenceRendered;
   thievesToolsRef: ReferenceRendered;
@@ -88,15 +100,20 @@ export default function MegPage() {
     hollowOneRef,
     heroicInspirationRef,
     alertRef,
+    magicalCunningRef,
     pactOfTheTomeRef,
+    agonizingBlastRef,
+    fiendishVigorRef,
     eldritchBlastRef,
     mindSliverRef,
     minorIllusionRef,
     spareTheDyingRef,
     sacredFlameRef,
     messageRef,
+    falseLifeRef,
     armorOfAgathysRef,
     hellishRebukeRef,
+    witchBoltRef,
     comprehendLanguagesRef,
     unseenServantRef,
     thievesToolsRef,
@@ -209,7 +226,7 @@ export default function MegPage() {
                   <InfoTooltip reference={eldritchBlastRef}>Eldritch Blast</InfoTooltip>
                 </td>
                 <td className="checkCell mono">
-                  <RollLink dice={character.getCantripDamage(new DiceString("d10"), new DiceString("d10"))} />
+                  <AttackDamageCell dice={character.getEldritchBlastDamage()} />
                 </td>
               </tr>
               <tr>
@@ -247,6 +264,16 @@ export default function MegPage() {
                 <td className="modifier">120 ft</td>
               </tr>
               <tr>
+                <th>At Will</th>
+                <th className="modifier">Effect</th>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={falseLifeRef}>False Life</InfoTooltip>
+                </td>
+                <td className="modifier">{character.getFiendishVigorTempHP()} THP</td>
+              </tr>
+              <tr>
                 <th>Prepared Spells</th>
                 <th className="modifier">Effect</th>
               </tr>
@@ -263,6 +290,12 @@ export default function MegPage() {
                 <td className="checkCell mono">
                   <RollLink dice={new DiceString("2d10")} />
                 </td>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={witchBoltRef}>Witch Bolt</InfoTooltip>
+                </td>
+                <td className="modifier">+6, 2d12 / BA 1d12</td>
               </tr>
               <tr>
                 <th>Rituals</th>
@@ -337,9 +370,9 @@ export default function MegPage() {
               </tr>
               <tr>
                 <td>
-                  [Invocation] <InfoTooltip reference={pactOfTheTomeRef}>Pact of the Tome</InfoTooltip>
+                  [Warlock 2] <InfoTooltip reference={magicalCunningRef}>Magical Cunning</InfoTooltip>
                 </td>
-                <td className="modifier">+3 cantrips, rituals</td>
+                <td className="modifier">recover 1 spell slot, 1/LR</td>
               </tr>
               <tr>
                 <td>[High Elf] Darkvision</td>
@@ -395,6 +428,10 @@ export default function MegPage() {
                   <strong>Languages:</strong> Common, Elvish
                   <br />
                   <strong>Tools:</strong> <InfoTooltip reference={thievesToolsRef}>Thieves&apos; Tools</InfoTooltip> (Dex)
+                  <br />
+                  <strong>Invocations (3):</strong> <InfoTooltip reference={pactOfTheTomeRef}>Pact of the Tome</InfoTooltip>,{" "}
+                  <InfoTooltip reference={agonizingBlastRef}>Agonizing Blast</InfoTooltip>,{" "}
+                  <InfoTooltip reference={fiendishVigorRef}>Fiendish Vigor</InfoTooltip>
                 </td>
               </tr>
             </tbody>
