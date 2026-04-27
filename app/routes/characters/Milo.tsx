@@ -44,6 +44,7 @@ export async function loader() {
     luckyRef: renderHTML(getFeat("Lucky")),
     spellcastingRef: renderHTML(getClassFeature("Spellcasting", "Artificer", "EFA")),
     tinkersMagicRef: renderHTML(getClassFeature("Tinker's Magic", "Artificer", "EFA")),
+    replicateMagicItemRef: renderHTML(getClassFeature("Replicate Magic Item", "Artificer", "EFA")),
     mendingRef: renderHTML(getSpell("Mending")),
     fireBoltRef: renderHTML(getSpell("Fire Bolt")),
     shockingGraspRef: renderHTML(getSpell("Shocking Grasp")),
@@ -66,6 +67,7 @@ interface LoaderData {
   luckyRef: ReferenceRendered;
   spellcastingRef: ReferenceRendered;
   tinkersMagicRef: ReferenceRendered;
+  replicateMagicItemRef: ReferenceRendered;
   mendingRef: ReferenceRendered;
   fireBoltRef: ReferenceRendered;
   shockingGraspRef: ReferenceRendered;
@@ -88,6 +90,7 @@ export default function MiloPage() {
     luckyRef,
     spellcastingRef,
     tinkersMagicRef,
+    replicateMagicItemRef,
     mendingRef,
     fireBoltRef,
     shockingGraspRef,
@@ -244,6 +247,10 @@ export default function MiloPage() {
                 </td>
                 <td className="modifier">+5 AC</td>
               </tr>
+              <tr>
+                <td>TBD</td>
+                <td className="modifier"></td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -308,6 +315,12 @@ export default function MiloPage() {
                 </td>
                 <td className="modifier">{character.getPreparedSpellsCount()} spells prepared</td>
               </tr>
+              <tr>
+                <td>
+                  [Artificer 2] <InfoTooltip reference={replicateMagicItemRef}>Replicate Magic Item</InfoTooltip>
+                </td>
+                <td className="modifier">{character.getReplicateMagicItemsCount()} items</td>
+              </tr>
             </tbody>
           </table>
           <table>
@@ -327,6 +340,8 @@ export default function MiloPage() {
                   <InfoTooltip reference={smithsToolsRef}>Smith&apos;s Tools</InfoTooltip>,{" "}
                   <InfoTooltip reference={masonsToolsRef}>Mason&apos;s Tools</InfoTooltip>,{" "}
                   <InfoTooltip reference={herbalismKitRef}>Herbalism Kit</InfoTooltip>
+                  <br />
+                  <strong>Plans Known ({character.getReplicateMagicItemPlansKnown()}):</strong> TBD, TBD, TBD, TBD
                 </td>
               </tr>
             </tbody>
