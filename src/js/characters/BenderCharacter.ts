@@ -16,7 +16,7 @@ export default class BenderCharacter extends Character {
         Wis: 8,
         Cha: 15 + 1 + 2 /* DM Bonus +1, Background +2 */,
       },
-      classLevels: [{ className: "Rogue", level: 1 }],
+      classLevels: [{ className: "Rogue", level: 2 }],
 
       skillProficiencies: [
         { skill: "Deception" }, // Rogue
@@ -31,7 +31,10 @@ export default class BenderCharacter extends Character {
         { save: "Dex" }, // Rogue
         { save: "Int" }, // Rogue
       ],
-      hitPointRolls: [{ level: 1, die: new DiceString("d8"), roll: 8 }],
+      hitPointRolls: [
+        { level: 1, die: new DiceString("d8"), roll: 8 },
+        { level: 2, die: new DiceString("d8"), roll: 5 },
+      ],
     });
   }
 

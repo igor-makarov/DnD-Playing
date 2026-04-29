@@ -45,6 +45,7 @@ export async function loader() {
     luckyRef: renderHTML(getFeat("Lucky")),
     magicInitiateRef: renderHTML(getFeat("Magic Initiate")),
     sneakAttackRef: renderHTML(getClassFeature("Sneak Attack", "Rogue")),
+    cunningActionRef: renderHTML(getClassFeature("Cunning Action", "Rogue")),
     weaponMasteryRef: renderHTML(getClassFeature("Weapon Mastery", "Rogue")),
     vexRef: renderHTML(getWeaponMastery("Vex")),
     nickRef: renderHTML(getWeaponMastery("Nick")),
@@ -66,6 +67,7 @@ interface LoaderData {
   luckyRef: ReferenceRendered;
   magicInitiateRef: ReferenceRendered;
   sneakAttackRef: ReferenceRendered;
+  cunningActionRef: ReferenceRendered;
   weaponMasteryRef: ReferenceRendered;
   vexRef: ReferenceRendered;
   nickRef: ReferenceRendered;
@@ -87,6 +89,7 @@ export default function BenderPage() {
     luckyRef,
     magicInitiateRef,
     sneakAttackRef,
+    cunningActionRef,
     weaponMasteryRef,
     vexRef,
     nickRef,
@@ -328,7 +331,7 @@ export default function BenderPage() {
                 <td>
                   [Feat] <InfoTooltip reference={magicInitiateRef}>Magic Initiate</InfoTooltip> (from Human)
                 </td>
-                <td className="modifier">2 cantrips, 1 1st-level spell</td>
+                <td className="modifier">2 cantrips + 1 level 1</td>
               </tr>
               <tr>
                 <td>
@@ -343,6 +346,12 @@ export default function BenderPage() {
                 <td className="modifier">
                   <InfoTooltip reference={vexRef}>Vex</InfoTooltip>, <InfoTooltip reference={nickRef}>Nick</InfoTooltip>
                 </td>
+              </tr>
+              <tr>
+                <td>
+                  [Rogue 2] <InfoTooltip reference={cunningActionRef}>Cunning Action</InfoTooltip>
+                </td>
+                <td className="modifier">dash/disengage/hide</td>
               </tr>
               <tr>
                 <td>[Thieves&apos; Tools] Pick Lock (DC 15)</td>
