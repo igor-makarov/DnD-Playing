@@ -15,7 +15,7 @@ function sanitizeExternalString(text: string): string {
 
 // Recursively sanitizes all strings in a JSON value
 function sanitizeExternalObject<T>(value: T): T {
-  if (value === null) {
+  if (value === null || value === undefined) {
     return value;
   } else if (typeof value === "boolean") {
     return value;
@@ -58,6 +58,7 @@ function renderTags(text: string): string {
     .replace(/{@filter ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
     .replace(/{@skill ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
     .replace(/{@feat ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
+    .replace(/{@sense ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
     .replace(/{@i ([^}]+)}/g, "<em>$1</em>")
     .replace(/{@b ([^}]+)}/g, "<strong>$1</strong>");
 }

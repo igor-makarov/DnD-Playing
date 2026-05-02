@@ -50,12 +50,16 @@ export async function loader() {
     shockingGraspRef: renderHTML(getSpell("Shocking Grasp")),
     cureWoundsRef: renderHTML(getSpell("Cure Wounds")),
     shieldRef: renderHTML(getSpell("Shield")),
+    identifyRef: renderHTML(getSpell("Identify")),
     thievesToolsRef: renderHTML(getItem("Thieves' Tools")),
     tinkersToolsRef: renderHTML(getItem("Tinker's Tools")),
     jewelersToolsRef: renderHTML(getItem("Jeweler's Tools")),
     smithsToolsRef: renderHTML(getItem("Smith's Tools")),
     masonsToolsRef: renderHTML(getItem("Mason's Tools")),
     herbalismKitRef: renderHTML(getItem("Herbalism Kit")),
+    bagOfHoldingRef: renderHTML(getItem("Bag of Holding", "XDMG")),
+    sendingStonesRef: renderHTML(getItem("Sending Stones", "XDMG")),
+    gogglesOfNightRef: renderHTML(getItem("Goggles of Night", "XDMG")),
   };
 }
 
@@ -73,12 +77,16 @@ interface LoaderData {
   shockingGraspRef: ReferenceRendered;
   cureWoundsRef: ReferenceRendered;
   shieldRef: ReferenceRendered;
+  identifyRef: ReferenceRendered;
   thievesToolsRef: ReferenceRendered;
   tinkersToolsRef: ReferenceRendered;
   jewelersToolsRef: ReferenceRendered;
   smithsToolsRef: ReferenceRendered;
   masonsToolsRef: ReferenceRendered;
   herbalismKitRef: ReferenceRendered;
+  bagOfHoldingRef: ReferenceRendered;
+  sendingStonesRef: ReferenceRendered;
+  gogglesOfNightRef: ReferenceRendered;
 }
 
 export default function MiloPage() {
@@ -96,12 +104,16 @@ export default function MiloPage() {
     shockingGraspRef,
     cureWoundsRef,
     shieldRef,
+    identifyRef,
     thievesToolsRef,
     tinkersToolsRef,
     jewelersToolsRef,
     smithsToolsRef,
     masonsToolsRef,
     herbalismKitRef,
+    bagOfHoldingRef,
+    sendingStonesRef,
+    gogglesOfNightRef,
   } = useLoaderData<LoaderData>();
 
   return (
@@ -248,8 +260,10 @@ export default function MiloPage() {
                 <td className="modifier">+5 AC</td>
               </tr>
               <tr>
-                <td>TBD</td>
-                <td className="modifier"></td>
+                <td>
+                  <InfoTooltip reference={identifyRef}>Identify</InfoTooltip>
+                </td>
+                <td className="modifier">ritual utility</td>
               </tr>
             </tbody>
           </table>
@@ -341,7 +355,10 @@ export default function MiloPage() {
                   <InfoTooltip reference={masonsToolsRef}>Mason&apos;s Tools</InfoTooltip>,{" "}
                   <InfoTooltip reference={herbalismKitRef}>Herbalism Kit</InfoTooltip>
                   <br />
-                  <strong>Plans Known ({character.getReplicateMagicItemPlansKnown()}):</strong> TBD, TBD, TBD, TBD
+                  <strong>Plans Known ({character.getReplicateMagicItemPlansKnown()}):</strong>{" "}
+                  <InfoTooltip reference={bagOfHoldingRef}>Bag of Holding</InfoTooltip>,{" "}
+                  <InfoTooltip reference={sendingStonesRef}>Sending Stones</InfoTooltip>,{" "}
+                  <InfoTooltip reference={gogglesOfNightRef}>Goggles of Night</InfoTooltip>, TBD
                 </td>
               </tr>
             </tbody>
