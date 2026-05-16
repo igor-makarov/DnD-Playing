@@ -21,7 +21,7 @@ export default function HitDiceTable({ hitDice, conModifier }: Props) {
           </th>
         </tr>
         <tr>
-          <th>Used</th>
+          <th>Remaining</th>
           <th className="modifier">Die</th>
         </tr>
       </thead>
