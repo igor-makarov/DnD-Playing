@@ -1,4 +1,5 @@
 import type { Entry, PropertyItem, Reference } from "./ReferenceTypes";
+import { findNamedEntry } from "./findNamedEntry";
 import { loadData } from "./loadData";
 
 // Species-specific interface extending Reference
@@ -105,6 +106,36 @@ export function getSpecies(name: string, source: string = "XPHB"): Reference {
     name: species.name,
     source: species.source,
     entries,
+  };
+}
+
+/**
+ * Get an individual species feature from the 5etools data.
+ *
+ * @param featureName - The feature name (e.g., "Darkvision", "Fey Ancestry")
+ * @param speciesName - The species name (e.g., "Elf")
+ * @param source - The source book (default: "XPHB" for 2024 PHB)
+ * @returns The species feature reference data
+ * @throws Error if the species or feature is not found
+ */
+export function getSpeciesFeature(featureName: string, speciesName: string, source: string = "XPHB"): Reference {
+  const speciesData = loadData<SpeciesData>("races.json");
+  const species = speciesData.race.find((s) => s.name.toLowerCase() === speciesName.toLowerCase() && s.source === source);
+
+  if (!species) {
+    throw new Error(`Species "${speciesName}" from source "${source}" not found in 5etools data`);
+  }
+
+  const feature = findNamedEntry(species.entries, featureName);
+  if (!feature) {
+    throw new Error(`Feature "${featureName}" for species "${speciesName}" from source "${source}" not found in 5etools data`);
+  }
+
+  return {
+    name: feature.name,
+    source: species.source,
+    byline: `${species.name} Trait`,
+    entries: feature.entries ?? [],
   };
 }
 

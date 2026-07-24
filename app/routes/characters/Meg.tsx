@@ -35,19 +35,26 @@ export async function loader() {
   const { getFeat } = await import("@/js/utils/render-5etools/getFeat");
   const { getOptionalFeature } = await import("@/js/utils/render-5etools/getOptionalFeature");
   const { getSpell } = await import("@/js/utils/render-5etools/getSpell");
-  const { getSpecies } = await import("@/js/utils/render-5etools/getSpecies");
+  const { getSpecies, getSpeciesFeature } = await import("@/js/utils/render-5etools/getSpecies");
   const { getVariantRule } = await import("@/js/utils/render-5etools/getVariantRule");
-  const { getCharacterCreationOption } = await import("@/js/utils/render-5etools/getCharacterCreationOption");
+  const { getCharacterCreationOption, getCharacterCreationOptionFeature } = await import("@/js/utils/render-5etools/getCharacterCreationOption");
   const { getItem } = await import("@/js/utils/render-5etools/getItem");
   const { default: renderHTML } = await import("@/js/utils/render-5etools/renderHTML");
 
   return {
     speciesRef: renderHTML(getSpecies("Elf")),
+    darkvisionRef: renderHTML(getSpeciesFeature("Darkvision", "Elf")),
+    feyAncestryRef: renderHTML(getSpeciesFeature("Fey Ancestry", "Elf")),
+    tranceRef: renderHTML(getSpeciesFeature("Trance", "Elf")),
     backgroundRef: renderHTML(getBackground("Wayfarer")),
     classRef: renderHTML(getClass("Warlock")),
     fiendRef: renderHTML(getSubclass("Warlock", "Fiend")),
     darkOnesBlessingRef: renderHTML(getSubclassFeature("Dark One's Blessing", "Warlock", "Fiend")),
-    hollowOneRef: renderHTML(getCharacterCreationOption("Hollow One")),
+    hollowOneRef: renderHTML(getCharacterCreationOption("Hollow One", "EGW")),
+    agelessRef: renderHTML(getCharacterCreationOptionFeature("Ageless", "Hollow One", "EGW")),
+    clingToLifeRef: renderHTML(getCharacterCreationOptionFeature("Cling to Life", "Hollow One", "EGW")),
+    revenanceRef: renderHTML(getCharacterCreationOptionFeature("Revenance", "Hollow One", "EGW")),
+    unsettlingPresenceRef: renderHTML(getCharacterCreationOptionFeature("Unsettling Presence", "Hollow One", "EGW")),
     heroicInspirationRef: renderHTML(getVariantRule("Heroic Inspiration")),
     alertRef: renderHTML(getFeat("Alert")),
     magicalCunningRef: renderHTML(getClassFeature("Magical Cunning", "Warlock")),
@@ -78,11 +85,18 @@ export async function loader() {
 
 interface LoaderData {
   speciesRef: ReferenceRendered;
+  darkvisionRef: ReferenceRendered;
+  feyAncestryRef: ReferenceRendered;
+  tranceRef: ReferenceRendered;
   backgroundRef: ReferenceRendered;
   classRef: ReferenceRendered;
   fiendRef: ReferenceRendered;
   darkOnesBlessingRef: ReferenceRendered;
   hollowOneRef: ReferenceRendered;
+  agelessRef: ReferenceRendered;
+  clingToLifeRef: ReferenceRendered;
+  revenanceRef: ReferenceRendered;
+  unsettlingPresenceRef: ReferenceRendered;
   heroicInspirationRef: ReferenceRendered;
   alertRef: ReferenceRendered;
   magicalCunningRef: ReferenceRendered;
@@ -113,11 +127,18 @@ interface LoaderData {
 export default function MegPage() {
   const {
     speciesRef,
+    darkvisionRef,
+    feyAncestryRef,
+    tranceRef,
     backgroundRef,
     classRef,
     fiendRef,
     darkOnesBlessingRef,
     hollowOneRef,
+    agelessRef,
+    clingToLifeRef,
+    revenanceRef,
+    unsettlingPresenceRef,
     heroicInspirationRef,
     alertRef,
     magicalCunningRef,
@@ -464,31 +485,45 @@ export default function MegPage() {
                 <td className="modifier">1/LR; no slot</td>
               </tr>
               <tr>
-                <td>[High Elf] Darkvision</td>
+                <td>
+                  [High Elf] <InfoTooltip reference={darkvisionRef}>Darkvision</InfoTooltip>
+                </td>
                 <td className="modifier">60 ft</td>
               </tr>
               <tr>
-                <td>[High Elf] Fey Ancestry</td>
+                <td>
+                  [High Elf] <InfoTooltip reference={feyAncestryRef}>Fey Ancestry</InfoTooltip>
+                </td>
                 <td className="modifier">ADV vs Charmed</td>
               </tr>
               <tr>
-                <td>[High Elf] Trance</td>
+                <td>
+                  [High Elf] <InfoTooltip reference={tranceRef}>Trance</InfoTooltip>
+                </td>
                 <td className="modifier">4h Long Rest</td>
               </tr>
               <tr>
-                <td>[Hollow One] Ageless</td>
+                <td>
+                  [Hollow One] <InfoTooltip reference={agelessRef}>Ageless</InfoTooltip>
+                </td>
                 <td className="modifier"></td>
               </tr>
               <tr>
-                <td>[Hollow One] Cling to Life</td>
+                <td>
+                  [Hollow One] <InfoTooltip reference={clingToLifeRef}>Cling to Life</InfoTooltip>
+                </td>
                 <td className="modifier">1 HP @ 16+ DS</td>
               </tr>
               <tr>
-                <td>[Hollow One] Revenance</td>
+                <td>
+                  [Hollow One] <InfoTooltip reference={revenanceRef}>Revenance</InfoTooltip>
+                </td>
                 <td className="modifier">detect as undead</td>
               </tr>
               <tr>
-                <td>[Hollow One] Unsettling Presence</td>
+                <td>
+                  [Hollow One] <InfoTooltip reference={unsettlingPresenceRef}>Unsettling Presence</InfoTooltip>
+                </td>
                 <td className="modifier">1/day, DIS next save</td>
               </tr>
               <tr>

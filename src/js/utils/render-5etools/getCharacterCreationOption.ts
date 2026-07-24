@@ -1,4 +1,5 @@
 import type { Entry, Reference } from "./ReferenceTypes";
+import { findNamedEntry } from "./findNamedEntry";
 import { loadData } from "./loadData";
 
 // 5etools character creation option prerequisite structure
@@ -93,5 +94,37 @@ export function getCharacterCreationOption(name: string, source?: string): Refer
     source: option.source,
     byline,
     entries,
+  };
+}
+
+/**
+ * Get an individual feature from a character creation option.
+ *
+ * @param featureName - The feature name (e.g., "Cling to Life")
+ * @param optionName - The character creation option name (e.g., "Hollow One")
+ * @param source - The source book (e.g., "EGW")
+ * @returns The character creation option feature reference data
+ * @throws Error if the option or feature is not found
+ */
+export function getCharacterCreationOptionFeature(featureName: string, optionName: string, source?: string): Reference {
+  const data = loadData<CharOptionData>("charcreationoptions.json");
+  const option = data.charoption.find((o) => o.name.toLowerCase() === optionName.toLowerCase() && (source === undefined || o.source === source));
+
+  if (!option) {
+    const sourceMsg = source ? ` from source "${source}"` : "";
+    throw new Error(`Character creation option "${optionName}"${sourceMsg} not found in 5etools data`);
+  }
+
+  const feature = findNamedEntry(option.entries, featureName);
+  if (!feature) {
+    const sourceMsg = source ? ` from source "${source}"` : "";
+    throw new Error(`Feature "${featureName}" for character creation option "${optionName}"${sourceMsg} not found in 5etools data`);
+  }
+
+  return {
+    name: feature.name,
+    source: option.source,
+    byline: `${option.name} Trait`,
+    entries: feature.entries ?? [],
   };
 }
