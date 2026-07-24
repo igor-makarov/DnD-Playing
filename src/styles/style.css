@@ -194,6 +194,7 @@ details > table > tbody > tr:first-child:has(th[colspan]) {
 
 .info-tooltip-dialog {
   padding: 1.5rem;
+  white-space: normal;
   border: 1px solid #ccc;
   border-radius: 8px;
 }
