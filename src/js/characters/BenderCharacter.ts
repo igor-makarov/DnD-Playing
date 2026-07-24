@@ -16,7 +16,7 @@ export default class BenderCharacter extends Character {
         Wis: 8,
         Cha: 15 + 1 + 2 /* DM Bonus +1, Background +2 */,
       },
-      classLevels: [{ className: "Rogue", level: 2 }],
+      classLevels: [{ className: "Rogue", level: 3 }],
 
       skillProficiencies: [
         { skill: "Deception" }, // Rogue
@@ -34,6 +34,7 @@ export default class BenderCharacter extends Character {
       hitPointRolls: [
         { level: 1, die: new DiceString("d8"), roll: 8 },
         { level: 2, die: new DiceString("d8"), roll: 5 },
+        { level: 3, die: new DiceString("d8"), roll: 7 },
       ],
     });
   }
@@ -93,6 +94,11 @@ export default class BenderCharacter extends Character {
 
   getAttackAddons(): AttackAddon[] {
     return [{ name: "Sneak Attack (1/turn)", damage: { optional: true, damage: this.getSneakAttackDice() } }];
+  }
+
+  // Rakish Audacity: Dexterity modifier + Charisma modifier
+  getInitiative(): D20Test {
+    return new D20Test("Ability Check", "Dex", this.getAbilityModifier("Dex") + this.getAbilityModifier("Cha"));
   }
 
   // Spell Attack Modifier: Charisma modifier + Proficiency bonus (Magic Initiate)

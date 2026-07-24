@@ -32,6 +32,8 @@ export async function loader() {
   const { getFeat } = await import("@/js/utils/render-5etools/getFeat");
   const { getSpell } = await import("@/js/utils/render-5etools/getSpell");
   const { getSpecies } = await import("@/js/utils/render-5etools/getSpecies");
+  const { getSubclass } = await import("@/js/utils/render-5etools/getSubclass");
+  const { getSubclassFeature } = await import("@/js/utils/render-5etools/getSubclassFeature");
   const { getWeaponMastery } = await import("@/js/utils/render-5etools/getWeaponMastery");
   const { getVariantRule } = await import("@/js/utils/render-5etools/getVariantRule");
   const { getCondition } = await import("@/js/utils/render-5etools/getCondition");
@@ -41,11 +43,15 @@ export async function loader() {
   return {
     speciesRef: renderHTML(getSpecies("Human")),
     classRef: renderHTML(getClass("Rogue")),
+    swashbucklerRef: renderHTML(getSubclass("Rogue", "Swashbuckler", "PHB")),
+    fancyFootworkRef: renderHTML(getSubclassFeature("Fancy Footwork", "Rogue", "Swashbuckler", "PHB", "XGE")),
+    rakishAudacityRef: renderHTML(getSubclassFeature("Rakish Audacity", "Rogue", "Swashbuckler", "PHB", "XGE")),
     heroicInspirationRef: renderHTML(getVariantRule("Heroic Inspiration")),
     luckyRef: renderHTML(getFeat("Lucky")),
     magicInitiateRef: renderHTML(getFeat("Magic Initiate")),
     sneakAttackRef: renderHTML(getClassFeature("Sneak Attack", "Rogue")),
     cunningActionRef: renderHTML(getClassFeature("Cunning Action", "Rogue")),
+    steadyAimRef: renderHTML(getClassFeature("Steady Aim", "Rogue")),
     weaponMasteryRef: renderHTML(getClassFeature("Weapon Mastery", "Rogue")),
     vexRef: renderHTML(getWeaponMastery("Vex")),
     nickRef: renderHTML(getWeaponMastery("Nick")),
@@ -63,11 +69,15 @@ export async function loader() {
 interface LoaderData {
   speciesRef: ReferenceRendered;
   classRef: ReferenceRendered;
+  swashbucklerRef: ReferenceRendered;
+  fancyFootworkRef: ReferenceRendered;
+  rakishAudacityRef: ReferenceRendered;
   heroicInspirationRef: ReferenceRendered;
   luckyRef: ReferenceRendered;
   magicInitiateRef: ReferenceRendered;
   sneakAttackRef: ReferenceRendered;
   cunningActionRef: ReferenceRendered;
+  steadyAimRef: ReferenceRendered;
   weaponMasteryRef: ReferenceRendered;
   vexRef: ReferenceRendered;
   nickRef: ReferenceRendered;
@@ -85,11 +95,15 @@ export default function BenderPage() {
   const {
     speciesRef,
     classRef,
+    swashbucklerRef,
+    fancyFootworkRef,
+    rakishAudacityRef,
     heroicInspirationRef,
     luckyRef,
     magicInitiateRef,
     sneakAttackRef,
     cunningActionRef,
+    steadyAimRef,
     weaponMasteryRef,
     vexRef,
     nickRef,
@@ -164,7 +178,7 @@ export default function BenderPage() {
                   <span className="checkCell">
                     <D20TestCell roll={character.getInitiative()} />
                   </span>
-                  <span></span>
+                  <span> (Rakish Audacity)</span>
                 </td>
               </tr>
             </tbody>
@@ -312,6 +326,12 @@ export default function BenderPage() {
                 </td>
               </tr>
               <tr>
+                <td>Subclass</td>
+                <td className="modifier">
+                  <InfoTooltip reference={swashbucklerRef}>Swashbuckler</InfoTooltip>
+                </td>
+              </tr>
+              <tr>
                 <td>
                   [Human] Resourceful (free <InfoTooltip reference={heroicInspirationRef}>Inspiration</InfoTooltip>)
                 </td>
@@ -352,6 +372,24 @@ export default function BenderPage() {
                   [Rogue 2] <InfoTooltip reference={cunningActionRef}>Cunning Action</InfoTooltip>
                 </td>
                 <td className="modifier">dash/disengage/hide</td>
+              </tr>
+              <tr>
+                <td>
+                  [Rogue 3] <InfoTooltip reference={steadyAimRef}>Steady Aim</InfoTooltip>
+                </td>
+                <td className="modifier">ADV; Speed 0</td>
+              </tr>
+              <tr>
+                <td>
+                  [Swashbuckler 3] <InfoTooltip reference={fancyFootworkRef}>Fancy Footwork</InfoTooltip>
+                </td>
+                <td className="modifier">no OA after attack</td>
+              </tr>
+              <tr>
+                <td>
+                  [Swashbuckler 3] <InfoTooltip reference={rakishAudacityRef}>Rakish Audacity</InfoTooltip>
+                </td>
+                <td className="modifier">duel Sneak Attack</td>
               </tr>
               <tr>
                 <td>[Thieves&apos; Tools] Pick Lock (DC 15)</td>
