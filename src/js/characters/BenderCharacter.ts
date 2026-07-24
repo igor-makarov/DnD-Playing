@@ -92,7 +92,7 @@ export default class BenderCharacter extends Character {
   }
 
   getAttackAddons(): AttackAddon[] {
-    return [{ name: "Sneak Attack", damage: { optional: true, damage: this.getSneakAttackDice() } }];
+    return [{ name: "Sneak Attack (1/turn)", damage: { optional: true, damage: this.getSneakAttackDice() } }];
   }
 
   // Spell Attack Modifier: Charisma modifier + Proficiency bonus (Magic Initiate)

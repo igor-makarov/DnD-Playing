@@ -337,7 +337,7 @@ export default function BenderPage() {
                 <td>
                   [Rogue 1] <InfoTooltip reference={sneakAttackRef}>Sneak Attack</InfoTooltip>
                 </td>
-                <td className="modifier">+{character.getSneakAttackDice().toString()} damage (1/turn)</td>
+                <td className="modifier">+{character.getSneakAttackDice().toString()} damage</td>
               </tr>
               <tr>
                 <td>
