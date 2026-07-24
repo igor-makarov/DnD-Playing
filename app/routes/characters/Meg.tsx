@@ -305,16 +305,10 @@ export default function MegPage() {
               </tr>
               <tr>
                 <td>
-                  <InfoTooltip reference={armorOfAgathysRef}>Armor of Agathys</InfoTooltip>
-                </td>
-                <td className="modifier">10 THP, 10 dmg</td>
-              </tr>
-              <tr>
-                <td>
-                  <InfoTooltip reference={hellishRebukeRef}>Hellish Rebuke</InfoTooltip>
+                  <InfoTooltip reference={scorchingRayRef}>Scorching Ray</InfoTooltip>
                 </td>
                 <td className="checkCell mono">
-                  <RollLink dice={new DiceString("3d10")} />
+                  3× <RollLink dice={new DiceString("2d6")} />
                 </td>
               </tr>
               <tr>
@@ -322,7 +316,8 @@ export default function MegPage() {
                   <InfoTooltip reference={witchBoltRef}>Witch Bolt</InfoTooltip>
                 </td>
                 <td className="checkCell mono">
-                  <RollLink dice={new DiceString("3d12")} /> <RollLink dice={new DiceString("d12")} />
+                  <RollLink dice={new DiceString("3d12")} />
+                  {" & BA"}
                 </td>
               </tr>
               <tr>
@@ -343,11 +338,17 @@ export default function MegPage() {
               </tr>
               <tr>
                 <td>
-                  <InfoTooltip reference={scorchingRayRef}>Scorching Ray</InfoTooltip>
+                  <InfoTooltip reference={hellishRebukeRef}>Hellish Rebuke</InfoTooltip>
                 </td>
                 <td className="checkCell mono">
-                  3× <RollLink dice={new DiceString("2d6")} />
+                  <RollLink dice={new DiceString("3d10")} />
                 </td>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={armorOfAgathysRef}>Armor of Agathys</InfoTooltip>
+                </td>
+                <td className="modifier">10 THP/dmg</td>
               </tr>
               <tr>
                 <th>Utility</th>
@@ -442,13 +443,13 @@ export default function MegPage() {
                 <td>
                   [Feat] <InfoTooltip reference={alertRef}>Alert</InfoTooltip>
                 </td>
-                <td className="modifier">+PB to Initiative, can swap</td>
+                <td className="modifier">+PB to Initiative</td>
               </tr>
               <tr>
                 <td>
                   [Warlock 2] <InfoTooltip reference={magicalCunningRef}>Magical Cunning</InfoTooltip>
                 </td>
-                <td className="modifier">recover 1 spell slot, 1/LR</td>
+                <td className="modifier">recover 1 slot/LR</td>
               </tr>
               <tr>
                 <td>
@@ -480,7 +481,7 @@ export default function MegPage() {
               </tr>
               <tr>
                 <td>[Hollow One] Cling to Life</td>
-                <td className="modifier">death save 16+ = 1 HP</td>
+                <td className="modifier">1 HP @ 16+ DS</td>
               </tr>
               <tr>
                 <td>[Hollow One] Revenance</td>
