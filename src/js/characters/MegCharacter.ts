@@ -14,7 +14,7 @@ export default class MegCharacter extends Character {
         Wis: 10,
         Cha: 15 + 1 + 2 /* DM Bonus +1, Wayfarer +2 */,
       },
-      classLevels: [{ className: "Warlock", level: 2 }],
+      classLevels: [{ className: "Warlock", level: 3 }],
 
       skillProficiencies: [
         { skill: "Intimidation" }, // Warlock
@@ -30,6 +30,7 @@ export default class MegCharacter extends Character {
       hitPointRolls: [
         { level: 1, die: new DiceString("d8"), roll: 8 },
         { level: 2, die: new DiceString("d8"), roll: 5 },
+        { level: 3, die: new DiceString("d8"), roll: 5 },
       ],
     });
   }
@@ -60,6 +61,11 @@ export default class MegCharacter extends Character {
 
   getFiendishVigorTempHP(): number {
     return 12;
+  }
+
+  // Dark One's Blessing: Gain temporary HP when Meg or a nearby creature reduces an enemy to 0 HP
+  getDarkOnesBlessingTempHP(): number {
+    return this.getAbilityModifier("Cha") + this.getClassLevel("Warlock");
   }
 
   // Hollow One: Unsettling Presence (1/long rest)

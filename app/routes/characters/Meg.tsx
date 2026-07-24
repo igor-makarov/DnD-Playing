@@ -30,6 +30,8 @@ export async function loader() {
   const { getBackground } = await import("@/js/utils/render-5etools/getBackground");
   const { getClass } = await import("@/js/utils/render-5etools/getClass");
   const { getClassFeature } = await import("@/js/utils/render-5etools/getClassFeature");
+  const { getSubclass } = await import("@/js/utils/render-5etools/getSubclass");
+  const { getSubclassFeature } = await import("@/js/utils/render-5etools/getSubclassFeature");
   const { getFeat } = await import("@/js/utils/render-5etools/getFeat");
   const { getOptionalFeature } = await import("@/js/utils/render-5etools/getOptionalFeature");
   const { getSpell } = await import("@/js/utils/render-5etools/getSpell");
@@ -43,6 +45,8 @@ export async function loader() {
     speciesRef: renderHTML(getSpecies("Elf")),
     backgroundRef: renderHTML(getBackground("Wayfarer")),
     classRef: renderHTML(getClass("Warlock")),
+    fiendRef: renderHTML(getSubclass("Warlock", "Fiend")),
+    darkOnesBlessingRef: renderHTML(getSubclassFeature("Dark One's Blessing", "Warlock", "Fiend")),
     hollowOneRef: renderHTML(getCharacterCreationOption("Hollow One")),
     heroicInspirationRef: renderHTML(getVariantRule("Heroic Inspiration")),
     alertRef: renderHTML(getFeat("Alert")),
@@ -60,6 +64,12 @@ export async function loader() {
     armorOfAgathysRef: renderHTML(getSpell("Armor of Agathys")),
     hellishRebukeRef: renderHTML(getSpell("Hellish Rebuke")),
     witchBoltRef: renderHTML(getSpell("Witch Bolt")),
+    cloudOfDaggersRef: renderHTML(getSpell("Cloud of Daggers")),
+    burningHandsRef: renderHTML(getSpell("Burning Hands")),
+    commandRef: renderHTML(getSpell("Command")),
+    scorchingRayRef: renderHTML(getSpell("Scorching Ray")),
+    suggestionRef: renderHTML(getSpell("Suggestion")),
+    detectMagicRef: renderHTML(getSpell("Detect Magic")),
     comprehendLanguagesRef: renderHTML(getSpell("Comprehend Languages")),
     unseenServantRef: renderHTML(getSpell("Unseen Servant")),
     thievesToolsRef: renderHTML(getItem("Thieves' Tools")),
@@ -70,6 +80,8 @@ interface LoaderData {
   speciesRef: ReferenceRendered;
   backgroundRef: ReferenceRendered;
   classRef: ReferenceRendered;
+  fiendRef: ReferenceRendered;
+  darkOnesBlessingRef: ReferenceRendered;
   hollowOneRef: ReferenceRendered;
   heroicInspirationRef: ReferenceRendered;
   alertRef: ReferenceRendered;
@@ -87,6 +99,12 @@ interface LoaderData {
   armorOfAgathysRef: ReferenceRendered;
   hellishRebukeRef: ReferenceRendered;
   witchBoltRef: ReferenceRendered;
+  cloudOfDaggersRef: ReferenceRendered;
+  burningHandsRef: ReferenceRendered;
+  commandRef: ReferenceRendered;
+  scorchingRayRef: ReferenceRendered;
+  suggestionRef: ReferenceRendered;
+  detectMagicRef: ReferenceRendered;
   comprehendLanguagesRef: ReferenceRendered;
   unseenServantRef: ReferenceRendered;
   thievesToolsRef: ReferenceRendered;
@@ -97,6 +115,8 @@ export default function MegPage() {
     speciesRef,
     backgroundRef,
     classRef,
+    fiendRef,
+    darkOnesBlessingRef,
     hollowOneRef,
     heroicInspirationRef,
     alertRef,
@@ -114,6 +134,12 @@ export default function MegPage() {
     armorOfAgathysRef,
     hellishRebukeRef,
     witchBoltRef,
+    cloudOfDaggersRef,
+    burningHandsRef,
+    commandRef,
+    scorchingRayRef,
+    suggestionRef,
+    detectMagicRef,
     comprehendLanguagesRef,
     unseenServantRef,
     thievesToolsRef,
@@ -281,37 +307,81 @@ export default function MegPage() {
                 <td>
                   <InfoTooltip reference={armorOfAgathysRef}>Armor of Agathys</InfoTooltip>
                 </td>
-                <td className="modifier">5 THP 5 dmg</td>
+                <td className="modifier">10 THP, 10 dmg</td>
               </tr>
               <tr>
                 <td>
                   <InfoTooltip reference={hellishRebukeRef}>Hellish Rebuke</InfoTooltip>
                 </td>
                 <td className="checkCell mono">
-                  <RollLink dice={new DiceString("2d10")} />
+                  <RollLink dice={new DiceString("3d10")} />
                 </td>
               </tr>
               <tr>
                 <td>
                   <InfoTooltip reference={witchBoltRef}>Witch Bolt</InfoTooltip>
                 </td>
-                <td className="modifier">+6, 2d12 / BA 1d12</td>
+                <td className="checkCell mono">
+                  <RollLink dice={new DiceString("3d12")} /> <RollLink dice={new DiceString("d12")} />
+                </td>
               </tr>
               <tr>
-                <th>Rituals</th>
+                <td>
+                  <InfoTooltip reference={cloudOfDaggersRef}>Cloud of Daggers</InfoTooltip>
+                </td>
+                <td className="checkCell mono">
+                  <RollLink dice={new DiceString("4d4")} />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={burningHandsRef}>Burning Hands</InfoTooltip>
+                </td>
+                <td className="checkCell mono">
+                  <RollLink dice={new DiceString("4d6")} />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={scorchingRayRef}>Scorching Ray</InfoTooltip>
+                </td>
+                <td className="checkCell mono">
+                  3× <RollLink dice={new DiceString("2d6")} />
+                </td>
+              </tr>
+              <tr>
+                <th>Utility</th>
                 <th className="modifier">Effect</th>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={detectMagicRef}>Detect Magic</InfoTooltip>
+                </td>
+                <td className="modifier">1/LR; no slot</td>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={commandRef}>Command</InfoTooltip>
+                </td>
+                <td className="modifier">WIS save</td>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={suggestionRef}>Suggestion</InfoTooltip>
+                </td>
+                <td className="modifier">WIS save</td>
               </tr>
               <tr>
                 <td>
                   <InfoTooltip reference={comprehendLanguagesRef}>Comprehend Languages</InfoTooltip>
                 </td>
-                <td className="modifier"></td>
+                <td className="modifier">ritual</td>
               </tr>
               <tr>
                 <td>
                   <InfoTooltip reference={unseenServantRef}>Unseen Servant</InfoTooltip>
                 </td>
-                <td className="modifier"></td>
+                <td className="modifier">ritual</td>
               </tr>
             </tbody>
           </table>
@@ -363,6 +433,12 @@ export default function MegPage() {
                 </td>
               </tr>
               <tr>
+                <td>Subclass</td>
+                <td className="modifier">
+                  <InfoTooltip reference={fiendRef}>Fiend Patron</InfoTooltip>
+                </td>
+              </tr>
+              <tr>
                 <td>
                   [Feat] <InfoTooltip reference={alertRef}>Alert</InfoTooltip>
                 </td>
@@ -373,6 +449,18 @@ export default function MegPage() {
                   [Warlock 2] <InfoTooltip reference={magicalCunningRef}>Magical Cunning</InfoTooltip>
                 </td>
                 <td className="modifier">recover 1 spell slot, 1/LR</td>
+              </tr>
+              <tr>
+                <td>
+                  [Fiend 3] <InfoTooltip reference={darkOnesBlessingRef}>Dark One&apos;s Blessing</InfoTooltip>
+                </td>
+                <td className="modifier">{character.getDarkOnesBlessingTempHP()} THP on kill (10 ft)</td>
+              </tr>
+              <tr>
+                <td>
+                  [High Elf] <InfoTooltip reference={detectMagicRef}>Detect Magic</InfoTooltip>
+                </td>
+                <td className="modifier">1/LR; no slot</td>
               </tr>
               <tr>
                 <td>[High Elf] Darkvision</td>

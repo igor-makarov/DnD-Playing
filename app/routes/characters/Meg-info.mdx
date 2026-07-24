@@ -4,11 +4,11 @@ export function meta() {
 
 # Meg
 
-_High Elf Hollow One Warlock Blaster_
+_High Elf Hollow One Fiend Warlock Blaster_
 
 ## Overview
 
-- **Class:** Warlock, Level 2
+- **Class:** Warlock, Level 3 (Fiend Patron)
 - **Species:** High Elf (PHB 2024 / XPHB)
 - **Supernatural Gift:** Hollow One (Explorer's Guide to Wildemount)
 - **Background:** Wayfarer (custom variant)
@@ -39,7 +39,7 @@ _High Elf Hollow One Warlock Blaster_
 
 - **CHA: 18 (+4)** - Primary stat, spell DC 14, spell attack +6
 - **DEX: 14 (+2)** - AC, Initiative
-- **CON: 14 (+2)** - HP (17 at level 2: 10 + 7)
+- **CON: 14 (+2)** - HP (24 at level 3: 10 + 7 + 7)
 - **INT: 12 (+1)** - Arcana
 - **WIS: 10 (+0)** - Perception, Insight
 - **STR: 8 (-1)** - Dump stat
@@ -90,14 +90,15 @@ The void left behind by the departed soul is filled with strange magic from Blig
 - **Revenance:** Register as undead to spells/effects that detect undead
 - **Unsettling Presence:** Action (1/long rest) - creature within 15 ft has Disadvantage on next save
 
-## Class: Warlock Level 2
+## Class: Warlock Level 3 (Fiend Patron)
 
 ### Hit Points
 
-- **Hit Dice:** 2d8 total
+- **Hit Dice:** 3d8 total
 - **HP at Level 1:** 8 + CON modifier = 8 + 2 = **10 HP**
 - **HP at Level 2:** 5 + CON modifier = 5 + 2 = **7 HP**
-- **Total HP:** **17 HP**
+- **HP at Level 3:** 5 rolled + CON modifier = 5 + 2 = **7 HP**
+- **Total HP:** **24 HP**
 
 ### Proficiencies
 
@@ -109,18 +110,30 @@ The void left behind by the departed soul is filled with strange magic from Blig
 
 ### Pact Magic
 
-- **Spell Slots:** 2 (1st level)
+- **Spell Slots:** 2 (2nd level)
 - **Slot Recovery:** Short Rest or Long Rest
 - **Spellcasting Ability:** Charisma
 - **Spell Save DC:** 8 + 2 + 4 = **14**
 - **Spell Attack Bonus:** +2 + 4 = **+6**
-- **Prepared Spells:** 3
+- **Prepared Spells:** 4
 
 ### Magical Cunning
 
 - **Recover Spell Slots:** Spend 1 minute to recover expended Pact Magic spell slots
 - **Recovery Amount:** Half your maximum spell slots (rounded up) = **1 slot**
 - **Uses:** 1/Long Rest
+
+### Fiend Patron
+
+#### Dark One's Blessing
+
+- When Meg or a creature within 10 feet of her reduces an enemy to 0 HP, Meg gains **7 Temporary HP**
+- Temporary HP equals CHA modifier (+4) + Warlock level (3)
+
+#### Fiend Spells
+
+- Always prepared and don't count against Meg's four prepared Warlock spells
+- **Burning Hands, Command, Scorching Ray, Suggestion**
 
 ### Eldritch Invocations (3 total)
 
@@ -147,11 +160,23 @@ The void left behind by the departed soul is filled with strange magic from Blig
 
 ## Spells
 
-### Prepared Spells (3)
+### Prepared Spells (4)
 
-1. **Armor of Agathys** - Bonus Action, 5 THP + 5 Cold damage to melee attackers, 1 hour, no concentration
-2. **Hellish Rebuke** - Reaction when damaged, 2d10 Fire (DEX save for half)
-3. **Witch Bolt** - Action, +6 to hit, 2d12 Lightning, later turns 1d12 with Bonus Action
+1. **Armor of Agathys** - Bonus Action, 10 THP + 10 Cold damage to melee attackers, 1 hour, no concentration
+2. **Hellish Rebuke** - Reaction when damaged, 3d10 Fire (DEX save for half)
+3. **Witch Bolt** - Action, +6 to hit, 3d12 Lightning, later turns 1d12 with Bonus Action
+4. **Cloud of Daggers** - 4d4 automatic Slashing damage in a movable 5-foot cube, Concentration
+
+### Fiend Spells (Always Prepared)
+
+1. **Burning Hands** - 15-foot cone, 4d6 Fire (DEX save for half)
+2. **Command** - WIS save or obey a one-word command
+3. **Scorching Ray** - Three ranged spell attacks, 2d6 Fire each
+4. **Suggestion** - WIS save or follow a course of action, Concentration
+
+### High Elf Spell
+
+- **Detect Magic** - once per Long Rest without a spell slot
 
 ### Ritual Spells (Pact of the Tome)
 
@@ -161,7 +186,7 @@ The void left behind by the departed soul is filled with strange magic from Blig
 ## Combat Stats
 
 - **AC:** 13 (Leather Armor 11 + DEX 2)
-- **HP:** 17
+- **HP:** 24
 - **Initiative:** +4
 - **Speed:** 30 ft
 
@@ -175,21 +200,21 @@ The void left behind by the departed soul is filled with strange magic from Blig
 
 ### Pre-combat
 
-Cast **Armor of Agathys** (Bonus Action) for 5 THP
+Cast **Armor of Agathys** (Bonus Action) for 10 THP
 
 ### Round 1+
 
-- **Action:** Eldritch Blast (1d10+4 Force)
-- **Reaction (if hit):** Hellish Rebuke (2d10 Fire) + Armor of Agathys deals 5 Cold
-- **Move:** Stay at range (120 ft EB range)
+- **Action:** Eldritch Blast (1d10+4 Force), or use Cloud of Daggers or a Fiend spell when a spell slot is worthwhile
+- **Reaction (if hit):** Hellish Rebuke (3d10 Fire) + Armor of Agathys deals 10 Cold on a melee hit
+- **Move:** Stay at range (120 ft Eldritch Blast range)
 
 ### Defensive Combo
 
 When hit in melee:
 
-- Armor of Agathys deals 5 Cold (automatic)
-- Hellish Rebuke deals 2d10 Fire (Reaction)
-- **Total reactive damage:** 5 + 11 avg = **16 damage**
+- Armor of Agathys deals 10 Cold (automatic)
+- Hellish Rebuke deals 3d10 Fire (Reaction)
+- **Total reactive damage:** 10 + 16.5 avg = **26.5 damage**
 
 ### Utility
 
@@ -224,10 +249,12 @@ When hit in melee:
 3. **Witch Bolt** prepared spell - +6 to hit, 2d12 Lightning, sustain for 1d12 with Bonus Action
 4. **HP Increase** - +7 HP at level 2 for **17 total HP**
 
-## Level 3 Priorities
+## Level 3 Choices
 
-1. **Fiend Patron** (subclass) - Dark One's Blessing (temp HP on kill)
-2. Additional spells: Scorching Ray, Burning Hands (Fiend expanded spells)
+1. **Fiend Patron** - Dark One's Blessing and four always-prepared Fiend spells
+2. **Cloud of Daggers** - fourth prepared Warlock spell
+3. **HP Increase** - rolled 5 + 2 CON for +7 HP, bringing the total to 24
+4. **High Elf Lineage** - Detect Magic once per Long Rest without a spell slot
 
 ## Patron Flavor: Celestial Planetar
 
