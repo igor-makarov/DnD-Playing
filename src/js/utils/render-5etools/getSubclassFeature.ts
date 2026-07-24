@@ -19,31 +19,33 @@ interface ClassData {
 }
 
 /**
- * Get a subclass feature from the 5etools data by name, class, subclass, and source.
+ * Get a subclass feature from the 5etools data.
  * This function should be called at build time or during server-side rendering.
  *
- * @param featureName - The feature name (e.g., "Dark One's Blessing", "Divine Strike")
- * @param className - The class name (e.g., "Warlock", "Cleric")
- * @param subclassName - The subclass short name (e.g., "Fiend", "Life")
- * @param source - The source book (default: "XPHB" for 2024 PHB)
- * @returns The subclass feature reference data
- * @throws Error if feature is not found
+ * The class source defaults to XPHB. The subclass source defaults to the class
+ * source and is also the feature source.
  */
-export function getSubclassFeature(featureName: string, className: string, subclassName: string, source: string = "XPHB"): Reference {
+export function getSubclassFeature(
+  featureName: string,
+  className: string,
+  subclassName: string,
+  classSource: string = "XPHB",
+  subclassSource: string = classSource,
+): Reference {
   const classData = loadData<ClassData>(`class/class-${className.toLowerCase()}.json`);
 
   const feature = classData.subclassFeature.find(
     (f) =>
       f.name.toLowerCase() === featureName.toLowerCase() &&
       f.className === className &&
-      f.classSource === source &&
+      f.classSource === classSource &&
       f.subclassShortName === subclassName &&
-      f.subclassSource === source &&
-      f.source === source,
+      f.subclassSource === subclassSource &&
+      f.source === subclassSource,
   );
 
   if (!feature) {
-    throw new Error(`Subclass feature "${featureName}" for ${className} (${subclassName}) from source "${source}" not found in 5etools data`);
+    throw new Error(`Subclass feature "${featureName}" for ${className} (${subclassName}) from source "${subclassSource}" not found in 5etools data`);
   }
 
   const byline = `Level ${feature.level} ${className} (${subclassName}) Feature`;
