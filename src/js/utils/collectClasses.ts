@@ -69,16 +69,20 @@ export function collectAllClassNames(): Set<string> {
   return new Set(refs.map((r) => r.name));
 }
 
+function classParam(ref: ClassReference): string {
+  return `${ref.name}.${ref.source}`;
+}
+
 /**
  * Build URL path for a class page.
  */
 export function classRoute(ref: ClassReference): string {
-  return href("/classes/:class", { class: `${ref.name}-${ref.source}` });
+  return href("/classes/:class", { class: classParam(ref) });
 }
 
 /**
- * Collect URL paths for dynamic class routes.
+ * Collect decoded URL paths for React Router's prerender configuration.
  */
 export function collectClassRoutes(): string[] {
-  return collectAllClassReferences().map(classRoute);
+  return collectAllClassReferences().map((ref) => `/classes/${classParam(ref)}`);
 }

@@ -18,11 +18,11 @@ export async function loader({ params }: Route.LoaderArgs): Promise<LoaderData> 
   const { getClass, getClassFeaturesFull } = await import("@/js/utils/render-5etools/getClass");
   const { default: renderHTML } = await import("@/js/utils/render-5etools/renderHTML");
 
-  // Parse param: "Fighter-XPHB" -> className="Fighter", source="XPHB"
+  // Parse param: "Fighter.XPHB" -> className="Fighter", source="XPHB"
   const classParam = params.class;
-  const lastDash = classParam.lastIndexOf("-");
-  const className = classParam.substring(0, lastDash);
-  const source = classParam.substring(lastDash + 1);
+  const lastDot = classParam.lastIndexOf(".");
+  const className = classParam.substring(0, lastDot);
+  const source = classParam.substring(lastDot + 1);
 
   // Fetch class data from 5etools
   const classData = getClass(className, source);

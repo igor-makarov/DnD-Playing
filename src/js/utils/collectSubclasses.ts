@@ -102,16 +102,24 @@ export function collectAllSubclassReferences(): SubclassReferenceFromPage[] {
   return [...refMap.values()];
 }
 
+function classParam(ref: SubclassReferenceFromPage): string {
+  return `${ref.className}.${ref.classSource}`;
+}
+
+function subclassParam(ref: SubclassReferenceFromPage): string {
+  return `${ref.subclassShortName}.${ref.subclassSource}`;
+}
+
 /**
  * Build URL path for a subclass page.
  */
 export function subclassRoute(ref: SubclassReferenceFromPage): string {
-  return href("/subclasses/:subclass", { subclass: `${ref.className}-${ref.classSource}-${ref.subclassShortName}-${ref.subclassSource}` });
+  return href("/classes/:class/subclasses/:subclass", { class: classParam(ref), subclass: subclassParam(ref) });
 }
 
 /**
- * Collect URL paths for dynamic subclass routes.
+ * Collect decoded URL paths for React Router's prerender configuration.
  */
 export function collectSubclassRoutes(): string[] {
-  return collectAllSubclassReferences().map(subclassRoute);
+  return collectAllSubclassReferences().map((ref) => `/classes/${classParam(ref)}/subclasses/${subclassParam(ref)}`);
 }

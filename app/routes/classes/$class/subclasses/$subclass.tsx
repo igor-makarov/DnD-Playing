@@ -18,16 +18,16 @@ export async function loader({ params }: Route.LoaderArgs): Promise<LoaderData> 
   const { getSubclass, getSubclassFeaturesFull } = await import("@/js/utils/render-5etools/getSubclass");
   const { default: renderHTML } = await import("@/js/utils/render-5etools/renderHTML");
 
-  // Parse param: "Fighter-XPHB-Champion-XPHB" -> className, classSource, subclassShortName, subclassSource
-  const subclassParam = params.subclass;
-  const parts = subclassParam.split("-");
+  // Parse params: "Fighter.XPHB" and "Champion.XPHB"
+  const classParam = params.class;
+  const classSeparator = classParam.lastIndexOf(".");
+  const className = classParam.substring(0, classSeparator);
+  const classSource = classParam.substring(classSeparator + 1);
 
-  // Format: ClassName-ClassSource-SubclassShortName-SubclassSource
-  // Note: names might contain hyphens, so we parse from the end
-  const subclassSource = parts.pop()!;
-  const subclassShortName = parts.pop()!;
-  const classSource = parts.pop()!;
-  const className = parts.join("-");
+  const subclassParam = params.subclass;
+  const subclassSeparator = subclassParam.lastIndexOf(".");
+  const subclassShortName = subclassParam.substring(0, subclassSeparator);
+  const subclassSource = subclassParam.substring(subclassSeparator + 1);
 
   // Fetch subclass data from 5etools
   const subclassData = getSubclass(className, subclassShortName, classSource);
