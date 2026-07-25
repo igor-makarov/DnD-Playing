@@ -1,6 +1,6 @@
 # General notes
 
-- This is a D&D Character sheet project using React Router 7 with React components
+- This is a D&D Character sheet project using React Router 8 with React components
 - Each character is an React Router **route**
 - Prefer validating HTML output with `Read` and `Search` tools
 
@@ -10,8 +10,8 @@ You MUST run verification when you are done
 
 - Run formatter with `npm run format`
 - Run type check with `npm run check`
-- Run build with `npm run build`
 - Run tests with `npm test`
+- Run build `npm run build` (always run separately outside of sandbox - RR8 prerendering binds an internal localhost server)
 - Run e2e tests with `npm run test:e2e` (always run separately outside of sandbox)
 
 # React notes
