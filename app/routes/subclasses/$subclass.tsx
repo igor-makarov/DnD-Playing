@@ -4,8 +4,8 @@ import type { Route } from "./+types/$subclass";
 
 const pageTitle = "Subclass Reference";
 
-export function meta({ data }: Route.MetaArgs) {
-  return [{ title: data?.subclassName ?? pageTitle }];
+export function meta({ loaderData }: Route.MetaArgs) {
+  return [{ title: loaderData?.subclassName ?? pageTitle }];
 }
 
 interface LoaderData {

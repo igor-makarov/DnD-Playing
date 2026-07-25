@@ -1,5 +1,4 @@
 #!/usr/bin/env tsx
-
 /**
  * Extracts main player character wiki pages from Critical Role Campaign 4 MediaWiki XML export.
  *

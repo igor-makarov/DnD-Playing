@@ -1,5 +1,4 @@
 #!/usr/bin/env tsx
-
 import { getBackground } from "./src/js/utils/render-5etools/getBackground";
 import { getClass, getClassFeaturesFull } from "./src/js/utils/render-5etools/getClass";
 import { getClassFeature } from "./src/js/utils/render-5etools/getClassFeature";

@@ -4,8 +4,8 @@ import type { Route } from "./+types/$class";
 
 const pageTitle = "Class Reference";
 
-export function meta({ data }: Route.MetaArgs) {
-  return [{ title: data?.className ?? pageTitle }];
+export function meta({ loaderData }: Route.MetaArgs) {
+  return [{ title: loaderData?.className ?? pageTitle }];
 }
 
 interface LoaderData {
