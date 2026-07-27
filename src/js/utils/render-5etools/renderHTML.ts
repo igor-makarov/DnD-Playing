@@ -44,6 +44,20 @@ function sanitizeFinalHTML(html: string): string {
 // Renders 5etools tagged text (e.g., {@variantrule Initiative|XPHB})
 function renderTags(text: string): string {
   return text
+    .replace(/{@atkr m}/g, "<em>Melee Attack Roll:</em>")
+    .replace(/{@atkr r}/g, "<em>Ranged Attack Roll:</em>")
+    .replace(/{@atk mw}/g, "<em>Melee Weapon Attack:</em>")
+    .replace(/{@atk rw}/g, "<em>Ranged Weapon Attack:</em>")
+    .replace(/{@atk ms}/g, "<em>Melee Spell Attack:</em>")
+    .replace(/{@atk rs}/g, "<em>Ranged Spell Attack:</em>")
+    .replace(/{@hit ([+-]?\d+)}/g, (_match, bonus: string) => `<strong>${Number(bonus) >= 0 ? "+" : ""}${bonus}</strong>`)
+    .replace(
+      /{@hitYourSpellAttack(?: ([^}]+))?}/g,
+      (_match, label: string | undefined) => `<highlight-5e>${label ?? "your spell attack modifier"}</highlight-5e>`,
+    )
+    .replace(/{@h}/g, "<em>Hit:</em> ")
+    .replace(/{@actTrigger}/g, "<em>Trigger:</em>")
+    .replace(/{@actResponse}/g, "<em>Response:</em>")
     .replace(/{@variantrule ([^}|]+)\|([^}|]+)\|([^}]+)}/g, "<highlight-5e>$3</highlight-5e>") // Use third part when available
     .replace(/{@variantrule ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>") // Fallback to first part
     .replace(/{@condition ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
@@ -165,8 +179,16 @@ export default function renderHTML(reference: Reference): ReferenceRendered {
   // Render entries
   html += safeReference.entries
     .map((entry) => {
-      // Properties, sections, and lists handle their own wrapping
-      if (typeof entry !== "string" && (entry.type === "properties" || entry.type === "section" || entry.type === "list")) {
+      // Block entries handle their own wrapping
+      if (
+        typeof entry !== "string" &&
+        (entry.type === "properties" ||
+          entry.type === "section" ||
+          entry.type === "list" ||
+          entry.type === "table" ||
+          entry.type === "heading" ||
+          entry.type === "entries")
+      ) {
         return renderEntry(entry);
       }
       // Everything else gets wrapped in a paragraph

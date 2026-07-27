@@ -13,6 +13,8 @@ type EntryObject = {
   entries?: Array<EntryString | EntryObject>;
   items?: Array<EntryString | EntryObject>;
   data?: PropertyItem[]; // For type: "properties"
+  caption?: string; // For type: "table"
+  colLabels?: string[]; // For type: "table"
   rows?: Array<Array<EntryString | EntryObject>>; // For type: "table"
 };
 export type Entry = EntryString | EntryObject;
