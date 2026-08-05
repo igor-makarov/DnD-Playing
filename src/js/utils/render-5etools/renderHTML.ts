@@ -61,6 +61,7 @@ function renderTags(text: string): string {
     .replace(/{@variantrule ([^}|]+)\|([^}|]+)\|([^}]+)}/g, "<highlight-5e>$3</highlight-5e>") // Use third part when available
     .replace(/{@variantrule ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>") // Fallback to first part
     .replace(/{@condition ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
+    .replace(/{@creature ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
     .replace(/{@action ([^}|]+)(\|[^}]+)?}/g, "<highlight-5e>$1</highlight-5e>")
     .replace(/{@scaledamage [^}|]+\|[^}|]+\|([^}]+)}/g, "<highlight-5e>$1</highlight-5e>") // Show increment only
     .replace(/{@dice ([^}]+)}/g, "<highlight-5e>$1</highlight-5e>")

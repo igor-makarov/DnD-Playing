@@ -1,5 +1,6 @@
 import { Character } from "@/js/character/Character";
 import type { Weapon } from "@/js/character/CharacterTypes";
+import type { SteelDefenderOwnerStats } from "@/js/character/classes/ArtificerReferences";
 import {
   ARTIFICER_MAGIC_ITEM_PLANS_KNOWN_BY_LEVEL,
   ARTIFICER_PREPARED_SPELLS_BY_LEVEL,
@@ -20,7 +21,7 @@ export default class MiloCharacter extends Character {
         Wis: 12,
         Cha: 10,
       },
-      classLevels: [{ className: "Artificer", level: 2 }],
+      classLevels: [{ className: "Artificer", level: 3 }],
       skillProficiencies: [
         { skill: "Arcana" }, // Artificer
         { skill: "Investigation" }, // Artificer
@@ -35,13 +36,14 @@ export default class MiloCharacter extends Character {
       hitPointRolls: [
         { level: 1, die: new DiceString("d8"), roll: 8 },
         { level: 2, die: new DiceString("d8"), roll: 5 },
+        { level: 3, die: new DiceString("d8"), roll: 5 },
       ],
     });
   }
 
   getWeapons(): Weapon[] {
     return [
-      { weapon: "Light Crossbow", ability: "Dex", damage: new DiceString("d8") },
+      { weapon: "Repeating Light Crossbow", ability: "Int", damage: new DiceString("d8", 1) },
       { weapon: "Dagger", ability: "Dex", damage: new DiceString("d4") },
     ];
   }
@@ -56,6 +58,15 @@ export default class MiloCharacter extends Character {
 
   getSpellSaveDC(): number {
     return 8 + this.getSpellAttack().getBonus();
+  }
+
+  getSteelDefenderOwnerStats(): SteelDefenderOwnerStats {
+    return {
+      artificerLevel: this.getClassLevel("Artificer"),
+      intelligenceModifier: this.getAbilityModifier("Int"),
+      proficiencyBonus: this.proficiencyBonus,
+      spellAttackModifier: this.getSpellAttack().getBonus(),
+    };
   }
 
   getPreparedSpellsCount(): number {

@@ -27,10 +27,14 @@ export function meta() {
 }
 
 export async function loader() {
+  const { getSteelDefender } = await import("@/js/character/classes/ArtificerReferences");
   const { getClass } = await import("@/js/utils/render-5etools/getClass");
   const { getClassFeature } = await import("@/js/utils/render-5etools/getClassFeature");
+  const { getSubclass } = await import("@/js/utils/render-5etools/getSubclass");
+  const { getSubclassFeature } = await import("@/js/utils/render-5etools/getSubclassFeature");
   const { getFeat } = await import("@/js/utils/render-5etools/getFeat");
   const { getItem } = await import("@/js/utils/render-5etools/getItem");
+  const { getOptionalFeature } = await import("@/js/utils/render-5etools/getOptionalFeature");
   const { getSpell } = await import("@/js/utils/render-5etools/getSpell");
   const { getSpecies } = await import("@/js/utils/render-5etools/getSpecies");
   const { getVariantRule } = await import("@/js/utils/render-5etools/getVariantRule");
@@ -39,6 +43,11 @@ export async function loader() {
   return {
     speciesRef: renderHTML(getSpecies("Human")),
     classRef: renderHTML(getClass("Artificer", "EFA")),
+    battleSmithRef: renderHTML(getSubclass("Artificer", "Battle Smith", "EFA")),
+    toolsOfTheTradeRef: renderHTML(getSubclassFeature("Tools of the Trade", "Artificer", "Battle Smith", "EFA")),
+    battleReadyRef: renderHTML(getSubclassFeature("Battle Ready", "Artificer", "Battle Smith", "EFA")),
+    steelDefenderRef: renderHTML(getSubclassFeature("Steel Defender", "Artificer", "Battle Smith", "EFA")),
+    steelDefenderStatBlockRef: renderHTML(getSteelDefender(character.getSteelDefenderOwnerStats())),
     heroicInspirationRef: renderHTML(getVariantRule("Heroic Inspiration")),
     crafterRef: renderHTML(getFeat("Crafter")),
     luckyRef: renderHTML(getFeat("Lucky")),
@@ -49,23 +58,33 @@ export async function loader() {
     fireBoltRef: renderHTML(getSpell("Fire Bolt")),
     shockingGraspRef: renderHTML(getSpell("Shocking Grasp")),
     cureWoundsRef: renderHTML(getSpell("Cure Wounds")),
-    shieldRef: renderHTML(getSpell("Shield")),
     identifyRef: renderHTML(getSpell("Identify")),
+    absorbElementsRef: renderHTML(getSpell("Absorb Elements", "XGE")),
+    catapultRef: renderHTML(getSpell("Catapult", "XGE")),
+    heroismRef: renderHTML(getSpell("Heroism")),
+    shieldRef: renderHTML(getSpell("Shield")),
     thievesToolsRef: renderHTML(getItem("Thieves' Tools")),
     tinkersToolsRef: renderHTML(getItem("Tinker's Tools")),
     jewelersToolsRef: renderHTML(getItem("Jeweler's Tools")),
     smithsToolsRef: renderHTML(getItem("Smith's Tools")),
     masonsToolsRef: renderHTML(getItem("Mason's Tools")),
+    alchemistsSuppliesRef: renderHTML(getItem("Alchemist's Supplies")),
     herbalismKitRef: renderHTML(getItem("Herbalism Kit")),
     bagOfHoldingRef: renderHTML(getItem("Bag of Holding", "XDMG")),
     sendingStonesRef: renderHTML(getItem("Sending Stones", "XDMG")),
     gogglesOfNightRef: renderHTML(getItem("Goggles of Night", "XDMG")),
+    repeatingShotRef: renderHTML(getOptionalFeature("Repeating Shot", "TCE")),
   };
 }
 
 interface LoaderData {
   speciesRef: ReferenceRendered;
   classRef: ReferenceRendered;
+  battleSmithRef: ReferenceRendered;
+  toolsOfTheTradeRef: ReferenceRendered;
+  battleReadyRef: ReferenceRendered;
+  steelDefenderRef: ReferenceRendered;
+  steelDefenderStatBlockRef: ReferenceRendered;
   heroicInspirationRef: ReferenceRendered;
   crafterRef: ReferenceRendered;
   luckyRef: ReferenceRendered;
@@ -76,23 +95,33 @@ interface LoaderData {
   fireBoltRef: ReferenceRendered;
   shockingGraspRef: ReferenceRendered;
   cureWoundsRef: ReferenceRendered;
-  shieldRef: ReferenceRendered;
   identifyRef: ReferenceRendered;
+  absorbElementsRef: ReferenceRendered;
+  catapultRef: ReferenceRendered;
+  heroismRef: ReferenceRendered;
+  shieldRef: ReferenceRendered;
   thievesToolsRef: ReferenceRendered;
   tinkersToolsRef: ReferenceRendered;
   jewelersToolsRef: ReferenceRendered;
   smithsToolsRef: ReferenceRendered;
   masonsToolsRef: ReferenceRendered;
+  alchemistsSuppliesRef: ReferenceRendered;
   herbalismKitRef: ReferenceRendered;
   bagOfHoldingRef: ReferenceRendered;
   sendingStonesRef: ReferenceRendered;
   gogglesOfNightRef: ReferenceRendered;
+  repeatingShotRef: ReferenceRendered;
 }
 
 export default function MiloPage() {
   const {
     speciesRef,
     classRef,
+    battleSmithRef,
+    toolsOfTheTradeRef,
+    battleReadyRef,
+    steelDefenderRef,
+    steelDefenderStatBlockRef,
     heroicInspirationRef,
     crafterRef,
     luckyRef,
@@ -103,17 +132,22 @@ export default function MiloPage() {
     fireBoltRef,
     shockingGraspRef,
     cureWoundsRef,
-    shieldRef,
     identifyRef,
+    absorbElementsRef,
+    catapultRef,
+    heroismRef,
+    shieldRef,
     thievesToolsRef,
     tinkersToolsRef,
     jewelersToolsRef,
     smithsToolsRef,
     masonsToolsRef,
+    alchemistsSuppliesRef,
     herbalismKitRef,
     bagOfHoldingRef,
     sendingStonesRef,
     gogglesOfNightRef,
+    repeatingShotRef,
   } = useLoaderData<LoaderData>();
 
   return (
@@ -221,17 +255,17 @@ export default function MiloPage() {
               </tr>
               <tr>
                 <td>
-                  <InfoTooltip reference={mendingRef}>Mending</InfoTooltip>
-                </td>
-                <td className="modifier"></td>
-              </tr>
-              <tr>
-                <td>
                   <InfoTooltip reference={fireBoltRef}>Fire Bolt</InfoTooltip>
                 </td>
                 <td className="checkCell mono">
                   <RollLink dice={character.getCantripDamage(new DiceString("d10"), new DiceString("d10"))} />
                 </td>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={mendingRef}>Mending</InfoTooltip>
+                </td>
+                <td className="modifier"></td>
               </tr>
               <tr>
                 <td>
@@ -247,6 +281,20 @@ export default function MiloPage() {
               </tr>
               <tr>
                 <td>
+                  <InfoTooltip reference={absorbElementsRef}>Absorb Elements</InfoTooltip>
+                </td>
+                <td className="modifier"></td>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={catapultRef}>Catapult</InfoTooltip>
+                </td>
+                <td className="checkCell mono">
+                  <RollLink dice={new DiceString("3d8")} />
+                </td>
+              </tr>
+              <tr>
+                <td>
                   <InfoTooltip reference={cureWoundsRef}>Cure Wounds</InfoTooltip>
                 </td>
                 <td className="checkCell mono">
@@ -255,15 +303,21 @@ export default function MiloPage() {
               </tr>
               <tr>
                 <td>
-                  <InfoTooltip reference={shieldRef}>Shield</InfoTooltip>
+                  <InfoTooltip reference={heroismRef}>Heroism</InfoTooltip>
                 </td>
-                <td className="modifier">+5 AC</td>
+                <td className="modifier"></td>
               </tr>
               <tr>
                 <td>
                   <InfoTooltip reference={identifyRef}>Identify</InfoTooltip>
                 </td>
-                <td className="modifier">ritual utility</td>
+                <td className="modifier"></td>
+              </tr>
+              <tr>
+                <td>
+                  <InfoTooltip reference={shieldRef}>Shield</InfoTooltip>
+                </td>
+                <td className="modifier">+5 AC</td>
               </tr>
             </tbody>
           </table>
@@ -291,6 +345,12 @@ export default function MiloPage() {
                 <td>Class</td>
                 <td className="modifier">
                   <InfoTooltip reference={classRef}>Artificer</InfoTooltip> {character.characterLevel}
+                </td>
+              </tr>
+              <tr>
+                <td>Subclass</td>
+                <td className="modifier">
+                  <InfoTooltip reference={battleSmithRef}>Battle Smith</InfoTooltip>
                 </td>
               </tr>
               <tr>
@@ -335,6 +395,26 @@ export default function MiloPage() {
                 </td>
                 <td className="modifier">{character.getReplicateMagicItemsCount()} items</td>
               </tr>
+              <tr>
+                <td>
+                  [Battle Smith 3] <InfoTooltip reference={toolsOfTheTradeRef}>Tools of the Trade</InfoTooltip>
+                </td>
+                <td className="modifier">½ weapon crafting</td>
+              </tr>
+              <tr>
+                <td>
+                  [Battle Smith 3] <InfoTooltip reference={battleReadyRef}>Battle Ready</InfoTooltip>
+                </td>
+                <td className="modifier">INT attack; martial</td>
+              </tr>
+              <tr>
+                <td>
+                  [Battle Smith 3] <InfoTooltip reference={steelDefenderRef}>Steel Defender</InfoTooltip>
+                </td>
+                <td className="modifier">
+                  <InfoTooltip reference={steelDefenderStatBlockRef}>stat block</InfoTooltip>
+                </td>
+              </tr>
             </tbody>
           </table>
           <table>
@@ -353,12 +433,14 @@ export default function MiloPage() {
                   <InfoTooltip reference={jewelersToolsRef}>Jeweler&apos;s Tools</InfoTooltip>,{" "}
                   <InfoTooltip reference={smithsToolsRef}>Smith&apos;s Tools</InfoTooltip>,{" "}
                   <InfoTooltip reference={masonsToolsRef}>Mason&apos;s Tools</InfoTooltip>,{" "}
+                  <InfoTooltip reference={alchemistsSuppliesRef}>Alchemist&apos;s Supplies</InfoTooltip>,{" "}
                   <InfoTooltip reference={herbalismKitRef}>Herbalism Kit</InfoTooltip>
                   <br />
                   <strong>Plans Known ({character.getReplicateMagicItemPlansKnown()}):</strong>{" "}
                   <InfoTooltip reference={bagOfHoldingRef}>Bag of Holding</InfoTooltip>,{" "}
                   <InfoTooltip reference={sendingStonesRef}>Sending Stones</InfoTooltip>,{" "}
-                  <InfoTooltip reference={gogglesOfNightRef}>Goggles of Night</InfoTooltip>, TBD
+                  <InfoTooltip reference={gogglesOfNightRef}>Goggles of Night</InfoTooltip>,{" "}
+                  <InfoTooltip reference={repeatingShotRef}>Repeating Shot</InfoTooltip> (Light Crossbow)
                 </td>
               </tr>
             </tbody>
