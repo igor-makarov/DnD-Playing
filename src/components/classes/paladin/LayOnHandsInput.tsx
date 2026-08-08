@@ -1,5 +1,5 @@
 import PointsCountInput from "@/components/common/PointsCountInput";
-import { $layOnHands } from "@/js/character/dynamic-state/stores";
+import { $layOnHands } from "@/js/character/dynamic-state/classes/paladin/layOnHandsStore";
 import { useStore } from "@/js/hooks/useStore";
 
 interface Props {

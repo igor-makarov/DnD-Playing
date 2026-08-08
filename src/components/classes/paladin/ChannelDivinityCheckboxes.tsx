@@ -1,5 +1,5 @@
 import CheckboxUsesRow from "@/components/common/CheckboxUsesRow";
-import { $channelDivinityUsed } from "@/js/character/dynamic-state/stores";
+import { $channelDivinityUsed } from "@/js/character/dynamic-state/classes/paladin/channelDivinityStore";
 import { useStore } from "@/js/hooks/useStore";
 
 interface Props {

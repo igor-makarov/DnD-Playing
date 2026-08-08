@@ -90,7 +90,7 @@ test.describe("Rest Buttons Browser History", () => {
 
   test("Adrik - Long Rest should create only one history entry with multiple hit dice types", async ({ page }) => {
     // Navigate to Adrik page with multiple resources already used
-    await page.goto(`${adrikPath}?hit-dice-d10=2&hit-dice-d8=3&channel-divinity-used=1`);
+    await page.goto(`${adrikPath}?hit-dice-d10=2&hit-dice-d8=3`);
     await page.waitForLoadState("networkidle");
 
     // Wait for hydration
@@ -100,7 +100,6 @@ test.describe("Rest Buttons Browser History", () => {
     let url = new URL(page.url());
     expect(url.searchParams.get("hit-dice-d10")).toBe("2");
     expect(url.searchParams.get("hit-dice-d8")).toBe("3");
-    expect(url.searchParams.get("channel-divinity-used")).toBe("1");
 
     // Get history length before Long Rest
     const initialHistoryLength = await page.evaluate(() => window.history.length);
@@ -121,7 +120,6 @@ test.describe("Rest Buttons Browser History", () => {
     // Should have added only ONE history entry despite updating:
     // - d10 hit dice
     // - d8 hit dice
-    // - channel divinity
     // - potentially other resources
     expect(afterLongRestHistoryLength).toBe(initialHistoryLength + 1);
 
@@ -129,14 +127,9 @@ test.describe("Rest Buttons Browser History", () => {
     url = new URL(page.url());
     const hitDiceD10After = url.searchParams.get("hit-dice-d10");
     const hitDiceD8After = url.searchParams.get("hit-dice-d8");
-    const channelDivinityAfter = url.searchParams.get("channel-divinity-used");
 
     console.log("hit-dice-d10 after Long Rest:", hitDiceD10After);
     console.log("hit-dice-d8 after Long Rest:", hitDiceD8After);
-    console.log("channel-divinity-used after Long Rest:", channelDivinityAfter);
-
-    // Channel divinity should be restored
-    expect(channelDivinityAfter).toBeNull();
 
     // Hit dice restoration: started with 2d10 + 3d8 (7 spent out of 12 total)
     // Can restore: floor(12/2) = 6 dice

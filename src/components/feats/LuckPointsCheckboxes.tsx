@@ -1,5 +1,5 @@
 import CheckboxUsesRow from "@/components/common/CheckboxUsesRow";
-import { $luckPointsUsed } from "@/js/character/dynamic-state/stores";
+import { $luckPointsUsed } from "@/js/character/dynamic-state/feats/luckPointsStore";
 import { useStore } from "@/js/hooks/useStore";
 
 interface Props {

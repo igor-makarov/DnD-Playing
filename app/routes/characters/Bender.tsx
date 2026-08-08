@@ -13,7 +13,7 @@ import RollLink from "@/components/common/RollLink";
 import TextBox from "@/components/common/TextBox";
 import LuckPointsCheckboxes from "@/components/feats/LuckPointsCheckboxes";
 import HeroicInspirationCheckboxes from "@/components/species/human/HeroicInspirationCheckboxes";
-import { $notes } from "@/js/character/dynamic-state/stores";
+import { $notes } from "@/js/character/dynamic-state/commonStores";
 import BenderCharacter from "@/js/characters/BenderCharacter";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";

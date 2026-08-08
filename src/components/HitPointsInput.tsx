@@ -1,4 +1,4 @@
-import { $hitPoints, $temporaryHitPoints } from "@/js/character/dynamic-state/stores";
+import { $hitPoints, $temporaryHitPoints } from "@/js/character/dynamic-state/commonStores";
 import type { DiceString } from "@/js/common/DiceString";
 import { useLongRest } from "@/js/hooks/useLongRest";
 import { useShortRest } from "@/js/hooks/useShortRest";

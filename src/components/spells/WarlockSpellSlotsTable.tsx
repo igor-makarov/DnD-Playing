@@ -1,6 +1,6 @@
 import CheckboxUsesRow from "@/components/common/CheckboxUsesRow";
 import type { SpellSlotsForLevel } from "@/js/character/CharacterTypes";
-import { $warlockSpellSlotsUsed } from "@/js/character/dynamic-state/stores";
+import { $warlockSpellSlotsUsed } from "@/js/character/dynamic-state/classes/warlock/warlockSpellSlotsStore";
 import { useStore } from "@/js/hooks/useStore";
 
 interface Props {

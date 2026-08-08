@@ -1,5 +1,5 @@
 import CheckboxUsesRow from "@/components/common/CheckboxUsesRow";
-import { $tinkersMagicUsed } from "@/js/character/dynamic-state/stores";
+import { $tinkersMagicUsed } from "@/js/character/dynamic-state/classes/artificer/tinkersMagicStore";
 import { useStore } from "@/js/hooks/useStore";
 
 interface Props {

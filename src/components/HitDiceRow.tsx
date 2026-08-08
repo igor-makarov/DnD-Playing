@@ -1,6 +1,6 @@
 import PointsCountInput from "@/components/common/PointsCountInput";
 import RollLink from "@/components/common/RollLink";
-import { $hitDice } from "@/js/character/dynamic-state/stores";
+import { $hitDice } from "@/js/character/dynamic-state/commonStores";
 import { DiceString } from "@/js/common/DiceString";
 import { useStore } from "@/js/hooks/useStore";
 

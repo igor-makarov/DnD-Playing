@@ -15,7 +15,7 @@ import TextBox from "@/components/common/TextBox";
 import LuckPointsCheckboxes from "@/components/feats/LuckPointsCheckboxes";
 import HeroicInspirationCheckboxes from "@/components/species/human/HeroicInspirationCheckboxes";
 import SpellSlotsTable from "@/components/spells/SpellSlotsTable";
-import { $notes } from "@/js/character/dynamic-state/stores";
+import { $notes } from "@/js/character/dynamic-state/commonStores";
 import MiloCharacter from "@/js/characters/MiloCharacter";
 import { DiceString } from "@/js/common/DiceString";
 import type { ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";

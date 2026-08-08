@@ -1,11 +1,13 @@
 import { createSearchParamMapStore } from "@/js/stores/primitives/createSearchParamMapStore";
 import { createSearchParamStore } from "@/js/stores/primitives/createSearchParamStore";
-import { createURLSearchParamsStore } from "@/js/stores/primitives/createURLSearchParamsStore";
 import { kebabNumberArrayCodec, numberCodec, textCodec } from "@/js/stores/primitives/queryCodecs";
 
-// Create shared base store for all character state
-const searchParamsStore = createURLSearchParamsStore();
-const replaceSearchParamsStore = createURLSearchParamsStore("replaceState");
+import { replaceSearchParamsStore, searchParamsStore } from "./searchParamsStore";
+
+// Core dynamic state shared by every character, regardless of class/species/feats.
+// Feature-specific stores (e.g. warlock spell slots, lay on hands, human inspiration)
+// live in subdirectories here (classes/<class>/, species/<species>/, feats/) and
+// self-register rest resets via registerLongRestReset / registerShortRestReset.
 
 export const $hitPoints = createSearchParamStore<number | undefined>(searchParamsStore, "hit-points", undefined, numberCodec);
 
@@ -18,24 +20,7 @@ export const $spellSlotsSpent = createSearchParamStore<number[] | undefined>(
   kebabNumberArrayCodec,
 );
 
-export const $warlockSpellSlotsUsed = createSearchParamStore<number | undefined>(searchParamsStore, "warlock-slots-used", undefined, numberCodec);
-
-export const $channelDivinityUsed = createSearchParamStore<number | undefined>(searchParamsStore, "channel-divinity-used", undefined, numberCodec);
-
-export const $layOnHands = createSearchParamStore<number | undefined>(searchParamsStore, "lay-on-hands", undefined, numberCodec);
-
-export const $humanHeroicInspirationUsed = createSearchParamStore<number | undefined>(
-  searchParamsStore,
-  "human-heroic-inspiration-used",
-  undefined,
-  numberCodec,
-);
-
 export const $heroicInspiration = createSearchParamStore<number | undefined>(searchParamsStore, "heroic-inspiration", undefined, numberCodec);
-
-export const $luckPointsUsed = createSearchParamStore<number | undefined>(searchParamsStore, "luck-points-used", undefined, numberCodec);
-
-export const $tinkersMagicUsed = createSearchParamStore<number | undefined>(searchParamsStore, "tinkers-magic-used", undefined, numberCodec);
 
 export const $notes = createSearchParamStore<string>(replaceSearchParamsStore, "notes", "", textCodec);
 

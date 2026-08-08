@@ -13,7 +13,7 @@ import InfoTooltip from "@/components/common/InfoTooltip";
 import RollLink from "@/components/common/RollLink";
 import TextBox from "@/components/common/TextBox";
 import WarlockSpellSlotsTable from "@/components/spells/WarlockSpellSlotsTable";
-import { $notes } from "@/js/character/dynamic-state/stores";
+import { $notes } from "@/js/character/dynamic-state/commonStores";
 import MegCharacter from "@/js/characters/MegCharacter";
 import { D20Test } from "@/js/common/D20Test";
 import { DiceString } from "@/js/common/DiceString";

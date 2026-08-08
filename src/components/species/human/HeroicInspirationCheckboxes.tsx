@@ -1,5 +1,5 @@
 import CheckboxUsesRow from "@/components/common/CheckboxUsesRow";
-import { $humanHeroicInspirationUsed } from "@/js/character/dynamic-state/stores";
+import { $humanHeroicInspirationUsed } from "@/js/character/dynamic-state/species/human/heroicInspirationStore";
 import { useStore } from "@/js/hooks/useStore";
 
 export default function HeroicInspirationCheckboxes() {
