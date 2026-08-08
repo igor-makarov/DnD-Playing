@@ -2,11 +2,8 @@
 
 - This is a D&D Character sheet project using React Router 8 with React components
 - Each character is an React Router **route**
-- Prefer validating HTML output with `Read` and `Search` tools
 
 # Verification
-
-You MUST run verification when you are done
 
 - Run formatter with `npm run format`
 - Run type check with `npm run check`
@@ -15,6 +12,7 @@ You MUST run verification when you are done
 - Run e2e tests with `npm run test:e2e` (always run separately outside of sandbox)
 
 # React notes
+
 - Use idiomatic component declarations to be as consistent as possible with React: 
 ```typescript 
 import React from "react";
@@ -30,11 +28,13 @@ export default function ComponentName({ ... }: Props) {
 - `useStore` to interact with nanostores - custom impl in `@/js/hooks/useStore`
 
 # 5etools reference
+
 This project has a copy of the 5etools data in `5etools/`
 - YOU MUST use prefer the local data when question related to D&D 5e arise
 - Guide: @.agents/using-5etools.md
 
 # Critical Role data
+
 - XML sources: `critical-role/`
 - Extract main character data from MediaWiki XML: `npm run cr:extract`
 - Download main character data XML from MediaWiki: `npm run cr:download`
