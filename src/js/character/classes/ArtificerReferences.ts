@@ -1,6 +1,8 @@
+import type { GameplayStatBlock } from "@/js/character/GameplayStatBlockTypes";
 import { DiceString } from "@/js/common/DiceString";
-import type { Entry, Reference } from "@/js/utils/render-5etools/ReferenceTypes";
+import type { Entry, Reference, ReferenceRendered } from "@/js/utils/render-5etools/ReferenceTypes";
 import { getStatBlock } from "@/js/utils/render-5etools/getStatBlock";
+import { referenceToGameplayStatBlock } from "@/js/utils/render-5etools/referenceToGameplayStatBlock";
 
 export interface SteelDefenderOwnerStats {
   artificerLevel: number;
@@ -12,6 +14,72 @@ export interface SteelDefenderOwnerStats {
 /**
  * Get the EFA Steel Defender reference using its owner's relevant stats.
  */
+export function getSteelDefenderGameplayStatBlock(ownerStats: SteelDefenderOwnerStats): GameplayStatBlock {
+  const statBlock = referenceToGameplayStatBlock(getSteelDefender(ownerStats));
+  const abilities = statBlock.abilities.map((ability) => ({
+    ...ability,
+    checkBonus: ability.checkBonus + ownerStats.proficiencyBonus,
+    saveBonus: ability.saveBonus + ownerStats.proficiencyBonus,
+  }));
+  const dexterity = abilities.find(({ ability }) => ability === "Dex");
+
+  return {
+    ...statBlock,
+    initiativeBonus: dexterity?.checkBonus ?? statBlock.initiativeBonus,
+    abilities,
+  };
+}
+
+export interface SteelDefenderRend {
+  attackBonus: number;
+  damage: string;
+  reference: ReferenceRendered;
+}
+
+export interface SteelDefenderRepair {
+  uses: number;
+  healing: string;
+  reference: ReferenceRendered;
+}
+
+export interface SteelDefenderDeflectAttack {
+  description: string;
+  reference: ReferenceRendered;
+}
+
+/** Steel Defender gameplay data: generic stat block plus bespoke action/reaction rows data. */
+export interface SteelDefenderGameplay {
+  statBlock: GameplayStatBlock;
+  forceEmpoweredRend: SteelDefenderRend;
+  repair: SteelDefenderRepair;
+  deflectAttack: SteelDefenderDeflectAttack;
+}
+
+export function getSteelDefenderGameplay(ownerStats: SteelDefenderOwnerStats): SteelDefenderGameplay {
+  const statBlock = getSteelDefenderGameplayStatBlock(ownerStats);
+
+  const rend = statBlock.actions.find(({ name }) => name === "Force-Empowered Rend");
+  const repair = statBlock.actions.find(({ name }) => name === "Repair");
+  const deflectAttack = statBlock.reactions.find(({ name }) => name === "Deflect Attack");
+
+  if (rend?.attackBonus === undefined || !rend.rolls?.[0] || !rend.reference) {
+    throw new Error("Steel Defender requires a Force-Empowered Rend attack action");
+  }
+  if (repair?.uses === undefined || !repair.rolls?.[0] || !repair.reference) {
+    throw new Error("Steel Defender requires a Repair action");
+  }
+  if (!deflectAttack || !deflectAttack.reference) {
+    throw new Error("Steel Defender requires a Deflect Attack reaction");
+  }
+
+  return {
+    statBlock,
+    forceEmpoweredRend: { attackBonus: rend.attackBonus, damage: rend.rolls[0].dice, reference: rend.reference },
+    repair: { uses: repair.uses, healing: repair.rolls[0].dice, reference: repair.reference },
+    deflectAttack: { description: deflectAttack.description, reference: deflectAttack.reference },
+  };
+}
+
 export function getSteelDefender({
   artificerLevel,
   intelligenceModifier,

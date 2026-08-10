@@ -7,7 +7,7 @@ describe("getStatBlock", () => {
   it("loads a generic stat block from 5etools bestiary data", () => {
     const rendered = renderHTML(getStatBlock("Wolf", "XMM")).sanitizedHtml;
 
-    expect(rendered).toContain("<h1>Wolf");
+    expect(rendered).toContain('<h1><span class="reference-heading">Wolf');
     expect(rendered).toContain("<em>Medium Beast, Unaligned</em>");
     expect(rendered).toContain("<strong>Armor Class:</strong> 12");
     expect(rendered).toContain("<strong>Initiative:</strong> +2 (12)");

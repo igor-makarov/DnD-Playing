@@ -170,7 +170,7 @@ export default function renderHTML(reference: Reference): ReferenceRendered {
   const safeReference = sanitizeExternalObject(reference);
 
   // Start with heading and source
-  let html = `<h1>${safeReference.name} <span class="source">${getSourceName(safeReference.source)}</span></h1>`;
+  let html = `<h1><span class="reference-heading">${safeReference.name} <span class="source">${getSourceName(safeReference.source)}</span></span></h1>`;
 
   // Add byline if present
   if (safeReference.byline) {

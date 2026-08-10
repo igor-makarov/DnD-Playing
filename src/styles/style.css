@@ -181,6 +181,14 @@ details > table > tbody > tr:first-child:has(th[colspan]) {
   display: none;
 }
 
+.three-and-large > .column > .reference-card h1:has(> .reference-heading) {
+  font-size: inherit;
+}
+
+.three-and-large > .column > .reference-card .reference-heading .source {
+  font-size: inherit;
+}
+
 /* Info Tooltip styles */
 .info-tooltip-button {
   cursor: pointer;

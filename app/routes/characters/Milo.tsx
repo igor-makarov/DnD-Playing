@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router";
+import { Link, href, useLoaderData } from "react-router";
 
 import AbilitiesTable from "@/components/AbilitiesTable";
 import CharacterNameTable from "@/components/CharacterNameTable";
@@ -27,7 +27,6 @@ export function meta() {
 }
 
 export async function loader() {
-  const { getSteelDefender } = await import("@/js/character/classes/ArtificerReferences");
   const { getClass } = await import("@/js/utils/render-5etools/getClass");
   const { getClassFeature } = await import("@/js/utils/render-5etools/getClassFeature");
   const { getSubclass } = await import("@/js/utils/render-5etools/getSubclass");
@@ -47,7 +46,6 @@ export async function loader() {
     toolsOfTheTradeRef: renderHTML(getSubclassFeature("Tools of the Trade", "Artificer", "Battle Smith", "EFA")),
     battleReadyRef: renderHTML(getSubclassFeature("Battle Ready", "Artificer", "Battle Smith", "EFA")),
     steelDefenderRef: renderHTML(getSubclassFeature("Steel Defender", "Artificer", "Battle Smith", "EFA")),
-    steelDefenderStatBlockRef: renderHTML(getSteelDefender(character.getSteelDefenderOwnerStats())),
     heroicInspirationRef: renderHTML(getVariantRule("Heroic Inspiration")),
     crafterRef: renderHTML(getFeat("Crafter")),
     luckyRef: renderHTML(getFeat("Lucky")),
@@ -84,7 +82,6 @@ interface LoaderData {
   toolsOfTheTradeRef: ReferenceRendered;
   battleReadyRef: ReferenceRendered;
   steelDefenderRef: ReferenceRendered;
-  steelDefenderStatBlockRef: ReferenceRendered;
   heroicInspirationRef: ReferenceRendered;
   crafterRef: ReferenceRendered;
   luckyRef: ReferenceRendered;
@@ -121,7 +118,6 @@ export default function MiloPage() {
     toolsOfTheTradeRef,
     battleReadyRef,
     steelDefenderRef,
-    steelDefenderStatBlockRef,
     heroicInspirationRef,
     crafterRef,
     luckyRef,
@@ -412,7 +408,7 @@ export default function MiloPage() {
                   [Battle Smith 3] <InfoTooltip reference={steelDefenderRef}>Steel Defender</InfoTooltip>
                 </td>
                 <td className="modifier">
-                  <InfoTooltip reference={steelDefenderStatBlockRef}>stat block</InfoTooltip>
+                  <Link to={href("/npcs/Shelly")}>stat block</Link>
                 </td>
               </tr>
             </tbody>
