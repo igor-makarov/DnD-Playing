@@ -409,7 +409,9 @@ export default function MiloPage() {
                   [Battle Smith 3] <InfoTooltip reference={steelDefenderRef}>Steel Defender</InfoTooltip>
                 </td>
                 <td className="modifier">
-                  <Link to={href("/npcs/Shelly")}>stat block</Link>
+                  <Link to={href("/npcs/Shelly")} target="_blank">
+                    stat block
+                  </Link>
                 </td>
               </tr>
             </tbody>
