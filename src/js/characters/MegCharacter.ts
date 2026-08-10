@@ -59,6 +59,12 @@ export default class MegCharacter extends Character {
     return new DiceString(this.getCantripDamage(new DiceString("d10"), new DiceString("d10")), this.getAbilityModifier("Cha"));
   }
 
+  // Scorching Ray creates 3 rays, plus 1 ray for each spell slot level above 2
+  getScorchingRayCount(): number {
+    const spellSlotLevel = this.getWarlockSpellSlots()?.level ?? 2;
+    return 3 + Math.max(0, spellSlotLevel - 2);
+  }
+
   getFiendishVigorTempHP(): number {
     return 12;
   }

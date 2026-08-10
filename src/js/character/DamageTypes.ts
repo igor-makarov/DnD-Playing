@@ -1,5 +1,7 @@
 import type { DiceString } from "../common/DiceString";
 
+export type DamageKind = "attack" | "regular";
+
 // Optional damage that can be toggled on/off
 export type OptionalDamage = {
   optional: true;

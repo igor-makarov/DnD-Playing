@@ -154,6 +154,7 @@ export default function AzamatPage() {
               </tr>
               <LevelledSpellDamageRow
                 name="Moonbeam"
+                damageKind="regular"
                 damageOptions={character.getDamageProgression({ level: 2, damage: new DiceString("2d10") }, new DiceString("1d10"))}
               />
             </tbody>

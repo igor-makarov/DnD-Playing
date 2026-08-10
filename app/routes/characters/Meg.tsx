@@ -326,10 +326,10 @@ export default function MegPage() {
               </tr>
               <tr>
                 <td>
-                  <InfoTooltip reference={scorchingRayRef}>Scorching Ray</InfoTooltip>
+                  <InfoTooltip reference={scorchingRayRef}>Scorching Ray ({character.getScorchingRayCount()}x)</InfoTooltip>
                 </td>
                 <td className="checkCell mono">
-                  3× <RollLink dice={new DiceString("2d6")} />
+                  <AttackDamageCell dice={new DiceString("2d6")} />
                 </td>
               </tr>
               <tr>
@@ -337,8 +337,10 @@ export default function MegPage() {
                   <InfoTooltip reference={witchBoltRef}>Witch Bolt</InfoTooltip>
                 </td>
                 <td className="checkCell mono">
-                  <RollLink dice={new DiceString("3d12")} />
-                  {" & BA"}
+                  <AttackDamageCell dice={new DiceString("3d12")} />
+                  <br />
+                  {"BA "}
+                  <RollLink dice={new DiceString("1d12")} />
                 </td>
               </tr>
               <tr>

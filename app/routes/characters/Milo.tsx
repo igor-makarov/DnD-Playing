@@ -8,6 +8,7 @@ import SavesTable from "@/components/SavesTable";
 import SkillsTable from "@/components/SkillsTable";
 import WeaponAttackTable from "@/components/WeaponAttackTable/WeaponAttackTable";
 import TinkersMagicCheckboxes from "@/components/classes/artificer/TinkersMagicCheckboxes";
+import AttackDamageCell from "@/components/common/AttackDamageCell";
 import D20TestCell from "@/components/common/D20TestCell";
 import InfoTooltip from "@/components/common/InfoTooltip";
 import RollLink from "@/components/common/RollLink";
@@ -254,7 +255,7 @@ export default function MiloPage() {
                   <InfoTooltip reference={fireBoltRef}>Fire Bolt</InfoTooltip>
                 </td>
                 <td className="checkCell mono">
-                  <RollLink dice={character.getCantripDamage(new DiceString("d10"), new DiceString("d10"))} />
+                  <AttackDamageCell dice={character.getCantripDamage(new DiceString("d10"), new DiceString("d10"))} />
                 </td>
               </tr>
               <tr>
@@ -268,7 +269,7 @@ export default function MiloPage() {
                   <InfoTooltip reference={shockingGraspRef}>Shocking Grasp</InfoTooltip>
                 </td>
                 <td className="checkCell mono">
-                  <RollLink dice={character.getCantripDamage(new DiceString("d8"), new DiceString("d8"))} />
+                  <AttackDamageCell dice={character.getCantripDamage(new DiceString("d8"), new DiceString("d8"))} />
                 </td>
               </tr>
               <tr>

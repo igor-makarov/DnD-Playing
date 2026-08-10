@@ -197,10 +197,12 @@ export default function Tyranny03Page() {
               </tr>
               <LevelledSpellDamageRow
                 name="Burning Hands"
+                damageKind="regular"
                 damageOptions={character.getDamageProgression({ level: 1, damage: new DiceString("3d6") }, new DiceString("d6"))}
               />
               <LevelledSpellDamageRow
                 name="Scorching Ray"
+                damageKind="attack"
                 damageOptions={character.getDamageProgression({ level: 2, damage: new DiceString("2d6") }, new DiceString("d6"))}
               />
               <tr>
